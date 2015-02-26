@@ -1,10 +1,7 @@
 @(message: String)(username: String)(password: String)
 @import helper._
 
-@message
 
-
-@helper.form(routes.Application.recognize()){
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
@@ -31,61 +28,12 @@
                     <a class="hiddenanchor" id="toregister"></a>
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
-                        <div id="login" class="animate form" style="background-color: #6B8FB2">
-                            
-                                <h1>Log in</h1> 
-                                <p> 
-                                    <label for="username" class="uname"  data-icon="u"> Your email or username: </label>
-                                    <input id="username" name="username" required="required" type="text" />
-                                </p>
-                                <p> 
-                                    <label for="password" class="youpasswd" data-icon="p"> Your password: </label>
-                                    <input id="password" name="password" required="required" type="password" /> 
-                                </p>
-                               
-                                <p class="login button"> 
-                                    
-                                    <a href="#login"><input type="submit" value="Login" /> 
-                                     </a>
-								</p>
-                           
-                                <p class="change_link">
-									Not a member yet ?
-									<a href="#toregister" class="to_register">Join us</a>
-							    </p>
-                        </div>
+                      @message
 
-                        <div id="register" class="animate form" style="background-color: #6B8FB2">
-
-                                <h1> Registration: </h1> 
-                                <p> 
-                                    <label for="usernamesignup" class="uname" data-icon="u">Your username: </label>
-                                    <input id="usernamesignup" name="usernamesignup" required="required" type="text"  />
-                                </p>
-                                <p> 
-                                    <label for="emailsignup" class="youmail" data-icon="e" > Your email: </label>
-                                    <input id="emailsignup" name="emailsignup" required="required" type="email" /> 
-                                </p>
-                                <p> 
-                                    <label for="passwordsignup" class="youpasswd" data-icon="p">Your password: </label>
-                                    <input id="passwordsignup" name="passwordsignup" required="required" type="password" />
-                                </p>
-                                <p class="signin button"> 
-                                    
-									<a href=@message><input type="submit" value="Sign up"/> 
-                                    </a>
-								</p>
-                                <p class="change_link">  
-									Already a member ?
-									<a href="#tologin" class="to_register"> Go and log in </a>
-								</p>
-                        </div>
 						
                     </div>
                 </div>  
             </section>
         </div>
     </body>
-	
-}
 

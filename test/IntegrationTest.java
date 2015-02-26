@@ -20,9 +20,24 @@ public class IntegrationTest {
         running(testServer(3333, fakeApplication(inMemoryDatabase())), HTMLUNIT, new Callback<TestBrowser>() {
             public void invoke(TestBrowser browser) {
                 browser.goTo("http://localhost:3333");
-                assertThat(browser.pageSource()).contains("Your new application is ready.");
+                assertThat(browser.pageSource()).contains("Welcome to bitBay!");
             }
         });
     }
+    
+    @Test
+    public void testRegitration() {
+        running(testServer(3333, fakeApplication(inMemoryDatabase())), HTMLUNIT, new Callback<TestBrowser>() {
+            public void invoke(TestBrowser browser) {
+                browser.goTo("http://localhost:3333/#toregister");
+                browser.fill("#usernamesignup").with("test");
+                browser.fill("#emailsignup").with("test@bitcamp.ba");
+                browser.fill("#passwordsignup").with("testpassword");
+                browser.submit("#registrationForm");
+                assertThat(browser.pageSource()).contains("Registration successful!");
+            }
+        });
+    }
+  
 
 }
