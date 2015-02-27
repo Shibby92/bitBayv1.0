@@ -1,10 +1,5 @@
-@(message: String)(username: String)(password: String)
 @import helper._
 
-@message
-
-
-@helper.form(routes.Application.login()){
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
@@ -22,49 +17,23 @@
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/demo.css")" />
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/style.css")" />
 		<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/animate-custom.css")" />
-    </head>
-    <body>
+    </head>   
+     <body>
         <div class="container">
             <section>				
                 <div id="container_demo" >
                     <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
-                    <a class="hiddenanchor" id="toregister"></a>
-                    <a class="hiddenanchor" id="tologin"></a>
+                    
+                   <a class="hiddenanchor" id="tologin"></a>
+                   <a class="hiddenanchor" id="toregister"></a>
                     <div id="wrapper">
-                        <div id="login" class="animate form" style="background-color: #6B8FB2">
-                            
-                                <h1>Log in</h1> 
-                                <p> 
-                                    <label for="username" class="uname"  data-icon="u"> Your email or username: </label>
-                                    <input id="username" name="username" required="required" type="text" />
-                                </p>
-                                <p> 
-                                    <label for="password" class="youpasswd" data-icon="p"> Your password: </label>
-                                    <input id="password" name="password" required="required" type="password" /> 
-                                </p>
-                               
-                                <p class="login button"> 
-                                    
-                                    <a href="#login"><input type="submit" value="Login" /> 
-                                     </a>
-								</p>
-                           
-                                <p class="change_link">
-									Not a member yet ?
-									<a href="#toregister" class="to_register">Join us</a>
-							    </p>
-                        </div>
-
-                        <div id="register" class="animate form" style="background-color: #6B8FB2">
+						<div id="register" class="animate form" style="background-color: #6B8FB2">
 
                                 <h1> Registration: </h1> 
+                                @helper.form(routes.Application.register(), 'id->"registrationForm"){
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u">Your username: </label>
                                     <input id="usernamesignup" name="usernamesignup" required="required" type="text"  />
-                                </p>
-                                <p> 
-                                    <label for="emailsignup" class="youmail" data-icon="e" > Your email: </label>
-                                    <input id="emailsignup" name="emailsignup" required="required" type="email" /> 
                                 </p>
                                 <p> 
                                     <label for="passwordsignup" class="youpasswd" data-icon="p">Your password: </label>
@@ -72,21 +41,19 @@
                                 </p>
                                 <p class="signin button"> 
                                     
-									<a href=@message><input type="submit" value="Sign up"/> 
+									<a href="#registar"><input type="submit" value="Sign up"/> 
                                     </a>
 								</p>
+								}
                                 <p class="change_link">  
 									Already a member ?
-									<a href="#tologin" class="to_register"> Go and log in </a>
+									<a href="/nouser" class="to_register"> Go and log in </a>
 								</p>
+								
                         </div>
-						
+                        	
                     </div>
                 </div>  
             </section>
         </div>
     </body>
-	
-}
-
-

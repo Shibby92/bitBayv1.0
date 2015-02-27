@@ -11,33 +11,32 @@ import static org.fluentlenium.core.filter.FilterConstructor.*;
 
 public class IntegrationTest {
 
-    /**
-     * add your integration test here
-     * in this example we just check if the welcome page is being shown
-     */
-    @Test
-    public void test() {
-        running(testServer(3333, fakeApplication(inMemoryDatabase())), HTMLUNIT, new Callback<TestBrowser>() {
-            public void invoke(TestBrowser browser) {
-                browser.goTo("http://localhost:3333");
-                assertThat(browser.pageSource()).contains("Welcome to bitBay!");
-            }
-        });
-    }
-    
+    //test registration
     @Test
     public void testRegitration() {
         running(testServer(3333, fakeApplication(inMemoryDatabase())), HTMLUNIT, new Callback<TestBrowser>() {
             public void invoke(TestBrowser browser) {
-                browser.goTo("http://localhost:3333/#toregister");
-                browser.fill("#usernamesignup").with("test");
-                browser.fill("#emailsignup").with("test@bitcamp.ba");
+                browser.goTo("http://localhost:3333/nouser#toregister");
+                browser.fill("#usernamesignup").with("testtest");
                 browser.fill("#passwordsignup").with("testpassword");
                 browser.submit("#registrationForm");
-                assertThat(browser.pageSource()).contains("Registration successful!");
+                assertThat(browser.pageSource()).contains("Successful registration!");
             }
         });
     }
-  
+    
+    //test login
+    @Test 
+    public void testLogin() {
+        running(testServer(3333, fakeApplication(inMemoryDatabase())), HTMLUNIT, new Callback<TestBrowser>() {
+            public void invoke(TestBrowser browser) {
+                browser.goTo("http://localhost:3333/nouser");
+                browser.fill("#username").with("testteest");
+                browser.fill("#password").with("testpassword");
+                browser.submit("#loginForm");
+               
+            }
+        });
+    }
 
 }
