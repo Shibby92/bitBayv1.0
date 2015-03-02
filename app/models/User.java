@@ -9,8 +9,14 @@ import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
 /**
+<<<<<<< HEAD
  * Creates a user Checks if the user is already registered Finds user by his id
  * 
+=======
+ * Creates a user 
+ * Checks if the user is already registered 
+ * Finds user by his id 
+>>>>>>> emina
  * @author eminamuratovic
  *
  */
@@ -32,12 +38,18 @@ public class User extends Model {
 			Integer.class, User.class);
 
 	/**
+<<<<<<< HEAD
 	 * creates a user
 	 * 
 	 * @param username
 	 *            String username of the user
 	 * @param password
 	 *            String password of the user
+=======
+	 * creates a user 
+	 * @param username String username of the user
+	 * @param password String password of the user
+>>>>>>> emina
 	 */
 	public User(String username, String password) {
 		this.username = username;
@@ -116,20 +128,20 @@ public class User extends Model {
 	 * Checking for user's usename and password
 	 * @param username String The username of the user
 	 * @param password String Password of the user
-	 * @return Messages depending on whether the login was successful or not
+	 * @return true or false
 	 */
-	public static String checkLogin(String username, String password) {
+	public static boolean checkLogin(String username, String password) {
 		String hashedPw = hashPw(password);
 
 		if (find.where().eq("username", username).findList().isEmpty()) {
-			return "Wrong username, try again.";
+			return false;
 		} else {
 			User foundUser = find.where().eq("username", username).findUnique();
 			if (foundUser.password.equals(hashedPw)) {
-				return "Hi " + username + "! Welcome to bitBay!";
+				return true;
 			}
 		}
-		return "Wrong password, try again.";
+		return false;
 	}
 
 }
