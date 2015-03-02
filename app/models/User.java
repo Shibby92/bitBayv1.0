@@ -1,5 +1,8 @@
 package models;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.*;
 
 import play.data.validation.Constraints.MinLength;
@@ -49,7 +52,7 @@ public class User extends Model {
 	public static boolean create(String username, String password) {
 		if(existsUsername(username))
 			return false;
-		new User(username, password).save();
+		new User(username, hashPw(password)).save();
 		return true;
 
 	}
@@ -73,6 +76,36 @@ public class User extends Model {
 	 */
 	public static User find(int id) {
 		return find.byId(id);
+	}
+	/**
+	 * Hashes the password in SimpleMD5
+	 * @param passwordToHash Password that needs to be hashed
+	 * @return Hashed password
+	 */
+	public static String hashPw(String passwordToHash){
+		String generatedPassword=null;
+		try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(passwordToHash.getBytes());
+            //Get the hash's bytes
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+		return generatedPassword;
 	}
 	
 }
