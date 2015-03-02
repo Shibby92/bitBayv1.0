@@ -1,17 +1,17 @@
 package models;
 
+
 import java.security.*;
 
 import javax.persistence.*;
 
-import play.data.validation.Constraints.MinLength;
-import play.data.validation.Constraints.Required;
+import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
 /**
- * Creates a user
- * Checks if the user is already registered
- * Finds user by his id
+ * Creates a user 
+ * Checks if the user is already registered 
+ * Finds user by his id 
  * @author eminamuratovic
  *
  */
@@ -33,7 +33,7 @@ public class User extends Model {
 			Integer.class, User.class);
 
 	/**
-	 * creates a user
+	 * creates a user 
 	 * @param username String username of the user
 	 * @param password String password of the user
 	 */
@@ -47,12 +47,14 @@ public class User extends Model {
 	 * Checks if the username already exists
 	 * @param username String username of the user
 	 * @param password String password of the user
+	 * @param username String username of the user
+	 * @param password String password of the user
 	 * @return true or false(if the user is registered)
 	 */
 	public static boolean create(String username, String password) {
 		if (existsUsername(username))
 			return false;
-		new User(username, password).save();
+		new User(username, hashPw(password)).save();
 		return true;
 
 	}
@@ -68,7 +70,7 @@ public class User extends Model {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * finds a user by his id
 	 * @param id int id of the user
@@ -80,7 +82,7 @@ public class User extends Model {
 	
 	/**
 	 * Hashes the password in SimpleMD5
-	 * @param passwordToHash Password that needs to be hashed
+	 * @param passwordToHash String Password that needs to be hashed
 	 * @return Hashed password
 	 */
 	public static String hashPw(String passwordToHash) {
@@ -106,26 +108,26 @@ public class User extends Model {
 		}
 		return generatedPassword;
 	}
-	
+
+
 	/**
 	 * Checking for user's usename and password
-	 * @param username String username of the user
+	 * @param username String The username of the user
 	 * @param password String Password of the user
-	 * @return Messages depending on whether the login was successful or not
+	 * @return true or false
 	 */
-	public static String checkLogin(String username, String password) {
+	public static boolean checkLogin(String username, String password) {
 		String hashedPw = hashPw(password);
 
 		if (find.where().eq("username", username).findList().isEmpty()) {
-			return "Wrong username, try again.";
+			return false;
 		} else {
 			User foundUser = find.where().eq("username", username).findUnique();
 			if (foundUser.password.equals(hashedPw)) {
-				return "Hi " + username + "! Welcome to bitBay!";
+				return true;
 			}
 		}
-		return "Wrong password, try again.";
+		return false;
 	}
-	
-	
+
 }

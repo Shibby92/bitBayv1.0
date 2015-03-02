@@ -34,7 +34,7 @@ public class Product extends Model {
 	public int quantity;
 
 	@Required
-	public float price;
+	public double price;
 
 	@Required
 	public String description;
@@ -52,11 +52,11 @@ public class Product extends Model {
 	 * @param owner_id int id of the seller
 	 * @param created Date date added
 	 * @param quantity int quantity of the product
-	 * @param price float price of the product
+	 * @param price double price of the product
 	 * @param description String description of the product
 	 * @param image_url String url of the image of the product
 	 */
-	public Product(String name, int category_id, int owner_id, Date created, int quantity, float price, String description, String image_url) {
+	public Product(String name, int category_id, int owner_id, Date created, int quantity, double price, String description, String image_url) {
 		this.name = name;
 		this.category_id = category_id;
 		this.owner_id = owner_id;
@@ -74,11 +74,11 @@ public class Product extends Model {
 	 * @param owner_id int id of the seller
 	 * @param created Date date added
 	 * @param quantity int quantity of the product
-	 * @param price float price of the product
+	 * @param price double price of the product
 	 * @param description String description of the product
 	 * @param image_url String url of the image of the product
 	 */
-	public static void create(String name, int category_id, int owner_id, Date created, int quantity, float price, String description, String image_url) {
+	public static void create(String name, int category_id, int owner_id, Date created, int quantity, double price, String description, String image_url) {
 		new Product(name, category_id, owner_id, created, quantity, price, description, image_url).save();
 	}
 	

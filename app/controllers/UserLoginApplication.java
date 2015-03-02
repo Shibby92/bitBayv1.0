@@ -29,10 +29,13 @@ public class UserLoginApplication extends Controller {
 			DynamicForm form = Form.form().bindFromRequest();
 
 			String username = form.data().get("username");
-			String password = form.data().get("password");
+			String password = form.data().get("passwordsignup");
 			
 			if (User.existsUsername(username)) {
-				session("username", username);
+				if(User.checkLogin(username, password))
+					session("username", username);
+				else
+					return redirect("/login");
 				return redirect("/");
 			}
 			
@@ -47,7 +50,7 @@ public class UserLoginApplication extends Controller {
 			DynamicForm form = Form.form().bindFromRequest();
 
 			String username = form.data().get("usernamesignup");
-			String password = form.data().get("passwordsignup");
+			String password = User.hashPw(form.data().get("passwordsignup"));
 			if(User.create(username, password)) {
 				return redirect("/home");
 			}
