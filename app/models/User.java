@@ -1,6 +1,11 @@
 package models;
 
+<<<<<<< HEAD
 import java.security.*;
+=======
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+>>>>>>> 895ae02430a93cfce0e7d1649717eb6648d20301
 
 import javax.persistence.*;
 
@@ -9,9 +14,8 @@ import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 /**
- * Creates a user
- * Checks if the user is already registered
- * Finds user by his id
+ * Creates a user Checks if the user is already registered Finds user by his id
+ * 
  * @author eminamuratovic
  *
  */
@@ -34,8 +38,11 @@ public class User extends Model {
 
 	/**
 	 * creates a user
-	 * @param username String username of the user
-	 * @param password String password of the user
+	 * 
+	 * @param username
+	 *            String username of the user
+	 * @param password
+	 *            String password of the user
 	 */
 	public User(String username, String password) {
 		this.username = username;
@@ -44,22 +51,32 @@ public class User extends Model {
 
 	/**
 	 * Creates a user with username and password
+<<<<<<< HEAD
 	 * Checks if the username already exists
 	 * @param username String username of the user
 	 * @param password String password of the user
+=======
+	 * 
+	 * @param username
+	 *            String username of the user
+	 * @param password
+	 *            String password of the user
+>>>>>>> 895ae02430a93cfce0e7d1649717eb6648d20301
 	 * @return true or false(if the user is registered)
 	 */
 	public static boolean create(String username, String password) {
 		if (existsUsername(username))
 			return false;
-		new User(username, password).save();
+		new User(username, hashPw(password)).save();
 		return true;
 
 	}
 
 	/**
 	 * checks if the username is already in database
-	 * @param username String username of the user
+	 * 
+	 * @param username
+	 *            String username of the user
 	 * @return true or false(if the username is already in database)
 	 */
 	public static boolean existsUsername(String username) {
@@ -68,19 +85,30 @@ public class User extends Model {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * finds a user by his id
-	 * @param id int id of the user
+	 * 
+	 * @param id
+	 *            int id of the user
 	 * @return user
 	 */
 	public static User find(int id) {
 		return find.byId(id);
 	}
+<<<<<<< HEAD
 	
 	/**
 	 * Hashes the password in SimpleMD5
 	 * @param passwordToHash Password that needs to be hashed
+=======
+
+	/**
+	 * Hashes the password in SimpleMD5
+	 * 
+	 * @param passwordToHash
+	 *            Password that needs to be hashed
+>>>>>>> 895ae02430a93cfce0e7d1649717eb6648d20301
 	 * @return Hashed password
 	 */
 	public static String hashPw(String passwordToHash) {
@@ -106,11 +134,22 @@ public class User extends Model {
 		}
 		return generatedPassword;
 	}
+<<<<<<< HEAD
 	
 	/**
 	 * Checking for user's usename and password
 	 * @param username String username of the user
 	 * @param password String Password of the user
+=======
+
+	/**
+	 * Checking for user's usename and password
+	 * 
+	 * @param username
+	 *            The username of the user
+	 * @param password
+	 *            Password of the user
+>>>>>>> 895ae02430a93cfce0e7d1649717eb6648d20301
 	 * @return Messages depending on whether the login was successful or not
 	 */
 	public static String checkLogin(String username, String password) {
@@ -126,6 +165,10 @@ public class User extends Model {
 		}
 		return "Wrong password, try again.";
 	}
+<<<<<<< HEAD
 	
 	
+=======
+
+>>>>>>> 895ae02430a93cfce0e7d1649717eb6648d20301
 }
