@@ -10,9 +10,8 @@ import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 /**
- * Creates a user
- * Checks if the user is already registered
- * Finds user by his id
+ * Creates a user Checks if the user is already registered Finds user by his id
+ * 
  * @author eminamuratovic
  *
  */
@@ -35,8 +34,11 @@ public class User extends Model {
 
 	/**
 	 * creates a user
-	 * @param username String username of the user
-	 * @param password String password of the user
+	 * 
+	 * @param username
+	 *            String username of the user
+	 * @param password
+	 *            String password of the user
 	 */
 	public User(String username, String password) {
 		this.username = username;
@@ -45,12 +47,15 @@ public class User extends Model {
 
 	/**
 	 * Creates a user with username and password
-	 * @param username String username of the user
-	 * @param password String password of the user
+	 * 
+	 * @param username
+	 *            String username of the user
+	 * @param password
+	 *            String password of the user
 	 * @return true or false(if the user is registered)
 	 */
 	public static boolean create(String username, String password) {
-		if(existsUsername(username))
+		if (existsUsername(username))
 			return false;
 		new User(username, hashPw(password)).save();
 		return true;
@@ -59,7 +64,9 @@ public class User extends Model {
 
 	/**
 	 * checks if the username is already in database
-	 * @param username String username of the user
+	 * 
+	 * @param username
+	 *            String username of the user
 	 * @return true or false(if the username is already in database)
 	 */
 	public static boolean existsUsername(String username) {
@@ -68,44 +75,70 @@ public class User extends Model {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * finds a user by his id
-	 * @param id int id of the user
+	 * 
+	 * @param id
+	 *            int id of the user
 	 * @return user
 	 */
 	public static User find(int id) {
 		return find.byId(id);
 	}
+
 	/**
 	 * Hashes the password in SimpleMD5
-	 * @param passwordToHash Password that needs to be hashed
+	 * 
+	 * @param passwordToHash
+	 *            Password that needs to be hashed
 	 * @return Hashed password
 	 */
-	public static String hashPw(String passwordToHash){
-		String generatedPassword=null;
+	public static String hashPw(String passwordToHash) {
+		String generatedPassword = null;
 		try {
-            // Create MessageDigest instance for MD5
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            //Add password bytes to digest
-            md.update(passwordToHash.getBytes());
-            //Get the hash's bytes
-            byte[] bytes = md.digest();
-            //This bytes[] has bytes in decimal format;
-            //Convert it to hexadecimal format
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++)
-            {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            //Get complete hashed password in hex format
-            generatedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
+			// Create MessageDigest instance for MD5
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			// Add password bytes to digest
+			md.update(passwordToHash.getBytes());
+			// Get the hash's bytes
+			byte[] bytes = md.digest();
+			// This bytes[] has bytes in decimal format;
+			// Convert it to hexadecimal format
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16)
+						.substring(1));
+			}
+			// Get complete hashed password in hex format
+			generatedPassword = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 		return generatedPassword;
 	}
-	
+
+	/**
+	 * Checking for user's usename and password
+	 * 
+	 * @param username
+	 *            The username of the user
+	 * @param password
+	 *            Password of the user
+	 * @return Messages depending on whether the login was successful or not
+	 */
+	public static String checkLogin(String username, String password) {
+		String hashedPw = hashPw(password);
+
+		if (find.where().eq("username", username).findList().isEmpty()) {
+			return "Wrong username, try again.";
+		} else {
+			User foundUser = find.where().eq("username", username).findUnique();
+			if (foundUser.password.equals(hashedPw)) {
+				return "Hi " + username + "! Welcome to bitBay!";
+			}
+		}
+		return "Wrong password, try again.";
+	}
+
 }
