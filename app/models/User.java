@@ -1,7 +1,7 @@
 package models;
 
-
 import java.security.*;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -23,11 +23,15 @@ public class User extends Model {
 
 	@Required
 	@MinLength(5)
+	@Email
 	public String username;
 
 	@Required
 	@MinLength(5)
 	public String password;
+	
+	@OneToMany(mappedBy="owner_id")
+	public List<Product> products;
 
 	static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);
@@ -39,7 +43,7 @@ public class User extends Model {
 	 */
 	public User(String username, String password) {
 		this.username = username;
-		this.password = password;
+		this.password = hashPw(password);
 	}
 
 	/**
@@ -128,6 +132,15 @@ public class User extends Model {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * finds user with his username
+	 * @param username String username
+	 * @return user by that username
+	 */
+	public static User find(String username) {
+		return find.where().eq("username", username).findUnique();
 	}
 
 }

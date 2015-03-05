@@ -8,6 +8,7 @@ import java.util.Date;
 import models.*;
 import play.data.*;
 import play.mvc.*;
+import views.html.*;
 
 /**
  * Controls the ad application

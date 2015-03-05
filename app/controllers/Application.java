@@ -17,7 +17,7 @@ public class Application extends Controller {
 		if (username != null) {
 			return ok("Hi " + username.toString() + "! Welcome to bitBay!");
 		} else {
-			return redirect("/nouser");
+			return redirect("/homepage");
 		}
 	}
 	

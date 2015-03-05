@@ -3,6 +3,7 @@ package controllers;
 import models.*;
 import play.data.*;
 import play.mvc.*;
+import views.html.*;
 
 /**
  * Controls the login application
@@ -17,8 +18,8 @@ public class UserLoginApplication extends Controller {
 
 	//main page
 		//login page
-		public static Result noUser() {
-			return ok(nouser.render());
+		public static Result homePage() {
+			return ok(homePage.render());
 		}
 
 		//tries to log user to page
@@ -68,6 +69,10 @@ public class UserLoginApplication extends Controller {
 		//he can see ads that someone else had added
 		//he has an option to add his own ad
 		public static Result home() {
-			return ok(home.render());
+			return TODO;
+		}
+		
+		public static Result toLogin() {
+			return ok(logintest.render());
 		}
 }

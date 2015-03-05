@@ -37,6 +37,8 @@ public class Product extends Model {
 	public double price;
 
 	@Required
+	@MinLength(2)
+	@MaxLength(144)
 	public String description;
 
 	@Required
