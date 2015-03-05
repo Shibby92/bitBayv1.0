@@ -1,33 +1,4 @@
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>BitBayRegistration</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="@routes.Assets.at("stylesheets/bootstrap.min.css")" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="@routes.Assets.at("stylesheets/shop-homepage.css")" rel="stylesheet">
-    
- 
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
+@main("Register") {
 <body>
 
     <!-- Navigation -->
@@ -46,7 +17,7 @@
                     <div class="well login-box">
                         <form action="">
                             <legend>Registration</legend>
-                          
+                          	 
                             <div class="form-group">
                                 <label for="username-email">Username</label>
                                 <input value='' id="username-email" placeholder="Username" type="text" class="form-control" />
@@ -61,26 +32,29 @@
                             </div>
                             <div class="form-group">
                                 <label for="username-email">E-mail</label>
-                                <input value='' id="username-email" placeholder="E-mail" type="text" class="form-control" />
+                                <input value='' id="username-email" placeholder="E-mail" type="email" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input id="password" value='' placeholder="Password" type="text" class="form-control" />
+                                <input id="password" value='' placeholder="Password" type="password" class="form-control" />
                             </div>
                             <div class="form-group text-center">
-                              <button class="btn btn-danger btn-cancel-action"><a href="homepage"> Cancel </a></button>
+                           	
+                           	 <input type="submit" class="btn btn-success btn-login-submit" value="Registration" />
+                              
+                                <a class="btn btn-danger" href="homepage" role="button">Cancel</a>
                                 
-                                <input type="submit" class="btn btn-success btn-login-submit" value="Registration" />
+                               
                             </div>
-                         
+                      
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 </body>
+}
 
-</html>
 
                               
                         

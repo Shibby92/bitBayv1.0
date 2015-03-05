@@ -19,8 +19,15 @@ public class UserLoginApplication extends Controller {
 	//main page
 		//login page
 		public static Result homePage() {
+			DynamicForm form = Form.form().bindFromRequest();
+			String username = form.data().get("username");
+			if(username == null) {
+				username = "Public user";
+			return ok(homePage.render(username));
+			} else {
+				return ok(homePage.render(username));
+			}
 			
-			return ok(homePage.render());
 		}
 
 		//tries to log user to page
@@ -63,7 +70,7 @@ public class UserLoginApplication extends Controller {
 		
 		//goes to page where the user can be registered
 		public static Result toRegister(){
-			
+		
 			return ok(toregister.render());
 		}
 		
@@ -78,4 +85,5 @@ public class UserLoginApplication extends Controller {
 		public static Result toLogin() {
 			return ok(logintest.render());
 		}
+	
 }
