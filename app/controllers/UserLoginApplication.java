@@ -41,14 +41,14 @@ public class UserLoginApplication extends Controller {
 			String password = form.data().get("passwordsignup");
 			
 			if (User.existsUsername(username)) {
-				if(User.checkLogin(username, password))
+				if(User.checkLogin(username, password)){
 					session("username", username);
-				else
+					return redirect("/homepage");
+				}
+					else
 					return redirect("/login");
-				return redirect("/");
 			}
-			
-			return redirect("/nouser");
+			return redirect("/toregister");
 		}
 
 		//tries to register user
@@ -61,10 +61,10 @@ public class UserLoginApplication extends Controller {
 			String username = form.data().get("usernamesignup");
 			String password = User.hashPw(form.data().get("passwordsignup"));
 			if(User.create(username, password)) {
-				return redirect("/home");
+				return redirect("/homepage");
 			}
 				
-			return redirect("/nouser");
+			return redirect("/toregister");
 			
 		}
 		
