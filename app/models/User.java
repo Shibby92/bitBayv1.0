@@ -1,8 +1,11 @@
 package models;
 
+<<<<<<< HEAD
 
 import helpers.HashHelper;
 
+=======
+>>>>>>> 859d6eeae94c6ae588bb01980640adb81d0da47c
 import java.security.*;
 import java.util.List;
 
@@ -12,14 +15,9 @@ import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
 /**
-<<<<<<< HEAD
- * Creates a user Checks if the user is already registered Finds user by his id
- * 
-=======
  * Creates a user 
  * Checks if the user is already registered 
- * Finds user by his id 
->>>>>>> emina
+ * Finds user by his id
  * @author eminamuratovic
  *
  */
@@ -34,6 +32,7 @@ public class User extends Model {
 
 	@Required
 	@MinLength(5)
+	@Email
 	public String username;
 
 	@Required
@@ -44,22 +43,13 @@ public class User extends Model {
 			Integer.class, User.class);
 
 	/**
-<<<<<<< HEAD
 	 * creates a user
-	 * 
-	 * @param username
-	 *            String username of the user
-	 * @param password
-	 *            String password of the user
-=======
-	 * creates a user 
 	 * @param username String username of the user
 	 * @param password String password of the user
->>>>>>> emina
 	 */
 	public User(String username, String password) {
 		this.username = username;
-		this.password = password;
+		this.password = hashPw(password);
 	}
 
 	/**
@@ -113,6 +103,15 @@ public class User extends Model {
 			User foundUser = find.where().eq("username", username).findUnique();
 			return HashHelper.checkPassword(password, foundUser.password);
 		}
+	}
+	
+	/**
+	 * finds user with his username
+	 * @param username String username
+	 * @return user by that username
+	 */
+	public static User find(String username) {
+		return find.where().eq("username", username).findUnique();
 	}
 
 }

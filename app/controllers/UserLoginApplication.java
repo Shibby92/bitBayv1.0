@@ -16,18 +16,18 @@ import views.html.*;
 public class UserLoginApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
 
-	//main page
+		//main page
 		//login page
 		public static Result homePage() {
+
 			DynamicForm form = Form.form().bindFromRequest();
 			String username = form.data().get("username");
-			if(username == null) {
+			if(username == null) 
 				username = "Public user";
 			return ok(homePage.render(username));
-			} else {
-				return ok(homePage.render(username));
-			}
 			
+			
+
 		}
 
 		//tries to log user to page
@@ -60,8 +60,13 @@ public class UserLoginApplication extends Controller {
 				return redirect("/login");
 			}
 				
+<<<<<<< HEAD
 			return ok(toregister.render(loginUser));
 			
+=======
+			return redirect("/toregister");
+		
+>>>>>>> 859d6eeae94c6ae588bb01980640adb81d0da47c
 		}
 		
 		//goes to page where the user can be registered
@@ -75,6 +80,7 @@ public class UserLoginApplication extends Controller {
 		//he has an option to add his own ad
 		public static Result home() {
 			return TODO;
+
 			//return ok(home.render());
 		}
 		
