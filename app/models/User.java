@@ -2,6 +2,7 @@ package models;
 
 
 import java.security.*;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -22,6 +23,9 @@ import play.db.ebean.Model;
  */
 @Entity
 public class User extends Model {
+	
+	@OneToMany(mappedBy="owner")
+	public List<Product> products;
 
 	@Id
 	public int id;

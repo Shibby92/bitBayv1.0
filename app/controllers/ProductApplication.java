@@ -44,7 +44,7 @@ public class ProductApplication extends Controller {
 			Date created = null;
 
 			String name = form.data().get("name");
-			int owner_id = loginUser.bindFromRequest().get().id;
+			User owner = loginUser.bindFromRequest().get();
 			int category_id = id;
 			DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
 			try {
@@ -56,7 +56,7 @@ public class ProductApplication extends Controller {
 			float price = Float.parseFloat(form.data().get("price"));
 			String description = form.data().get("description");
 			String image_url = form.data().get("image url");
-			Product.create(name, category_id, owner_id, created, quantity, price, description, image_url);
+			Product.create(name, category_id, owner, created, quantity, price, description, image_url);
 			return redirect("/home");
 		}
 		
