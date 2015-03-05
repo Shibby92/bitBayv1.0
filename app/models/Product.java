@@ -25,7 +25,8 @@ public class Product extends Model {
 	public int category_id;
 
 	@Required
-	public int owner_id;
+	@ManyToOne
+	public User owner;
 
 	@Required
 	public Date created;
@@ -58,10 +59,10 @@ public class Product extends Model {
 	 * @param description String description of the product
 	 * @param image_url String url of the image of the product
 	 */
-	public Product(String name, int category_id, int owner_id, Date created, int quantity, double price, String description, String image_url) {
+	public Product(String name, int category_id, User owner, Date created, int quantity, double price, String description, String image_url) {
 		this.name = name;
 		this.category_id = category_id;
-		this.owner_id = owner_id;
+		this.owner = owner;
 		this.created = created;
 		this.quantity = quantity;
 		this.price = price;
@@ -80,8 +81,8 @@ public class Product extends Model {
 	 * @param description String description of the product
 	 * @param image_url String url of the image of the product
 	 */
-	public static void create(String name, int category_id, int owner_id, Date created, int quantity, double price, String description, String image_url) {
-		new Product(name, category_id, owner_id, created, quantity, price, description, image_url).save();
+	public static void create(String name, int category_id, User owner, Date created, int quantity, double price, String description, String image_url) {
+		new Product(name, category_id, owner, created, quantity, price, description, image_url).save();
 	}
 	
 	/**

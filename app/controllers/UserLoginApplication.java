@@ -19,7 +19,19 @@ public class UserLoginApplication extends Controller {
 	//main page
 		//login page
 		public static Result homePage() {
+<<<<<<< HEAD
 			return ok(homePage.render());
+=======
+			DynamicForm form = Form.form().bindFromRequest();
+			String username = form.data().get("username");
+			if(username == null) {
+				username = "Public user";
+			return ok(homePage.render(username));
+			} else {
+				return ok(homePage.render(username));
+			}
+			
+>>>>>>> fb825ca075c6653766ef05449c0b18af172dbdfe
 		}
 
 		//tries to log user to page
@@ -33,14 +45,14 @@ public class UserLoginApplication extends Controller {
 			String password = form.data().get("passwordsignup");
 			
 			if (User.existsUsername(username)) {
-				if(User.checkLogin(username, password))
+				if(User.checkLogin(username, password)){
 					session("username", username);
-				else
+					return redirect("/homepage");
+				}
+					else
 					return redirect("/login");
-				return redirect("/");
 			}
-			
-			return redirect("/nouser");
+			return redirect("/toregister");
 		}
 
 		//tries to register user
@@ -53,15 +65,20 @@ public class UserLoginApplication extends Controller {
 			String username = form.data().get("usernamesignup");
 			String password = User.hashPw(form.data().get("passwordsignup"));
 			if(User.create(username, password)) {
-				return redirect("/home");
+				return redirect("/homepage");
 			}
 				
-			return redirect("/nouser");
+<<<<<<< HEAD
+			return redirect("/toregister");
+=======
+			return redirect("/hompeage");
+>>>>>>> 36c9ae7b01e1fb9a2eeb85460de6154f5f7cc1b0
 			
 		}
 		
 		//goes to page where the user can be registered
 		public static Result toRegister(){
+		
 			return ok(toregister.render());
 		}
 		
@@ -70,9 +87,15 @@ public class UserLoginApplication extends Controller {
 		//he has an option to add his own ad
 		public static Result home() {
 			return TODO;
+<<<<<<< HEAD
+=======
+			//return ok(home.render());
+>>>>>>> fb825ca075c6653766ef05449c0b18af172dbdfe
 		}
 		
 		public static Result toLogin() {
 			return ok(logintest.render());
 		}
+		
+	
 }

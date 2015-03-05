@@ -5,10 +5,12 @@
 # Home page
 GET     /                           controllers.Application.index()
 # Routes for login and registration
+GET     /login                     controllers.UserLoginApplication.toLogin()
 POST 	/login					controllers.UserLoginApplication.login()
-GET		/nouser						controllers.UserLoginApplication.noUser()
-POST    /register 					controllers.UserLoginApplication.register()
+GET		/homepage						controllers.UserLoginApplication.homePage()
+GET    /register 					controllers.UserLoginApplication.register()
 GET		/toregister				controllers.UserLoginApplication.toRegister()
+
 # Routes for adding product and choosing category
 GET		/addproduct/:id				controllers.ProductApplication.addAdditionalInfo(id: Integer)
 GET		/addcategory			controllers.ProductApplication.pickCategory()

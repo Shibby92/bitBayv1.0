@@ -9,14 +9,22 @@ import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
 /**
+<<<<<<< HEAD
+ * Creates a user Checks if the user is already registered Finds user by his id
+ * 
+=======
  * Creates a user 
  * Checks if the user is already registered 
  * Finds user by his id 
+>>>>>>> emina
  * @author eminamuratovic
  *
  */
 @Entity
 public class User extends Model {
+	
+	@OneToMany(mappedBy="owner")
+	public List<Product> products;
 
 	@Id
 	public int id;
@@ -37,9 +45,18 @@ public class User extends Model {
 			Integer.class, User.class);
 
 	/**
+<<<<<<< HEAD
+	 * creates a user
+	 * 
+	 * @param username
+	 *            String username of the user
+	 * @param password
+	 *            String password of the user
+=======
 	 * creates a user 
 	 * @param username String username of the user
 	 * @param password String password of the user
+>>>>>>> emina
 	 */
 	public User(String username, String password) {
 		this.username = username;
