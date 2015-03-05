@@ -61,10 +61,10 @@ public class UserLoginApplication extends Controller {
 			String username = form.data().get("usernamesignup");
 			String password = User.hashPw(form.data().get("passwordsignup"));
 			if(User.create(username, password)) {
-				return redirect("/home");
+				return redirect("/homepage");
 			}
 				
-			return redirect("/nouser");
+			return redirect("/hompeage");
 			
 		}
 		
@@ -85,5 +85,6 @@ public class UserLoginApplication extends Controller {
 		public static Result toLogin() {
 			return ok(logintest.render());
 		}
+		
 	
 }
