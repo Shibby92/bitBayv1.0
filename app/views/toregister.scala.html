@@ -20,30 +20,34 @@
             <div class="col-md-12">
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="well login-box">
+<form action="/register" method="GET">
+<legend>Register</legend>
+<dl class=" " id="username_field">
+    
+    <dt><label for="username">Username</label></dt>
+    
+    <dd>
+    <input type="text" id="username" name="username" value="" placeholder="Enter username">
+</dd>
+    
+    
+</dl>
 
-                        <form action="/register">
-                            <legend>Registration</legend>
-                          	 
-                            <div class="form-group">
-                                <label for="username-email">Username</label>
-                                <input value='' id="username" placeholder="Username" type="text" class="form-control" />
-                            </div>
-                           
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input id="password" value='' placeholder="Password" type="password" class="form-control" />
-                            </div>
-                            <div class="form-group text-center">
-                           	
-                           	
-                           	
-                              <a class="btn btn-success btn-login-submit" href="/register" role="button">Registration</a>
-                                <a class="btn btn-danger" href="homepage" role="button">Cancel</a>
-                                
-                               
-                            </div>
-                      
-                        </form>
+<dl class=" " id="password_field">
+    
+    <dt><label for="password">Password</label></dt>
+    
+    <dd>
+    <input type="password" id="password" name="password" placeholder="Enter password">
+</dd>
+        <dd class="info">Minimum length: 5</dd>
+</dl>
+		<input type="submit" value="Register" class="btn btn-success" >
+<a class="btn btn-danger" href="homepage" role="button">Cancel</a>
+</form>
+
+</div>
+
                     </div>
                 </div>
             </div>
