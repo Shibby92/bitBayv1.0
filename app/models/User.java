@@ -17,7 +17,11 @@ import play.db.ebean.Model;
 /**
  * Creates a user 
  * Checks if the user is already registered 
+<<<<<<< HEAD
  * Finds user by his id
+=======
+ * Finds user by his id 
+>>>>>>> registerButtonHikmet
  * @author eminamuratovic
  *
  */
