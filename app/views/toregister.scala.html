@@ -9,40 +9,6 @@
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
-<<<<<<< HEAD
-            <section>				
-                <div id="container_demo" >
-                    <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
-                    
-                   <a class="hiddenanchor" id="tologin"></a>
-                   <a class="hiddenanchor" id="toregister"></a>
-                    <div id="wrapper">
-						<div id="register" class="animate form" style="background-color: #6B8FB2">
-
-                                <h1> Registration: </h1> 
-                                @helper.form(routes.UserLoginApplication.register(), 'id->"registrationForm"){
-                                <p> 
-                                    <label for="usernamesignup" class="uname" data-icon="u">Your username: </label>
-                                    <input id="usernamesignup" name="usernamesignup" required="required" type="text"  />
-                                </p>
-                                <p> 
-                                    <label for="passwordsignup" class="youpasswd" data-icon="p">Your password: </label>
-                                    <input id="passwordsignup" name="passwordsignup" required="required" type="password" />
-                                </p>
-                                <p class="signin button"> 
-                                    
-									<a href="#registar"><input type="submit" value="Sign up"/> 
-                                    </a>
-								</p>
-								}
-                                <p class="change_link">  
-									Already a member ?
-									<a href="/nouser" class="to_register"> Go and log in </a>
-								</p>
-								
-                        </div>
-                        	
-=======
             <div class="navbar-header">
                <a href="homepage"><img src="@routes.Assets.at("images/Logo.png")" /></a>
                 
@@ -54,42 +20,13 @@
             <div class="col-md-12">
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="well login-box">
-<<<<<<< HEAD
-<form action="/register" method="GET">
-<legend>Register</legend>
-<dl class=" " id="username_field">
-    
-    <dt><label for="username">Username</label></dt>
-    
-    <dd>
-    <input type="text" id="username" name="username" value="" placeholder="Enter username">
-</dd>
-    
-    
-</dl>
 
-<dl class=" " id="password_field">
-    
-    <dt><label for="password">Password</label></dt>
-    
-    <dd>
-    <input type="password" id="password" name="password" placeholder="Enter password">
-</dd>
-        <dd class="info">Minimum length: 5</dd>
-</dl>
-		<input type="submit" value="Register" class="btn btn-success" >
-<a class="btn btn-danger" href="homepage" role="button">Cancel</a>
-</form>
-
-</div>
-
-=======
-                        <form action="">
+                        <form action="/register">
                             <legend>Registration</legend>
                           	 
                             <div class="form-group">
                                 <label for="username-email">Username</label>
-                                <input value='' id="username-email" placeholder="Username" type="text" class="form-control" />
+                                <input value='' id="username" placeholder="Username" type="text" class="form-control" />
                             </div>
                            
                             <div class="form-group">
@@ -107,8 +44,6 @@
                             </div>
                       
                         </form>
->>>>>>> fb825ca075c6653766ef05449c0b18af172dbdfe
->>>>>>> 859d6eeae94c6ae588bb01980640adb81d0da47c
                     </div>
                 </div>
             </div>

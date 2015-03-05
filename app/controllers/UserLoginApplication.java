@@ -60,13 +60,9 @@ public class UserLoginApplication extends Controller {
 				return redirect("/login");
 			}
 				
-<<<<<<< HEAD
 			return ok(toregister.render(loginUser));
-			
-=======
-			return redirect("/toregister");
 		
->>>>>>> 859d6eeae94c6ae588bb01980640adb81d0da47c
+
 		}
 		
 		//goes to page where the user can be registered

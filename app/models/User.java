@@ -1,11 +1,7 @@
 package models;
 
-<<<<<<< HEAD
-
 import helpers.HashHelper;
 
-=======
->>>>>>> 859d6eeae94c6ae588bb01980640adb81d0da47c
 import java.security.*;
 import java.util.List;
 
@@ -17,13 +13,8 @@ import play.db.ebean.Model;
 /**
  * Creates a user 
  * Checks if the user is already registered 
-<<<<<<< HEAD
- * Finds user by his id
-=======
  * Finds user by his id 
->>>>>>> registerButtonHikmet
  * @author eminamuratovic
- *
  */
 @Entity
 public class User extends Model {
@@ -53,7 +44,7 @@ public class User extends Model {
 	 */
 	public User(String username, String password) {
 		this.username = username;
-		this.password = hashPw(password);
+		this.password = password;
 	}
 
 	/**
