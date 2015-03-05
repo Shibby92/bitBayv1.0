@@ -64,7 +64,11 @@ public class UserLoginApplication extends Controller {
 				return redirect("/homepage");
 			}
 				
+<<<<<<< HEAD
 			return redirect("/toregister");
+=======
+			return redirect("/hompeage");
+>>>>>>> 36c9ae7b01e1fb9a2eeb85460de6154f5f7cc1b0
 			
 		}
 		
@@ -85,5 +89,6 @@ public class UserLoginApplication extends Controller {
 		public static Result toLogin() {
 			return ok(logintest.render());
 		}
+		
 	
 }
