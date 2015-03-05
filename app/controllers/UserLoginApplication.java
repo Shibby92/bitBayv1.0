@@ -38,7 +38,7 @@ public class UserLoginApplication extends Controller {
 			DynamicForm form = Form.form().bindFromRequest();
 
 			String username = form.data().get("username");
-			String password = form.data().get("passwordsignup");
+			String password = form.data().get("password");
 			
 			if (User.existsUsername(username)) {
 				if(User.checkLogin(username, password)){
@@ -48,34 +48,26 @@ public class UserLoginApplication extends Controller {
 					else
 					return redirect("/login");
 			}
-			return redirect("/toregister");
+			return ok(toregister.render(loginUser));
 		}
 
 		//tries to register user
 		//if there is already user with the same username he gets redirected to login page
 		//if the user gets registered, he gets redirected to his home page
 		public static Result register() {
-			
-			DynamicForm form = Form.form().bindFromRequest();
-
-			String username = form.data().get("usernamesignup");
-			String password = User.hashPw(form.data().get("passwordsignup"));
-			if(User.create(username, password)) {
-				return redirect("/homepage");
+			User u= loginUser.bindFromRequest().get();
+			if(User.create(u.username, u.password)) {
+				return redirect("/login");
 			}
 				
-<<<<<<< HEAD
-			return redirect("/toregister");
-=======
-			return redirect("/hompeage");
->>>>>>> 36c9ae7b01e1fb9a2eeb85460de6154f5f7cc1b0
+			return ok(toregister.render(loginUser));
 			
 		}
 		
 		//goes to page where the user can be registered
 		public static Result toRegister(){
 		
-			return ok(toregister.render());
+			return ok(toregister.render(loginUser));
 		}
 		
 		//home page of the user
