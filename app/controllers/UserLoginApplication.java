@@ -16,18 +16,16 @@ import views.html.*;
 public class UserLoginApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
 
-	//main page
+		//main page
 		//login page
 		public static Result homePage() {
 
 			DynamicForm form = Form.form().bindFromRequest();
 			String username = form.data().get("username");
-			if(username == null) {
+			if(username == null) 
 				username = "Public user";
 			return ok(homePage.render(username));
-			} else {
-				return ok(homePage.render(username));
-			}
+			
 			
 
 		}
