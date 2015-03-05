@@ -19,9 +19,7 @@ public class UserLoginApplication extends Controller {
 	//main page
 		//login page
 		public static Result homePage() {
-<<<<<<< HEAD
-			return ok(homePage.render());
-=======
+
 			DynamicForm form = Form.form().bindFromRequest();
 			String username = form.data().get("username");
 			if(username == null) {
@@ -31,7 +29,7 @@ public class UserLoginApplication extends Controller {
 				return ok(homePage.render(username));
 			}
 			
->>>>>>> fb825ca075c6653766ef05449c0b18af172dbdfe
+
 		}
 
 		//tries to log user to page
@@ -68,12 +66,8 @@ public class UserLoginApplication extends Controller {
 				return redirect("/homepage");
 			}
 				
-<<<<<<< HEAD
 			return redirect("/toregister");
-=======
-			return redirect("/hompeage");
->>>>>>> 36c9ae7b01e1fb9a2eeb85460de6154f5f7cc1b0
-			
+		
 		}
 		
 		//goes to page where the user can be registered
@@ -87,10 +81,8 @@ public class UserLoginApplication extends Controller {
 		//he has an option to add his own ad
 		public static Result home() {
 			return TODO;
-<<<<<<< HEAD
-=======
+
 			//return ok(home.render());
->>>>>>> fb825ca075c6653766ef05449c0b18af172dbdfe
 		}
 		
 		public static Result toLogin() {

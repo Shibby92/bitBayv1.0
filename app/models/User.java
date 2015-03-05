@@ -9,14 +9,9 @@ import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
 /**
-<<<<<<< HEAD
- * Creates a user Checks if the user is already registered Finds user by his id
- * 
-=======
  * Creates a user 
  * Checks if the user is already registered 
- * Finds user by his id 
->>>>>>> emina
+ * Finds user by his id
  * @author eminamuratovic
  *
  */
@@ -37,26 +32,14 @@ public class User extends Model {
 	@Required
 	@MinLength(5)
 	public String password;
-	
-	@OneToMany(mappedBy="owner_id")
-	public List<Product> products;
 
 	static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);
 
 	/**
-<<<<<<< HEAD
 	 * creates a user
-	 * 
-	 * @param username
-	 *            String username of the user
-	 * @param password
-	 *            String password of the user
-=======
-	 * creates a user 
 	 * @param username String username of the user
 	 * @param password String password of the user
->>>>>>> emina
 	 */
 	public User(String username, String password) {
 		this.username = username;
