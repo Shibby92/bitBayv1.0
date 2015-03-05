@@ -22,7 +22,8 @@ public class ProductApplication extends Controller {
 	
 	//user picks new category for his product
 		public static Result pickCategory() {
-			DynamicForm form = Form.form().bindFromRequest();
+			return ok(addcategory.render());
+			/*DynamicForm form = Form.form().bindFromRequest();
 			
 			String category = form.data().get("category");//kad mustafa postavi  id category
 			//checks if the category is already in database
@@ -33,14 +34,15 @@ public class ProductApplication extends Controller {
 			}
 			
 			//if there is no category by that name it creates redirect to previous page
-			return redirect("/addcategory");	
+			return redirect("/addcategory");	*/
 		}
 		
 		//adds additional info to product
 		//creates new product
 		//returns user to his home page
 		public static Result addAdditionalInfo(int id) {
-			DynamicForm form = Form.form().bindFromRequest();
+			return ok(addproduct.render());
+		/*	DynamicForm form = Form.form().bindFromRequest();
 			Date created = null;
 
 			String name = form.data().get("name");
@@ -57,7 +59,7 @@ public class ProductApplication extends Controller {
 			String description = form.data().get("description");
 			String image_url = form.data().get("image url");
 			Product.create(name, category_id, owner, created, quantity, price, description, image_url);
-			return redirect("/home");
+			return redirect("/home");*/
 		}
 		
 		
