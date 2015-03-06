@@ -1,6 +1,5 @@
 package models;
 
-import java.util.Date;
 import javax.persistence.*;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -15,15 +14,13 @@ public class Category extends Model {
 	@ManyToOne
 	public String name;
 
-	public Category(int id, String name) {
-
-		this.id = id;
+	public Category( String name) {
 		this.name = name;
 
 	}
 
-	public static void create(int id, String name, Date created) {
-		new Category(id, name).save();
+	public static void create(String name) {
+		new Category(name).save();
 
 	}
 	static Finder <String,Category> find= new Finder<String,Category> (String.class,Category.class);
