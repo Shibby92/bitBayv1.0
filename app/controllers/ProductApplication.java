@@ -40,7 +40,7 @@ public class ProductApplication extends Controller {
 		//adds additional info to product
 		//creates new product
 		//returns user to his home page
-		public static Result addAdditionalInfo(int id) {
+		public static Result addAdditionalInfo() {
 			return ok(addproduct.render());
 		/*	DynamicForm form = Form.form().bindFromRequest();
 			Date created = null;
@@ -60,6 +60,10 @@ public class ProductApplication extends Controller {
 			String image_url = form.data().get("image url");
 			Product.create(name, category_id, owner, created, quantity, price, description, image_url);
 			return redirect("/home");*/
+		}
+		
+		public static Result category() {
+			return ok(category.render());
 		}
 		
 		
