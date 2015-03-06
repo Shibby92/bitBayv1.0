@@ -27,8 +27,6 @@ public class UserLoginApplication extends Controller {
 	// if the user can log, he gets redirected to index page
 	// if the user is not in database, he gets redirected to register page
 	public static Result login() {
-
-		session("username", "test1");
 		DynamicForm form = Form.form().bindFromRequest();
 
 		String username = form.get("username");
@@ -39,12 +37,13 @@ public class UserLoginApplication extends Controller {
 				session("username", username);
 				return redirect("/homepage");
 			} else {
-				session("username", "test3");
+				
+
 				return redirect("/login");
 			}
 
 		}
-		session("username", "test4");
+
 		return ok(toregister.render(loginUser));
 	}
 
@@ -76,5 +75,8 @@ public class UserLoginApplication extends Controller {
 	public static Result toLogin() {
 		return ok(logintest.render());
 	}
-
+	public static Result logOut(){
+		session().clear();
+		return redirect("/");
+		}
 }

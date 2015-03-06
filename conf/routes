@@ -4,10 +4,10 @@
 
 # Home page
 GET     /                       controllers.UserLoginApplication.homePage()
-# Routes for login and registration
+# Routes for login, logout and registration
 POST	/login					controllers.UserLoginApplication.login()
 GET     /login                  controllers.UserLoginApplication.toLogin()
-
+GET 	/logout					controllers.UserLoginApplication.logOut()
 GET		/homepage				controllers.UserLoginApplication.homePage()
 GET    /register 				controllers.UserLoginApplication.register()
 GET		/toregister				controllers.UserLoginApplication.toRegister()
