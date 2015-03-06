@@ -25,16 +25,10 @@ public class ProductApplication extends Controller {
 			
 			DynamicForm form = Form.form().bindFromRequest();
 			
-			String category = form.data().get("category");//kad mustafa postavi  id category
-			//checks if the category is already in database
-			//if there is a category it redirects to addproduct page
-			//it forwards id of the category
-			if(Category.categoryExists(category)) {
-				return redirect("/addproduct/" + Category.categoryId(category)); 
-			}
+			String category = form.data().get("category");
 			
 			//if there is no category by that name it creates redirect to previous page
-			return redirect("/addcategory");	
+			return redirect("/addproduct/" + Category.categoryId(category));	
 		}
 		
 		//adds additional info to product
@@ -43,30 +37,27 @@ public class ProductApplication extends Controller {
 
 		public static Result addAdditionalInfo(int id) {
 			DynamicForm form = Form.form().bindFromRequest();
-			
-
-			Date created = null;
-
 			String name = form.data().get("name");
-			User owner = loginUser.bindFromRequest().get();
+			User owner = new User (session().get("username"),form.get("password"));
 			int category_id = id;
 			DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
-			try {
-				created = format.parse(form.data().get("created"));
-			} catch (ParseException e) {
-				System.err.println("Date does not have proper form!");
-			}
-			int quantity = Integer.parseInt(form.data().get("quantity"));
+			Date created = new Date();
+			
+			int quantity =0 ;//Integer.parseInt(form.data().get("quantity"));
 			float price = Float.parseFloat(form.data().get("price"));
 			String description = form.data().get("description");
-			String image_url = form.data().get("image url");
+			String image_url = "";//form.data().get("image url");
 			Product.create(name, category_id, owner, created, quantity, price, description, image_url);
 			return redirect("/home");
 		}
 		
-		public static Result category() {
-			return ok(category.render());
+		public static Result category(String name) {
+			return ok(category.render(name));
 			}
-		
-		
+		public static Result toPickCategory(){
+			return ok(addcategory.render());
+		}
+		public static Result toInfo(int id){
+			return ok(addproduct.render(id));
+		}
 }

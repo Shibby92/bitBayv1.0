@@ -1,3 +1,4 @@
+@(id:Integer)
  @main("Add your additional info") {
 <body>
 
@@ -15,7 +16,7 @@
 		<div class="col-md-12">
 			<div class="col-sm-4 col-lg-4 col-md-4">
 				<div class="well login-box">
-					<form action="">
+					<form action="" 'method' <- 'post'>
 						<legend>Add your additional info </legend>
 
 						<div class="form-group">
@@ -32,7 +33,7 @@
 							<input id="password" value='' placeholder="Enter price of your product" type="text" class="form-control" />
 						</div>
 						<div class="form-group text-center">
-							<a class="btn btn-success btn-login-submit" href="/register" role="button">Add Product</a> 
+							<a class="btn btn-success btn-login-submit" href="home" role="button">Add Product</a> 
 							<a class="btn btn-danger" href="homepage" role="button">Cancel</a>
 						</div>
 

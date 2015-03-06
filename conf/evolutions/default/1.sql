@@ -3,6 +3,12 @@
 
 # --- !Ups
 
+create table category (
+  id                        integer not null,
+  name                      varchar(255),
+  constraint pk_category primary key (id))
+;
+
 create table product (
   id                        integer not null,
   name                      varchar(255),
@@ -23,6 +29,8 @@ create table user (
   constraint pk_user primary key (id))
 ;
 
+create sequence category_seq;
+
 create sequence product_seq;
 
 create sequence user_seq;
@@ -36,11 +44,15 @@ create index ix_product_owner_1 on product (owner_id);
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists category;
+
 drop table if exists product;
 
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists category_seq;
 
 drop sequence if exists product_seq;
 

@@ -93,12 +93,8 @@ public class User extends Model {
 	 * @return true or false
 	 */
 	public static boolean checkLogin(String username, String password) {
-		if (find.where().eq("username", username).findList().isEmpty()) {
-			return false;
-		} else {
 			User foundUser = find.where().eq("username", username).findUnique();
 			return HashHelper.checkPassword(password, foundUser.password);
-		}
 	}
 
 }

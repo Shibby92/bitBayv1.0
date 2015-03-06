@@ -3,18 +3,20 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           controllers.UserLoginApplication.homePage()
 # Routes for login and registration
+POST	/login					controllers.UserLoginApplication.login()
 GET     /login                     controllers.UserLoginApplication.toLogin()
-POST 	/login					controllers.UserLoginApplication.login()
-GET		/homepage						controllers.UserLoginApplication.homePage()
+
+GET		/homepage				controllers.UserLoginApplication.homePage()
 GET    /register 					controllers.UserLoginApplication.register()
 GET		/toregister				controllers.UserLoginApplication.toRegister()
 
 # Routes for adding product and choosing category
-GET		/addproduct				controllers.ProductApplication.addAdditionalInfo()
-GET		/addcategory			controllers.ProductApplication.pickCategory()
-GET		/home					controllers.UserLoginApplication.home()
-GET		/category				controllers.ProductApplication.category()
+GET		/addproduct/:id			controllers.ProductApplication.toInfo(id:Integer)
+POST  	/addproduct/:id				controllers.ProductApplication.addAdditionalInfo(id: Integer)
+POST		/addproduct/home			controllers.UserLoginApplication.homePage()
+GET		/addcategory			controllers.ProductApplication.toPickCategory()
+GET		/category/:name				controllers.ProductApplication.category(name:String)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -2,10 +2,9 @@
 
 @main("HomePage") {
 
-<body>
 
     <!-- Navigation -->
-    @if(username == "Public user") {
+   
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -16,7 +15,7 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                
+                 @if(username == null) {
                     <ul class="nav navbar-nav">
                      <li>
                         <a href="#"></a>
@@ -35,28 +34,12 @@
                             </p>
                          </h4>
                     </li>
+                    
                    
                     
                 </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-    } else {
-    
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-            	<a href="homepage"><img src="@routes.Assets.at("images/Logo.png")" /></a>
-                
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                
+                 } else {
+  
                    <ul class="nav navbar-nav">
 
                     <li>
@@ -68,24 +51,21 @@
                     <li>
                        
                     </li>
-                   
-                    
                     <li>
                         <a href="HomePage.html">
                             <button class="btn btn-danger btn-cancel-action">Log out</button>
                         </a>
                     </li>
-                   
-                    
                 </ul>
+
+    }
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
-    
-    }
-
+   
+	<h1>Hello, @username!</h1>
     <!-- Page Content -->
     <div class="container">
 
@@ -94,14 +74,14 @@
             <div class="col-md-3">
                
                 <div class="list-group">
-	                    <a href="category" class="list-group-item">Fashion</a>
-	                    <a href="category" class="list-group-item">Collectibles & Art</a>
-	                    <a href="category" class="list-group-item">Sporting Goods</a>
-						<a href="category" class="list-group-item">Electronics</a>
-	 					<a href="category" class="list-group-item">Home & Garden</a>
-	                    <a href="category" class="list-group-item">Toys & Hobbies</a>
-	                    <a href="category" class="list-group-item">Entertainment</a>
-	                    <a href="category" class="list-group-item">Motors</a>
+	                    <a href="category/Fashion" class="list-group-item">Fashion</a>
+	                    <a href="category/Collectibles & Art" class="list-group-item">Collectibles & Art</a>
+	                    <a href="category/Sporting Goods" class="list-group-item">Sporting Goods</a>
+						<a href="category/Electronics" class="list-group-item">Electronics</a>
+	 					<a href="category/Home & Garden" class="list-group-item">Home & Garden</a>
+	                    <a href="category/Toys & Hobbies" class="list-group-item">Toys & Hobbies</a>
+	                    <a href="category/Entertainment" class="list-group-item">Entertainment</a>
+	                    <a href="category/Motors" class="list-group-item">Motors</a>
                    
                 </div>
             </div>
@@ -174,6 +154,5 @@
     <!-- /.container -->
 
 
-</body>
 
 }
