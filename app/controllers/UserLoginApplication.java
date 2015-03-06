@@ -55,12 +55,14 @@ public class UserLoginApplication extends Controller {
 		//if there is already user with the same username he gets redirected to login page
 		//if the user gets registered, he gets redirected to his home page
 		public static Result register() {
+
 			User u= loginUser.bindFromRequest().get();
 			if(User.create(u.username, u.password)) {
 				return redirect("/login");
 			}
 				
 			return ok(toregister.render(loginUser));
+
 			
 		}
 		

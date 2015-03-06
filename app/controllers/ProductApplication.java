@@ -22,6 +22,7 @@ public class ProductApplication extends Controller {
 	
 	//user picks new category for his product
 		public static Result pickCategory() {
+			
 			DynamicForm form = Form.form().bindFromRequest();
 			
 			String category = form.data().get("category");//kad mustafa postavi  id category
