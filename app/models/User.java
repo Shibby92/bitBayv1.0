@@ -1,5 +1,6 @@
 package models;
 
+
 import helpers.HashHelper;
 
 import java.security.*;
@@ -15,6 +16,7 @@ import play.db.ebean.Model;
  * Checks if the user is already registered 
  * Finds user by his id 
  * @author eminamuratovic
+ *
  */
 @Entity
 public class User extends Model {
@@ -27,7 +29,6 @@ public class User extends Model {
 
 	@Required
 	@MinLength(5)
-	@Email
 	public String username;
 
 	@Required
@@ -92,21 +93,8 @@ public class User extends Model {
 	 * @return true or false
 	 */
 	public static boolean checkLogin(String username, String password) {
-		if (find.where().eq("username", username).findList().isEmpty()) {
-			return false;
-		} else {
 			User foundUser = find.where().eq("username", username).findUnique();
 			return HashHelper.checkPassword(password, foundUser.password);
-		}
-	}
-	
-	/**
-	 * finds user with his username
-	 * @param username String username
-	 * @return user by that username
-	 */
-	public static User find(String username) {
-		return find.where().eq("username", username).findUnique();
 	}
 
 }

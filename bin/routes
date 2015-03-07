@@ -3,17 +3,22 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-# Routes for login and registration
-GET     /login                     controllers.UserLoginApplication.toLogin()
-POST 	/login					controllers.UserLoginApplication.login()
-GET		/homepage						controllers.UserLoginApplication.homePage()
-GET    /register 					controllers.UserLoginApplication.register()
+GET     /                       controllers.UserLoginApplication.homePage()
+# Routes for login, logout and registration
+POST	/login					controllers.UserLoginApplication.login()
+GET     /login                  controllers.UserLoginApplication.toLogin()
+GET 	/logout					controllers.UserLoginApplication.logOut()
+GET		/homepage				controllers.UserLoginApplication.homePage()
+GET    /register 				controllers.UserLoginApplication.register()
 GET		/toregister				controllers.UserLoginApplication.toRegister()
 
 # Routes for adding product and choosing category
-GET		/addproduct/:id				controllers.ProductApplication.addAdditionalInfo(id: Integer)
-GET		/addcategory			controllers.ProductApplication.pickCategory()
-GET		/home					controllers.UserLoginApplication.home()
+GET		/addproduct/:id			controllers.ProductApplication.toInfo(id:Integer)
+POST  	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id: Integer)
+POST	/addproduct/home		controllers.UserLoginApplication.homePage()
+GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
+GET		/category/:name			controllers.ProductApplication.category(name:String)
+GET 	/addnewcategory			controllers.CategoryApplication.addNewCategory()
+GET		/newcategory			controllers.CategoryApplication.addCategory()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

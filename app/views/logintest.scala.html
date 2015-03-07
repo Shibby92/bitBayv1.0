@@ -1,5 +1,6 @@
-@main("Login") {
 
+@import helper._
+@main("Login") {
 <body>
 
     <!-- Navigation -->
@@ -16,24 +17,23 @@
             <div class="col-md-12">
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="well login-box">
-                        <form action="">
+                       
                             <legend>Login</legend>
-                               @helper.form(routes.UserLoginApplication.login()){
+                               @helper.form(routes.UserLoginApplication.login(), 'method-> "post"){
                             <div class="form-group">
-                                <label for="username-email">E-mail or Username</label>
-                                <input value='' id="username-email" placeholder="E-mail or Username" type="text" class="form-control" />
+                                <label for="username">Username</label>
+                                <input value='' name="username" id="username" placeholder="Username" type="text" class="form-control" />
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input id="password" value='' placeholder="Password" type="password" class="form-control" />
+                                <input name ="password" id="password" value='' placeholder="Password" type="password" class="form-control" />
                             </div>
                             <div class="form-group text-center">
-								
-                                <input type="submit" class="btn btn-success btn-login-submit" value="Login" />
+                                <input type="submit" value="Login" class="btn btn-success btn-login-submit" />
                               	 <a class="btn btn-danger" href="homepage" role="button">Cancel</a>
                             </div>
                            }
-                        </form>
+                      
                     </div>
                 </div>
             </div>
