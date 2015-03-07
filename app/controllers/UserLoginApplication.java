@@ -58,6 +58,7 @@ public class UserLoginApplication extends Controller {
 		else {
 			User u = loginUser.bindFromRequest().get();
 			if (User.create(u.username, u.password)) {
+				session("username", u.username);
 				return redirect("/homepage");
 			}
 
