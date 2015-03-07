@@ -52,13 +52,17 @@ public class UserLoginApplication extends Controller {
 	// login page
 	// if the user gets registered, he gets redirected to his home page
 	public static Result register() {
+		DynamicForm form = loginUser.form().bindFromRequest();
+		if (form.get("username").equals("") || form.get("username").equals(""))
+			return ok(toregister.render(loginUser));
+		else {
+			User u = loginUser.bindFromRequest().get();
+			if (User.create(u.username, u.password)) {
+				return redirect("/homepage");
+			}
 
-		User u = loginUser.bindFromRequest().get();
-		if (User.create(u.username, u.password)) {
-			return redirect("/homepage");
+			return ok(toregister.render(loginUser));
 		}
-
-		return ok(toregister.render(loginUser));
 
 	}
 
