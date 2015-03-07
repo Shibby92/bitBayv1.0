@@ -16,6 +16,7 @@ public class CategoryApplication extends Controller {
 	 * 
 	 * @return TODO site
 	 */
+	
 	public static Result addCategory() {
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.data().get("name");
