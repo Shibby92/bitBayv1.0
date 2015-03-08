@@ -43,7 +43,7 @@ public class ProductApplication extends Controller {
 		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
 		Date created = new Date();
 		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
-		float price = Float.parseFloat(form.data().get("price"));
+		double price = Double.parseDouble(form.data().get("price"));
 		String description = form.data().get("description");
 		String image_url = "";// form.data().get("image url");
 		Product.create(name, category_id, owner, created, quantity, price,
