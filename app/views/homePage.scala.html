@@ -15,15 +15,16 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                 @if(username == null) {
+            	
+                  @if(username == null) {
                     <ul class="nav navbar-nav">
                      <li>
-                        <a href="#"></a>
+                    
                     </li>
 
                     <li>
                          <h4>
-                            <p style="color: #000">Hello, to access our app please  
+                            <p style="color: #000">Hello, to access BitBay please  
                                 <a href="login">
                                     <button class="btn btn-success btn-login"> Log in</button> 
                                 </a>
@@ -33,25 +34,25 @@
                                 </a>
                             </p>
                          </h4>
-                    </li>
-                    
-                   
-                    
+                    </li> 
                 </ul>
                  } else {
   
                    <ul class="nav navbar-nav">
+                    
+                   <li>
+						  </li>
 					<li>
-					<h4  style="font-family:verdana;color: #9B9BAB">Hello, @username!</h4>
+						
 					</li>
 					<li>
                         <a href="addnewcategory">
-                         <button class="btn btn-default btn-login"> Add New Category</button>
+                         <button class="btn btn-success btn-login"> Add New Category</button>
                         </a>
                     </li>
                     <li>
                         <a href="addproductcategory">
-                         <button class="btn btn-default btn-login"> Add New Product</button>
+                         <button class="btn btn-success btn-login"> Add New Product</button>
                         </a>
                     </li>
                     
@@ -63,6 +64,7 @@
                             <button class="btn btn-danger btn-cancel-action">Log out</button>
                         </a>
                     </li>
+                    
                 </ul>
                 	
 

@@ -2072,7 +2072,8 @@ pre code {
 @media ( min-width :768px) {
 	.col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3,
 		.col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9 {
-		float: left
+		width:800px; 
+		margin:0 auto
 	}
 	.col-sm-12 {
 		width: 100%
@@ -5628,7 +5629,8 @@ to {
 }
 
 a.list-group-item {
-	color: #000
+	color: #000;
+	background-color: #4AB55A
 }
 
 a.list-group-item .list-group-item-heading {
@@ -6212,8 +6214,17 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus,
 	min-height: 20px;
 	padding: 19px;
 	margin-bottom: 20px;
-	background-color: #f5f5f5;
+	background-color: #fff;
 	border: 1px solid #e3e3e3;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05)
+}
+.well2 {
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: 20px;
+	background-color: #fff;
 	border-radius: 4px;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05)
