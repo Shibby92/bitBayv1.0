@@ -4857,8 +4857,8 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 }
 
 .navbar-inverse {
-	background-color: #222;
-	border-color: #080808
+	background-color: #fff;
+	border-color: #fff;
 }
 
 .navbar-inverse .navbar-brand {
@@ -5613,7 +5613,7 @@ to {
 	padding: 10px 15px;
 	margin-bottom: -1px;
 	background-color: #fff;
-	border: 1px solid #ddd
+	border: 1px solid #fff
 }
 
 .list-group-item:first-child {
@@ -5628,7 +5628,7 @@ to {
 }
 
 a.list-group-item {
-	color: #555
+	color: #000
 }
 
 a.list-group-item .list-group-item-heading {
