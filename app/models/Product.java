@@ -19,6 +19,7 @@ public class Product extends Model {
 	public int id;
 
 	@Required
+	@MaxLength(20)
 	public String name;
 
 	@Required

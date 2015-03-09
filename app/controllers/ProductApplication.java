@@ -42,14 +42,13 @@ public class ProductApplication extends Controller {
 		int category_id = id;
 		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
 		Date created = new Date();
-
 		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
-		float price = Float.parseFloat(form.data().get("price"));
+		double price = Double.parseDouble(form.data().get("price"));
 		String description = form.data().get("description");
 		String image_url = "";// form.data().get("image url");
 		Product.create(name, category_id, owner, created, quantity, price,
 				description, image_url);
-		return redirect("/home");
+		return redirect("/homepage");
 	}
 
 	public static Result category(String name) {
