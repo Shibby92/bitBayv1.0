@@ -38,16 +38,16 @@ public class ProductApplication extends Controller {
 	public static Result addAdditionalInfo(int id) {
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.data().get("name");
-		User owner = new User(session().get("username"), form.get("password"));
+//		User owner = new User(session().get("username"), form.get("password"));
 		int category_id = id;
-		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
-		Date created = new Date();
-		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
-		double price = Double.parseDouble(form.data().get("price"));
+//		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
+//		Date created = new Date();
+//		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
+		double price = Double.parseDouble(form.get("price"));
 		String description = form.data().get("description");
-		String image_url = "";// form.data().get("image url");
-		Product.create(name, category_id, owner, created, quantity, price,
-				description, image_url);
+//		String image_url = "";// form.data().get("image url");
+		Product.create(name, price,
+				description);
 		return redirect("/homepage");
 	}
 
@@ -56,7 +56,7 @@ public class ProductApplication extends Controller {
 	}
 
 	public static Result toPickCategory() {
-		return ok(addproductcategory.render());
+		return ok(addproductcategory.render(Category.list()));
 	}
 
 	public static Result toInfo(int id) {

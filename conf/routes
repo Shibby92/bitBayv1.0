@@ -14,8 +14,8 @@ GET		/toregister				controllers.UserLoginApplication.toRegister()
 
 # Routes for adding product and choosing category
 GET		/addproduct/:id			controllers.ProductApplication.toInfo(id:Integer)
-POST  	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id: Integer)
-POST	/addproduct/homepage		controllers.UserLoginApplication.homePage()
+GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
+POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET		/category/:name			controllers.ProductApplication.category(name:String)
 GET 	/addnewcategory			controllers.CategoryApplication.addNewCategory()

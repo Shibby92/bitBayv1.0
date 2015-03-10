@@ -22,17 +22,17 @@ public class Product extends Model {
 	@MaxLength(20)
 	public String name;
 
-	@Required
+	
 	public int category_id;
 
-	@Required
+	
 	@ManyToOne
 	public User owner;
 
-	@Required
+	
 	public Date created;
 
-	@Required
+	
 	public int quantity;
 
 	@Required
@@ -43,7 +43,7 @@ public class Product extends Model {
 	@MaxLength(144)
 	public String description;
 
-	@Required
+	
 	public String image_url;
 
 	static Finder<Integer, Product> find = new Finder<Integer, Product>(
@@ -85,7 +85,17 @@ public class Product extends Model {
 	public static void create(String name, int category_id, User owner, Date created, int quantity, double price, String description, String image_url) {
 		new Product(name, category_id, owner, created, quantity, price, description, image_url).save();
 	}
-	
+
+	// Constructor for "required" attributes
+	public Product(String name, double price, String description) {
+		this.name = name;
+		this.price = price;
+		this.description = description;
+	}
+	public static void create(String name,  double price, String description) {
+		new Product(name,  price, description).save();
+	}
+
 	/**
 	 * finds a product by his id
 	 * @param id int id of the product
