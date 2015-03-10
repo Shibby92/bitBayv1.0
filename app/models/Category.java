@@ -1,6 +1,9 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.*;
+
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
@@ -28,6 +31,9 @@ public class Category extends Model {
 	public static int categoryId(String name) {
 		Category found=find.where().eq("name", name).findUnique();
 		return found.id;
+	}
+	public static List list(){
+		return find.all();
 	}
 
 }

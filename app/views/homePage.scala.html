@@ -1,4 +1,4 @@
-@(username: String)
+@(username: String, categoryList:List[Category])
 
 @main("HomePage") {
 
@@ -84,14 +84,9 @@
             <div class="col-md-3">
                
                 <div class="list-group">
-	                    <a href="category/Fashion" class="list-group-item">Fashion</a>
-	                    <a href="category/Collectibles & Art" class="list-group-item">Collectibles & Art</a>
-	                    <a href="category/Sporting Goods" class="list-group-item">Sporting Goods</a>
-						<a href="category/Electronics" class="list-group-item">Electronics</a>
-	 					<a href="category/Home & Garden" class="list-group-item">Home & Garden</a>
-	                    <a href="category/Toys & Hobbies" class="list-group-item">Toys & Hobbies</a>
-	                    <a href="category/Entertainment" class="list-group-item">Entertainment</a>
-	                    <a href="category/Motors" class="list-group-item">Motors</a>
+                @for(category <- categoryList){
+	                    <a href="category/@category.name" class="list-group-item">@category.name</a>
+	         }
                    
                 </div>
             </div>
