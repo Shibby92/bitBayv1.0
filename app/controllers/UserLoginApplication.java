@@ -22,7 +22,7 @@ public class UserLoginApplication extends Controller {
 	public static Result homePage() {
 		String name = session().get("username");
 		
-		return ok(homePage.render(name,Category.list()));
+		return ok(homePage.render(name,Category.list(),Product.productList()));
 	}
 
 	// tries to log user to page
