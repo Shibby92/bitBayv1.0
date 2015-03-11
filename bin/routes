@@ -2,6 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+GET		/list						controllers.UserController.list() 
 # Home page
 GET     /                       controllers.UserLoginApplication.homePage()
 # Routes for login, logout and registration
@@ -16,6 +17,8 @@ GET		/toregister				controllers.UserLoginApplication.toRegister()
 GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
 GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
 POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
+GET		/@:username/delete		controllers.UserController.delete(username: String)
+
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET		/category/:name			controllers.ProductApplication.category(name:String)
 GET 	/addnewcategory			controllers.CategoryApplication.addNewCategory()

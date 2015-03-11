@@ -2,6 +2,7 @@ package controllers;
 
 import models.*;
 import play.data.*;
+import play.db.ebean.Model.Finder;
 import play.mvc.*;
 import views.html.*;
 

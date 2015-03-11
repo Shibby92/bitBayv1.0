@@ -1,5 +1,7 @@
 package controllers;
 
+import helpers.*;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +22,7 @@ public class ProductApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
 	static Form<Product> productForm= new Form <Product>(Product.class);
 	// user picks new category for his product
+	@Security.Authenticated(UserFilter.class)
 	public static Result pickCategory() {
 
 		DynamicForm form = Form.form().bindFromRequest();
@@ -35,6 +38,7 @@ public class ProductApplication extends Controller {
 	// creates new product
 	// returns user to his home page
 
+	@Security.Authenticated(UserFilter.class)
 	public static Result addAdditionalInfo(int id) {
 		Form <Product> form=productForm.bindFromRequest();
 		//DynamicForm form = Form.form().bindFromRequest();

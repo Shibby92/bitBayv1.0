@@ -21,7 +21,7 @@ import play.db.ebean.Model;
 @Entity
 public class User extends Model {
 	
-	@OneToMany(mappedBy="owner")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
 	public List<Product> products;
 
 	@Id
@@ -29,11 +29,16 @@ public class User extends Model {
 
 	@Required
 	@MinLength(5)
+	@Column(unique = true)
+	@MaxLength(10)
 	public String username;
 
 	@Required
 	@MinLength(5)
+	@MaxLength(100)
 	public String password;
+	
+	public boolean admin;
 
 	static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);
@@ -46,6 +51,13 @@ public class User extends Model {
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
+		this.admin = false;
+	}
+	
+	public User(String username, String password, boolean admin) {
+		this.username = username;
+		this.password = password;
+		this.admin = admin;
 	}
 
 	/**
@@ -62,7 +74,10 @@ public class User extends Model {
 			return false;
 		new User(username, HashHelper.createPassword(password)).save();
 		return true;
-
+	}
+	
+	public static void create(User user) {
+		new User(user.username, user.password, user.admin).save();
 	}
 
 	/**
@@ -85,6 +100,15 @@ public class User extends Model {
 	public static User find(int id) {
 		return find.byId(id);
 	}
+	
+	/**
+	 * finds a user with his username
+	 * @param username String username of the user
+	 * @return the user
+	 */
+	public static User find(String username) {
+		return find.where().eq("username", username).findUnique();
+	}
 
 	/**
 	 * Checking for user's username and password
@@ -96,5 +120,13 @@ public class User extends Model {
 			User foundUser = find.where().eq("username", username).findUnique();
 			return HashHelper.checkPassword(password, foundUser.password);
 	}
+	
+	/**
+	 * @return list of all logged in users
+	 */
+	public static List<User> all() {
+		return find.all();
+	}
+	
 
 }
