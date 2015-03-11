@@ -70,4 +70,15 @@ public class ProductApplication extends Controller {
 		
 		return ok(addproduct.render(id,productForm));
 	}
+	
+	//public static Result toDeleteProduct(){
+	//	return ok(deleteproductpage.render(Product.list()));
+	//}
+	//method that should delete product and redirect to other products/uses delete method from Product class
+	public static Result deleteProduct(int id) {
+		Product.delete(id);
+		return redirect("/deleteproductpage");
+
+	}
+
 }

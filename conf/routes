@@ -14,6 +14,7 @@ GET    /register 				controllers.UserLoginApplication.register()
 GET		/toregister				controllers.UserLoginApplication.toRegister()
 
 # Routes for adding product,category and choosing category
+
 GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
 GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
 POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
@@ -23,5 +24,12 @@ GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET		/category/:name			controllers.ProductApplication.category(name:String)
 GET 	/addnewcategory			controllers.CategoryApplication.addNewCategory()
 GET		/newcategory			controllers.CategoryApplication.addCategory()
+
+#Routes for deleting product or category
+#POST     /deleteproduct/:id         controllers.ProductApplication.deleteProduct(id: Integer)
+#POST     /deleteproductpage         controllers.ProductApplication.toDeleteProduct()
+GET     /deletecategory/:id         controllers.CategoryApplication.deleteCategory(id: Integer)
+GET		/deletecategorypage		controllers.CategoryApplication.toDeleteCategory()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
