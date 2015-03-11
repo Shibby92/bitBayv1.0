@@ -39,7 +39,7 @@
                  } else {
   
                    <ul class="nav navbar-nav">
-                    
+                     @if(username.equals("Admin")) {
                    <li>
                    <a href="/deleteproductpage">
                          <button class="btn btn-success btn-login"> Delete Product</button>
@@ -50,7 +50,7 @@
                          <button class="btn btn-success btn-login"> Delete Category</button>
                         </a>
 					</li>
-					 @if(username.equals("Admin")) {
+					
 					<li>
                         <a href="addnewcategory">
                          <button class="btn btn-success btn-login"> Add New Category</button>

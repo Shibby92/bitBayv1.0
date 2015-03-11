@@ -35,7 +35,7 @@ public class CategoryApplication extends Controller {
 					
 			}
 			public static Result toDeleteCategory(){
-				return ok(category.render(Category.list()));
+				return ok(deletecategorypage.render(Category.list()));
 			}
 
 }
