@@ -18,7 +18,7 @@ import views.html.*;
  */
 public class ProductApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
-
+	static Form<Product> productForm= new Form <Product>(Product.class);
 	// user picks new category for his product
 	public static Result pickCategory() {
 
@@ -36,23 +36,26 @@ public class ProductApplication extends Controller {
 	// returns user to his home page
 
 	public static Result addAdditionalInfo(int id) {
-		DynamicForm form = Form.form().bindFromRequest();
-		String name = form.data().get("name");
+		Form <Product> form=productForm.bindFromRequest();
+		//DynamicForm form = Form.form().bindFromRequest();
+		String name = form.get().name;
 //		User owner = new User(session().get("username"), form.get("password"));
-		int category_id = id;
+		
 //		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
 //		Date created = new Date();
 //		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
-		double price = Double.parseDouble(form.get("price"));
-		String description = form.data().get("description");
+		//double price= 100;
+		double price = form.get().price;
+		String description = form.get().description;
 //		String image_url = "";// form.data().get("image url");
+		
 		Product.create(name, price,
-				description);
+				description,id);
 		return redirect("/homepage");
 	}
 
 	public static Result category(String name) {
-		return ok(category.render(name));
+		return ok(category.render(name,Product.listByCategory(name)));
 	}
 
 	public static Result toPickCategory() {
@@ -60,6 +63,7 @@ public class ProductApplication extends Controller {
 	}
 
 	public static Result toInfo(int id) {
-		return ok(addproduct.render(id));
+		
+		return ok(addproduct.render(id,productForm));
 	}
 }

@@ -1,4 +1,4 @@
-@(username: String, categoryList:List[Category])
+@(username: String, categoryList:List[Category], products:List[Product])
 
 @main("HomePage") {
 
@@ -135,22 +135,25 @@
                     </div>
 
                 </div>
-
-                <div class="row">
+                  <div class="row">
+@for(product <- products){
+              
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <img src="http://placehold.it/320x150" alt="">
                             <div class="caption">
-                                <h4 class="pull-right">$24.99</h4>
-                                <h4><a href="#">First Product</a>
+                                <h4 class="pull-right">@product.price</h4>
+                                <h4><a href="#">@product.name</a>
                                 </h4>
+                                <p> @product.description </p>
                                 
                             </div>
                         </div>
                    </div>
-        </div>
-
+      
+}
+  </div>
     </div>
     <!-- /.container -->
 

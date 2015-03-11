@@ -12,9 +12,9 @@ GET		/homepage				controllers.UserLoginApplication.homePage()
 GET    /register 				controllers.UserLoginApplication.register()
 GET		/toregister				controllers.UserLoginApplication.toRegister()
 
-# Routes for adding product and choosing category
-GET		/addproduct/:id			controllers.ProductApplication.toInfo(id:Integer)
+# Routes for adding product,category and choosing category
 GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
+GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
 POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET		/category/:name			controllers.ProductApplication.category(name:String)
