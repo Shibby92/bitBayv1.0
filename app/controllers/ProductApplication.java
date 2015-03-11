@@ -18,7 +18,7 @@ import views.html.*;
  */
 public class ProductApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
-
+	static Form<Product> productForm = new Form<Product>(Product.class);
 	// user picks new category for his product
 	public static Result pickCategory() {
 
@@ -62,4 +62,16 @@ public class ProductApplication extends Controller {
 	public static Result toInfo(int id) {
 		return ok(addproduct.render(id));
 	}
+	
+	//public static Result toDeleteProduct(){
+	//	return ok(deleteproductpage.render(Product.list()));
+	//}
+	//method that should delete product and redirect to other products/uses delete method from Product class
+			public static Result deleteProduct(int id){
+				Product.delete(id);
+				return redirect("/deleteproductpage");
+						
+						
+			}
+
 }

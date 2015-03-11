@@ -104,6 +104,16 @@ public class Product extends Model {
 	public static Product find(int id) {
 		return find.byId(id);
 	}
+	//method which will find id of the product and delete it, else will throw exception,method is used in ProductApplication
+			public static void delete(int id){
+				if(find.byId(id) == null){
+					throw new IllegalArgumentException("Produkt ne postoji");
+				}else{
+					Product temp = find.byId(id);
+					temp.delete();
+				}
+			}
+
 	
 	
  
