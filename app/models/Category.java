@@ -42,11 +42,14 @@ public class Category extends Model {
 			findId.byId(id).delete();
 			
 		}
-		//public static Category find(int id) {
-		//	return findId.byId(id);
-		//}
 		
-
+		public static void update (Category category){
+		category.save();
+		}
+		
+public static Category find(int id){
+	return findId.byId(id);
+}
 
 
 
