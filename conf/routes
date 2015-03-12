@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET		/list					controllers.UserController.list() 
+GET		/listofusers					controllers.UserController.list() 
 # Home page
 GET     /                       controllers.UserLoginApplication.homePage()
 # Routes for login, logout and registration
