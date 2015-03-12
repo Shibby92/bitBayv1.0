@@ -27,5 +27,10 @@ public class UserController extends Controller {
 	public static Result edit(String username) {
 		return TODO;
 	}
+	@Security.Authenticated(AdminFilter.class)
+	public static Result admin() {
+		return TODO;
+//		return ok(admin.render());
+	}
 
 }

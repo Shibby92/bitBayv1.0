@@ -33,3 +33,5 @@ GET		/deletecategorypage		controllers.CategoryApplication.toDeleteCategory()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+GET		/admin			controllers.UserController.admin()
