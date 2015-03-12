@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -22,17 +23,17 @@ public class Product extends Model {
 	@MaxLength(20)
 	public String name;
 
-	@Required
+	
 	public int category_id;
 
-	@Required
+	
 	@ManyToOne
 	public User owner;
 
-	@Required
+	
 	public Date created;
 
-	@Required
+	
 	public int quantity;
 
 	@Required
@@ -43,11 +44,12 @@ public class Product extends Model {
 	@MaxLength(144)
 	public String description;
 
-	@Required
+	
 	public String image_url;
 
 	static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
+	static Finder<String,Category> findCategory= new Finder<String,Category>(String.class,Category.class);
 	
 	/**
 	 * creates a product
@@ -85,7 +87,18 @@ public class Product extends Model {
 	public static void create(String name, int category_id, User owner, Date created, int quantity, double price, String description, String image_url) {
 		new Product(name, category_id, owner, created, quantity, price, description, image_url).save();
 	}
-	
+
+	// Constructor for "required" attributes
+	public Product(String name, double price, String description,int id) {
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.category_id=id;
+	}
+	public static void create(String name,  double price, String description,int id) {
+		new Product(name,  price, description,id).save();
+	}
+
 	/**
 	 * finds a product by his id
 	 * @param id int id of the product
@@ -94,6 +107,27 @@ public class Product extends Model {
 	public static Product find(int id) {
 		return find.byId(id);
 	}
+
+	public static List<Product> productList(){
+		return find.all();
+	}
+
+	public static List<Product> listByCategory(String category) {
+		int id=findCategory.where().eq("name",category).findUnique().id;
+		return find.where().eq("category_id",id).findList();
+		
+	}
+
+	//method which will find id of the product and delete it, else will throw exception,method is used in ProductApplication
+	public static void delete(int id) {
+		if (find.byId(id) == null) {
+			throw new IllegalArgumentException("Produkt ne postoji");
+		} else {
+			Product temp = find.byId(id);
+			temp.delete();
+		}
+	}
+
 	
 	
  

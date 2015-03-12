@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET		/list						controllers.UserController.list() 
+GET		/listofusers					controllers.UserController.list() 
 # Home page
 GET     /                       controllers.UserLoginApplication.homePage()
 # Routes for login, logout and registration
@@ -13,15 +13,27 @@ GET		/homepage				controllers.UserLoginApplication.homePage()
 GET    /register 				controllers.UserLoginApplication.register()
 GET		/toregister				controllers.UserLoginApplication.toRegister()
 
-GET		/@:username/delete		controllers.UserController.delete(username: String)
+GET		/confirm/:confirmation	controllers.Verification.validateEmail(confirmation: String)
 
-# Routes for adding product and choosing category
-GET		/addproduct/:id			controllers.ProductApplication.toInfo(id:Integer)
-POST  	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id: Integer)
-POST	/addproduct/homepage		controllers.UserLoginApplication.homePage()
+# Routes for CRUD product and category
+
+GET     /deleteproduct/:id         controllers.ProductApplication.deleteProduct(id: Integer)
+#POST     /deleteproductpage         controllers.ProductApplication.toDeleteProduct()
+GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
+GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
+POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
+GET		/@:username/delete		controllers.UserController.delete(username: String)
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
+GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer)
+GET 	/productpage			controllers.ProductApplication.productPage()
+
 GET		/category/:name			controllers.ProductApplication.category(name:String)
+GET 	/categorypage			controllers.CategoryApplication.categoryPage()
 GET 	/addnewcategory			controllers.CategoryApplication.addNewCategory()
 GET		/newcategory			controllers.CategoryApplication.addCategory()
+GET     /deletecategory/:id     controllers.CategoryApplication.deleteCategory(id: Integer)
+GET		/updatecategory/:id		controllers.CategoryApplication.updateCategory(id: Integer)
+POST	/updatecategory/:id		controllers.CategoryApplication.update(id:Integer)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

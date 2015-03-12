@@ -1,10 +1,16 @@
 package controllers;
 
+import helpers.MailHelper;
+
+import java.net.URL;
+import java.util.UUID;
+
 import models.*;
 import play.data.*;
 import play.db.ebean.Model.Finder;
 import play.mvc.*;
 import views.html.*;
+
 
 /**
  * Controls the login application Redirects on the pages when needed When the
@@ -16,12 +22,13 @@ import views.html.*;
  */
 public class UserLoginApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
-
+	
 	// main page
 	// login page
 	public static Result homePage() {
 		String name = session().get("username");
-		return ok(homePage.render(name));
+		
+		return ok(homePage.render(name,Category.list(),Product.productList()));
 	}
 
 	// tries to log user to page
@@ -54,16 +61,23 @@ public class UserLoginApplication extends Controller {
 	// if the user gets registered, he gets redirected to his home page
 	public static Result register() {
 		DynamicForm form = loginUser.form().bindFromRequest();
-		if (form.get("username").equals("") || form.get("username").equals(""))
+		if (form.get("username").equals(""))
 			return ok(toregister.render(loginUser));
 		else {
 			User u = loginUser.bindFromRequest().get();
+			u.confirmation = UUID.randomUUID().toString();
 			if (User.create(u.username, u.password)) {
 				session("username", u.username);
+			String urlS = "http://localhost:9000/confirm/" + u.confirmation;
+			URL url = new URL(urlS);
+			MailHelper.send(u.username, url.toString());
+			if (u.verification == true) {
 				return redirect("/homepage");
 			}
-
-			return ok(toregister.render(loginUser));
+			flash("validate", Messages.get("Please check your email"));
+			return redirect("/registration");
+		}else
+				return ok(toregister.render(loginUser));
 		}
 
 	}
