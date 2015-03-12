@@ -15,7 +15,7 @@ public class CategoryApplication extends Controller {
 
 	/**
 	 * Adding a new category in the db
-	 */	
+	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addCategory() {
 		DynamicForm form = Form.form().bindFromRequest();
@@ -23,19 +23,39 @@ public class CategoryApplication extends Controller {
 		Category.create(name);
 		return redirect("/");
 	}
-	
+
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewCategory() {
 		return ok(addcategorypage.render(categoryForm));
 	}
-	//method that should delete category and redirect to other products/uses delete method from Category class
-			public static Result deleteCategory(int id){
-				Category.delete(id);			
-				return redirect("/deletecategorypage");
-					
-			}
-			public static Result toDeleteCategory(){
-				return ok(deletecategorypage.render(Category.list()));
-			}
+
+	// method that should delete category and redirect to other products/uses
+	// delete method from Category class
+	public static Result deleteCategory(int id) {
+		Category.delete(id);
+		return redirect("/deletecategorypage");
+
+	}
+	
+	public static Result update(int id){
+		
+		Category updateCategory= Category.find(id);
+		updateCategory.name=categoryForm.bindFromRequest().field("name").value();
+		Category.update(updateCategory);
+		return redirect("/updatecategorypage");
+	}
+	
+	public static Result updateCategory(int id){
+		return ok(updatecategory.render(Category.find(id)));
+	}
+
+	public static Result toDeleteCategory() {
+		return ok(deletecategorypage.render(Category.list()));
+	}
+	
+	public static Result toUpdateCategory(){
+		return ok(updatecategorypage.render(Category.list()));
+	}
+	
 
 }
