@@ -57,6 +57,9 @@ public class ProductApplication extends Controller {
 				description,id);
 		return redirect("/homepage");
 	}
+	public static Result productPage(){
+		return ok(productpage.render(Product.productList()));
+	}
 
 	public static Result category(String name) {
 		return ok(category.render(name,Product.listByCategory(name)));
@@ -77,8 +80,12 @@ public class ProductApplication extends Controller {
 	//method that should delete product and redirect to other products/uses delete method from Product class
 	public static Result deleteProduct(int id) {
 		Product.delete(id);
-		return redirect("/deleteproductpage");
+		return redirect("/productpage");
 
+	}
+	
+	public static Result updateProduct(int id){
+		return TODO;
 	}
 
 }
