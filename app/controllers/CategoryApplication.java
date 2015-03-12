@@ -33,8 +33,11 @@ public class CategoryApplication extends Controller {
 	// delete method from Category class
 	public static Result deleteCategory(int id) {
 		Category.delete(id);
-		return redirect("/deletecategorypage");
+		return redirect("/categorypage");
 
+	}
+	public static Result categoryPage(){
+		return ok(categorypage.render(Category.list()));
 	}
 	
 	public static Result update(int id){
@@ -42,19 +45,11 @@ public class CategoryApplication extends Controller {
 		Category updateCategory= Category.find(id);
 		updateCategory.name=categoryForm.bindFromRequest().field("name").value();
 		Category.update(updateCategory);
-		return redirect("/updatecategorypage");
+		return redirect("/categorypage");
 	}
 	
 	public static Result updateCategory(int id){
 		return ok(updatecategory.render(Category.find(id)));
-	}
-
-	public static Result toDeleteCategory() {
-		return ok(deletecategorypage.render(Category.list()));
-	}
-	
-	public static Result toUpdateCategory(){
-		return ok(updatecategorypage.render(Category.list()));
 	}
 	
 

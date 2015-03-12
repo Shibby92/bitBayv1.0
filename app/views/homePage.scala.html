@@ -40,39 +40,29 @@
   
                    <ul class="nav navbar-nav">
                      @if(username.equals("Admin")) {
+                     	      	<li>
+                   <a href="/productpage">
+                         <button class="btn btn-success btn-login">Products</button>
+                        </a>
+						  </li>
                      	<li>
-                   <a href="/updatecategorypage">
-                         <button class="btn btn-success btn-login">Update Category</button>
+                   <a href="/categorypage">
+                         <button class="btn btn-success btn-login">Categories</button>
                         </a>
 						  </li>
-                   <li>
-                   <a href="/deleteproductpage">
-                         <button class="btn btn-success btn-login"> Delete Product</button>
-                        </a>
-						  </li>
-					<li>
-						<a href="/deletecategorypage">
-                         <button class="btn btn-success btn-login"> Delete Category</button>
-                        </a>
-					</li>
-					
-					<li>
-                        <a href="addnewcategory">
-                         <button class="btn btn-success btn-login"> Add New Category</button>
-                        </a>
-                    </li>
+                  
                     <li>
                         <a href="list">
                          <button class="btn btn-success btn-login"> List of users</button>
                         </a>
                     </li>
-                    }
+                    }else{
                     <li>
                         <a href="addproductcategory">
                          <button class="btn btn-success btn-login"> Add New Product</button>
                         </a>
                     </li>
-                    
+                    }
                     <li>
                        
                     </li>
