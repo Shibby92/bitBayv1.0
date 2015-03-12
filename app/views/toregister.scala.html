@@ -10,7 +10,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-               <a href="homepage"><img src="@routes.Assets.at("images/Logo.png")" /></a>
+               <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
                 
             </div>
         </div>
@@ -18,7 +18,7 @@
      </nav>
         <div class="row">
             <div class="col-md-12">
-                <div class="col-sm-4 col-lg-4 col-md-4">
+                <div class="col-sm-4">
                     <div class="well login-box">
 <form action="/register" method="GET">
 <legend>Register</legend>
@@ -27,7 +27,7 @@
     <dt><label for="username">Username</label></dt>
     
     <dd>
-    <input type="text" id="username" name="username" value="" placeholder="Enter username" class="form-control">
+    <input type="text" id="username" name="username" value="" placeholder="Enter username" class="form-control" required>
 </dd>
     
     
@@ -38,7 +38,7 @@
     <dt><label for="password">Password</label></dt>
     
     <dd>
-    <input type="password" id="password" name="password" placeholder="Enter password" class="form-control">
+    <input type="password" id="password" name="password" placeholder="Enter password" class="form-control" required>
 </dd>
         <dd class="info">Minimum length: 5</dd>
 </dl>
