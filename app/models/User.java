@@ -168,8 +168,9 @@ public class User extends Model {
         if (u == null) {
             return false;
         }
-        u.confirmation = null;
+       
         u.verification = true;
+        u.confirmation = null;
         u.save();
         return true;
     }
