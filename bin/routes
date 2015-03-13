@@ -13,7 +13,7 @@ GET		/homepage				controllers.UserLoginApplication.homePage()
 GET    /register 				controllers.UserLoginApplication.register()
 GET		/toregister				controllers.UserLoginApplication.toRegister()
 
-GET		/confirm/:confirmation	controllers.Verification.validateEmail(confirmation: String)
+GET		/confirm/:confirmation	controllers.Verification.verificateEmail(confirmation: String)
 
 # Routes for CRUD product and category
 
@@ -36,8 +36,6 @@ GET     /deletecategory/:id     controllers.CategoryApplication.deleteCategory(i
 GET		/updatecategory/:id		controllers.CategoryApplication.updateCategory(id: Integer)
 POST	/updatecategory/:id		controllers.CategoryApplication.update(id:Integer)
 
-
-GET		/admin						controllers.UserController.adminRender()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
