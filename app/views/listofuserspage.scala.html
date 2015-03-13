@@ -8,7 +8,7 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+				<a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
 			</div>
 		</div>
 		<!-- /.container -->
@@ -18,7 +18,7 @@
 		<div class="col-md-12">
 			<div class="col-sm-4">
 				<div class="well login-box">
-						<form action="updateuser/@user.id" method="POST"> 
+						<form action=@user.id method="POST"> 
 				<!--	<form action="routes.UserController.updateUser(@user.id)" method="POST"> -->
 						<legend>Update User </legend>
 						<dl class=" " id="name_field">
@@ -26,9 +26,16 @@
 							<dd>
 							<input value=@user.email name="email"id="email" placeholder="Change your email" type="text" class="form-control" />
 						
+						</dl><dl class=" " id="admin_field">
+							<dt><label for="admin">Is Admin:</label> </dt>
+							<dd>
+							<input value=@user.admin name="admin"id="admin" type="text" class="form-control" />
+						
 						</dl>
+							<div class="form-group text-center">
 							<input type="submit" class="btn btn-success" role="button" value="Update" required/> 
 							<a class="btn btn-danger" href="/" role="button">Cancel</a>
+							</div>
 						
 
 					</form>
