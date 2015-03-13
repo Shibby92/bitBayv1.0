@@ -46,8 +46,6 @@ public class UserLoginApplication extends Controller {
 				session("email", email);
 				return redirect("/homepage");
 			} else {
-				
-
 				return redirect("/login");
 			}
 

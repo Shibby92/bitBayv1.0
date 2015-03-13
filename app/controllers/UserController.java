@@ -6,6 +6,7 @@ import play.data.Form;
 import play.mvc.*;
 import views.*;
 import views.html.listofusers;
+import views.html.listofuserspage;
 
 public class UserController extends Controller {
 	
@@ -13,14 +14,23 @@ public class UserController extends Controller {
 
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateUser(int id) {
-		return TODO;
-		//return ok(listofuserspage.render(User.find(id)));
+		return ok(listofuserspage.render(User.find(id)));
 	}	
+	
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdate() {
 		
 		return ok(listofusers.render(User.all()));
 	}	
+	
+	@Security.Authenticated(AdminFilter.class)
+	public static Result updateUser(int id){
+		User updateUser= User.find(id);
+		updateUser.email=userForm.bindFromRequest().get().email;
+		User.update(updateUser);
+		return redirect("/listofusers");
+	}
+	
 	public static Result toList() {
 		return redirect("/listofusers");
 	}
@@ -46,12 +56,6 @@ public class UserController extends Controller {
 		return redirect("/listofusers");
 	}
 	
-	@Security.Authenticated(AdminFilter.class)
-	public static Result updateUser(int id){
-		User updateUser= User.find(id);
-		updateUser.email=userForm.bindFromRequest().get().email;
-		User.update(updateUser);
-		return redirect("/listofusers");
-	}
+	
 
 }
