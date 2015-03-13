@@ -85,7 +85,16 @@ public class ProductApplication extends Controller {
 	}
 	
 	public static Result updateProduct(int id){
-		return TODO;
+		return ok(updateproduct.render(Product.find(id)));
+	}
+	
+	public static Result update (int id){
+		Product updateProduct= Product.find(id);
+		updateProduct.name=productForm.bindFromRequest().field("name").value();
+		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
+		updateProduct.description=productForm.bindFromRequest().field("description").value();
+		Product.update(updateProduct);
+		return redirect("/productpage");
 	}
 
 }
