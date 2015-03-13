@@ -9,12 +9,12 @@ public class UserFilter extends Security.Authenticator {
 
 	@Override
 	public String getUsername(Context ctx) {
-		if(!ctx.session().containsKey("username"))
+		if(!ctx.session().containsKey("email"))
 			return null;
-		String username = ctx.session().get("username");
-		User u = User.find(username);
+		String email = ctx.session().get("email");
+		User u = User.find(email);
 		if (u != null)
-			return u.username;
+			return u.email;
 		return null;
 	}
 	

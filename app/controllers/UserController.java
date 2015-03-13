@@ -32,15 +32,5 @@ public class UserController extends Controller {
 		return TODO;
 	}
 	
-	@Security.Authenticated(AdminFilter.class)
-	public static Result admin() {
-		//return TODO;
-		return redirect("/admin");
-	}
-	
-	public static Result adminRender() {
-		return TODO;
-		//return ok(admin.render());
-	}
 
 }
