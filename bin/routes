@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET		/listofusers					controllers.UserController.list() 
+GET		/listofusers					controllers.UserController.toUpdate() 
 # Home page
 GET     /                       controllers.UserLoginApplication.homePage()
 # Routes for login, logout and registration
@@ -12,6 +12,8 @@ GET 	/logout					controllers.UserLoginApplication.logOut()
 GET		/homepage				controllers.UserLoginApplication.homePage()
 GET    /register 				controllers.UserLoginApplication.register()
 GET		/toregister				controllers.UserLoginApplication.toRegister()
+
+GET		/confirm/:confirmation	controllers.Verification.verificateEmail(confirmation: String)
 
 # Routes for CRUD product and category
 
@@ -23,15 +25,22 @@ POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
 GET		/@:username/delete		controllers.UserController.delete(username: String)
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer)
+POST 	/updateproduct/:id		controllers.ProductApplication.update(id:Integer)
 GET 	/productpage			controllers.ProductApplication.productPage()
 
 GET		/category/:name			controllers.ProductApplication.category(name:String)
 GET 	/categorypage			controllers.CategoryApplication.categoryPage()
 GET 	/addnewcategory			controllers.CategoryApplication.addNewCategory()
 GET		/newcategory			controllers.CategoryApplication.addCategory()
+
 GET     /deletecategory/:id     controllers.CategoryApplication.deleteCategory(id: Integer)
 GET		/updatecategory/:id		controllers.CategoryApplication.updateCategory(id: Integer)
 POST	/updatecategory/:id		controllers.CategoryApplication.update(id:Integer)
+GET     /deleteuser/:id         controllers.UserController.deleteUser(id:Integer)
+
+POST     /updateuser/:id           controllers.UserController.updateUser(id:Integer)
+GET    /updateuserpage/:id          controllers.UserController.toUpdateUser(id:Integer)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+

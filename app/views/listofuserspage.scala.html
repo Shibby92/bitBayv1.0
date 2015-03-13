@@ -1,6 +1,6 @@
-@(category: Category)
+@(user: User)
 
-@main("Update Category"){
+@main("Update User"){
 	
 	<body>
 
@@ -18,12 +18,12 @@
 		<div class="col-md-12">
 			<div class="col-sm-4">
 				<div class="well login-box">
-					<form action="/updatecategory/@category.id" method="POST">
+					<form action="/updateuser/@user.id" method="POST">
 						<legend>Update category </legend>
 						<dl class=" " id="name_field">
 							<dt><label for="name">Name:</label> </dt>
 							<dd>
-							<input value=@category.name name="name"id="name" placeholder="Name of category" type="text" class="form-control" />
+							<input value=@user.id name="name"id="name"  type="text" class="form-control" />
 						
 						</dl>
 							<input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update" required/> 
