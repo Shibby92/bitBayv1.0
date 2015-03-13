@@ -40,21 +40,30 @@
   
                    <ul class="nav navbar-nav">
                      @if(username.equals("Admin")) {
-                 	 <li>
-                        <a action="routes.UserController.admin">
-                         <button class="btn btn-success btn-login">Admin</button>
+                     	      	<li>
+                   <a href="/productpage">
+                         <button class="btn btn-success btn-login">Products</button>
+                        </a>
+						  </li>
+                     	<li>
+                   <a href="/categorypage">
+                         <button class="btn btn-success btn-login">Categories</button>
+                        </a>
+						  </li>
+                  
+                    <li>
+                        <a href="listofusers">
+                         <button class="btn btn-success btn-login"> List of users</button>
                         </a>
                     </li>
-					
-					
-                   
-                    }
+                    }else{
+
                     <li>
                         <a href="addproductcategory">
                          <button class="btn btn-success btn-login"> Add New Product</button>
                         </a>
                     </li>
-                    
+                    }
                     <li>
                        
                     </li>

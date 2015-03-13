@@ -4,13 +4,17 @@ import helpers.*;
 import models.User;
 import play.mvc.*;
 import views.*;
+import views.html.listofusers;
 
 public class UserController extends Controller {
 
 	@Security.Authenticated(AdminFilter.class)
 	public static Result list() {
-		return TODO;
-		//return ok(listofusers.render(User.all()));
+		
+		return ok(listofusers.render(User.all()));
+	}	
+	public static Result toList() {
+		return redirect("/listofusers");
 	}
 	
 	@Security.Authenticated(AdminFilter.class)
@@ -35,7 +39,8 @@ public class UserController extends Controller {
 	}
 	
 	public static Result adminRender() {
-		return ok(admin.render());
+		return TODO;
+		//return ok(admin.render());
 	}
 
 }

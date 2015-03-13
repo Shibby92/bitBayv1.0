@@ -1,0 +1,51 @@
+@(products:List[Product])
+@main("Categories") {
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+               <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+                
+            </div>
+        </div>
+        <!-- /.container -->
+     </nav>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-sm-4">
+                    <div class="well login-box">
+                        <form action="/">
+                          	<legend>List of all products: </legend>
+                            <div class="form-group">
+                                 <div class="list-group">
+                                 <a class="btn btn-success" href="/addproductcategory" role="button">Add new product</a>
+                  	 				 	 <div class="row">
+						@for(product <- products){
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="http://placehold.it/320x150" alt="">
+                            <div class="caption">
+                                <h4 class="pull-right">@product.price</h4>
+                                <h4><a href="#">@product.name</a>
+                                </h4>
+                                <p> @product.description </p>
+                                
+                            </div>
+                            <a class="btn btn-success" href="/updateproduct/@product.id" role="button">Update</a>
+	                  <a class="btn btn-danger" href="/deleteproduct/@product.id" role="button">Delete</a> 
+                        </div>
+                   </div>
+      
+}
+  </div>
+                				</div>	
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+}

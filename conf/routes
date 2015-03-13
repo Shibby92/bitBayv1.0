@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET		/list						controllers.UserController.list() 
+GET		/listofusers					controllers.UserController.list() 
 # Home page
 GET     /                       controllers.UserLoginApplication.homePage()
 # Routes for login, logout and registration
@@ -13,23 +13,28 @@ GET		/homepage				controllers.UserLoginApplication.homePage()
 GET    /register 				controllers.UserLoginApplication.register()
 GET		/toregister				controllers.UserLoginApplication.toRegister()
 
-# Routes for adding product,category and choosing category
+GET		/confirm/:confirmation	controllers.Verification.verificateEmail(confirmation: String)
 
+# Routes for CRUD product and category
+
+GET     /deleteproduct/:id         controllers.ProductApplication.deleteProduct(id: Integer)
+#POST     /deleteproductpage         controllers.ProductApplication.toDeleteProduct()
 GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
 GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
 POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
 GET		/@:username/delete		controllers.UserController.delete(username: String)
-
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
+GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer)
+GET 	/productpage			controllers.ProductApplication.productPage()
+
 GET		/category/:name			controllers.ProductApplication.category(name:String)
+GET 	/categorypage			controllers.CategoryApplication.categoryPage()
 GET 	/addnewcategory			controllers.CategoryApplication.addNewCategory()
 GET		/newcategory			controllers.CategoryApplication.addCategory()
 
-#Routes for deleting product or category
-#POST     /deleteproduct/:id         controllers.ProductApplication.deleteProduct(id: Integer)
-#POST     /deleteproductpage         controllers.ProductApplication.toDeleteProduct()
-GET     /deletecategory/:id         controllers.CategoryApplication.deleteCategory(id: Integer)
-GET		/deletecategorypage			controllers.CategoryApplication.toDeleteCategory()
+GET     /deletecategory/:id     controllers.CategoryApplication.deleteCategory(id: Integer)
+GET		/updatecategory/:id		controllers.CategoryApplication.updateCategory(id: Integer)
+POST	/updatecategory/:id		controllers.CategoryApplication.update(id:Integer)
 
 GET		/admin						controllers.UserController.adminRender()
 # Map static resources from the /public folder to the /assets URL path

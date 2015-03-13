@@ -1,11 +1,16 @@
 package controllers;
 
+import helpers.MailHelper;
+
+import java.net.URL;
+import java.util.UUID;
+
 import models.*;
 import play.data.*;
 import play.db.ebean.Model.Finder;
 import play.mvc.*;
 import views.html.*;
-
+import play.i18n.Messages;
 
 /**
  * Controls the login application Redirects on the pages when needed When the
@@ -53,19 +58,26 @@ public class UserLoginApplication extends Controller {
 	// tries to register user
 	// if there is already user with the same username he gets redirected to
 	// login page
-	// if the user gets registered, he gets redirected to his home page
+	// if the user gets registered, he gets a verification email on his email address
 	public static Result register() {
 		DynamicForm form = loginUser.form().bindFromRequest();
-		if (form.get("username").equals("") || form.get("username").equals(""))
+		if (form.get("username").equals(""))
 			return ok(toregister.render(loginUser));
 		else {
 			User u = loginUser.bindFromRequest().get();
+			u.confirmation = UUID.randomUUID().toString();
 			if (User.create(u.username, u.password)) {
 				session("username", u.username);
+			String urlS = "http://localhost:9000/confirm/" + u.confirmation;
+			URL url = new URL(urlS);
+			MailHelper.send(u.username, url.toString());
+			if (u.verification == true) {
 				return redirect("/homepage");
 			}
-
-			return ok(toregister.render(loginUser));
+			flash("validate", Messages.get("Please check your email"));
+			return redirect("/registration");
+		}else
+				return ok(toregister.render(loginUser));
 		}
 
 	}

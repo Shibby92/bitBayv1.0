@@ -39,6 +39,10 @@ public class User extends Model {
 	public String password;
 	
 	public boolean admin;
+	
+	public boolean verification = false;
+	
+	public String confirmation;
 
 	static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);
@@ -127,6 +131,32 @@ public class User extends Model {
 	public static List<User> all() {
 		return find.all();
 	}
+	
+	/**
+	 * finds a user by his confirmation string
+	 * @param confirmation String confirmation string
+	 * @return the user
+	 */
+	public static User findByConfirmation(String confirmation) {
+		return find.where().eq("confirmation", confirmation).findUnique();
+	}
+	
+	/**
+	 * confirms that there is a user 
+	 * adds verification = true in model
+	 * saves the user
+	 * @param u User
+	 * @return true or false
+	 */
+	public static boolean confirm(User u) {
+        if (u == null) {
+            return false;
+        }
+        u.confirmation = null;
+        u.verification = true;
+        u.save();
+        return true;
+    }
 	
 
 }
