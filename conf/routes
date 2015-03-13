@@ -39,7 +39,9 @@ POST	/updatecategory/:id		controllers.CategoryApplication.update(id:Integer)
 GET     /deleteuser/:id         controllers.UserController.deleteUser(id:Integer)
 
 POST     /updateuser/:id           controllers.UserController.updateUser(id:Integer)
-GET    /updateuserpage/:id          controllers.UserController.toUpdateUser(id:Integer)
+GET     /updateuser/:id          controllers.UserController.toUpdateUser(id:Integer)
+
+GET		/update					controllers.UserController.toList()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
