@@ -20,7 +20,7 @@ import views.html.*;
  */
 public class ProductApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
-
+	static Form<Product> productForm= new Form <Product>(Product.class);
 	// user picks new category for his product
 	@Security.Authenticated(UserFilter.class)
 	public static Result pickCategory() {
@@ -40,30 +40,45 @@ public class ProductApplication extends Controller {
 
 	@Security.Authenticated(UserFilter.class)
 	public static Result addAdditionalInfo(int id) {
-		DynamicForm form = Form.form().bindFromRequest();
-		String name = form.data().get("name");
-		User owner = new User(session().get("username"), form.get("password"));
-		int category_id = id;
-		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
-		Date created = new Date();
-		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
-		double price = Double.parseDouble(form.data().get("price"));
-		String description = form.data().get("description");
-		String image_url = "";// form.data().get("image url");
-		Product.create(name, category_id, owner, created, quantity, price,
-				description, image_url);
+		Form <Product> form=productForm.bindFromRequest();
+		//DynamicForm form = Form.form().bindFromRequest();
+		String name = form.get().name;
+//		User owner = new User(session().get("username"), form.get("password"));
+		
+//		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
+//		Date created = new Date();
+//		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
+		//double price= 100;
+		double price = form.get().price;
+		String description = form.get().description;
+//		String image_url = "";// form.data().get("image url");
+		
+		Product.create(name, price,
+				description,id);
 		return redirect("/homepage");
 	}
 
 	public static Result category(String name) {
-		return ok(category.render(name));
+		return ok(category.render(name,Product.listByCategory(name)));
 	}
 
 	public static Result toPickCategory() {
-		return ok(addproductcategory.render());
+		return ok(addproductcategory.render(Category.list()));
 	}
 
 	public static Result toInfo(int id) {
-		return ok(addproduct.render(id));
+		
+		return ok(addproduct.render(id,productForm));
 	}
+	
+	//public static Result toDeleteProduct(){
+	//	return ok(deleteproductpage.render(Product.list()));
+	//}
+	//method that should delete product and redirect to other products/uses delete method from Product class
+	public static Result deleteProduct(int id) {
+		Product.delete(id);
+		return redirect("/deleteproductpage");
+
+	}
+
 }

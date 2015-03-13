@@ -6,6 +6,7 @@ import play.db.ebean.Model.Finder;
 import play.mvc.*;
 import views.html.*;
 
+
 /**
  * Controls the login application Redirects on the pages when needed When the
  * user registers, he gets redirected to page with ads If the user is already
@@ -16,12 +17,13 @@ import views.html.*;
  */
 public class UserLoginApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
-
+	
 	// main page
 	// login page
 	public static Result homePage() {
 		String name = session().get("username");
-		return ok(homePage.render(name));
+		
+		return ok(homePage.render(name,Category.list(),Product.productList()));
 	}
 
 	// tries to log user to page

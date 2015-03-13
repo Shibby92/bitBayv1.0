@@ -1,6 +1,9 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.*;
+
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
@@ -29,5 +32,22 @@ public class Category extends Model {
 		Category found=find.where().eq("name", name).findUnique();
 		return found.id;
 	}
+	public static List list(){
+		return find.all();
+	}
+	static Finder <Integer,Category> findId= new Finder<Integer,Category> (Integer.class,Category.class);
+	
+	//method which will find id of the category and delete it, else will throw exception,method is used in CategoryApplication
+		public static void delete(int id) {
+			findId.byId(id).delete();
+			
+		}
+		//public static Category find(int id) {
+		//	return findId.byId(id);
+		//}
+		
+
+
+
 
 }

@@ -28,4 +28,14 @@ public class CategoryApplication extends Controller {
 	public static Result addNewCategory() {
 		return ok(addcategorypage.render(categoryForm));
 	}
+	//method that should delete category and redirect to other products/uses delete method from Category class
+			public static Result deleteCategory(int id){
+				Category.delete(id);			
+				return redirect("/deletecategorypage");
+					
+			}
+			public static Result toDeleteCategory(){
+				return ok(deletecategorypage.render(Category.list()));
+			}
+
 }

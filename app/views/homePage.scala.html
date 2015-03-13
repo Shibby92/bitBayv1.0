@@ -1,4 +1,4 @@
-@(username: String)
+@(username: String, categoryList:List[Category], products:List[Product])
 
 @main("HomePage") {
 
@@ -39,23 +39,15 @@
                  } else {
   
                    <ul class="nav navbar-nav">
-                    
-                   <li>
-						  </li>
-					<li>
-						
-					</li>
-					 @if(username.equals("Admin")) {
-					<li>
-                        <a href="addnewcategory">
-                         <button class="btn btn-success btn-login"> Add New Category</button>
+                     @if(username.equals("Admin")) {
+                 	 <li>
+                        <a action="routes.UserController.admin">
+                         <button class="btn btn-success btn-login">Admin</button>
                         </a>
                     </li>
-                    <li>
-                        <a href="list">
-                         <button class="btn btn-success btn-login"> List of users</button>
-                        </a>
-                    </li>
+					
+					
+                   
                     }
                     <li>
                         <a href="addproductcategory">
@@ -91,14 +83,9 @@
             <div class="col-md-3">
                
                 <div class="list-group">
-	                    <a href="category/Fashion" class="list-group-item">Fashion</a>
-	                    <a href="category/Collectibles & Art" class="list-group-item">Collectibles & Art</a>
-	                    <a href="category/Sporting Goods" class="list-group-item">Sporting Goods</a>
-						<a href="category/Electronics" class="list-group-item">Electronics</a>
-	 					<a href="category/Home & Garden" class="list-group-item">Home & Garden</a>
-	                    <a href="category/Toys & Hobbies" class="list-group-item">Toys & Hobbies</a>
-	                    <a href="category/Entertainment" class="list-group-item">Entertainment</a>
-	                    <a href="category/Motors" class="list-group-item">Motors</a>
+                @for(category <- categoryList){
+	                    <a href="category/@category.name" class="list-group-item">@category.name</a>
+	         }
                    
                 </div>
             </div>
@@ -147,22 +134,25 @@
                     </div>
 
                 </div>
-
-                <div class="row">
+                  <div class="row">
+@for(product <- products){
+              
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <img src="http://placehold.it/320x150" alt="">
                             <div class="caption">
-                                <h4 class="pull-right">$24.99</h4>
-                                <h4><a href="#">First Product</a>
+                                <h4 class="pull-right">@product.price</h4>
+                                <h4><a href="#">@product.name</a>
                                 </h4>
+                                <p> @product.description </p>
                                 
                             </div>
                         </div>
                    </div>
-        </div>
-
+      
+}
+  </div>
     </div>
     <!-- /.container -->
 
