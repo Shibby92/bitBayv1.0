@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import play.Logger;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
@@ -29,7 +30,7 @@ public class User extends Model {
 
 	@Required
 	@MinLength(5)
-	@Column(unique = true)
+	//@Column(unique = true)
 	@MaxLength(10)
 	@Email
 	public String email;
@@ -164,14 +165,19 @@ public class User extends Model {
 	 * @param u User
 	 * @return true or false
 	 */
-	public static boolean confirm(User u) {
+	public static synchronized boolean confirm(User u) {
+		
         if (u == null) {
             return false;
         }
-       
+   
         u.verification = true;
         u.confirmation = null;
         u.save();
+        
+        
+      
+      
         return true;
     }
 	
@@ -179,9 +185,9 @@ public class User extends Model {
 		find.byId(id).delete();
 		
 	}
-	public static void update(User user) {
-		user.save();
-	}
+//	public static void update(User user) {
+//		user.save();
+//	}
 
 
 }

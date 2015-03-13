@@ -27,7 +27,7 @@ public class UserController extends Controller {
 	public static Result updateUser(int id){
 		User updateUser= User.find(id);
 		updateUser.email=userForm.bindFromRequest().get().email;
-		User.update(updateUser);
+		//User.update(updateUser);
 		return redirect("/listofusers");
 	}
 	

@@ -9,16 +9,15 @@ import play.mvc.Result;
 public class Verification extends Controller{
 	
 	public static Result verificateEmail(String confirmation) {
+		
 		User u = User.findByConfirmation(confirmation);
-		Logger.debug(confirmation);
 		 if(confirmation == null) {
-			 Logger.debug("conf null");
 			 flash("error", Messages.get("error"));
 	            return redirect("/");
 		 }
 		 if (User.confirm(u)) {
 			 Logger.debug("conf good");
-	            flash("success", Messages.get("Successfully verificated!"));
+	            flash("success", "Successful verification!");
 	            return redirect("/login");
 	        } else {
 	        	 Logger.debug("conf fail");
