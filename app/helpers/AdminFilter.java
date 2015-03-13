@@ -1,11 +1,17 @@
 package helpers;
 
+
+
+import org.apache.log4j.Logger;
+
 import models.User;
 import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.Http.Context;
 
 public class AdminFilter extends Security.Authenticator {
+	
+	private static final Logger LOGGER = Logger.getLogger(AdminFilter.class);//Logger
 
 	@Override
 	public String getUsername(Context ctx) {
