@@ -24,10 +24,12 @@ create table product (
 
 create table user (
   id                        integer not null,
-  username                  varchar(255),
+  email                     varchar(255),
   password                  varchar(255),
   admin                     boolean,
-  constraint uq_user_username unique (username),
+  verification              boolean,
+  confirmation              varchar(255),
+  constraint uq_user_email unique (email),
   constraint pk_user primary key (id))
 ;
 

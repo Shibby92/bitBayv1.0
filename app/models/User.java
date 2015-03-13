@@ -66,10 +66,11 @@ public class User extends Model {
 		this.confirmation = confirmation;
 	}
 	
-	public User(String username, String password, boolean admin) {
+	public User(String email, String password, boolean admin, boolean verification) {
 		this.email = email;
 		this.password = password;
 		this.admin = admin;
+		this.verification = verification;
 	}
 
 	/**
@@ -96,7 +97,7 @@ public class User extends Model {
 	}
 	
 	public static void create(User user) {
-		new User(user.email, user.password, user.admin).save();
+		new User(user.email, user.password, user.admin, user.verification).save();
 	}
 
 	/**
@@ -173,5 +174,13 @@ public class User extends Model {
         return true;
     }
 	
+	public static void delete(int id){
+		find.byId(id).delete();
+		
+	}
+	public static void update(User user) {
+		user.save();
+	}
+
 
 }
