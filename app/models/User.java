@@ -127,6 +127,13 @@ public class User extends Model {
 	public static List<User> all() {
 		return find.all();
 	}
-	
+	public static void delete(int id){
+		find.byId(id).delete();
+		
+	}
+	public static void update(User user) {
+		user.save();
+	}
+
 
 }
