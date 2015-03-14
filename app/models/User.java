@@ -30,14 +30,14 @@ public class User extends Model {
 
 	@Required
 	@MinLength(5)
-	//@Column(unique = true)
+	@Column(unique = true)
 	@MaxLength(10)
 	@Email
 	public String email;
 
 	@Required
 	@MinLength(5)
-	@MaxLength(100)
+	@MaxLength(50)
 	public String password;
 	
 	public boolean admin;
@@ -185,9 +185,9 @@ public class User extends Model {
 		find.byId(id).delete();
 		
 	}
-//	public static void update(User user) {
-//		user.save();
-//	}
+	public static void update(User user) {
+		user.save();
+	}
 
 
 }
