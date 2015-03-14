@@ -2,6 +2,7 @@ package controllers;
 
 import helpers.MailHelper;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
 
@@ -10,7 +11,7 @@ import play.data.*;
 import play.db.ebean.Model.Finder;
 import play.mvc.*;
 import views.html.*;
-
+import play.i18n.Messages;
 
 /**
  * Controls the login application Redirects on the pages when needed When the
@@ -26,9 +27,9 @@ public class UserLoginApplication extends Controller {
 	// main page
 	// login page
 	public static Result homePage() {
-		String name = session().get("username");
+		String email = session().get("email");
 		
-		return ok(homePage.render(name,Category.list(),Product.productList()));
+		return ok(homePage.render(email,Category.list(),Product.productList()));
 	}
 
 	// tries to log user to page
@@ -37,16 +38,14 @@ public class UserLoginApplication extends Controller {
 	public static Result login() {
 		DynamicForm form = Form.form().bindFromRequest();
 
-		String username = form.get("username");
+		String email = form.get("email");
 		String password = form.get("password");
 
-		if (User.existsUsername(username)) {
-			if (User.checkLogin(username, password)) {
-				session("username", username);
+		if (User.existsEmail(email)) {
+			if (User.checkLogin(email, password)) {
+				session("email", email);
 				return redirect("/homepage");
 			} else {
-				
-
 				return redirect("/login");
 			}
 
@@ -58,24 +57,27 @@ public class UserLoginApplication extends Controller {
 	// tries to register user
 	// if there is already user with the same username he gets redirected to
 	// login page
-	// if the user gets registered, he gets redirected to his home page
-	public static Result register() {
+	// if the user gets registered, he gets a verification email on his email address
+	@SuppressWarnings("static-access")
+	public static Result register() throws MalformedURLException {
 		DynamicForm form = loginUser.form().bindFromRequest();
-		if (form.get("username").equals(""))
+		if (form.get("email").equals(""))
 			return ok(toregister.render(loginUser));
 		else {
-			User u = loginUser.bindFromRequest().get();
-			u.confirmation = UUID.randomUUID().toString();
-			if (User.create(u.username, u.password)) {
-				session("username", u.username);
-			String urlS = "http://localhost:9000/confirm/" + u.confirmation;
+			//User u = loginUser.bindFromRequest().get();
+			String email = form.get("email");
+			String password = form.get("password");
+			String confirmation = UUID.randomUUID().toString();
+			User u = new User(email, password, confirmation);
+			if (User.create(email, password, confirmation)) {
+			String urlS = "http://localhost:9000" + "/" + "confirm/" + confirmation;
 			URL url = new URL(urlS);
-			MailHelper.send(u.username, url.toString());
+			MailHelper.send(email, url.toString()); 
 			if (u.verification == true) {
 				return redirect("/homepage");
 			}
 			flash("validate", Messages.get("Please check your email"));
-			return redirect("/registration");
+			return redirect("/login");
 		}else
 				return ok(toregister.render(loginUser));
 		}

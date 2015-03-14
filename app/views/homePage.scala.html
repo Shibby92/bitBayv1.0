@@ -1,4 +1,4 @@
-@(username: String, categoryList:List[Category], products:List[Product])
+@(email: String, categoryList:List[Category], products:List[Product])
 
 @main("HomePage") {
 
@@ -16,7 +16,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             	
-                  @if(username == null) {
+                  @if(email == null) {
                     <ul class="nav navbar-nav">
                      <li>
                     
@@ -39,7 +39,7 @@
                  } else {
   
                    <ul class="nav navbar-nav">
-                     @if(username.equals("Admin")) {
+                     @if(email.equals("admin@gmail.com")) {
                      	      	<li>
                    <a href="/productpage">
                          <button class="btn btn-success btn-login">Products</button>
@@ -57,6 +57,7 @@
                         </a>
                     </li>
                     }else{
+
                     <li>
                         <a href="addproductcategory">
                          <button class="btn btn-success btn-login"> Add New Product</button>

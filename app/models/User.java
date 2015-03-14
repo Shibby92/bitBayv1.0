@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import play.Logger;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
@@ -29,9 +30,10 @@ public class User extends Model {
 
 	@Required
 	@MinLength(5)
-	@Column(unique = true)
+	//@Column(unique = true)
 	@MaxLength(10)
-	public String username;
+	@Email
+	public String email;
 
 	@Required
 	@MinLength(5)
@@ -49,48 +51,63 @@ public class User extends Model {
 
 	/**
 	 * creates a user
-	 * @param username String username of the user
+	 * @param username String email of the user
 	 * @param password String password of the user
 	 */
-	public User(String username, String password) {
-		this.username = username;
+	public User(String email, String password) {
+		this.email = email;
 		this.password = password;
 		this.admin = false;
 	}
 	
-	public User(String username, String password, boolean admin) {
-		this.username = username;
+	public User(String email, String password, String confirmation) {
+		this.email = email;
+		this.password = password;
+		this.admin = false;
+		this.confirmation = confirmation;
+	}
+	
+	public User(String email, String password, boolean admin, boolean verification) {
+		this.email = email;
 		this.password = password;
 		this.admin = admin;
+		this.verification = verification;
 	}
 
 	/**
-	 * Creates a user with username and password
-	 * Checks if the username already exists
-	 * @param username String username of the user
+	 * Creates a user with email and password
+	 * Checks if the email already exists
+	 * @param username String email of the user
 	 * @param password String password of the user
-	 * @param username String username of the user
+	 * @param username String email of the user
 	 * @param password String password of the user
 	 * @return true or false(if the user is registered)
 	 */
-	public static boolean create(String username, String password) {
-		if (existsUsername(username))
+	public static boolean create(String email, String password) {
+		if (existsEmail(email))
 			return false;
-		new User(username, HashHelper.createPassword(password)).save();
+		new User(email, HashHelper.createPassword(password)).save();
+		return true;
+	}
+	
+	public static boolean create(String email, String password, String confirmation) {
+		if (existsEmail(email))
+			return false;
+		new User(email, HashHelper.createPassword(password), confirmation).save();
 		return true;
 	}
 	
 	public static void create(User user) {
-		new User(user.username, user.password, user.admin).save();
+		new User(user.email, user.password, user.admin, user.verification).save();
 	}
 
 	/**
-	 * checks if the username is already in database
-	 * @param username String username of the user
-	 * @return true or false(if the username is already in database)
+	 * checks if the email is already in database
+	 * @param username String email of the user
+	 * @return true or false(if the email is already in database)
 	 */
-	public static boolean existsUsername(String username) {
-		if (find.where().eq("username", username).findList().isEmpty()) {
+	public static boolean existsEmail(String email) {
+		if (find.where().eq("email", email).findList().isEmpty()) {
 			return false;
 		}
 		return true;
@@ -106,23 +123,23 @@ public class User extends Model {
 	}
 	
 	/**
-	 * finds a user with his username
-	 * @param username String username of the user
+	 * finds a user with his email
+	 * @param username String email of the user
 	 * @return the user
 	 */
-	public static User find(String username) {
-		return find.where().eq("username", username).findUnique();
+	public static User find(String email) {
+		return find.where().eq("email", email).findUnique();
 	}
 
 	/**
-	 * Checking for user's username and password
-	 * @param username String The username of the user
+	 * Checking for user's email and password
+	 * @param username String The email of the user
 	 * @param password String Password of the user
 	 * @return true or false
 	 */
-	public static boolean checkLogin(String username, String password) {
-			User foundUser = find.where().eq("username", username).findUnique();
-			return HashHelper.checkPassword(password, foundUser.password);
+	public static boolean checkLogin(String email, String password) {
+			User foundUser = find.where().eq("email", email).findUnique();
+			return HashHelper.checkPassword(password, foundUser.password) && foundUser.verification == true;
 	}
 	
 	/**
@@ -148,15 +165,29 @@ public class User extends Model {
 	 * @param u User
 	 * @return true or false
 	 */
-	public static boolean confirm(User u) {
+	public static synchronized boolean confirm(User u) {
+		
         if (u == null) {
             return false;
         }
-        u.confirmation = null;
+   
         u.verification = true;
+        u.confirmation = null;
         u.save();
+        
+        
+      
+      
         return true;
     }
 	
+	public static void delete(int id){
+		find.byId(id).delete();
+		
+	}
+//	public static void update(User user) {
+//		user.save();
+//	}
+
 
 }
