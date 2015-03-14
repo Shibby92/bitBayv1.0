@@ -39,7 +39,7 @@
                  } else {
   
                    <ul class="nav navbar-nav">
-                     @if(email.equals("admin@gmail.com")) {
+                     @if(User.find(email).admin == true) {
                      	      	<li>
                    <a href="/productpage">
                          <button class="btn btn-success btn-login">Products</button>

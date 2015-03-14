@@ -174,10 +174,7 @@ public class User extends Model {
         u.verification = true;
         u.confirmation = null;
         u.save();
-        
-        
-      
-      
+            
         return true;
     }
 	

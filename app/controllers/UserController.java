@@ -36,24 +36,11 @@ public class UserController extends Controller {
 		return redirect("/listofusers");
 	}
 	
+	@Security.Authenticated(AdminFilter.class)
 	public static Result toList() {
 		return redirect("/listofusers");
 	}
 	
-	@Security.Authenticated(AdminFilter.class)
-	public static Result delete(String username){
-		return TODO;
-	}
-	
-	@Security.Authenticated(AdminFilter.class)
-	public static Result update(String username) {
-		return TODO;
-	}
-	
-	@Security.Authenticated(UserFilter.class)
-	public static Result edit(String username) {
-		return TODO;
-	}
 
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteUser(int id){

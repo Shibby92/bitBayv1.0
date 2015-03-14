@@ -22,7 +22,6 @@ GET     /deleteproduct/:id         controllers.ProductApplication.deleteProduct(
 GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
 GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
 POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
-GET		/@:username/delete		controllers.UserController.delete(username: String)
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer)
 POST 	/updateproduct/:id		controllers.ProductApplication.update(id:Integer)
