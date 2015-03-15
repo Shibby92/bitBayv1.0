@@ -40,17 +40,18 @@ public class ProductApplication extends Controller {
 
 	@Security.Authenticated(UserFilter.class)
 	public static Result addAdditionalInfo(int id) {
-		Form <Product> form=productForm.bindFromRequest();
-		//DynamicForm form = Form.form().bindFromRequest();
-		String name = form.get().name;
+		//Form <Product> form=productForm.bindFromRequest();
+		DynamicForm form = Form.form().bindFromRequest();
+		String name = form.get("name");
 //		User owner = new User(session().get("username"), form.get("password"));
 		
 //		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
 //		Date created = new Date();
 //		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
 		//double price= 100;
-		double price = form.get().price;
-		String description = form.get().description;
+		double price = Double.valueOf(form.get("price"));
+		
+		String description = form.get("description");
 //		String image_url = "";// form.data().get("image url");
 		
 		Product.create(name, price,

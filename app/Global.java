@@ -9,16 +9,20 @@ public class Global extends GlobalSettings{
 	
 	
 	public void onStart(Application app) {
+		Finder<String, User> find = new Finder<String, User>(String.class, User.class);
 		
+		if(!find.equals("admin@gmail.com")){
 		User u = new User("admin@gmail.com",HashHelper.createPassword("admin"), true, true);
 		User.create(u);
+		u.id = 0;
 		
 		User u2 = new User("mustafa@gmail.com",HashHelper.createPassword("123456"), false, true);
 		User.create(u2);
+		u.id = 1;
+		}
 
 		Category.create("Fashion");
-		Category.create("Phones");
-		Category.create("Houses");
+		
 		
 	}
 
