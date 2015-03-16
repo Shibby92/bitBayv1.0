@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import play.Logger;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
@@ -36,7 +37,7 @@ public class User extends Model {
 
 	@Required
 	@MinLength(5)
-	@MaxLength(100)
+	@MaxLength(50)
 	public String password;
 	
 	public boolean admin;
@@ -164,14 +165,16 @@ public class User extends Model {
 	 * @param u User
 	 * @return true or false
 	 */
-	public static boolean confirm(User u) {
+	public static synchronized boolean confirm(User u) {
+		
         if (u == null) {
             return false;
         }
-       
+   
         u.verification = true;
         u.confirmation = null;
         u.save();
+            
         return true;
     }
 	

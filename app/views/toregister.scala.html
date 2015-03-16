@@ -27,7 +27,7 @@
     <dt><label for="email">Email</label></dt>
     
     <dd>
-    <input type="text" id="email" name="email" value="" placeholder="Enter email" class="form-control" required>
+    <input type="email" id="email" name="email" value="" placeholder="Enter email" class="form-control" required>
 </dd>
     
     
@@ -38,7 +38,7 @@
     <dt><label for="password">Password</label></dt>
     
     <dd>
-    <input type="password" id="password" name="password" placeholder="Enter password" class="form-control" required>
+    <input type="password" id="password" name="password" placeholder="Enter password" class="form-control" pattern=".{5,50}" required >
 </dd>
         <dd class="info">Minimum length: 5</dd>
 </dl>

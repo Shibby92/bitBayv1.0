@@ -28,30 +28,19 @@ public class UserController extends Controller {
 	public static Result updateUser(int id){
 		DynamicForm form =  Form.form().bindFromRequest();
 		User updateUser= User.find(id);
+
 		updateUser.email=form.get("email");
 		updateUser.admin = Boolean.parseBoolean(form.get("admin"));
 		User.update(updateUser);
+
 		return redirect("/listofusers");
 	}
 	
+	@Security.Authenticated(AdminFilter.class)
 	public static Result toList() {
 		return redirect("/listofusers");
 	}
 	
-	@Security.Authenticated(AdminFilter.class)
-	public static Result delete(String username){
-		return TODO;
-	}
-	
-	@Security.Authenticated(AdminFilter.class)
-	public static Result update(String username) {
-		return TODO;
-	}
-	
-	@Security.Authenticated(UserFilter.class)
-	public static Result edit(String username) {
-		return TODO;
-	}
 
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteUser(int id){

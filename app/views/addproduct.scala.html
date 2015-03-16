@@ -24,12 +24,12 @@
 						
 						<dl class=" " id="name_field">
 							<dt><label for="name">Name:</label> </dt>
-							<dd><input value='' name="name" id="name" placeholder="Name of your product" type="text" class="form-control" /></dd>
+							<dd><input value='' name="name" id="name" placeholder="Name of your product" type="text" class="form-control" required/></dd>
 						</dl>
 						
 						<dl class=" " id="price_field">
 							<dt><label for="price">Price:</label> </dt>
-							<dd><input name="price" id="price" value='' placeholder="Enter price of your product" type="number" step="0.01" class="form-control" required/> </dd>
+							<dd><input name="price" id="price" value='' placeholder="Enter price of your product" type="number" step="0.01" min="0"  max="999999" class="form-control" required/> </dd>
 						</dl>
 						
 						<dl class=" " id="description_field">

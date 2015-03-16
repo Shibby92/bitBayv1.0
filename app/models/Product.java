@@ -1,9 +1,13 @@
+
+
 package models;
 
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
@@ -37,6 +41,7 @@ public class Product extends Model {
 	public int quantity;
 
 	@Required
+	@Min(0)
 	public double price;
 
 	@Required
