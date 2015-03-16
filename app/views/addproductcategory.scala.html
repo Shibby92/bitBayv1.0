@@ -1,4 +1,4 @@
-
+@(categoryList: List[Category])
 @main("Adding category to your product") {
 
     <!-- Navigation -->
@@ -19,11 +19,11 @@
                           	<legend>Select category: </legend>
                             <div class="form-group">
                                  <div class="list-group">
-                  	 				 	<a href="addproduct/1" class="list-group-item">Fashion</a>
-                    					<a href="addproduct" class="list-group-item">Collectibles & Art</a>
-                   						<a href="addproduct" class="list-group-item">Sporting Goods</a>
-                   						  <div class="col-sm-4 well2 login-box">
+							@for(category <- categoryList){
+	                    <a href="addproductpage/@category.id" class="list-group-item">@category.name</a>
+	         }						<div class="form-group text-center">
                    						<a class="btn btn-danger" href="homepage" role="button">Cancel</a>
+                   						</div>
                 					</div>
                 				</div>	
                             </div>

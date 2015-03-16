@@ -1,0 +1,53 @@
+package controllers;
+
+import helpers.*;
+import models.User;
+import play.data.DynamicForm;
+import play.data.Form;
+import play.mvc.*;
+import views.*;
+import views.html.listofusers;
+import views.html.listofuserspage;
+
+public class UserController extends Controller {
+	
+	static Form<User> userForm = new Form<User>(User.class);
+
+	@Security.Authenticated(AdminFilter.class)
+	public static Result toUpdateUser(int id) {
+		return ok(listofuserspage.render(User.find(id)));
+	}	
+	
+	@Security.Authenticated(AdminFilter.class)
+	public static Result toUpdate() {
+		
+		return ok(listofusers.render(User.all()));
+	}	
+	
+	@Security.Authenticated(AdminFilter.class)
+	public static Result updateUser(int id){
+		DynamicForm form =  Form.form().bindFromRequest();
+		User updateUser= User.find(id);
+
+		updateUser.email=form.get("email");
+		updateUser.admin = Boolean.parseBoolean(form.get("admin"));
+		User.update(updateUser);
+
+		return redirect("/listofusers");
+	}
+	
+	@Security.Authenticated(AdminFilter.class)
+	public static Result toList() {
+		return redirect("/listofusers");
+	}
+	
+
+	@Security.Authenticated(AdminFilter.class)
+	public static Result deleteUser(int id){
+		User.delete(id);
+		return redirect("/listofusers");
+	}
+	
+	
+
+}

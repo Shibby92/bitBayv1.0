@@ -1,4 +1,4 @@
-@(id:Integer)
+@(id:Integer,productForm: Form[Product])
  @main("Add your additional info") {
 <body>
 
@@ -16,25 +16,32 @@
 		<div class="col-md-12">
 			<div class="col-sm-4">
 				<div class="well login-box">
-					<form action="" method="POST">
-						<legend>Add your additional info </legend>
-
-						<div class="form-group">
-							<label for="name">Name:</label> 
-							<input value='' name="name"id="name" placeholder="Name of your product" type="text" class="form-control" />
-						</div>
-
-						<div class="form-group">
-							<label for="description">Description:</label> 
-							<input name="descripiton" id="description" value='' placeholder="Enter description" type="text" class="form-control" required/>
-						</div>
-						<div class="form-group">
-							<label for="price">Price:</label> 
-							<input name="price" id="price" value='' placeholder="Enter price of your product" type="number" class="form-control" required/>
-						</div>
+				 
+					<form action="@routes.ProductApplication.addAdditionalInfo(id)"  method="GET">
+						<legend>Add product </legend>
+						
+						
+						
+						<dl class=" " id="name_field">
+							<dt><label for="name">Name:</label> </dt>
+							<dd><input value='' name="name" id="name" placeholder="Name of your product" type="text" class="form-control" required/></dd>
+						</dl>
+						
+						<dl class=" " id="price_field">
+							<dt><label for="price">Price:</label> </dt>
+							<dd><input name="price" id="price" value='' placeholder="Enter price of your product" type="number" step="0.01" min="0"  max="999999" class="form-control" required/> </dd>
+						</dl>
+						
+						<dl class=" " id="description_field">
+							<dt><label for="description">Description:</label> </dt>
+							<dd><input name="description" id="description" value='' placeholder="Enter description" type="text" class="form-control" required/> </dd>
+						</dl>
+					
+						
+						
 						<div class="form-group text-center">
-							<a class="btn btn-success btn-login-submit" href="/homepage" role="button">Add Product</a> 
-							<a class="btn btn-danger" href="/homepage" role="button">Cancel</a>
+							<input type="submit" value="Add" class="btn btn-success"/>
+							<a href="/addproductcategory" class="btn btn-danger"> Back </a>
 						</div>
 
 					</form>
