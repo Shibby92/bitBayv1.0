@@ -2,6 +2,7 @@ package controllers;
 
 import helpers.*;
 import models.User;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
 import views.*;
@@ -25,9 +26,13 @@ public class UserController extends Controller {
 	
 	@Security.Authenticated(AdminFilter.class)
 	public static Result updateUser(int id){
+		DynamicForm form =  Form.form().bindFromRequest();
 		User updateUser= User.find(id);
-		updateUser.email=userForm.bindFromRequest().get().email;
-		//User.update(updateUser);
+
+		updateUser.email=form.get("email");
+		updateUser.admin = Boolean.parseBoolean(form.get("admin"));
+		User.update(updateUser);
+
 		return redirect("/listofusers");
 	}
 	

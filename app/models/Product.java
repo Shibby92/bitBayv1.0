@@ -129,6 +129,9 @@ public class Product extends Model {
 			temp.delete();
 		}
 	}
+	public static void update(Product product) {
+		product.save();
+	}
 
 	
 	

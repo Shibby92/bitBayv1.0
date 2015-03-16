@@ -185,9 +185,9 @@ public class User extends Model {
 		find.byId(id).delete();
 		
 	}
-//	public static void update(User user) {
-//		user.save();
-//	}
+	public static void update(User user) {
+		user.save();
+	}
 
 
 }
