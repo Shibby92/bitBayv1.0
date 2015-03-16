@@ -83,6 +83,8 @@ public class UserLoginApplication extends Controller {
 		}
 
 	}
+	
+
 
 	// goes to page where the user can be registered
 	public static Result toRegister() {

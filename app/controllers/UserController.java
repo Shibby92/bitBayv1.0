@@ -1,5 +1,7 @@
 package controllers;
 
+import java.net.MalformedURLException;
+
 import helpers.*;
 import models.User;
 import play.data.DynamicForm;
@@ -25,13 +27,17 @@ public class UserController extends Controller {
 	}	
 	
 	@Security.Authenticated(AdminFilter.class)
-	public static Result updateUser(int id){
+	public static Result updateUser(int id) throws MalformedURLException{
 		DynamicForm form =  Form.form().bindFromRequest();
 		User updateUser= User.find(id);
 
 		updateUser.email=form.get("email");
 		updateUser.admin = Boolean.parseBoolean(form.get("admin"));
-		User.update(updateUser);
+		if(!User.find(id).email.equals(updateUser.email)) {
+			
+				User.editEmailVerification(id);
+		}
+		//User.update(updateUser);
 
 		return redirect("/listofusers");
 	}

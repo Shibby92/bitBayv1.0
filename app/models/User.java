@@ -2,15 +2,22 @@ package models;
 
 
 import helpers.HashHelper;
+import helpers.MailHelper;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.*;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.*;
 
 import play.Logger;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
+import play.mvc.Result;
 
 /**
  * Creates a user 
@@ -184,6 +191,22 @@ public class User extends Model {
 	}
 	public static void update(User user) {
 		user.save();
+	}
+	
+	public static void editEmailVerification(int id) throws MalformedURLException {
+		DynamicForm form = Form.form().bindFromRequest();
+		User u = User.find(id);
+		u.email = form.get("email");
+		u.confirmation = UUID.randomUUID().toString();
+		u.verification = false;
+		
+		String urlS = "http://localhost:9000" + "/" + "confirm/" + u.confirmation;
+		URL url = new URL(urlS);
+		MailHelper.send(u.email, url.toString()); 
+		
+		u.update();
+		
+		
 	}
 
 
