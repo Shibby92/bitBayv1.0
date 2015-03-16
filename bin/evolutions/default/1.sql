@@ -16,7 +16,7 @@ create table product (
   owner_id                  integer,
   created                   timestamp,
   quantity                  integer,
-  price                     double(9,2),
+  price                     double,
   description               varchar(255),
   image_url                 varchar(255),
   constraint pk_product primary key (id))
