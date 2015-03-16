@@ -18,15 +18,19 @@
 		<thead> <tr> <th style="float: left"> Email: </th>  </tr>  </thead>
 		<tbody>
 		@for(user <- users){
+			
 			<tr> <td> @user.email </td>
 			<div>
 			<td style="float: left">  
-			  <a class="btn btn-danger" href="/deleteuser/@user.id" role="button" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
-			<a class="btn btn-warning" href="/updateuser/@user.id" role="button" onclick="return confirm('Are you sure you want to update this user?');">Edit</a>
+			 @if(!user.email.equals(session().get("email"))) {
+			 	 <a class="btn btn-danger" href="/deleteuser/@user.id" role="button" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+			}
+			<a class="btn btn-warning" href="/updateuser/@user.id" role="button">Edit</a>
 
 			</td>
 			</div>
 			</tr>
+			
 		}
 		</tbody>
 	</table>

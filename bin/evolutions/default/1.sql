@@ -29,6 +29,7 @@ create table user (
   admin                     boolean,
   verification              boolean,
   confirmation              varchar(255),
+  constraint uq_user_email unique (email),
   constraint pk_user primary key (id))
 ;
 
