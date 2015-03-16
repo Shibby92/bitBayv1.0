@@ -18,6 +18,9 @@
             @if(flash.get("success")){
             	<h2><center><strong> @flash.get("success") </strong></center> </h2>
             }
+            @if(flash.get("validate")){
+            	<h2><center><strong> @flash.get("validate") </strong></center> </h2>
+            }
                 <div class="col-sm-3">
                     <div class="well login-box">
                        
