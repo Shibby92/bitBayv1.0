@@ -101,4 +101,7 @@ public class UserLoginApplication extends Controller {
 		session().clear();
 		return redirect("/");
 		}
+	public static Result contactPage(){
+		return ok(contact.render());
+	}
 }
