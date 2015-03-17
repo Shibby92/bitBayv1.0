@@ -9,9 +9,8 @@ public class Global extends GlobalSettings{
 	
 	
 	public void onStart(Application app) {
-		Finder<String, User> find = new Finder<String, User>(String.class, User.class);
 		
-		if(!find.equals("admin@gmail.com")){
+		if(User.find("admin@gmail.com") == null) {
 		User u = new User("admin@gmail.com",HashHelper.createPassword("admin"), true, true);
 		User.create(u);
 		u.id = 0;
@@ -21,7 +20,21 @@ public class Global extends GlobalSettings{
 		u.id = 1;
 		}
 
-		Category.create("Fashion");
+		if(Category.find(1) == null) {
+			String categoryArray[] = {"Cars", "Fashion", "Mobile phones", 
+					"Computers","Houses", "Shoes", "Biznis",
+					"Animals"};
+			
+			for (int i = 0; i < categoryArray.length; i++) {
+				Category.create(categoryArray[i]);
+			}
+			
+		}
+		
+		if(Product.find(1) == null) {
+			Product.create("Versaci shoes", 1200, "good shoes", 1);
+		}
+		
 		
 		
 	}
