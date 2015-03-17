@@ -76,13 +76,15 @@ public class UserLoginApplication extends Controller {
 			if (u.verification == true) {
 				return redirect("/homepage");
 			}
-			flash("validate", Messages.get("Please check your email"));
+			flash("validate", "Please check your email");
 			return redirect("/login");
 		}else
 				return ok(toregister.render(loginUser));
 		}
 
 	}
+	
+
 
 	// goes to page where the user can be registered
 	public static Result toRegister() {

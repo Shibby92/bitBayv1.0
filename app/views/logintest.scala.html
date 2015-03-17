@@ -16,7 +16,10 @@
         <div class="row">
             <div class="col-md-12">
             @if(flash.get("success")){
-            	<h1> @flash.get("success") </h1>
+            	<h2><center><strong> @flash.get("success") </strong></center> </h2>
+            }
+            @if(flash.get("validate")){
+            	<h2><center><strong> @flash.get("validate") </strong></center> </h2>
             }
                 <div class="col-sm-3">
                     <div class="well login-box">

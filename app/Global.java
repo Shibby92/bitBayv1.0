@@ -20,6 +20,7 @@ public class Global extends GlobalSettings{
 		u.id = 1;
 		}
 
+
 		if(Category.find(1) == null) {
 			String categoryArray[] = {"Cars", "Fashion", "Mobile phones", 
 					"Computers","Houses", "Shoes", "Biznis",
@@ -32,9 +33,8 @@ public class Global extends GlobalSettings{
 		}
 		
 		if(Product.find(1) == null) {
-			Product.create("Versaci shoes", 1200, "good shoes", 1);
+			Product.create("House", 100000, "This house has got four bedrooms, a living-room, a dining-room, a kitchen, a bathroom and a separate toilet." , 1);
 		}
-		
 		
 		
 	}
