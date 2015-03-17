@@ -7,6 +7,7 @@ import helpers.MailHelper;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.*;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,9 +16,11 @@ import javax.persistence.*;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 import play.mvc.Result;
+
 
 /**
  * Creates a user 
@@ -46,6 +49,28 @@ public class User extends Model {
 	@MinLength(5)
 	@MaxLength(50)
 	public String password;
+	
+	@Required
+	@MinLength(6)
+	@MaxLength(15)
+	public String username;
+	
+	@DateTime(pattern="dd/MM/yyyy")
+	public Date birth_date;
+	
+	@MaxLength(40)
+	public String user_address;
+	
+	@MaxLength(40)
+	@Required
+	public String shipping_address;
+	
+	@MaxLength(15)
+	public String city;
+	
+	@Required
+	@MaxLength(1)
+	public String gender;
 	
 	public boolean admin;
 	
@@ -104,6 +129,8 @@ public class User extends Model {
 		return true;
 	}
 	
+	
+	
 	public static void create(User user) {
 		new User(user.email, user.password, user.admin, user.verification).save();
 	}
@@ -115,6 +142,14 @@ public class User extends Model {
 	 */
 	public static boolean existsEmail(String email) {
 		if (find.where().eq("email", email).findList().isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+	
+	//checks if there is the same username in database
+	public static boolean existsUsername(String username) {
+		if (find.where().eq("username", username).findList().isEmpty()) {
 			return false;
 		}
 		return true;
@@ -193,6 +228,7 @@ public class User extends Model {
 		user.save();
 	}
 	
+	//when admin edits users email address it sends verification mail on that address
 	public static void editEmailVerification(int id) throws MalformedURLException {
 		DynamicForm form = Form.form().bindFromRequest();
 		User u = User.find(id);
@@ -205,8 +241,23 @@ public class User extends Model {
 		MailHelper.send(u.email, url.toString()); 
 		
 		u.update();
+	
+	}
+	
+	//updates user with his additional info
+	public static boolean AdditionalInfo(String email, String username, Date birth_date, String shipping_address, String user_address, String gender, String city) {
+		User u = User.find(email);
+		if(existsUsername(username))
+			return false;
+		u.username = username;
+		u.birth_date = birth_date;
+		u.shipping_address = shipping_address;
+		u.user_address = user_address;
+		u.gender = gender;
+		u.city = city;
 		
-		
+		u.update();
+		return true;
 	}
 
 

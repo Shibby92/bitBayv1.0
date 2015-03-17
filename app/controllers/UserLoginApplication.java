@@ -44,7 +44,7 @@ public class UserLoginApplication extends Controller {
 		if (User.existsEmail(email)) {
 			if (User.checkLogin(email, password)) {
 				session("email", email);
-				return redirect("/homepage");
+				return redirect("/additionalinfo");
 			} else {
 				return redirect("/login");
 			}
