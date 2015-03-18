@@ -192,6 +192,14 @@ public class User extends Model {
 	}
 	
 	/**
+	 * 
+	 * @return all admins in our database
+	 */
+	public static List<User>admins(){
+		return find.where().eq("admin", true).findList();
+	}
+	
+	/**
 	 * finds a user by his confirmation string
 	 * @param confirmation String confirmation string
 	 * @return the user
