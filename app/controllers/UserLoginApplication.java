@@ -40,7 +40,7 @@ public class UserLoginApplication extends Controller {
 	public static Result homePage() {
 		String email = session().get("email");
 		
-		return ok(homePage.render(email,Category.list(),Product.productList()));
+		return ok(homePage.render(email,Category.list(),Product.productList(), FAQ.all()));
 	}
 
 	// tries to log user to page
@@ -55,6 +55,10 @@ public class UserLoginApplication extends Controller {
 		if (User.existsEmail(email)) {
 			if (User.checkLogin(email, password)) {
 				session("email", email);
+
+				if(User.find(email).hasAdditionalInfo)
+					return redirect("/homepage");
+
 				return redirect("/additionalinfo");
 			} else {
 				return redirect("/login");
@@ -62,6 +66,7 @@ public class UserLoginApplication extends Controller {
 
 		}
 
+		flash("error", "Username already exists");
 		return ok(toregister.render(loginUser));
 	}
 
@@ -153,10 +158,10 @@ public class UserLoginApplication extends Controller {
 							for(User admin : admins){
 								ContactHelper.send(email, admin.email, message);
 							}
-							flash("success", "Message sent");
+							flash("success", "Message sent!");
 							return redirect("/contactpage");
 						} else {
-							flash("error", "There has been a problem");
+							flash("error", "There has been a problem!");
 							return ok(contact.render(userEmail));
 
 						}

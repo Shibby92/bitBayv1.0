@@ -11,6 +11,7 @@ import play.test.WithApplication;
 
 public class ProductTest extends WithApplication {
 	
+
 	@Before
 	public void setUp() {
 		fakeApplication(inMemoryDatabase());
@@ -50,4 +51,5 @@ public class ProductTest extends WithApplication {
 		Product testic = Product.find(1);
 		assertNull(testic);
 	}
+
 }

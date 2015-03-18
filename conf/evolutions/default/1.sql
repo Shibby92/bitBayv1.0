@@ -9,6 +9,13 @@ create table category (
   constraint pk_category primary key (id))
 ;
 
+create table faq (
+  id                        integer not null,
+  question                  varchar(255),
+  answer                    varchar(255),
+  constraint pk_faq primary key (id))
+;
+
 create table product (
   id                        integer not null,
   name                      varchar(255),
@@ -35,11 +42,14 @@ create table user (
   admin                     boolean,
   verification              boolean,
   confirmation              varchar(255),
+  has_additional_info       boolean,
   constraint uq_user_email unique (email),
   constraint pk_user primary key (id))
 ;
 
 create sequence category_seq;
+
+create sequence faq_seq;
 
 create sequence product_seq;
 
@@ -56,6 +66,8 @@ SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists category;
 
+drop table if exists faq;
+
 drop table if exists product;
 
 drop table if exists user;
@@ -63,6 +75,8 @@ drop table if exists user;
 SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists category_seq;
+
+drop sequence if exists faq_seq;
 
 drop sequence if exists product_seq;
 

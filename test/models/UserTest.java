@@ -8,6 +8,7 @@ import org.junit.*;
 
 import play.test.WithApplication;
 
+
 public class UserTest extends WithApplication {
 
 	//sets new database for every test

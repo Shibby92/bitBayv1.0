@@ -1,4 +1,4 @@
-@(email: String, categoryList:List[Category], products:List[Product])
+@(email: String, categoryList:List[Category], products:List[Product], faqs: List[FAQ])
 
 @main("HomePage") {
 
@@ -10,7 +10,7 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
             <a href="/contactpage">
-                                    <button class="btn btn-success"> Contact</button> 
+                                    <button class="btn btn-success">Contact Us</button> 
                                 </a>
             	<a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
                 
@@ -18,12 +18,15 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            	
-                  @if(email == null) {
-                    <ul class="nav navbar-nav">
-                     <li>
-                    
+            	   <ul class="nav navbar-nav">
+            	   <li>
+                        <a href="faq">
+                         <button class="btn btn-success btn-login"> FAQs</button>
+                        </a>
                     </li>
+                  @if(email == null) {
+                   
+                    
 
                     <li>
                          <h4>
@@ -42,7 +45,7 @@
                  } else {
   
                    <ul class="nav navbar-nav">
-                     @if(User.find(email).admin == true) {
+                     @if(User.find(email).admin) {
                      	      	<li>
                    <a href="/productpage">
                          <button class="btn btn-success btn-login">Products</button>
@@ -60,10 +63,23 @@
                         </a>
                     </li>
                     }else{
+                     <li>
+                    @if(flash.get("success")) {
+                    	<h4><center><strong> @flash.get("success") </strong></center> </h4>
+                    	}
+                    	  </li>
+                    	  
+                    
 
                     <li>
                         <a href="addproductcategory">
                          <button class="btn btn-success btn-login"> Add New Product</button>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="editinfo">
+                         <button class="btn btn-success btn-login"> Edit additional info</button>
                         </a>
                     </li>
                     }
@@ -167,6 +183,7 @@
                    </div>
       
 }
+
   </div>
     </div>
     <!-- /.container -->

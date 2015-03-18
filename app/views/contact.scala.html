@@ -1,7 +1,7 @@
 @(email: String)
 
 @main("Contact us"){
-	
+	<body>
 	<!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
@@ -11,14 +11,17 @@
 		</div>
 		<!-- /.container -->
 	</nav>
+	<div class="row">
+		<div class="col-md-12"><center>
 	@if(flash.get("success")){
-							<h3>@flash.get("success")</h3>
+							<h2><center><strong>@flash.get("success")</strong></center></h2>
 							}
 							
 						@if(flash.get("error")){
-							<h3>@flash.get("error")</h3>
+							<h2><center><strong>@flash.get("error")</strong></center></h2>
 							}
 	<div class="col-sm-offset-4 col-sm-3">
+
 	<h2>Contact us</h2>
 	<form action="/contact" method="post">
 	<div class="form-horizontal">
@@ -30,9 +33,9 @@
 </div>
 <div class="form-group">
 	<label class=" control-label required" for="yourMessage">Your Message</label>
-	<div >
+	
 	<textarea rows="4" cols="50" id="message" name="message" value="" placeholder="Enter your message" class="form-control" required></textarea></div>
-</div>
+
 <div class="g-recaptcha" data-sitekey="6LcQrwMTAAAAAGQWadA5axJJ0LESg0CUYWQtJ9SK"></div>
 <div class="form-group">
 	<div class="col-sm-offset-5"><button type="submit" class="btn btn-large btn-primary">Send</button><img class="ajax-loader" src="http://www.YOURSITE.com/wp-content/plugins/contact-form-7/images/ajax-loader.gif" alt="Sending ..." style="visibility: hidden; opacity: 1;"></div>
@@ -40,4 +43,10 @@
 </div>
 </div>
 </form>
+</div>
+			</div>
+			</center>
+		</div>
+
+</body>
 }
