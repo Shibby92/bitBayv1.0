@@ -102,6 +102,9 @@ public class UserController extends Controller {
 
 		if(User.AdditionalInfo(email, username, birth_date, shipping_address, user_address, gender, city)) {
 
+			User u = User.find(email);
+			u.hasAdditionalInfo = true;
+			u.update();
 			return redirect("/homepage");
 		}
 		

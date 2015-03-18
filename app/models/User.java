@@ -77,6 +77,8 @@ public class User extends Model {
 	public boolean verification = false;
 	
 	public String confirmation;
+	
+	public boolean hasAdditionalInfo;
 
 	static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);
@@ -90,6 +92,7 @@ public class User extends Model {
 		this.email = email;
 		this.password = password;
 		this.admin = false;
+		this.hasAdditionalInfo = false;
 	}
 	
 	public User(String email, String password, String confirmation) {
@@ -97,6 +100,7 @@ public class User extends Model {
 		this.password = password;
 		this.admin = false;
 		this.confirmation = confirmation;
+		this.hasAdditionalInfo = false;
 	}
 	
 	public User(String email, String password, boolean admin, boolean verification) {
@@ -104,6 +108,7 @@ public class User extends Model {
 		this.password = password;
 		this.admin = admin;
 		this.verification = verification;
+		this.hasAdditionalInfo = false;
 	}
 
 	/**
