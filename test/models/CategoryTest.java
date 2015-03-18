@@ -37,4 +37,15 @@ public class CategoryTest extends WithApplication {
 		assertEquals(test.name,"Test2");
 	}
 	
+	@Test
+	public void deleteTest(){
+		Category.create("Test");
+		Category testic = Category.find(9);
+		assertNotNull(testic);
+		Category.delete(9);
+		Category test = Category.find(9);
+		assertNull(test);
+		
+	}
+	
 }

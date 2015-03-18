@@ -195,5 +195,10 @@ public class UserLoginApplication extends Controller {
 		public String email;
 		@Required
 		public String message;
+		
+		public Contact(String email, String message){
+			this.email=email;
+			this.message=message;
+		}
 	}
 }

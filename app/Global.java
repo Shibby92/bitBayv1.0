@@ -32,6 +32,7 @@ public class Global extends GlobalSettings {
 
 		}
 
+
 		if (Product.find(1) == null) {
 			Product.create(
 					"House",
