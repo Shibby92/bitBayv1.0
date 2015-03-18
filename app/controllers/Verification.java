@@ -17,7 +17,7 @@ public class Verification extends Controller{
 		 }
 		 if (User.confirm(u)) {
 			 Logger.debug("conf good");
-	            flash("success", "Successful verification!");
+	            flash("success", Messages.get("Successfully verificated"));
 	            return redirect("/login");
 	        } else {
 	        	 Logger.debug("conf fail");
