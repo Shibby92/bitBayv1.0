@@ -9,6 +9,9 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
+            <a href="/contactpage">
+                                    <button class="btn btn-success"> Contact</button> 
+                                </a>
             	<a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
                 
             </div>
@@ -68,14 +71,12 @@
                        
                     </li>
                     <li>
-                    	<h4 style="color: #000"> Hello, @email 
+                    	<h4 style="color: #000"> Hello, @User.find(email).username 
                         <a href="logout">
                             <button class="btn btn-danger btn-cancel-action">Log out</button>
                         </a>
                         </h4>
-                        <a href="/contactpage">
-                                    <button class="btn btn-success"> Contact</button> 
-                                </a>
+                        
                     </li>
                     
                 </ul>
@@ -156,7 +157,7 @@
                         <div class="thumbnail">
                             <img src="http://placehold.it/320x150" alt="">
                             <div class="caption">
-                                <h4 class="pull-right">@product.price $</h4>
+                                <h4 class="pull-right">US @product.price $</h4>
                                 <h4><a href="#">@product.name</a>
                                 </h4>
                                 <p> @product.description </p>
