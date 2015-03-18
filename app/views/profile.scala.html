@@ -1,0 +1,45 @@
+@main("Profile") {
+<body>
+   <!-- Navigation -->
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+         <div class="navbar-header">
+            <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+         </div>
+      </div>
+      <!-- /.container -->
+   </nav>
+  	
+	<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+      <img src="@routes.Assets.at("images/250x250.png")" class="profile" />
+      <button class="btn btn-large btn-block" type="button">Change profil picture</button>
+      <h5>Username: </h5>   <input type="submit" class="btn btn-xs btn-success" role="button" value="change" required/>
+      <h5>Email: </h5>  <input type="submit" class="btn btn-xs btn-success " role="button" value="change" required/>
+      <h5>Adress: </h5>  <input type="submit" class="btn btn-xs btn-success" role="button" value="change" required/>
+      
+      </div>
+      
+  <div class="col-md-9">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#1" data-toggle="tab">List Of Users</a></li>
+          <li><a href="#2" data-toggle="tab">Catrgories</a></li>
+          <li><a href="#3" data-toggle="tab">Products</a></li>
+           <li><a href="#3" data-toggle="tab">Add New Products</a></li>
+        </ul>
+        <div class="tab-content">
+         <div class="tab-pane" id="1"></div>
+         <div class="tab-pane" id="2"></div>
+         <div class="tab-pane" id="3"> </div>
+        </div>
+      </div>
+   </div>
+      </div>
+    </div>
+    <div class="container">
+   <hr>
+</div>
+   	
+</body>
+}

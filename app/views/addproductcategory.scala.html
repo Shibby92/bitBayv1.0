@@ -1,37 +1,35 @@
 @(categoryList: List[Category])
 @main("Adding category to your product") {
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-               <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-                
-            </div>
-        </div>
-        <!-- /.container -->
-     </nav>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-sm-4">
-                    <div class="well login-box">
-                        <form action="/">
-                          	<legend>Select category: </legend>
-                            <div class="form-group">
-                                 <div class="list-group">
-							@for(category <- categoryList){
-	                    <a href="addproductpage/@category.id" class="list-group-item">@category.name</a>
-	         }						<div class="form-group text-center">
-                   						<a class="btn btn-danger" href="homepage" role="button">Cancel</a>
-                   						</div>
-                					</div>
-                				</div>	
-                            </div>
-                           
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+      <div class="navbar-header">
+         <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      </div>
+   </div>
+   <!-- /.container -->
+</nav>
+<div class="row">
+   <div class="col-md-12">
+      <div class="col-sm-4">
+         <div class="well login-box">
+            <form action="/">
+               <legend>Select category: </legend>
+               <div class="form-group">
+                  <div class="list-group">
+                     @for(category <- categoryList){
+                     <a href="addproductpage/@category.id" class="list-group-item">@category.name</a>
+                     }						
+                     <div class="form-group text-center">
+                        <a class="btn btn-danger" href="homepage" role="button">Cancel</a>
+                     </div>
+                  </div>
+               </div>
+         </div>
+         </form>
+      </div>
+   </div>
+</div>
+</div>
 </body>
 }

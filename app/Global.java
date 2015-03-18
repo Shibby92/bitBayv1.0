@@ -34,6 +34,7 @@ public class Global extends GlobalSettings{
 		
 		if(Product.find(1) == null) {
 			Product.create("House", 100000, "This house has got four bedrooms, a living-room, a dining-room, a kitchen, a bathroom and a separate toilet." , 1);
+			
 		}
 		
 		
