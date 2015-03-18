@@ -55,6 +55,15 @@ POST	/updatefaq				controllers.FAQController.updateFAQ(id: Integer)
 GET		/updatefaq/:id			controllers.FAQController.toUpdateFAQ(id: Integer)
 GET		/deletefaq				controllers.FAQController.deleteFAQ(id: Integer)
 
+
+# Routes for contact form
+
+GET 	/contactpage			controllers.UserLoginApplication.contactPage()
+POST 	/contact				controllers.UserLoginApplication.contact()
+
+
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 

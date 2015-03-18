@@ -14,7 +14,9 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
 import views.*;
+
 import views.html.*;
+
 
 public class UserController extends Controller {
 	
@@ -46,7 +48,7 @@ public class UserController extends Controller {
 			
 				User.editEmailVerification(id);
 		}
-		User.update(updateUser);
+		updateUser.update();
 
 		return redirect("/listofusers");
 	}
@@ -115,6 +117,7 @@ public class UserController extends Controller {
 	public static Result toEditInfo() {
 		return ok(editadditionalinfo.render(User.find(session().get("email"))));
 	}
+
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result editAdditionalInfo() throws ParseException {

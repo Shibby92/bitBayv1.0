@@ -137,7 +137,7 @@ public class User extends Model {
 	
 	
 	public static void create(User user) {
-		new User(user.email, user.password, user.admin, user.verification).save();
+		user.save();
 	}
 
 	/**
@@ -197,6 +197,14 @@ public class User extends Model {
 	}
 	
 	/**
+	 * 
+	 * @return all admins in our database
+	 */
+	public static List<User>admins(){
+		return find.where().eq("admin", true).findList();
+	}
+	
+	/**
 	 * finds a user by his confirmation string
 	 * @param confirmation String confirmation string
 	 * @return the user
@@ -228,9 +236,6 @@ public class User extends Model {
 	public static void delete(int id){
 		find.byId(id).delete();
 		
-	}
-	public static void update(User user) {
-		user.save();
 	}
 	
 	//when admin edits users email address it sends verification mail on that address

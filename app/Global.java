@@ -12,7 +12,6 @@ public class Global extends GlobalSettings {
 			User u = new User("admin@gmail.com",
 					HashHelper.createPassword("admin"), true, true);
 			User.create(u);
-			u.id = 0;
 			u.username = "Admin";
 			u.hasAdditionalInfo = true;
 			u.update();
@@ -20,7 +19,7 @@ public class Global extends GlobalSettings {
 			User u2 = new User("mustafa@gmail.com",
 					HashHelper.createPassword("123456"), false, true);
 			User.create(u2);
-			u2.id = 1;
+
 		}
 
 		if (Category.find(1) == null) {
@@ -50,6 +49,7 @@ public class Global extends GlobalSettings {
 			FAQ.createFAQ("Additional free listing this month (new listings only) Why didn't I receive this?",
 					"Promo offers are by invitation only; no party crashing allowed.  Unless there is an einstein among us, no one can figure out the criteria used by EBay to get these promos.");
 		}
+
 
 	}
 
