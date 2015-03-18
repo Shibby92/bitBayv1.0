@@ -99,7 +99,9 @@ public class UserController extends Controller {
 		}
 			
 		
-		if(User.additionalInfo(email, username, birth_date, shipping_address, user_address, gender, city)) {
+
+		if(User.AdditionalInfo(email, username, birth_date, shipping_address, user_address, gender, city)) {
+
 			return redirect("/homepage");
 		}
 		
