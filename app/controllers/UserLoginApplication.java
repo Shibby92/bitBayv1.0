@@ -51,6 +51,7 @@ public class UserLoginApplication extends Controller {
 
 		}
 
+		flash("error", "Username already exists");
 		return ok(toregister.render(loginUser));
 	}
 
