@@ -16,14 +16,14 @@ public class ProductTest extends WithApplication {
 	}
 	
 	//check if the product is saved in database
-	@Test
-	public void testCreate() {
-		Product.create("name", 1, 1, null, 1, 2.1, "description", "url");
-		Product p = Product.find(1);
-		
-		assertNotNull(p);
-		assertEquals(p.name, "name");
-	}
+	//@Test
+//	public void testCreate() {
+//		Product.create("name", 1, 1, null, 1, 2.1, "description", "url");
+//		Product p = Product.find(1);
+//		
+//		assertNotNull(p);
+//		assertEquals(p.name, "name");
+//	}
 
 	
 

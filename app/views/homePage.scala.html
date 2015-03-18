@@ -1,4 +1,4 @@
-@(email: String, categoryList:List[Category], products:List[Product])
+@(email: String, categoryList:List[Category], products:List[Product], faqs: List[FAQ])
 
 @main("HomePage") {
 
@@ -15,12 +15,15 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            	
-                  @if(email == null) {
-                    <ul class="nav navbar-nav">
-                     <li>
-                    
+            	   <ul class="nav navbar-nav">
+            	   <li>
+                        <a href="faq">
+                         <button class="btn btn-success btn-login"> FAQs</button>
+                        </a>
                     </li>
+                  @if(email == null) {
+                   
+                    
 
                     <li>
                          <h4>
@@ -62,6 +65,8 @@
                     	<h4><center><strong> @flash.get("success") </strong></center> </h4>
                     	}
                     	  </li>
+                    	  
+                    
 
                     <li>
                         <a href="addproductcategory">
@@ -174,6 +179,7 @@
                    </div>
       
 }
+
   </div>
     </div>
     <!-- /.container -->
