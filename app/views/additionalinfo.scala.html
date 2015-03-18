@@ -23,7 +23,7 @@
 			<div class="col-sm-4">
 				<div class="well login-box">
 				 
-					<form action="@routes.UserController.additionalInfo"  method="POST">
+					<form action="@routes.UserController.additionalInfo()"  method="POST">
 						<legend>Add additional info </legend>
 						
 						
@@ -55,7 +55,7 @@
 						
 						<dl class=" " id="gender_field">
 							<dt><label for="gender">Gender:</label> </dt>
-							<dd><input name="gender" id="gender" value='' placeholder="Enter your gender: m-male; f-female" type="text" class="form-control" required/> </dd>
+							<dd><input name="gender" id="gender" value='' placeholder="Enter your gender: m-male; f-female" type="text" class="form-control" maxlength="1" required/> </dd>
 						</dl>
 					
 						

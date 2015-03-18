@@ -1,8 +1,7 @@
 package controllers;
 
 import java.net.MalformedURLException;
-import java.text.DateFormat;
-import java.text.ParseException;
+import java.text.*;
 import java.util.Date;
 import java.util.Locale;
 
@@ -10,6 +9,7 @@ import org.springframework.format.datetime.DateFormatter;
 
 import helpers.*;
 import models.*;
+import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
@@ -72,15 +72,15 @@ public class UserController extends Controller {
 		return ok(additionalinfo.render());
 	}
 	
-	
+	@Security.Authenticated(UserFilter.class)
 	public static Result additionalInfo() throws ParseException {
 		DynamicForm form =  Form.form().bindFromRequest();
 		String email = session().get("email");
 		String username = form.get("username");
 		Date current = new Date();
-		DateFormatter format = new DateFormatter("dd/MM/yyyy");
-		Date birth_date = format.parse(form.get("birth_date"), Locale.ENGLISH);
-		if(birth_date.before(current)) {
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		Date birth_date = format.parse(form.get("birth_date"));
+		if(!birth_date.before(current)) {
 			flash("error", "Enter valid date!");
 			return ok(additionalinfo.render());
 		}
@@ -88,6 +88,11 @@ public class UserController extends Controller {
 		String shipping_address = form.get("shipping_address");
 		String user_address = form.get("user_address");
 		String gender = form.get("gender");
+		if(!gender.toLowerCase().contains("m") && !gender.toLowerCase().contains("f")) {
+			flash("error", "Enter valid gender!");
+			return ok(additionalinfo.render());
+		}
+			
 		
 		if(User.AdditionalInfo(email, username, birth_date, shipping_address, user_address, gender, city)) {
 			return redirect("/homepage");

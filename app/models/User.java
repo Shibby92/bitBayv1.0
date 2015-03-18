@@ -55,7 +55,7 @@ public class User extends Model {
 	@MaxLength(15)
 	public String username;
 	
-	@DateTime(pattern="dd/MM/yyyy")
+	@DateTime(pattern="dd-MM-yyyy")
 	public Date birth_date;
 	
 	@MaxLength(40)
