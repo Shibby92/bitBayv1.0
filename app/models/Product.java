@@ -6,9 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Digits;
 
+import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
@@ -34,14 +33,13 @@ public class Product extends Model {
 	@ManyToOne
 	public User owner;
 
-	
 	public Date created;
 
 	
 	public int quantity;
 
 	@Required
-	@Min(0)
+	@Column(scale = 2) 
 	public double price;
 
 	@Required
