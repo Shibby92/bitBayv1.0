@@ -48,7 +48,7 @@ public class UserController extends Controller {
 			
 				User.editEmailVerification(id);
 		}
-		//User.update(updateUser);
+		User.update(updateUser);
 
 		return redirect("/listofusers");
 	}
