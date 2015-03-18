@@ -72,14 +72,19 @@ public class UserController extends Controller {
 		return ok(additionalinfo.render());
 	}
 	
+	//adds additional info to user profile
 	@Security.Authenticated(UserFilter.class)
 	public static Result additionalInfo() throws ParseException {
 		DynamicForm form =  Form.form().bindFromRequest();
 		String email = session().get("email");
 		String username = form.get("username");
 		Date current = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-		Date birth_date = format.parse(form.get("birth_date"));
+//		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-mm");
+		//Date birth_date = format.parse(form.get("birth_date"));
+		String birth_date_string = userForm.bindFromRequest().field("birth_date").value();
+		Date birth_date = format.parse(birth_date_string);
+		Logger.debug(birth_date.toString());
 		if(!birth_date.before(current)) {
 			flash("error", "Enter valid date!");
 			return ok(additionalinfo.render());
