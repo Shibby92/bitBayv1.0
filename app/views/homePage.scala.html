@@ -57,10 +57,21 @@
                         </a>
                     </li>
                     }else{
+                     <li>
+                    @if(flash.get("success")) {
+                    	<h4><center><strong> @flash.get("success") </strong></center> </h4>
+                    	}
+                    	  </li>
 
                     <li>
                         <a href="addproductcategory">
                          <button class="btn btn-success btn-login"> Add New Product</button>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="editinfo">
+                         <button class="btn btn-success btn-login"> Edit additional info</button>
                         </a>
                     </li>
                     }
