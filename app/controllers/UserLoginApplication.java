@@ -10,6 +10,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.*;
+import play.Logger;
 import play.Play;
 import play.data.*;
 import play.data.validation.Constraints.Email;
@@ -71,11 +72,13 @@ public class UserLoginApplication extends Controller {
 	// if the user gets registered, he gets a verification email on his email address
 	@SuppressWarnings("static-access")
 	public static Result register() throws MalformedURLException {
+		Logger.info("create user");
 		DynamicForm form = loginUser.form().bindFromRequest();
 		if (form.get("email").equals(""))
 			return ok(toregister.render(loginUser));
 		else {
 			//User u = loginUser.bindFromRequest().get();
+			Logger.info("user created");
 			String email = form.get("email");
 			String password = form.get("password");
 			String confirmation = UUID.randomUUID().toString();
@@ -99,6 +102,7 @@ public class UserLoginApplication extends Controller {
 
 	// goes to page where the user can be registered
 	public static Result toRegister() {
+		Logger.info("toregister page rendered");
 
 		return ok(toregister.render(loginUser));
 	}
@@ -121,9 +125,9 @@ public class UserLoginApplication extends Controller {
 	 * @return the contact page with a message indicating if the email has been sent.
 	 */
 	public static Promise<Result> contact() {
-		String userEmail = session().get("email");
+		final String userEmail = session().get("email");
 		//need this to get the google recapctha value
-		DynamicForm temp = DynamicForm.form().bindFromRequest();
+		final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		
 		/* send a request to google recaptcha api with the value of our secret code and the value
 		 * of the recaptcha submitted by the form */
@@ -171,9 +175,12 @@ public class UserLoginApplication extends Controller {
 	// he has an option to add his own ad
 
 	public static Result toLogin() {
+		Logger.info("logintest rendered");
+		
 		return ok(logintest.render());
 	}
 	public static Result logOut(){
+		Logger.warn("user logged out");
 		session().clear();
 		return redirect("/");
 		}
