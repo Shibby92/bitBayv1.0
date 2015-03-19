@@ -20,7 +20,9 @@
       <h5>Username: @User.find(session().get("email")).username</h5> 
       <h5>Email:  @User.find(session().get("email")).email</h5> 
       <h5>Address:  @User.find(session().get("email")).user_address</h5> 
-      
+      <div class="col-md-5">
+      <a href="/editinfo"><button class="btn btn-md btn-info" >Edit additional info</button></a>
+       </div>
       </div>
       
   <div class="col-md-9">
@@ -64,12 +66,12 @@
          <div class="container">
    <div class="row">
       <div class="form-group text-center">
-         <a class="btn btn-success" href="/addnewcategory" role="button">Add new category</a>
+         <a class="btn btn-success" href="/addnewcategory" role="button">+</a>
       </div>
       <div class="form-group text-center">
          <table class='table'>
             <thead>
-               <tr>
+               <tr>-
                   <th style="float: left"> Category: </th>
                </tr>
             </thead>
