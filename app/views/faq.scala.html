@@ -9,8 +9,10 @@
     </nav>
      <div class="container">
      <div class="row">
+
      @if(session().get("email") != null) {
 										@if(User.find(session().get("email")).admin) { 
+
       <div class="form-group text-center">
               <a class="btn btn-success" href="/addfaq" role="button">Add new FAQ</a>
                </div>

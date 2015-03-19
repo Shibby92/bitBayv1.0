@@ -1,53 +1,41 @@
 @(id:Integer,productForm: Form[Product])
- @main("Add your additional info") {
+@main("Add your additional info") {
 <body>
-
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-			</div>
-		</div>
-		<!-- /.container -->
-	</nav>
-
-	<div class="row">
-		<div class="col-md-12">
-			<div class="col-sm-4">
-				<div class="well login-box">
-				 
-					<form action="@routes.ProductApplication.addAdditionalInfo(id)"  method="GET">
-						<legend>Add product </legend>
-						
-						
-						
-						<dl class=" " id="name_field">
-							<dt><label for="name">Name:</label> </dt>
-							<dd><input value='' name="name" id="name" placeholder="Name of your product" type="text" class="form-control" required/></dd>
-						</dl>
-						
-						<dl class=" " id="price_field">
-							<dt><label for="price">Price:</label> </dt>
-							<dd><input name="price" id="price" value='' placeholder="Enter price of your product" type="number" step="0.01" min="0"  max="999999" class="form-control" required/> </dd>
-						</dl>
-						
-						<dl class=" " id="description_field">
-							<dt><label for="description">Description:</label> </dt>
-							<dd><input name="description" id="description" value='' placeholder="Enter description" type="text" class="form-control" required/> </dd>
-						</dl>
-					
-						
-						
-						<div class="form-group text-center">
-							<input type="submit" value="Add" class="btn btn-success"/>
-							<a href="/addproductcategory" class="btn btn-danger"> Back </a>
-						</div>
-
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+   <!-- Navigation -->
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+         <div class="navbar-header">
+            <a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+         </div>
+      </div>
+      <!-- /.container -->
+   </nav>
+   <div class="row">
+      <div class="col-md-12">
+         <div class="col-sm-4">
+            <div class="well login-box">
+               <form action="@routes.ProductApplication.addAdditionalInfo(id)"  method="GET">
+                  <legend>Add product </legend>
+                  <dl class=" " id="name_field">
+                     <dt><label for="name">Name:</label> </dt>
+                     <dd><input value='' name="name" id="name" placeholder="Name of your product" type="text" class="form-control" required/></dd>
+                  </dl>
+                  <dl class=" " id="price_field">
+                     <dt><label for="price">Price:</label> </dt>
+                     <dd><input name="price" id="price" value='' placeholder="Enter price of your product" type="number" step="0.01" min="0"  max="999999" class="form-control" required/> </dd>
+                  </dl>
+                  <dl class=" " id="description_field">
+                     <dt><label for="description">Description:</label> </dt>
+                     <dd><input name="description" id="description" value='' placeholder="Enter description" type="text" class="form-control" required/> </dd>
+                  </dl>
+                  <div class="form-group text-center">
+                     <input type="submit" value="Add" class="btn btn-success"/>
+                     <a href="/addproductcategory" class="btn btn-danger"> Back </a>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
 </body>
 }

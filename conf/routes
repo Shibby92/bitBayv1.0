@@ -44,6 +44,9 @@ GET		/update					controllers.UserController.toList()
 
 GET		/additionalinfo			controllers.UserController.toAdditionalInfo()
 POST	/additionalinfo			controllers.UserController.additionalInfo()
+GET		/profile			controllers.UserController.profile()
+
+
 
 GET		/editinfo				controllers.UserController.toEditInfo()
 POST	/editinfo				controllers.UserController.editAdditionalInfo()		

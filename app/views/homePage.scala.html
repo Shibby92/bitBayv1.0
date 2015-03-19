@@ -1,200 +1,135 @@
 @(email: String, categoryList:List[Category], products:List[Product], faqs: List[FAQ])
-
 @main("HomePage") {
-
-
-    <!-- Navigation -->
-   
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-            <a href="/contactpage">
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a href="/contactpage">
                                     <button class="btn btn-success">Contact Us</button> 
                                 </a>
-            	<a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-                
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            	   <ul class="nav navbar-nav">
-            	   <li>
+         <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+         <li>
                         <a href="faq">
                          <button class="btn btn-success btn-login"> FAQs</button>
                         </a>
                     </li>
-                  @if(email == null) {
-                   
-                    
-
-                    <li>
-                         <h4>
-                            <p style="color: #000">Hello, to access BitBay please  
-                                <a href="login">
-                                    <button class="btn btn-success btn-login"> Log in</button> 
-                                </a>
-                                or 
-                                 <a href="toregister">
-                                    <button class="btn btn-success btn-register" >Register</button>
-                                </a>
-                            </p>
-                         </h4>
-                    </li> 
-                </ul>
-                 } else {
-  
-                   <ul class="nav navbar-nav">
-                     @if(User.find(email).admin) {
-                     	      	<li>
-                   <a href="/productpage">
-                         <button class="btn btn-success btn-login">Products</button>
-                        </a>
-						  </li>
-                     	<li>
-                   <a href="/categorypage">
-                         <button class="btn btn-success btn-login">Categories</button>
-                        </a>
-						  </li>
-                  
-                    <li>
-                        <a href="listofusers">
-                         <button class="btn btn-success btn-login"> List of users</button>
-                        </a>
-                    </li>
-                    }else{
-                     <li>
-                    @if(flash.get("success")) {
-                    	<h4><center><strong> @flash.get("success") </strong></center> </h4>
-                    	}
-                    	  </li>
-                    	  
-                    
-
-                    <li>
-                        <a href="addproductcategory">
-                         <button class="btn btn-success btn-login"> Add New Product</button>
-                        </a>
-                    </li>
-                    
-                    <li>
+         @if(email == null) {
+        
+            <li>
+               <h4>
+                  <p style="color: #000">Hello, to access BitBay please  
+                     <a href="login">
+                     <button class="btn btn-success btn-login"> Log in</button> 
+                     </a>
+                     or 
+                     <a href="toregister">
+                     <button class="btn btn-success btn-register" >Register</button>
+                     </a>
+                  </p>
+               </h4>
+            </li>
+         </ul>
+         } else {
+         <ul class='nav navbar-nav pull-right'>
+           <li>
                         <a href="editinfo">
                          <button class="btn btn-success btn-login"> Edit additional info</button>
                         </a>
                     </li>
-                    }
-                    <li>
-                       
-                    </li>
-                    <li>
-                    	<h4 style="color: #000"> Hello, @User.find(email).username
-                        <a href="logout">
-                            <button class="btn btn-danger btn-cancel-action">Log out</button>
-                        </a>
-                        </h4>
-                        
-                    </li>
-                    
-                </ul>
-                	
-
-    }
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-   
-
-    <!-- Page Content -->
-    <div class="container">
-
-        <div class="row">
-
-            <div class="col-md-3">
-               
-                <div class="list-group">
-                @for(category <- categoryList){
-	                    <a href="category/@category.name" class="list-group-item">@category.name</a>
-	         }
-                   
-                </div>
-            </div>
-
-            <div class="col-md-9">
-
-                <div class="row carousel-holder">
-
-                    <div class="col-md-12">
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
-                                	
-                                </li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1">
-                                
-                                </li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2">
-                                
-                                </li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="item active">
-	                                <a href="http://download.cnet.com/Magix-Movie-Edit-Pro-2015-Plus/3000-13631_4-10476357.html">
-	                                    <img class="slide-image" src="@routes.Assets.at("images/ExpoDisc-Webtile-800x300.jpg")"/ >
-	                                </a>    
-                                </div>
-                                <div class="item">
-                                    <a href="http://thewebsitecircle.com/social-media"/>
-	                                    <img class="slide-image" src="@routes.Assets.at("images/003-800x300.jpg")" >
-	                                </a>    
-                                </div>
-                                <div class="item">
-                                    <a href="http://bitcamp.ba">
-	                                    <img class="slide-image" src="@routes.Assets.at("images/Untitled.jpg")" />
-	                                </a>    
-                                </div>
-                            </div>
-                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-                  <div class="row">
-@for(product <- products){
+            <li class='dropdown'>
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+               <button class="btn btn-success">  @User.find(email).username <span class="caret"></span> </button></a>
               
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">US @product.price $</h4>
-                                <h4><a href="#">@product.name</a>
-                                </h4>
-                                <p> @product.description </p>
-                                
-                            </div>
-                        </div>
-                   </div>
-      
-}
-
-  </div>
-    </div>
-    <!-- /.container -->
-
-    <div class="container">
-
-        <hr>
-      
-    </div>
-    <!-- /.container -->
-
-
-
+               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                 @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile'>Profile</a></li>
+                  
+                  } else {
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+               </ul>
+            </li>
+         </ul>
+         }
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
+<!-- Page Content -->
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+   <div class="list-group">
+      @for(category <- categoryList){
+      <a href="category/@category.name" class="list-group-item">@category.name</a>
+      }
+   </div>
+</div>
+<div class="col-md-9">
+   <div class="row carousel-holder">
+      <div class="col-md-12">
+         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+               <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
+               </li>
+               <li data-target="#carousel-example-generic" data-slide-to="1">
+               </li>
+               <li data-target="#carousel-example-generic" data-slide-to="2">
+               </li>
+            </ol>
+            <div class="carousel-inner">
+               <div class="item active">
+                  <a href="http://download.cnet.com/Magix-Movie-Edit-Pro-2015-Plus/3000-13631_4-10476357.html">
+                  <img class="slide-image" src="@routes.Assets.at("images/ExpoDisc-Webtile-800x300.jpg")"/ >
+                  </a>    
+               </div>
+               <div class="item">
+                  <a href="http://thewebsitecircle.com/social-media"/>
+                  <img class="slide-image" src="@routes.Assets.at("images/003-800x300.jpg")" >
+                  </a>    
+               </div>
+               <div class="item">
+                  <a href="http://bitcamp.ba">
+                  <img class="slide-image" src="@routes.Assets.at("images/Untitled.jpg")" />
+                  </a>    
+               </div>
+            </div>
+            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      @for(product <- products){
+      <div class="col-sm-4 col-lg-4 col-md-4">
+         <div class="thumbnail">
+            <img src="http://placehold.it/320x150" alt="">
+            <div class="caption">
+               <h4 class="pull-right">US @product.price $</h4>
+               <h4><a href="#">@product.name</a>
+               </h4>
+               <p> @product.description </p>
+            </div>
+         </div>
+      </div>
+      }
+   </div>
+</div>
+<!-- /.container -->
+<div class="container">
+   <hr>
+</div>
+<!-- /.container -->
 }
