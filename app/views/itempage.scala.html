@@ -1,0 +1,109 @@
+@(email: String, product: Product)
+@main("ItemPage") {
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a href="/contactpage">
+                                    <button class="btn btn-success">Contact Us</button> 
+                                </a>
+         <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+         <li>
+                        <a href="faq">
+                         <button class="btn btn-success btn-login"> FAQs</button>
+                        </a>
+                    </li>
+         @if(email == null) {
+        
+            <li>
+               <h4>
+                  <p style="color: #000">Hello, to access BitBay please  
+                     <a href="login">
+                     <button class="btn btn-success btn-login"> Log in</button> 
+                     </a>
+                     or 
+                     <a href="toregister">
+                     <button class="btn btn-success btn-register" >Register</button>
+                     </a>
+                  </p>
+               </h4>
+            </li>
+         </ul>
+         } else {
+         <ul class='nav navbar-nav pull-right'>
+                    <li class='dropdown'>
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+               <button class="btn btn-success">  @User.find(email).username <span class="caret"></span> </button></a>
+              
+               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                 @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile'>Profile</a></li>
+                  
+                  } else {
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+               </ul>
+            </li>
+         </ul>
+         }
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
+<body>
+<div class="col-md-5">
+<div class="row carousel-holder">
+      <div class="col-md-12">
+         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+               <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
+               </li>
+               <li data-target="#carousel-example-generic" data-slide-to="1">
+               </li>
+               <li data-target="#carousel-example-generic" data-slide-to="2">
+               </li>
+            </ol>
+            <div class="carousel-inner">
+               <div class="item active">
+                 
+                  <img class="slide-image" src="@routes.Assets.at(product.image_url)"width="800" height="600" />
+                  </a>    
+               </div>
+               <div class="item">
+                 
+                  <img class="slide-image" src="@routes.Assets.at("images/bitbaySlika1.jpg")"width="800" height="600" >
+                  </a>    
+               </div>
+               <div class="item">
+                  
+                  <img class="slide-image" src="@routes.Assets.at("images/bitbaySlika2.jpg")"width="800" height="600" />
+                  </a>    
+               </div>
+            </div>
+            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+         </div>
+      </div>
+   </div>
+   <div class="caption">
+               <h4 class="pull-right">US @product.price $</h4>
+               <h4><a href="#">@product.name</a>
+               </h4>
+               <p> @product.description </p>
+            </div>
+   </div>
+   </div>
+</body>
+}

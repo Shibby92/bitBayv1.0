@@ -127,10 +127,9 @@ public class ProductApplication extends Controller {
 	
 	public static Result savePicture(int id){
 		Product p = ProductApplication.find(id);
-		
-	
+			
 		MultipartFormData body = request().body().asMultipartFormData(); 
-		FilePart filePart = body.getFile("image");
+		FilePart filePart = body.getFile("image_url");
 		
 		Logger.debug("Content type: " + filePart.getContentType());
 		Logger.debug("Key: " + filePart.getKey());
@@ -147,7 +146,15 @@ public class ProductApplication extends Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		String image_url="images/Productimages/"+new Date().toString()+filePart.getFilename();
+		p.image_url=image_url;
+		p.update();
 		return redirect("/productpage" + p.id);
+	}
+	
+	public static Result itemPage(int id){
+		return ok(itempage.render(session("email"), Product.find(id)));
+		
 	}
 
 }

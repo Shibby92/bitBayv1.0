@@ -27,6 +27,7 @@ GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer
 POST 	/updateproduct/:id		controllers.ProductApplication.update(id:Integer)
 GET 	/productpage			controllers.ProductApplication.productPage()
 #POST    /pictureupload          controllers.ProductApplication.savePicture(id:Integer)
+GET      /itempage/:id             controllers.ProductApplication.itemPage(id:Integer)
 
 
 GET		/category/:name			controllers.ProductApplication.category(name:String)
