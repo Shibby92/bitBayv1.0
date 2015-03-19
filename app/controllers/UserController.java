@@ -25,23 +25,25 @@ public class UserController extends Controller {
 	// goes to page where admin can update user
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateUser(int id) {
+		Logger.info("user update page opened");
+		
 		return ok(listofuserspage.render(User.find(id)));
 	}
 
 	// goes to page where it lists all of registered users
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdate() {
-
+		Logger.info("listofusers rendered");
 		return ok(listofusers.render(User.all()));
 	}
 
 	// gets data from updated user
 	// redirect to page where it lists all users
 	@Security.Authenticated(AdminFilter.class)
-	public static Result updateUser(int id) throws MalformedURLException {
-		DynamicForm form = Form.form().bindFromRequest();
-		User updateUser = User.find(id);
-
+	public static Result updateUser(int id) throws MalformedURLException{
+		Logger.info("user updated");
+		DynamicForm form =  Form.form().bindFromRequest();
+		User updateUser= User.find(id);
 		updateUser.email = form.get("email");
 		updateUser.admin = Boolean.parseBoolean(form.get("admin"));
 		if (!User.find(id).email.equals(updateUser.email)) {
@@ -58,12 +60,14 @@ public class UserController extends Controller {
 	// redirect to page where it lists all students
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toList() {
+		Logger.info("list of users rendered");
 		return redirect("/listofusers");
 	}
 
 	// deletes user and redirect to list of all users
 	@Security.Authenticated(AdminFilter.class)
-	public static Result deleteUser(int id) {
+	public static Result deleteUser(int id){
+		Logger.warn("user will be deleted");
 		User.delete(id);
 		return redirect("/listofusers");
 	}
@@ -71,13 +75,15 @@ public class UserController extends Controller {
 	// redirects to page with additional info
 	@Security.Authenticated(UserFilter.class)
 	public static Result toAdditionalInfo() {
+		Logger.info("add aditional info rendered");
 		return ok(additionalinfo.render());
 	}
 
 	// adds additional info to user profile
 	@Security.Authenticated(UserFilter.class)
 	public static Result additionalInfo() throws ParseException {
-		DynamicForm form = Form.form().bindFromRequest();
+		Logger.info("aditional info added");
+		DynamicForm form =  Form.form().bindFromRequest();
 		String email = session().get("email");
 		String username = form.get("username");
 		Date current = new Date();

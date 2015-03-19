@@ -1,4 +1,4 @@
-package models;
+/*package models;
 
 import static org.junit.Assert.*;
 import static play.test.Helpers.*;
@@ -51,3 +51,4 @@ public class UserTest extends WithApplication {
 		assertEquals(u.admin,true);
 	}
 }
+*/

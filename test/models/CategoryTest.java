@@ -1,16 +1,17 @@
 package models;
 
+
 import static org.junit.Assert.*;
-import static play.test.Helpers.*;
+import static play.test.Helpers.fakeApplication;
+import static play.test.Helpers.inMemoryDatabase;
+import static play.test.Helpers.running;
 
-
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import play.test.WithApplication;
 
-public class CategoryTest extends WithApplication {
-
-	//sets new database for every test
+public class CategoryTest extends WithApplication{
 	@Before
 	public void setUp() {
 		fakeApplication(inMemoryDatabase());
@@ -45,7 +46,7 @@ public class CategoryTest extends WithApplication {
 		Category.delete(9);
 		Category test = Category.find(9);
 		assertNull(test);
-		
 	}
 	
 }
+

@@ -1,42 +1,53 @@
 @(product: Product)
 @main("Update Product"){
-<body>
-   <!-- Navigation -->
-   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-         <div class="navbar-header">
-            <a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-         </div>
-      </div>
-      <!-- /.container -->
-   </nav>
-   <div class="row">
-      <div class="col-md-12">
-         <div class="col-sm-4">
-            <div class="well login-box">
-               <form action="/updateproduct/@product.id" method="POST">
-                  <legend>Update product </legend>
-                  <dl class=" " id="name_field">
-                     <dt><label for="name">Name:</label> </dt>
-                     <dd>
-                        <input value=@product.name name="name"id="name" placeholder="Name of your product" type="text" class="form-control" />
-                  </dl>
-                  <dl class=" " id="price_field">
-                     <dt><label for="price">Price:</label> </dt>
-                     <dd>
-                        <input value=@product.price name="price"id="price" placeholder="Price of your product" type="text" class="form-control" />
-                  </dl>
-                  <dl class=" " id="description_field">
-                     <dt><label for="description">Description:</label> </dt>
-                     <dd>
-                        <input value=@product.description name="description" id="description" placeholder="Description of your product" type="text" class="form-control" />
-                  </dl>
-                  <input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update" required/> 
-                  <a class="btn btn-danger" href="/" role="button">Cancel</a>
-               </form>
-            </div>
-         </div>
-      </div>
-   </div>
+	<body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+			</div>
+		</div>
+		<!-- /.container -->
+	</nav>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="col-sm-4">
+				<div class="well login-box">
+					<form action="/updateproduct/@product.id" method="POST" enctype="multipart/form-data">
+						<legend>Update product </legend>
+						<dl class=" " id="name_field">
+							<dt><label for="name">Name:</label> </dt>
+							<dd>
+							<input value=@product.name name="name"id="name" placeholder="Name of your product" type="text" class="form-control" />
+						
+						</dl>
+						<dl class=" " id="price_field">
+							<dt><label for="price">Price:</label> </dt>
+							<dd>
+							<input value=@product.price name="price"id="price" placeholder="Price of your product" type="text" class="form-control" />
+						
+						</dl>
+						<dl class=" " id="description_field">
+							<dt><label for="description">Description:</label> </dt>
+							<dd>
+							<input value=@product.description name="description" id="description" placeholder="Description of your product" type="text" class="form-control" />
+						
+						</dl>
+							<input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update" required/> 
+							
+		<input type="file" class = "btn btn-info" role="button" name="image" id="image"/> 
+	
+							<a class="btn btn-danger" href="/" role="button">Cancel</a>
+							
+						
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 }

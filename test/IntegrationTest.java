@@ -1,4 +1,4 @@
-import models.User;
+/*import models.User;
 
 import org.junit.*;
 
@@ -15,4 +15,6 @@ public class IntegrationTest {
 
 
 }
+
+*/
 
