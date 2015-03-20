@@ -14,7 +14,6 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
 import views.*;
-
 import views.html.*;
 
 
@@ -167,7 +166,7 @@ public class UserController extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result profile() {
-		return ok(profile.render(User.all(), Category.list(), Product.productList()));
+		return ok(profile.render(User.all(), Category.list(), Product.productList(), FAQ.all()));
 		
 	}
 	

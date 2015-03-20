@@ -76,12 +76,12 @@ public class ProductApplication extends Controller {
 	}
 	public static Result productPage(){
 		Logger.info("product page opened");
-		return ok(productpage.render(Product.productList()));
+		return ok(productpage.render(Product.productList(), FAQ.all()));
 	}
 
 	public static Result category(String name) {
 		Logger.info("Category page list opened");
-		return ok(category.render(name,Product.listByCategory(name)));
+		return ok(category.render(name,Product.listByCategory(name), FAQ.all()));
 	}
 
 	public static Result toPickCategory() {
@@ -153,7 +153,7 @@ public class ProductApplication extends Controller {
 	}
 	
 	public static Result itemPage(int id){
-		return ok(itempage.render(session("email"), Product.find(id)));
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all()));
 		
 	}
 
