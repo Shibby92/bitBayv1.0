@@ -92,14 +92,15 @@ public class Product extends Model {
 	}
 
 	// Constructor for "required" attributes
-	public Product(String name, double price, String description,int id) {
+	public Product(String name, double price, String description,int id, String image_url) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.category_id=id;
+		this.image_url=image_url;
 	}
-	public static void create(String name,  double price, String description,int id) {
-		new Product(name,  price, description,id).save();
+	public static void create(String name,  double price, String description,int id, String image_url) {
+		new Product(name,  price, description,id,image_url).save();
 	}
 
 	/**

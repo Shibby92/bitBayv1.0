@@ -68,10 +68,10 @@ public class ProductApplication extends Controller {
 		double price = Double.valueOf(form.get("price"));
 		
 		String description = form.get("description");
-//		String image_url = "";// form.data().get("image url");
+		String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
 		Product.create(name, price,
-				description,id);
+				description,id,image_url);
 		return redirect("/homepage");
 	}
 	public static Result productPage(){
