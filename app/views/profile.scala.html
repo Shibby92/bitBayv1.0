@@ -85,7 +85,7 @@
             <tbody>
                @for(category <- categoryList){
                <tr>
-                  <td> <a href="category/@category.name" class="list-group-item glyphicon glyphicon-shopping-cart"> @category.name </a> </td>
+                  <td> <a href="category/@category.name" class="list-group-item glyphicon glyphicon-shopping-cart" reqiered> @category.name </a> </td>
                   <div>
                      <td style="float: left">  
                         <a class="btn  btn-info glyphicon glyphicon-refresh " href="/updatecategory/@category.id" role="button" );">Update</a>

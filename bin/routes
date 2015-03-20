@@ -60,7 +60,7 @@ GET		/addfaq					controllers.FAQController.toAddNewFAQ()
 POST	/updatefaq				controllers.FAQController.updateFAQ(id: Integer)
 GET		/updatefaq/:id			controllers.FAQController.toUpdateFAQ(id: Integer)
 GET		/deletefaq				controllers.FAQController.deleteFAQ(id: Integer)
-
+GET		/search					controllers.SearchController.search(q: String)
 
 # Routes for contact form
 

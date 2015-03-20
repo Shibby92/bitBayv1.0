@@ -12,7 +12,16 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
         
-                     
+        <div class="span12">
+            <form id="custom-search-form" method="GET" action="/search" class="form-search form-horizontal pull-right">
+                <div class="input-append span12">
+                    <input type="text" name="q" id="q" class="search-query mac-style" placeholder="Search" required/>
+                   
+                    <button type="submit" class="btn glyphicon glyphicon-search"></button>
+                </div>
+            </form>
+        </div>
+
                    
          @if(email == null) {
         
