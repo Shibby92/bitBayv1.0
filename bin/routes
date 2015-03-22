@@ -26,6 +26,9 @@ GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer)
 POST 	/updateproduct/:id		controllers.ProductApplication.update(id:Integer)
 GET 	/productpage			controllers.ProductApplication.productPage()
+#POST    /pictureupload          controllers.ProductApplication.savePicture(id:Integer)
+GET      /itempage/:id             controllers.ProductApplication.itemPage(id:Integer)
+
 
 GET		/category/:name			controllers.ProductApplication.category(name:String)
 GET 	/categorypage			controllers.CategoryApplication.categoryPage()
@@ -44,6 +47,28 @@ GET		/update					controllers.UserController.toList()
 
 GET		/additionalinfo			controllers.UserController.toAdditionalInfo()
 POST	/additionalinfo			controllers.UserController.additionalInfo()
+GET		/profile			controllers.UserController.profile()
+
+
+
+GET		/editinfo				controllers.UserController.toEditInfo()
+POST	/editinfo				controllers.UserController.editAdditionalInfo()		
+
+GET		/faq					controllers.FAQController.allFAQs()
+POST	/addfaq					controllers.FAQController.addNewFAQ()
+GET		/addfaq					controllers.FAQController.toAddNewFAQ()
+POST	/updatefaq				controllers.FAQController.updateFAQ(id: Integer)
+GET		/updatefaq/:id			controllers.FAQController.toUpdateFAQ(id: Integer)
+GET		/deletefaq				controllers.FAQController.deleteFAQ(id: Integer)
+GET		/search					controllers.SearchController.search(q: String)
+
+# Routes for contact form
+
+GET 	/contactpage			controllers.UserLoginApplication.contactPage()
+POST 	/contact				controllers.UserLoginApplication.contact()
+
+
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

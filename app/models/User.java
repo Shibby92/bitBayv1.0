@@ -77,6 +77,8 @@ public class User extends Model {
 	public boolean verification = false;
 	
 	public String confirmation;
+	
+	public boolean hasAdditionalInfo;
 
 	static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);
@@ -90,6 +92,7 @@ public class User extends Model {
 		this.email = email;
 		this.password = password;
 		this.admin = false;
+		this.hasAdditionalInfo = false;
 	}
 	
 	public User(String email, String password, String confirmation) {
@@ -97,6 +100,7 @@ public class User extends Model {
 		this.password = password;
 		this.admin = false;
 		this.confirmation = confirmation;
+		this.hasAdditionalInfo = false;
 	}
 	
 	public User(String email, String password, boolean admin, boolean verification) {
@@ -104,6 +108,7 @@ public class User extends Model {
 		this.password = password;
 		this.admin = admin;
 		this.verification = verification;
+		this.hasAdditionalInfo = false;
 	}
 
 	/**
@@ -132,7 +137,7 @@ public class User extends Model {
 	
 	
 	public static void create(User user) {
-		new User(user.email, user.password, user.admin, user.verification).save();
+		user.save();
 	}
 
 	/**
@@ -192,6 +197,14 @@ public class User extends Model {
 	}
 	
 	/**
+	 * 
+	 * @return all admins in our database
+	 */
+	public static List<User>admins(){
+		return find.where().eq("admin", true).findList();
+	}
+	
+	/**
 	 * finds a user by his confirmation string
 	 * @param confirmation String confirmation string
 	 * @return the user
@@ -224,9 +237,6 @@ public class User extends Model {
 		find.byId(id).delete();
 		
 	}
-	public static void update(User user) {
-		user.save();
-	}
 	
 	//when admin edits users email address it sends verification mail on that address
 	public static void editEmailVerification(int id) throws MalformedURLException {
@@ -247,7 +257,7 @@ public class User extends Model {
 	//updates user with his additional info
 	public static boolean AdditionalInfo(String email, String username, Date birth_date, String shipping_address, String user_address, String gender, String city) {
 		User u = User.find(email);
-		if(existsUsername(username))
+		if(existsUsername(username) && !u.find(email).username.equals(username))
 			return false;
 		u.username = username;
 		u.birth_date = birth_date;

@@ -50,7 +50,7 @@ public class Product extends Model {
 	
 	public String image_url;
 
-	static Finder<Integer, Product> find = new Finder<Integer, Product>(
+	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
 	static Finder<String,Category> findCategory= new Finder<String,Category>(String.class,Category.class);
 	
@@ -109,6 +109,22 @@ public class Product extends Model {
 	 */
 	public static Product find(int id) {
 		return find.byId(id);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public static List<Product> productList(){

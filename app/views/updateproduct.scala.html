@@ -1,7 +1,5 @@
 @(product: Product)
-
 @main("Update Product"){
-	
 	<body>
 
 	<!-- Navigation -->
@@ -18,7 +16,7 @@
 		<div class="col-md-12">
 			<div class="col-sm-4">
 				<div class="well login-box">
-					<form action="/updateproduct/@product.id" method="POST">
+					<form action="/updateproduct/@product.id" method="POST" enctype="multipart/form-data">
 						<legend>Update product </legend>
 						<dl class=" " id="name_field">
 							<dt><label for="name">Name:</label> </dt>
@@ -38,8 +36,12 @@
 							<input value=@product.description name="description" id="description" placeholder="Description of your product" type="text" class="form-control" />
 						
 						</dl>
-							<input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update" required/> 
+							<input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update"/> 
+							
+							<input type="file" class = "btn btn-info" role="button" name="image_url" id="image_url" value="@product.image_url"/> 
+	
 							<a class="btn btn-danger" href="/" role="button">Cancel</a>
+							
 						
 
 					</form>

@@ -1,39 +1,32 @@
 @(category: Category)
-
 @main("Update Category"){
-	
-	<body>
-
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-			</div>
-		</div>
-		<!-- /.container -->
-	</nav>
-
-	<div class="row">
-		<div class="col-md-12">
-			<div class="col-sm-4">
-				<div class="well login-box">
-					<form action="/updatecategory/@category.id" method="POST">
-						<legend>Update category </legend>
-						<dl class=" " id="name_field">
-							<dt><label for="name">Name:</label> </dt>
-							<dd>
-							<input value=@category.name name="name"id="name" placeholder="Name of category" type="text" class="form-control" />
-						
-						</dl>
-							<input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update" required/> 
-							<a class="btn btn-danger" href="/" role="button">Cancel</a>
-						
-
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+<body>
+   <!-- Navigation -->
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+         <div class="navbar-header">
+            <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+         </div>
+      </div>
+      <!-- /.container -->
+   </nav>
+   <div class="row">
+      <div class="col-md-12">
+         <div class="col-sm-4">
+            <div class="well login-box">
+               <form action="/updatecategory/@category.id" method="POST">
+                  <legend>Update category </legend>
+                  <dl class=" " id="name_field">
+                     <dt><label for="name">Name:</label> </dt>
+                     <dd>
+                        <input value=@category.name name="name"id="name" placeholder="Name of category" type="text" class="form-control"required />
+                  </dl>
+                  <input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update" required/> 
+                  <a class="btn btn-danger" href="/" role="button">Cancel</a>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
 </body>
 }

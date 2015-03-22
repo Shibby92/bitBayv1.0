@@ -1,0 +1,51 @@
+@(faq: FAQ)
+ @main("Update FAQ") {
+<body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+			</div>
+		</div>
+		<!-- /.container -->
+	</nav>
+
+	<div class="row">
+		<div class="col-md-12">
+		@if(flash.get("success")) {
+			<h4><center><strong>@flash.get("success")</strong></center></h4>
+			}
+			<div class="col-sm-4">
+				<div class="well login-box">
+				 
+					<form action="@routes.FAQController.updateFAQ(faq.id)" method ="POST" >
+						<legend>Update FAQ </legend>
+						
+						
+						
+					<div class="col-sm-6 col-sm-offset-1">
+						
+						
+					
+					<div class="signup-form"><!--sign up form-->
+						
+							<input type="text" name="question" id="question" value= "@faq.question" required/>
+							<textarea name="answer" id="answer" rows="6" required> @faq.answer </textarea>
+							<button type="submit" class="btn btn-success">Update</button>
+								<p></p>
+									<p></p>
+										<p></p>
+											<p></p>
+						</form>
+					</div><!
+				</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+}
