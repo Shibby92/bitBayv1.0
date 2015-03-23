@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import play.Logger;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
@@ -148,7 +149,9 @@ public class Product extends Model {
 		}
 	}
 	public static void update(Product product) {
-		product.save();
+		Logger.info(""+product.name);
+		product.update();
+		
 	}
 
 	

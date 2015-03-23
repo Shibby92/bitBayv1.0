@@ -24,7 +24,6 @@ POST   /addproduct/homepage     controllers.UserLoginApplication.homePage()
 GET    /addproductcategory      controllers.ProductApplication.toPickCategory()
 GET    /updateproduct/:id       controllers.ProductApplication.updateProduct(id:Integer)
 POST   /updateproduct/:id       controllers.ProductApplication.update(id:Integer)
-GET    /productpage             controllers.ProductApplication.productPage()
 GET    /itempage/:id            controllers.ProductApplication.itemPage(id:Integer)
 
 

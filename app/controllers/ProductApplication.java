@@ -2,12 +2,15 @@ package controllers;
 
 import helpers.*;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.swing.ImageIcon;
 
 import com.google.common.io.Files;
 
@@ -74,10 +77,7 @@ public class ProductApplication extends Controller {
 				description,id,image_url);
 		return redirect("/homepage");
 	}
-	public static Result productPage(){
-		Logger.info("product page opened");
-		return ok(productpage.render(Product.productList(), FAQ.all()));
-	}
+	
 
 	public static Result category(String name) {
 		Logger.info("Category page list opened");
@@ -111,32 +111,32 @@ public class ProductApplication extends Controller {
 	}
 	
 	public static Result update (int id){
-		savePicture(id);
-		
 		Product updateProduct= Product.find(id);
 		updateProduct.name=productForm.bindFromRequest().field("name").value();
 		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
 		Product.update(updateProduct);
-		Logger.info("product updated");
-		return redirect("/productpage");
+		savePicture(id);
+		return redirect("/profile");
 		
 	}
 	
 	
 	
 	public static Result savePicture(int id){
-		Product p = ProductApplication.find(id);
+		Product updateProduct = ProductApplication.find(id);
 			
 		MultipartFormData body = request().body().asMultipartFormData(); 
 		FilePart filePart = body.getFile("image_url");
-		
+		if(filePart  == null){
+			return redirect("/profile");
+		}
 		Logger.debug("Content type: " + filePart.getContentType());
 		Logger.debug("Key: " + filePart.getKey());
 		File image = filePart.getFile();
 		double megabiteSyze = (image.length()/1024)/1024;
 		if(megabiteSyze >2)
-			return redirect("/productpage");
+			return redirect("/profile");
 		try {
 			
 			Files.move(image, new File("./public/images/Productimages/"+new Date().toString()+filePart.getFilename()));
@@ -147,9 +147,12 @@ public class ProductApplication extends Controller {
 			e.printStackTrace();
 		}
 		String image_url="images/Productimages/"+new Date().toString()+filePart.getFilename();
-		p.image_url=image_url;
-		p.update();
-		return redirect("/productpage" + p.id);
+		updateProduct.image_url=image_url;
+		Product.update(updateProduct);
+		ImageIcon tmp= new ImageIcon(image_url);
+		Image resize = tmp.getImage();
+		resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
+		return redirect("/profile");
 	}
 	
 	public static Result itemPage(int id){

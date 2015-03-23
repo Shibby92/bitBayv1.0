@@ -36,10 +36,10 @@
                   @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' class="glyphicon glyphicon-user">Profile</a></li>
                   } else {
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
                   }
                   <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                </ul>
             </li>
          </ul>
@@ -65,7 +65,7 @@
                   <li data-target="#carousel-example-generic" data-slide-to="2">
                   </li>
                </ol>
-               <div class="carousel-inner">
+               <div class="carousel-inner" style="max-width: 800px;	height: 250px;">
                   <div class="item active">
                      <img class="slide-image" src="@routes.Assets.at(product.image_url)" />
                      </a>    
@@ -104,7 +104,7 @@
       <a href="/contactpage">
          <h3>Contact Us</h3>
       </a>
-      <a href="faq">
+      <a href="/faq">
          <h3> FAQs</h3>
       </a>
    </div>

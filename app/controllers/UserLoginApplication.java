@@ -130,9 +130,9 @@ public class UserLoginApplication extends Controller {
 	 * @return the contact page with a message indicating if the email has been sent.
 	 */
 	public static Promise<Result> contact() {
-		final String userEmail = session().get("email");
+		 String userEmail = session().get("email");
 		//need this to get the google recapctha value
-		final DynamicForm temp = DynamicForm.form().bindFromRequest();
+		 DynamicForm temp = DynamicForm.form().bindFromRequest();
 		
 		/* send a request to google recaptcha api with the value of our secret code and the value
 		 * of the recaptcha submitted by the form */
@@ -203,6 +203,8 @@ public class UserLoginApplication extends Controller {
 		@Required
 		public String message;
 		
+		public Contact(){
+		}
 		public Contact(String email, String message){
 			this.email=email;
 			this.message=message;

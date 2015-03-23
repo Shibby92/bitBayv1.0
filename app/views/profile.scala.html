@@ -28,7 +28,7 @@
   <div class="col-md-9">
         <ul class="nav nav-tabs">
         @if(User.find(session().get("email")).admin) {
-          <li class="active"><a href="#listofusers" data-toggle="tab">List Of Users</a></li>
+          <li ><a href="#listofusers" data-toggle="tab">List Of Users</a></li>
           <li><a href="#categories" data-toggle="tab">Categories</a></li>
           <li><a href="#products" data-toggle="tab">Products</a></li> 
           }
@@ -118,11 +118,11 @@
          @for(product <- products){           
          <div class="col-md-4 portfolio-item">
             <a href="#">
-            <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" alt="">
             </a>
-            <h3 class="pull-right">@product.price</h3>
+            <h3 class="pull-right">@product.price $</h3>
             <h3>
-               <a href="#">@product.name</a>
+               <a href="/itempage/@product.id">@product.name</a>
             </h3>
             <p> @product.description </p>
             <div>
