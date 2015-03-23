@@ -11,18 +11,17 @@
      <div class="row">
 
      @if(session().get("email") != null) {
-										@if(User.find(session().get("email")).admin) { 
-
+		@if(User.find(session().get("email")).admin) { 
       <div class="form-group text-center">
               <a class="btn btn-success" href="/addfaq" role="button">Add new FAQ</a>
                </div>
                }
                }
-               <div class="form-group text-center">
+               <div>
 	<table class='table'>
-		<thead> <tr> <th style="float: left"> FAQs: </th>  </tr>  </thead>
+		<thead> <tr> <th style="float: left"> </th>  </tr>  </thead>
 		<tbody>
-				
+
 				@for(currentFAQ <- faqs){
 												
 							<div class="product-image-wrapper">
@@ -31,6 +30,8 @@
 									
 									<tr> 
 									<td>
+									
+									<li>
 										<h4> <strong>Question:</strong> @currentFAQ.question </h4>
 										<p> <strong>Answer:</strong> @currentFAQ.answer </p>
 										
@@ -39,12 +40,15 @@
 										<a href="@routes.FAQController.toUpdateFAQ(currentFAQ.id)" class="btn btn-default">Edit</a>
 										
 										<a href="@routes.FAQController.deleteFAQ(currentFAQ.id)" onclick="return confirm('Are you sure you want to delete this question?');"class="btn btn-danger">Delete</a>
-							
-										</td>
-										</tr>
+								
+										
 										
 										}  
 										}
+										</li>
+										
+										</td>
+										</tr>
 										
 										
 									</div>					

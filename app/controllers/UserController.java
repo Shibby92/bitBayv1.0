@@ -3,9 +3,6 @@ package controllers;
 import java.net.MalformedURLException;
 import java.text.*;
 import java.util.Date;
-import java.util.Locale;
-
-import org.springframework.format.datetime.DateFormatter;
 
 import helpers.*;
 import models.*;
@@ -14,7 +11,6 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.*;
 import views.*;
-
 import views.html.*;
 
 
@@ -33,6 +29,7 @@ public class UserController extends Controller {
 	// goes to page where it lists all of registered users
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdate() {
+
 		Logger.info("listofusers rendered");
 		return ok(listofusers.render(User.all()));
 	}
@@ -167,7 +164,7 @@ public class UserController extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result profile() {
-		return ok(profile.render(User.all(), Category.list(), Product.productList()));
+		return ok(profile.render(User.all(), Category.list(), Product.productList(), FAQ.all()));
 		
 	}
 	

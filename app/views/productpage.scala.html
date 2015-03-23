@@ -1,4 +1,4 @@
-@(products:List[Product])
+@(products:List[Product], faqs: List[FAQ])
 @main("Categories") {
 <body>
    <!-- Navigation -->
@@ -14,18 +14,18 @@
    <div class="container">
       <form action="/">
       <div class="form-group text-center">
-         <a class="btn btn-success" href="/addproductcategory" role="button">Add new product</a>
+         <a class="btn btn-success glyphicon glyphicon-plus" href="/addproductcategory" role="button"></a>
       </div>
       <legend>Products: </legend>
       <div class="row">
          @for(product <- products){           
          <div class="col-md-4 portfolio-item">
             <a href="#">
-            <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" width="700" height="400" alt="">
             </a>
             <h3 class="pull-right">@product.price</h3>
             <h3>
-               <a href="#">@product.name</a>
+               <a href="itempage/@product.id">@product.name</a>
             </h3>
             <p> @product.description </p>
             <div>
@@ -35,7 +35,7 @@
          </div>
          }
       </div>
-      <hr>
+      
       <!-- Pagination -->
       <div class="row text-center">
          <div class="col-lg-12">
@@ -64,7 +64,16 @@
             </ul>
          </div>
       </div>
-      </hr>
+      
+   </div>
+      <div class="container">
+      <hr>
+      <a href="/contactpage">
+         <h3>Contact Us</h3>
+      </a>
+      <a href="faq">
+         <h3> FAQs</h3>
+      </a>
    </div>
 </body>
 }

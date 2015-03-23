@@ -1,4 +1,4 @@
-@(category: String, products:List[Product])
+@(category: String, products:List[Product], faqs: List[FAQ])
 @main("category") {
 <body>
    <!-- Navigation -->
@@ -26,13 +26,12 @@
             </a>
             <h3 class="pull-right">@product.price</h3>
             <h3>
-               <a href="#">@product.name</a>
+                <a href="/itempage/@product.id">@product.name</a>
             </h3>
             <p> @product.description </p>
          </div>
          }
       </div>
-      <hr>
       <!-- Pagination -->
       <div class="row text-center">
          <div class="col-lg-12">
@@ -63,5 +62,16 @@
       </div>
       </hr>
    </div>
+   <!-- /.container -->
+<div class="container">
+   <hr>
+    <a href="/contactpage">
+                                  <h3>Contact Us</h3>
+                                </a>
+                                   <a href="faq">
+                        <h3> FAQs</h3>
+                        </a>
+</div>
+<!-- /.container -->
 </body>
 }

@@ -15,14 +15,12 @@ import play.Play;
 import play.data.*;
 import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.Required;
-import play.db.ebean.Model.Finder;
 import play.libs.F.Function;
 import play.libs.F.Promise;
 import play.libs.ws.WS;
 import play.libs.ws.WSResponse;
 import play.mvc.*;
 import views.html.*;
-import play.i18n.Messages;
 
 
 /**
@@ -67,7 +65,7 @@ public class UserLoginApplication extends Controller {
 
 		}
 
-		flash("error", "Username already exists");
+		flash("error", "Email does not exist!");
 		return ok(toregister.render(loginUser));
 	}
 
@@ -79,13 +77,15 @@ public class UserLoginApplication extends Controller {
 	public static Result register() throws MalformedURLException {
 		Logger.info("create user");
 		DynamicForm form = loginUser.form().bindFromRequest();
-		if (form.get("email").equals(""))
-			return ok(toregister.render(loginUser));
-		else {
 			//User u = loginUser.bindFromRequest().get();
 			Logger.info("user created");
 			String email = form.get("email");
 			String password = form.get("password");
+			String passconfirm = form.get("confirm_pass");
+			if(!password.equals(passconfirm)) {
+				flash("error","Passwords are not the same!");
+				return ok(toregister.render(loginUser));
+			}
 			String confirmation = UUID.randomUUID().toString();
 			User u = new User(email, password, confirmation);
 			if (User.create(email, password, confirmation)) {
@@ -97,8 +97,9 @@ public class UserLoginApplication extends Controller {
 			}
 			flash("validate", "Please check your email");
 			return redirect("/login");
-		}else
-				return ok(toregister.render(loginUser));
+		}else {
+			flash("error", "There is already a user with that username!");
+			return ok(toregister.render(loginUser));
 		}
 
 	}
@@ -130,9 +131,9 @@ public class UserLoginApplication extends Controller {
 	 * @return the contact page with a message indicating if the email has been sent.
 	 */
 	public static Promise<Result> contact() {
-		final String userEmail = session().get("email");
+		 String userEmail = session().get("email");
 		//need this to get the google recapctha value
-		final DynamicForm temp = DynamicForm.form().bindFromRequest();
+		 DynamicForm temp = DynamicForm.form().bindFromRequest();
 		
 		/* send a request to google recaptcha api with the value of our secret code and the value
 		 * of the recaptcha submitted by the form */
@@ -202,10 +203,14 @@ public class UserLoginApplication extends Controller {
 		public String email;
 		@Required
 		public String message;
-		
+
+		public Contact(){
+		}
+
 		public Contact(String email, String message){
 			this.email=email;
 			this.message=message;
 		}
+
 	}
 }

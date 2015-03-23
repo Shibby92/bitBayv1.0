@@ -2,12 +2,12 @@ package controllers;
 
 import helpers.*;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.swing.ImageIcon;
 
 import com.google.common.io.Files;
 
@@ -19,7 +19,6 @@ import play.mvc.*;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import views.html.*;
-//import views.html.static_pages.pictureUpload;
 
 /**
  * Controls the ad application Redirects on the pages when needed
@@ -46,9 +45,13 @@ public class ProductApplication extends Controller {
 		return redirect("/addproduct/" + Category.categoryId(category));
 	}
 
-	// adds additional info to product
-	// creates new product
-	// returns user to his home page
+	/**
+	 * adds additional info to product
+	 * creates new product
+	 * returns user to his home page
+	 * @param id
+	 * @return
+	 */
 	public static Product find(int id) {
 		return find.byId(id);
 	} 
@@ -68,36 +71,56 @@ public class ProductApplication extends Controller {
 		double price = Double.valueOf(form.get("price"));
 		
 		String description = form.get("description");
-//		String image_url = "";// form.data().get("image url");
+		String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
 		Product.create(name, price,
-				description,id);
+				description,id,image_url);
 		return redirect("/homepage");
 	}
+
+	/**
+	 * opens a page with all products
+	 * @return
+	 */
 	public static Result productPage(){
 		Logger.info("product page opened");
-		return ok(productpage.render(Product.productList()));
+		return ok(productpage.render(Product.productList(), FAQ.all()));
 	}
 
+	/**
+	 * opens a page with all of the categories
+	 * @param name String name of the category
+	 * @return
+	 */
 	public static Result category(String name) {
 		Logger.info("Category page list opened");
-		return ok(category.render(name,Product.listByCategory(name)));
+		return ok(category.render(name,Product.listByCategory(name), FAQ.all()));
 	}
 
+	/**
+	 * opens a page where user can pick category for his product
+	 * @return
+	 */
 	public static Result toPickCategory() {
 		Logger.info("add product category opened");
 		return ok(addproductcategory.render(Category.list()));
 	}
 
+	/**
+	 * opens a page where user adds info for his product
+	 * @param id int id of the category
+	 * @return
+	 */
 	public static Result toInfo(int id) {
 		Logger.info("add product rendered");
 		return ok(addproduct.render(id,productForm));
 	}
-	
-	//public static Result toDeleteProduct(){
-	//	return ok(deleteproductpage.render(Product.list()));
-	//}
-	//method that should delete product and redirect to other products/uses delete method from Product class
+
+	/**
+	 * method that delete product and redirect to other products
+	 * @param id int id of the product
+	 * @return
+	 */
 	public static Result deleteProduct(int id) {
 		Logger.warn("product deleted");
 		Product.delete(id);
@@ -105,11 +128,22 @@ public class ProductApplication extends Controller {
 
 	}
 	
+	/**
+	 * opens a page where user can update his product
+	 * @param id int id of the product
+	 * @return
+	 */
 	public static Result updateProduct(int id){
 		Logger.info("update product rendered");
 		return ok(updateproduct.render(Product.find(id)));
 	}
 	
+	/**
+	 * gets the data from the updated product
+	 * saves it in database
+	 * @param id int id of the product
+	 * @return
+	 */
 	public static Result update (int id){
 		savePicture(id);
 		
@@ -120,18 +154,24 @@ public class ProductApplication extends Controller {
 		Product.update(updateProduct);
 		Logger.info("product updated");
 		return redirect("/productpage");
+
+
 		
 	}
 	
-	
-	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public static Result savePicture(int id){
-		Product p = ProductApplication.find(id);
-		
-	
+		Product updateProduct = ProductApplication.find(id);
+			
 		MultipartFormData body = request().body().asMultipartFormData(); 
-		FilePart filePart = body.getFile("image");
-		
+		FilePart filePart = body.getFile("image_url");
+		if(filePart  == null){
+			return redirect("/profile");
+		}
 		Logger.debug("Content type: " + filePart.getContentType());
 		Logger.debug("Key: " + filePart.getKey());
 		File image = filePart.getFile();
@@ -147,7 +187,19 @@ public class ProductApplication extends Controller {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return redirect("/productpage" + p.id);
+		String image_url="images/Productimages/"+new Date().toString()+filePart.getFilename();
+
+		updateProduct.image_url=image_url;
+		Product.update(updateProduct);
+		ImageIcon tmp= new ImageIcon(image_url);
+		Image resize = tmp.getImage();
+		resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
+		return redirect("/profile");
+	}
+	
+	public static Result itemPage(int id){
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all()));
+		
 	}
 
 }

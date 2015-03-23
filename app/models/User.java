@@ -257,7 +257,7 @@ public class User extends Model {
 	//updates user with his additional info
 	public static boolean AdditionalInfo(String email, String username, Date birth_date, String shipping_address, String user_address, String gender, String city) {
 		User u = User.find(email);
-		if(existsUsername(username))
+		if(existsUsername(username) && !u.find(email).username.equals(username))
 			return false;
 		u.username = username;
 		u.birth_date = birth_date;

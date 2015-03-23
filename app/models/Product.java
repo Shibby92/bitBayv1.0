@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import play.Logger;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
@@ -50,7 +51,7 @@ public class Product extends Model {
 	
 	public String image_url;
 
-	static Finder<Integer, Product> find = new Finder<Integer, Product>(
+	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
 	static Finder<String,Category> findCategory= new Finder<String,Category>(String.class,Category.class);
 	
@@ -92,14 +93,15 @@ public class Product extends Model {
 	}
 
 	// Constructor for "required" attributes
-	public Product(String name, double price, String description,int id) {
+	public Product(String name, double price, String description,int id, String image_url) {
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.category_id=id;
+		this.image_url=image_url;
 	}
-	public static void create(String name,  double price, String description,int id) {
-		new Product(name,  price, description,id).save();
+	public static void create(String name,  double price, String description,int id, String image_url) {
+		new Product(name,  price, description,id,image_url).save();
 	}
 
 	/**
@@ -147,7 +149,9 @@ public class Product extends Model {
 		}
 	}
 	public static void update(Product product) {
-		product.save();
+		Logger.info(""+product.name);
+		product.update();
+		
 	}
 
 	

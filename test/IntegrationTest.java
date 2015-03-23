@@ -16,5 +16,8 @@ public class IntegrationTest {
 
 }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 */
 

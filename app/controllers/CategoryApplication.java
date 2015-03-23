@@ -32,19 +32,34 @@ public class CategoryApplication extends Controller {
 		return ok(addcategorypage.render(categoryForm));
 	}
 
-	// method that should delete category and redirect to other products/uses
-	// delete method from Category class
+
+	/**
+	 * method that should delete category and redirect to other products/uses
+	 * delete method from Category class
+	 * @param id int id of the category
+	 * @return result
+	 */
 	public static Result deleteCategory(int id) {
 		Logger.warn("category is deleted");
 		Category.delete(id);
 		return redirect("/categorypage");
 
 	}
+	
+	/**
+	 * opens the page where categories are listed
+	 * @return result
+	 */
 	public static Result categoryPage(){
 		Logger.info("page opened");
 		return ok(categorypage.render(Category.list()));
 	}
 	
+	/**
+	 * updates a category
+	 * @param id int id of the category
+	 * @return result
+	 */
 	public static Result update(int id){
 		Logger.info("category is updated");
 		Category updateCategory= Category.find(id);
@@ -53,6 +68,11 @@ public class CategoryApplication extends Controller {
 		return redirect("/categorypage");
 	}
 	
+	/**
+	 * opens page where user can update a category
+	 * @param id int id of the category
+	 * @return results
+	 */
 	public static Result updateCategory(int id){
 		Logger.info("update category page opened");
 		return ok(updatecategory.render(Category.find(id)));
