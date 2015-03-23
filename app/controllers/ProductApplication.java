@@ -19,7 +19,6 @@ import play.mvc.*;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import views.html.*;
-//import views.html.static_pages.pictureUpload;
 
 /**
  * Controls the ad application Redirects on the pages when needed
@@ -46,9 +45,13 @@ public class ProductApplication extends Controller {
 		return redirect("/addproduct/" + Category.categoryId(category));
 	}
 
-	// adds additional info to product
-	// creates new product
-	// returns user to his home page
+	/**
+	 * adds additional info to product
+	 * creates new product
+	 * returns user to his home page
+	 * @param id
+	 * @return
+	 */
 	public static Product find(int id) {
 		return find.byId(id);
 	} 
@@ -75,31 +78,49 @@ public class ProductApplication extends Controller {
 		return redirect("/homepage");
 	}
 
+	/**
+	 * opens a page with all products
+	 * @return
+	 */
 	public static Result productPage(){
 		Logger.info("product page opened");
 		return ok(productpage.render(Product.productList(), FAQ.all()));
 	}
 
-
+	/**
+	 * opens a page with all of the categories
+	 * @param name String name of the category
+	 * @return
+	 */
 	public static Result category(String name) {
 		Logger.info("Category page list opened");
 		return ok(category.render(name,Product.listByCategory(name), FAQ.all()));
 	}
 
+	/**
+	 * opens a page where user can pick category for his product
+	 * @return
+	 */
 	public static Result toPickCategory() {
 		Logger.info("add product category opened");
 		return ok(addproductcategory.render(Category.list()));
 	}
 
+	/**
+	 * opens a page where user adds info for his product
+	 * @param id int id of the category
+	 * @return
+	 */
 	public static Result toInfo(int id) {
 		Logger.info("add product rendered");
 		return ok(addproduct.render(id,productForm));
 	}
-	
-	//public static Result toDeleteProduct(){
-	//	return ok(deleteproductpage.render(Product.list()));
-	//}
-	//method that should delete product and redirect to other products/uses delete method from Product class
+
+	/**
+	 * method that delete product and redirect to other products
+	 * @param id int id of the product
+	 * @return
+	 */
 	public static Result deleteProduct(int id) {
 		Logger.warn("product deleted");
 		Product.delete(id);
@@ -107,11 +128,22 @@ public class ProductApplication extends Controller {
 
 	}
 	
+	/**
+	 * opens a page where user can update his product
+	 * @param id int id of the product
+	 * @return
+	 */
 	public static Result updateProduct(int id){
 		Logger.info("update product rendered");
 		return ok(updateproduct.render(Product.find(id)));
 	}
 	
+	/**
+	 * gets the data from the updated product
+	 * saves it in database
+	 * @param id int id of the product
+	 * @return
+	 */
 	public static Result update (int id){
 		savePicture(id);
 		
@@ -123,11 +155,15 @@ public class ProductApplication extends Controller {
 		Logger.info("product updated");
 		return redirect("/productpage");
 
+
 		
 	}
 	
-	
-	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public static Result savePicture(int id){
 		Product updateProduct = ProductApplication.find(id);
 			

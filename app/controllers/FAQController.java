@@ -12,18 +12,27 @@ import views.html.*;
 
 public class FAQController extends Controller {
 	
-	//makes a page with listed FAQs
+	/**
+	 * makes a page with listed FAQs
+	 * @return result
+	 */
 	public static Result allFAQs() {
 		return ok(faq.render(FAQ.all()));
 	}
 	
-	//makes a page add new FAQ
+	/**
+	 * makes a page add new FAQ
+	 * @return result
+	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toAddNewFAQ() {
 		return ok(newfaq.render());
 	}
 	
-	//gets question and answer
+	/**
+	 * gets question and answer from the add new FAQ page
+	 * @return result
+	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewFAQ() {
 		DynamicForm form = Form.form().bindFromRequest();
@@ -36,8 +45,11 @@ public class FAQController extends Controller {
 		return ok(newfaq.render());
 	}
 	
-	//makes a page where you update FAQ
-	//gets the id of the FAQ
+	/**
+	 * makes a page where you update FAQ
+	 * @param id int the id of the FAQ
+	 * @return result
+	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateFAQ(int id) {
 		
@@ -45,8 +57,12 @@ public class FAQController extends Controller {
 		return ok(updatefaq.render(q));
 	}
 	
-	//gets the data from update from FAQ
-	//saves it in database
+	/**
+	 * gets the data from update from FAQ
+	 * saves it in database
+	 * @param id
+	 * @return result
+	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result updateFAQ(int id) {
 		DynamicForm form = Form.form().bindFromRequest();
@@ -58,8 +74,12 @@ public class FAQController extends Controller {
 		return ok(updatefaq.render(f));
 	}
 	
-	//deletes FAQ
-	//returns to all FAQs
+	/**
+	 * deletes FAQ
+	 * returns to all FAQs
+	 * @param id
+	 * @return result
+	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteFAQ(int id) {
 		FAQ.delete(id);
