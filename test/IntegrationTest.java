@@ -1,4 +1,4 @@
-import models.User;
+/*import models.User;
 
 import org.junit.*;
 
@@ -16,3 +16,8 @@ public class IntegrationTest {
 
 }
 
+<<<<<<< HEAD
+=======
+*/
+
+>>>>>>> c68d6aa4cdec1a6f1ad4a7c86966b3cbad99b9cc

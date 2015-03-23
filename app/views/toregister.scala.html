@@ -13,6 +13,21 @@
    </nav>
    <div class="row">
       <div class="col-md-12">
+       @if(flash.get("inDatabase") || flash.get("validate")){
+                  <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("inDatabase")
+                        @flash.get("validate")
+                     </div>
+                  </div>
+                  }
+          @if(flash.get("error")) {
+         	<div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
+         	}
          <div class="col-sm-3">
             <div class="well login-box">
                <form action="/register" method="GET">
@@ -30,14 +45,12 @@
                      </dd>
                      <dd class="info">Minimum length: 5</dd>
                   </dl>
-                  @if(flash.get("inDatabase") || flash.get("validate")){
-                  <div class="alert alert-success" role="alert">
-                     <div class="container">
-                        @flash.get("inDatabase")
-                        @flash.get("validate")
-                     </div>
-                  </div>
-                  }
+                   <dl class=" " id="password_field">
+                     <dt><label for="password">Confirm password</label></dt>
+                     <dd>
+                        <input type="password" id="confirm_pass" name="confirm_pass" placeholder="Confirm your password" class="form-control" pattern=".{5,50}" required >
+                     </dd>
+                  </dl>
                   <div class="form-group text-center">
                      <input type="submit" value="Register" class="btn btn-success" >
                      <a class="btn btn-danger" href="homepage" role="button">Cancel</a>

@@ -1,6 +1,6 @@
-@(category: String, products:List[Product], faqs: List[FAQ])
-@main("category") {
-<body>
+@(products:List[Product] )
+@main("ResultOfSearchs") {
+	<body>
    <!-- Navigation -->
    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -13,11 +13,6 @@
    <!-- Page Content -->
    <div class="container">
       <!-- Page Header -->
-      <div class="row">
-         <div class="col-lg-12">
-            <h1 class="page-header"> @category </h1>
-         </div>
-      </div>
       <div class="row">
          @for(product <- products){           
          <div class="col-md-4 portfolio-item">
@@ -32,6 +27,7 @@
          </div>
          }
       </div>
+    
       <!-- Pagination -->
       <div class="row text-center">
          <div class="col-lg-12">
@@ -64,14 +60,10 @@
    </div>
    <!-- /.container -->
 <div class="container">
-   <hr>
-    <a href="/contactpage">
-                                  <h3>Contact Us</h3>
-                                </a>
-                                   <a href="faq">
-                        <h3> FAQs</h3>
-                        </a>
+ 
 </div>
 <!-- /.container -->
+     
 </body>
+
 }
