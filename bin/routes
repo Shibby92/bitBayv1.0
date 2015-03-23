@@ -51,13 +51,13 @@ GET    /profile                 controllers.UserController.profile()
 GET    /editinfo                controllers.UserController.toEditInfo()
 POST   /editinfo                controllers.UserController.editAdditionalInfo()		
 
-GET    /faq                     controllers.FAQController.allFAQs()
-POST   /addfaq                  controllers.FAQController.addNewFAQ()
-GET    /addfaq                  controllers.FAQController.toAddNewFAQ()
-POST   /updatefaq               controllers.FAQController.updateFAQ(id: Integer)
-GET    /updatefaq/:id           controllers.FAQController.toUpdateFAQ(id: Integer)
-GET    /deletefaq               controllers.FAQController.deleteFAQ(id: Integer)
-
+GET		/faq					controllers.FAQController.allFAQs()
+POST	/addfaq					controllers.FAQController.addNewFAQ()
+GET		/addfaq					controllers.FAQController.toAddNewFAQ()
+POST	/updatefaq				controllers.FAQController.updateFAQ(id: Integer)
+GET		/updatefaq/:id			controllers.FAQController.toUpdateFAQ(id: Integer)
+GET		/deletefaq				controllers.FAQController.deleteFAQ(id: Integer)
+GET		/search					controllers.SearchController.search(q: String)
 
 # Routes for contact form
 

@@ -51,7 +51,7 @@ public class Product extends Model {
 	
 	public String image_url;
 
-	static Finder<Integer, Product> find = new Finder<Integer, Product>(
+	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
 	static Finder<String,Category> findCategory= new Finder<String,Category>(String.class,Category.class);
 	
