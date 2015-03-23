@@ -33,10 +33,12 @@
 						<dl class=" " id="description_field">
 							<dt><label for="description">Description:</label> </dt>
 							<dd>
-							<input value=@product.description name="description" id="description" placeholder="Description of your product" type="text" class="form-control" />
+
+							<textarea rows="4" cols="50"  name="description" id="description" placeholder="Description of your product"
+							 class="form-control">@product.description </textarea>
 						
 						</dl>
-							<input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update"/> 
+							<input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update" /> 
 							
 							<input type="file" class = "btn btn-info" role="button" name="image_url" id="image_url" value="@product.image_url"/> 
 	

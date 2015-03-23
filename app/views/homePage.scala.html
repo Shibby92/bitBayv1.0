@@ -5,7 +5,6 @@
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-
          <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,7 +49,6 @@
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' class="glyphicon glyphicon-user">Profile</a></li>
-
                   
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
@@ -120,7 +118,7 @@
       @for(product <- products){
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
-            <img src="http://placehold.it/320x150" alt="">
+            <img src="@routes.Assets.at(product.image_url)" alt="">
             <div class="caption">
                <h4 class="pull-right">US @product.price $</h4>
 

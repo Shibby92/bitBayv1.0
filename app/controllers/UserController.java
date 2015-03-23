@@ -3,9 +3,6 @@ package controllers;
 import java.net.MalformedURLException;
 import java.text.*;
 import java.util.Date;
-import java.util.Locale;
-
-import org.springframework.format.datetime.DateFormatter;
 
 import helpers.*;
 import models.*;
@@ -34,7 +31,6 @@ public class UserController extends Controller {
 	public static Result toUpdate() {
 
 		Logger.info("listofusers rendered");
-
 		return ok(listofusers.render(User.all()));
 	}
 

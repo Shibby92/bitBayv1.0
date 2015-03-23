@@ -22,7 +22,6 @@
       <h5>Username: @User.find(session().get("email")).username</h5> 
       <h5>Email:  @User.find(session().get("email")).email</h5> 
       <h5>Address:  @User.find(session().get("email")).user_address</h5> 
-
       <div class="col-md-5">
       <a href="/editinfo"><button class="btn btn-md btn-info" >Edit additional info</button></a>
        </div>
@@ -31,7 +30,7 @@
   <div class="col-md-9">
         <ul class="nav nav-tabs">
         @if(User.find(session().get("email")).admin) {
-          <li class="active"><a href="#listofusers" data-toggle="tab">List Of Users</a></li>
+          <li ><a href="#listofusers" data-toggle="tab">List Of Users</a></li>
           <li><a href="#categories" data-toggle="tab">Categories</a></li>
           <li><a href="#products" data-toggle="tab">Products</a></li> 
           }
@@ -77,6 +76,10 @@
          <a class="btn btn-success glyphicon glyphicon-plus" href="/addnewcategory" role="button">Add new category</a>
           
       </div>
+
+         <a class="btn btn-success glyphicon glyphicon-plus" href="/addnewcategory" role="button"></a>
+          
+      </div>
      
          <table class='table'>
             <thead>
@@ -99,14 +102,16 @@
             </tbody>
       </div>
       </table>
+
         
          </div><!--  end of categories -->
          <div class="tab-pane" class="tab-pane active" id="products"> 
           <form action="/">
     
      	 <div style="margin:0 auto;width:100px">
-   
+
          <a class="btn btn-success glyphicon glyphicon-plus" href="/addproductcategory" role="button">Add new product</a>
+
         
          
      
@@ -118,11 +123,11 @@
          @for(product <- products){           
          <div class="col-md-4 portfolio-item">
             <a href="#">
-            <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" alt="">
             </a>
-            <h3 class="pull-right">@product.price</h3>
+            <h3 class="pull-right">@product.price $</h3>
             <h3>
-               <a href="#">@product.name</a>
+               <a href="/itempage/@product.id">@product.name</a>
             </h3>
             <p> @product.description </p>
             <div>
