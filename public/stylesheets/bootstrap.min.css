@@ -2878,7 +2878,7 @@ output {
 
 .form-control {
 	display: block;
-	width: 100%;
+	width: 90%;
 	height: 34px;
 	padding: 6px 12px;
 	font-size: 14px;
@@ -3419,7 +3419,7 @@ select[multiple].form-group-lg .form-control, textarea.form-group-lg .form-contr
 
 .btn-primary {
 	color: #fff;
-	width: 96%;
+	width: 90%;
 	background-color: #4AB55A;
 	
 }
