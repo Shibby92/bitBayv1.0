@@ -12,14 +12,18 @@
    <div class="row">
       <div class="col-md-12">
          @if(flash.get("error")){
-         <h2>
-            <center><strong> @flash.get("error") </strong></center>
-         </h2>
+        <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
          }
          @if(flash.get("warning")){
-         <h2>
-            <center><strong> @flash.get("warning") </strong></center>
-         </h2>
+       <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("warning")
+                     </div>
+                  </div>
          }
          <div class="col-sm-4">
             <div class="well login-box">
