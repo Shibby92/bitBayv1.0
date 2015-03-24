@@ -70,5 +70,6 @@ GET    /assets/*file                    controllers.Assets.at(path="/public", fi
 
 #Paypal routes
 
-POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
+GET		/producttocart/:id					controllers.ProductApplication.productToCart(id: Integer)
+#POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
 

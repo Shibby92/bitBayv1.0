@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
@@ -30,6 +31,8 @@ public class ProductApplication extends Controller {
 	
 	static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
+	static Finder<Integer, User> findUser = new Finder<Integer, User>(
+			Integer.class, User.class);
 	static Form<User> loginUser = new Form<User>(User.class);
 	static Form<Product> productForm= new Form <Product>(Product.class);
 	// user picks new category for his product
@@ -199,7 +202,15 @@ public class ProductApplication extends Controller {
 	
 	public static Result itemPage(int id){
 		return ok(itempage.render(session("email"), Product.find(id), FAQ.all()));
-		
+	
+	}
+	public static Result productToCart(int id){
+		User u=User.find(session().get("email"));
+		if(u.userCart==null){
+		User.createCart(u.id);
+		}
+		u.userCart.productToCart(find.byId(id), u.id);
+		return redirect("/homepage");
 	}
 
 }

@@ -30,6 +30,8 @@ public class Product extends Model {
 	
 	public int category_id;
 
+	@ManyToOne
+	public Cart cart;
 	
 	@ManyToOne
 	public User owner;

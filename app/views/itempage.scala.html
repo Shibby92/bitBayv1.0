@@ -98,9 +98,11 @@
          <h3 style="color: #4AB55A">@product.name</a>
          </h3>
          <p> @product.description </p>
-         <form action='expresscheckout.java' METHOD='POST'>
-<input type='image' name='submit' src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif' border='0' align='top' alt='Check out with PayPal'/>
-</form>
+         @if((email==null)||(User.find(email).admin == false)) {
+            	<a href="/producttocart/@product.id"
+            	<button type="button" class="btn btn-warning">Add to Cart</button>
+            	</a>
+            	}
       </div>
    </div>
    </div>
