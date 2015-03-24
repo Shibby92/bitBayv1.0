@@ -10,24 +10,19 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
-
-        
-        <div class="span12">
-            <form id="custom-search-form" method="GET" action="/search" class="form-search form-horizontal pull-right">
-                <div class="input-append span12">
-                    <input type="text" name="q" id="q" class="search-query mac-style" placeholder="Search" required/>
-                   
-                    <button type="submit" class="btn glyphicon glyphicon-search"></button>
-                </div>
+            <li>
+              
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
             </form>
-        </div>
-
-
-         @if(email == null) {
-        
+         </li>
+               @if(email == null) {
             <li>
                <h4>
-                  <p style="color: #000">Hello, to access BitBay please  
+                  <p style="color: #000">Hello, please  
                      <a href="login">
                      <button class="btn btn-success btn-login"> Log in</button> 
                      </a>
@@ -71,9 +66,7 @@
 <div class="col-md-3">
    <div class="list-group">
       @for(category <- categoryList){
-
       <a href="category/@category.name" class="list-group-item glyphicon glyphicon-shopping-cart"> @category.name </a>
-
       }
    </div>
 </div>
@@ -122,9 +115,7 @@
             <img src="@routes.Assets.at(product.image_url)" alt="">
             <div class="caption">
                <h4 class="pull-right">US @product.price $</h4>
-
                <h4> <a href="itempage/@product.id">@product.name</a>
-
                </h4>
                <p> @product.description </p>
             </div>
@@ -136,12 +127,12 @@
 <!-- /.container -->
 <div class="container">
    <hr>
-    <a href="/contactpage">
-                                  <h3>Contact Us</h3>
-                                </a>
-                                   <a href="faq">
-                        <h3> FAQs</h3>
-                        </a>
+   <a href="/contactpage">
+      <h3>Contact Us</h3>
+   </a>
+   <a href="faq">
+      <h3> FAQs</h3>
+   </a>
 </div>
 <!-- /.container -->
 }
