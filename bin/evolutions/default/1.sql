@@ -6,6 +6,7 @@
 create table cart (
   id                        integer not null,
   userid                    integer,
+  checkout                  double,
   constraint pk_cart primary key (id))
 ;
 
@@ -50,7 +51,6 @@ create table user (
   verification              boolean,
   confirmation              varchar(255),
   has_additional_info       boolean,
-  user_cart_id              integer,
   constraint uq_user_email unique (email),
   constraint pk_user primary key (id))
 ;
@@ -69,8 +69,6 @@ alter table product add constraint fk_product_cart_1 foreign key (cart_id) refer
 create index ix_product_cart_1 on product (cart_id);
 alter table product add constraint fk_product_owner_2 foreign key (owner_id) references user (id) on delete restrict on update restrict;
 create index ix_product_owner_2 on product (owner_id);
-alter table user add constraint fk_user_userCart_3 foreign key (user_cart_id) references cart (id) on delete restrict on update restrict;
-create index ix_user_userCart_3 on user (user_cart_id);
 
 
 

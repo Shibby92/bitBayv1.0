@@ -131,9 +131,9 @@ public class UserLoginApplication extends Controller {
 	 * @return the contact page with a message indicating if the email has been sent.
 	 */
 	public static Promise<Result> contact() {
-		 String userEmail = session().get("email");
+		 final String userEmail = session().get("email");
 		//need this to get the google recapctha value
-		 DynamicForm temp = DynamicForm.form().bindFromRequest();
+		final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		
 		/* send a request to google recaptcha api with the value of our secret code and the value
 		 * of the recaptcha submitted by the form */

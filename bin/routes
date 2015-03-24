@@ -2,74 +2,75 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET    /listofusers                     controllers.UserController.toUpdate() 
+GET    /listofusers             controllers.UserController.toUpdate() 
 # Home page
-GET    /                                controllers.UserLoginApplication.homePage()
+GET    /                        controllers.UserLoginApplication.homePage()
 # Routes for login, logout and registration
-POST   /login                           controllers.UserLoginApplication.login()
-GET    /login                           controllers.UserLoginApplication.toLogin()
-GET    /logout                          controllers.UserLoginApplication.logOut()
-GET    /homepage                        controllers.UserLoginApplication.homePage()
-GET    /register                        controllers.UserLoginApplication.register()
-GET    /toregister                      controllers.UserLoginApplication.toRegister()
+POST   /login                   controllers.UserLoginApplication.login()
+GET    /login                   controllers.UserLoginApplication.toLogin()
+GET    /logout                  controllers.UserLoginApplication.logOut()
+GET    /homepage                controllers.UserLoginApplication.homePage()
+GET    /register                controllers.UserLoginApplication.register()
+GET    /toregister              controllers.UserLoginApplication.toRegister()
 
-GET    /confirm/:confirmation           controllers.Verification.verificateEmail(confirmation: String)
+GET    /confirm/:confirmation   controllers.Verification.verificateEmail(confirmation: String)
 
 # Routes for CRUD product and category
 
-GET    /deleteproduct/:id               controllers.ProductApplication.deleteProduct(id: Integer)
+GET    /deleteproduct/:id       controllers.ProductApplication.deleteProduct(id: Integer)
 #POST     /deleteproductpage         controllers.ProductApplication.toDeleteProduct()
-GET    /addproduct/:id                  controllers.ProductApplication.addAdditionalInfo(id:Integer)
-GET    /addproductpage/:id              controllers.ProductApplication.toInfo(id:Integer)
-POST   /addproduct/homepage             controllers.UserLoginApplication.homePage()
-GET    /addproductcategory              controllers.ProductApplication.toPickCategory()
-GET    /updateproduct/:id               controllers.ProductApplication.updateProduct(id:Integer)
-POST   /updateproduct/:id               controllers.ProductApplication.update(id:Integer)
-GET    /productpage                     controllers.ProductApplication.productPage()
+GET    /addproduct/:id          controllers.ProductApplication.addAdditionalInfo(id:Integer)
+GET    /addproductpage/:id      controllers.ProductApplication.toInfo(id:Integer)
+POST   /addproduct/homepage     controllers.UserLoginApplication.homePage()
+GET    /addproductcategory      controllers.ProductApplication.toPickCategory()
+GET    /updateproduct/:id       controllers.ProductApplication.updateProduct(id:Integer)
+POST   /updateproduct/:id       controllers.ProductApplication.update(id:Integer)
+GET    /productpage             controllers.ProductApplication.productPage()
 #POST    /pictureupload          controllers.ProductApplication.savePicture(id:Integer)
-GET    /itempage/:id                    controllers.ProductApplication.itemPage(id:Integer)
+GET    /itempage/:id            controllers.ProductApplication.itemPage(id:Integer)
 
-GET    /category/:name                  controllers.ProductApplication.category(name:String)
-GET    /categorypage                    controllers.CategoryApplication.categoryPage()
-GET    /addnewcategory                  controllers.CategoryApplication.addNewCategory()
-GET    /newcategory                     controllers.CategoryApplication.addCategory()
+GET    /category/:name          controllers.ProductApplication.category(name:String)
+GET    /categorypage            controllers.CategoryApplication.categoryPage()
+GET    /addnewcategory          controllers.CategoryApplication.addNewCategory()
+GET    /newcategory             controllers.CategoryApplication.addCategory()
 
-GET    /deletecategory/:id              controllers.CategoryApplication.deleteCategory(id: Integer)
-GET    /updatecategory/:id              controllers.CategoryApplication.updateCategory(id: Integer)
-POST   /updatecategory/:id              controllers.CategoryApplication.update(id:Integer)
-GET    /deleteuser/:id                  controllers.UserController.deleteUser(id:Integer)
+GET    /deletecategory/:id      controllers.CategoryApplication.deleteCategory(id: Integer)
+GET    /updatecategory/:id      controllers.CategoryApplication.updateCategory(id: Integer)
+POST   /updatecategory/:id      controllers.CategoryApplication.update(id:Integer)
+GET    /deleteuser/:id          controllers.UserController.deleteUser(id:Integer)
 
-POST   /updateuser/:id                  controllers.UserController.updateUser(id:Integer)
-GET    /updateuser/:id                  controllers.UserController.toUpdateUser(id:Integer)
+POST   /updateuser/:id          controllers.UserController.updateUser(id:Integer)
+GET    /updateuser/:id          controllers.UserController.toUpdateUser(id:Integer)
 
-GET    /update                          controllers.UserController.toList()
+GET    /update                  controllers.UserController.toList()
 
-GET    /additionalinfo                  controllers.UserController.toAdditionalInfo()
-POST   /additionalinfo                  controllers.UserController.additionalInfo()
-GET    /profile                         controllers.UserController.profile()
+GET    /additionalinfo          controllers.UserController.toAdditionalInfo()
+POST   /additionalinfo          controllers.UserController.additionalInfo()
+GET    /profile                 controllers.UserController.profile()
 
-GET    /editinfo                        controllers.UserController.toEditInfo()
-POST   /editinfo                        controllers.UserController.editAdditionalInfo()		
+GET    /editinfo                controllers.UserController.toEditInfo()
+POST   /editinfo                controllers.UserController.editAdditionalInfo()		
 
-GET    /faq                             controllers.FAQController.allFAQs()
-POST   /addfaq                          controllers.FAQController.addNewFAQ()
-GET    /addfaq                          controllers.FAQController.toAddNewFAQ()
-POST   /updatefaq                       controllers.FAQController.updateFAQ(id: Integer)
-GET    /updatefaq/:id                   controllers.FAQController.toUpdateFAQ(id: Integer)
-GET    /deletefaq                       controllers.FAQController.deleteFAQ(id: Integer)
+GET    /faq                     controllers.FAQController.allFAQs()
+POST   /addfaq                  controllers.FAQController.addNewFAQ()
+GET    /addfaq                  controllers.FAQController.toAddNewFAQ()
+POST   /updatefaq               controllers.FAQController.updateFAQ(id: Integer)
+GET    /updatefaq/:id           controllers.FAQController.toUpdateFAQ(id: Integer)
+GET    /deletefaq               controllers.FAQController.deleteFAQ(id: Integer)
 
-GET    /search                          controllers.SearchController.search(q: String)
+GET    /search                  controllers.SearchController.search(q: String)
 
 # Routes for contact form
 
-GET    /contactpage                     controllers.UserLoginApplication.contactPage()
-POST   /contact                         controllers.UserLoginApplication.contact()
+GET    /contactpage             controllers.UserLoginApplication.contactPage()
+POST   /contact                 controllers.UserLoginApplication.contact()
 
 # Map static resources from the /public folder to the /assets URL path
-GET    /assets/*file                    controllers.Assets.at(path="/public", file)
+GET    /assets/*file            controllers.Assets.at(path="/public", file)
 
 #Paypal routes
 
-GET		/producttocart/:id					controllers.ProductApplication.productToCart(id: Integer)
+GET    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
+GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 #POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
 
