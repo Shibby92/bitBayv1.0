@@ -129,7 +129,7 @@ public class UserController extends Controller {
 	public static Result editAdditionalInfo() throws ParseException {
 		DynamicForm form = Form.form().bindFromRequest();
 		User u = User.find(session().get("email"));
-		if (!User.existsUsername(form.get("username"))) 
+		if (!User.existsUsername(form.get("username")) || form.get("username").equals(u.username)) 
 			u.username = form.get("username");
 		else {
 			flash("error","Username already exists!");
@@ -137,7 +137,10 @@ public class UserController extends Controller {
 		}
 		Date current = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-mm");
-		String birth_date_string = userForm.bindFromRequest()
+		if(!userForm.bindFromRequest()
+				.field("birth_date").value().equals(""))
+		{
+			String birth_date_string = userForm.bindFromRequest()
 				.field("birth_date").value();
 		u.birth_date = format.parse(birth_date_string);
 
@@ -145,16 +148,18 @@ public class UserController extends Controller {
 			flash("error", "Enter valid date!");
 			return ok(editadditionalinfo.render(u));
 		}
+		}
 		u.city = form.get("city");
 		u.shipping_address = form.get("shipping_address");
 		u.user_address = form.get("user_address");
-		u.gender = form.get("gender");
+		if(!form.get("gender").equals(""))
+		{u.gender = form.get("gender");
 		if (!u.gender.toLowerCase().contains("m")
 				&& !u.gender.toLowerCase().contains("f")) {
 			flash("error", "Enter valid gender!");
 			return ok(editadditionalinfo.render(u));
 		}
-
+		}
 			u.update();
 			flash("success","Additional info updated successfuly!");
 			return redirect("/homepage");
