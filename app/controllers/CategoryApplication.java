@@ -18,17 +18,17 @@ public class CategoryApplication extends Controller {
 	 * Adding a new category in the db
 	 */
 	@Security.Authenticated(AdminFilter.class)
-	public static Result addCategory() {
-		Logger.info("addCategory done!");
+	public static Result addCategory() {	
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.data().get("name");
 		Category.create(name);
+		Logger.info(name + " category added in database");
 		return redirect("/");
 	}
 
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewCategory() {
-		Logger.info("page opened");
+		Logger.info("Opened page for adding category");
 		return ok(addcategorypage.render(categoryForm));
 	}
 
@@ -40,8 +40,9 @@ public class CategoryApplication extends Controller {
 	 * @return result
 	 */
 	public static Result deleteCategory(int id) {
-		Logger.warn("category is deleted");
+		
 		Category.delete(id);
+		Logger.warn(Category.find(id).name + " category is deleted");
 		return redirect("/categorypage");
 
 	}
@@ -51,7 +52,7 @@ public class CategoryApplication extends Controller {
 	 * @return result
 	 */
 	public static Result categoryPage(){
-		Logger.info("page opened");
+		Logger.info("Category page opened");
 		return ok(categorypage.render(Category.list()));
 	}
 	
@@ -61,10 +62,11 @@ public class CategoryApplication extends Controller {
 	 * @return result
 	 */
 	public static Result update(int id){
-		Logger.info("category is updated");
+		
 		Category updateCategory= Category.find(id);
 		updateCategory.name=categoryForm.bindFromRequest().field("name").value();
 		Category.update(updateCategory);
+		Logger.info(updateCategory.name + " category is updated");
 		return redirect("/categorypage");
 	}
 	
@@ -74,7 +76,7 @@ public class CategoryApplication extends Controller {
 	 * @return results
 	 */
 	public static Result updateCategory(int id){
-		Logger.info("update category page opened");
+		Logger.info("Update category page opened");
 		return ok(updatecategory.render(Category.find(id)));
 	}
 	

@@ -38,12 +38,12 @@
          <ul class='nav navbar-nav pull-right'>
 
                     <li class='dropdown'>
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-               <button class="btn btn-success glyphicon glyphicon-menu-hamburger">  @User.find(email).username <span class="caret"></span> </button></a>
+               <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+               <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
               
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' class="glyphicon glyphicon-user">Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
