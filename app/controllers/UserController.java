@@ -164,7 +164,8 @@ public class UserController extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result profile() {
-		return ok(profile.render(User.all(), Category.list(), Product.productList(), FAQ.all()));
+		String email = session().get("email");
+		return ok(profile.render(email,User.all(), Category.list(), Product.productList(), FAQ.all()));
 		
 	}
 	
