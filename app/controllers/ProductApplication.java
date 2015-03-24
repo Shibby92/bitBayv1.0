@@ -103,8 +103,9 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result toPickCategory() {
+		String email = session().get("email");
 		Logger.info("add product category opened");
-		return ok(addproductcategory.render(Category.list()));
+		return ok(addproductcategory.render(email, Category.list(), FAQ.all()));
 	}
 
 	/**
