@@ -181,9 +181,10 @@ public class UserLoginApplication extends Controller {
 	// he has an option to add his own ad
 
 	public static Result toLogin() {
+		String email = session().get("email");
 		Logger.info("logintest rendered");
 		
-		return ok(logintest.render());
+		return ok(logintest.render(email, FAQ.all()));
 	}
 	public static Result logOut(){
 		Logger.warn("user logged out");
