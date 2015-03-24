@@ -93,8 +93,9 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result category(String name) {
+		String email = session().get("email");
 		Logger.info("Category page list opened");
-		return ok(category.render(name,Product.listByCategory(name), FAQ.all()));
+		return ok(category.render(email,name,Product.listByCategory(name), FAQ.all()));
 	}
 
 	/**
