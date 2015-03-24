@@ -114,8 +114,9 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result toInfo(int id) {
+		String email = session().get("email");
 		Logger.info("add product rendered");
-		return ok(addproduct.render(id,productForm));
+		return ok(addproduct.render(email,id,productForm, FAQ.all()));
 	}
 
 	/**

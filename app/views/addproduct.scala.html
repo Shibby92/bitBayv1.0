@@ -1,16 +1,64 @@
-@(id:Integer,productForm: Form[Product])
+@(email: String, id:Integer,productForm: Form[Product], faqs: List[FAQ])
 @main("Add your additional info") {
 <body>
-   <!-- Navigation -->
-   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-         <div class="navbar-header">
-            <a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-         </div>
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
       </div>
-      <!-- /.container -->
-   </nav>
-   <div class="row">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+            <li>
+              
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
+               @if(email == null) {
+            <li>
+               <h4>
+                  <p style="color: #000">Hello, please  
+                     <a href="/login">
+                     <button class="btn btn-success btn-login"> Log in</button> 
+                     </a>
+                     or 
+                     <a href="/toregister">
+                     <button class="btn btn-success btn-register" >Register</button>
+                     </a>
+                  </p>
+               </h4>
+            </li>
+         </ul>
+         } else {
+      
+         <li >
+            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+               @if(User.find(email).admin == true) {
+               <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' > Profile</a></li>
+               } else {
+               <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
+               }
+               <li class="divider"></li>
+               <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+            </ul>
+         </li>
+         </ul>
+         }
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
+
+   <div  style="margin: 80.5px -15px" class="row">
       <div class="col-md-12">
          <div class="col-sm-4">
             <div class="well login-box">
@@ -26,7 +74,8 @@
                   </dl>
                   <dl class=" " id="description_field">
                      <dt><label for="description">Description:</label> </dt>
-                     <dd><input name="description" id="description" value='' placeholder="Enter description" type="text" class="form-control" required/> </dd>
+                     <dd>	<textarea rows="4" cols="50"  name="description" id="description" placeholder="Description of your product"
+							 class="form-control" required></textarea> </dd>
                   </dl>
                   <div class="form-group text-center">
                      <input type="submit" value="Add" class="btn btn-success"/>
@@ -37,5 +86,15 @@
          </div>
       </div>
    </div>
+    <div class="container">
+   <hr>
+   <a href="/contactpage">
+      <h3>Contact Us</h3>
+   </a>
+   <a href="faq">
+      <h3> FAQs</h3>
+   </a>
+</div>
+<!-- /.container -->
 </body>
 }
