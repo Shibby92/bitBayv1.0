@@ -27,16 +27,20 @@
        </div>
       </div>
       
-  <div class="col-md-9">
-        <ul class="nav nav-tabs">
+  <div class="col-md-8 col-md-offset-1">
+  <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist">
         @if(User.find(session().get("email")).admin) {
+        	<!-- Nav tabs -->
           <li ><a href="#listofusers" data-toggle="tab">List Of Users</a></li>
           <li><a href="#categories" data-toggle="tab">Categories</a></li>
           <li><a href="#products" data-toggle="tab">Products</a></li> 
           }
         </ul>
+        
+          <!-- Tab panes -->
         <div class="tab-content">
-         <div class="tab-pane" class="tab-pane active" id="listofusers">
+         <div class="tabpanel" class="tab-pane active" id="listofusers">
          			<div class="container">
    <div class="row">
       <table class='table'>
@@ -65,22 +69,15 @@
    </div>
 </div>
          </div><!--  end list of users -->
-         <div class="tab-pane" class="tab-pane active" id="categories">
-      
-   
+         
+         
+         <div class="tabpanel" class="tab-pane active" id="categories">
+      <div class="container">
+   <div class="row">
       <div class="form-group text-center">
-       </div>
-        <div style="margin:0 auto; width:100px">
-     
-      
-         <a class="btn btn-success glyphicon glyphicon-plus" href="/addnewcategory" role="button">Add new category</a>
-          
+         <a class="btn btn-success" href="/addnewcategory" role="button">Add new category</a>
       </div>
-
-         <a class="btn btn-success glyphicon glyphicon-plus" href="/addnewcategory" role="button"></a>
-          
-      </div>
-     
+      <div class="form-group text-center">
          <table class='table'>
             <thead>
                <tr>
@@ -90,11 +87,11 @@
             <tbody>
                @for(category <- categoryList){
                <tr>
-                  <td> <a href="category/@category.name" class="list-group-item glyphicon glyphicon-shopping-cart" reqiered> @category.name </a> </td>
+                  <td> <a href="category/@category.name" class="list-group-item">@category.name</a> </td>
                   <div>
                      <td style="float: left">  
-                        <a class="btn  btn-info glyphicon glyphicon-refresh " href="/updatecategory/@category.id" role="button" );">Update</a>
-                        <a class="btn btn-danger glyphicon glyphicon-trash" href="/deletecategory/@category.id" role="button" onclick="return confirm('Are you sure you want to delete this Category?');">Delete</a>
+                        <a class="btn btn-warning" href="/updatecategory/@category.id" role="button" );">Update</a>
+                        <a class="btn btn-danger" href="/deletecategory/@category.id" role="button" onclick="return confirm('Are you sure you want to delete this Category?');">Delete</a>
                      </td>
                   </div>
                </tr>
@@ -102,38 +99,32 @@
             </tbody>
       </div>
       </table>
+   </div>
+</div>
+</div><!--  end of categories -->
 
-        
-         </div><!--  end of categories -->
-         <div class="tab-pane" class="tab-pane active" id="products"> 
-          <form action="/">
-    
-     	 <div style="margin:0 auto;width:100px">
 
-         <a class="btn btn-success glyphicon glyphicon-plus" href="/addproductcategory" role="button">Add new product</a>
-
-        
-         
-     
+         <div class="tabpanel" class="tab-pane active" id="products"> 
+           <div class="container">
+      <form action="/">
+      <div class="form-group text-center">
+         <a class="btn btn-success glyphicon glyphicon-plus" href="/addproductcategory" role="button"></a>
       </div>
-    
-      
+      <legend>Products: </legend>
       <div class="row">
-       <hr>
          @for(product <- products){           
          <div class="col-md-4 portfolio-item">
             <a href="#">
-            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" alt="">
+            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" width="700" height="400" alt="">
             </a>
-            <h3 class="pull-right">@product.price $</h3>
+            <h3 class="pull-right">@product.price</h3>
             <h3>
-               <a href="/itempage/@product.id">@product.name</a>
+               <a href="itempage/@product.id">@product.name</a>
             </h3>
             <p> @product.description </p>
             <div>
-               <a class="btn  btn-info glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button");">Update</a>
-               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a> 
-
+               <a class="btn btn-warning" href="/updateproduct/@product.id" role="button");">Update</a>
+               <a class="btn btn-danger" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a> 
             </div>
          </div>
          }
