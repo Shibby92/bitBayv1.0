@@ -62,12 +62,13 @@ public class UserLoginApplication extends Controller {
 
 				return redirect("/additionalinfo");
 			} else {
+				flash("error", "You did not verifie your account or check your password.");
 				return redirect("/login");
 			}
 
 		}
 
-		flash("error", "Username already exists");
+		flash("error", "Email does not exist.");
 		return ok(toregister.render(loginUser));
 	}
 
