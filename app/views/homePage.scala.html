@@ -11,23 +11,23 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
 
-        
-        <div class="span12">
-            <form id="custom-search-form" method="GET" action="/search" class="form-search form-horizontal pull-right">
-                <div class="input-append span12">
-                    <input type="text" name="q" id="q" class="search-query mac-style" placeholder="Search" required/>
-                   
-                    <button type="submit" class="btn glyphicon glyphicon-search"></button>
-                </div>
-            </form>
-        </div>
+        <li>
+        <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+  <div class="form-group">
+    <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+  </div>
+   <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+</form>
+ </li>
+ 
 
 
          @if(email == null) {
         
+        
             <li>
                <h4>
-                  <p style="color: #000">Hello, to access BitBay please  
+                  <p style="color: #000">Hello, please  
                      <a href="login">
                      <button class="btn btn-success btn-login"> Log in</button> 
                      </a>
@@ -40,11 +40,15 @@
             </li>
          </ul>
          } else {
-         <ul class='nav navbar-nav pull-right'>
+        
 
-                    <li class='dropdown'>
+                    <li >
+                 
+                           
                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                <button class="btn btn-success glyphicon glyphicon-menu-hamburger">  @User.find(email).username <span class="caret"></span> </button></a>
+                
+     
               
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
