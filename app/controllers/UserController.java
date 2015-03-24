@@ -21,9 +21,10 @@ public class UserController extends Controller {
 	// goes to page where admin can update user
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateUser(int id) {
+		String email = session().get("email");
 		Logger.info("user update page opened");
 		
-		return ok(listofuserspage.render(User.find(id)));
+		return ok(listofuserspage.render(email,User.find(id),  FAQ.all()));
 	}
 
 	// goes to page where it lists all of registered users
