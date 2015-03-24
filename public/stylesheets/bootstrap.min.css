@@ -3419,8 +3419,9 @@ select[multiple].form-group-lg .form-control, textarea.form-group-lg .form-contr
 
 .btn-primary {
 	color: #fff;
+	width: 96%;
 	background-color: #4AB55A;
-	border-color: #2e6da4
+	
 }
 
 .btn-primary.active, .btn-primary.focus, .btn-primary:active,

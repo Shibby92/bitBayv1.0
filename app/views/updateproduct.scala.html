@@ -38,11 +38,16 @@
 							 class="form-control" required>@product.description </textarea>
 						
 						</dl>
-							<input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update" /> 
-							
-							<input type="file" class = "btn btn-info" role="button" name="image_url" id="image_url" value="@product.image_url"/> 
-	
-							<a class="btn btn-danger" href="/" role="button">Cancel</a>
+							<dl class=" " id="image_url">
+							<dt><label for="image_url">Image:</label> </dt>
+							<div class="form-group text-center">
+							<input type="file" name="image_url" id="image_url" value="@product.image_url"/> 
+							</div>
+							</dl>
+							<div class="form-group text-center">
+							<input type="submit"“ class="btn btn-success btn-login-submit" role="button" value="Update" /> 							
+							<a class="btn btn-danger" href="/profile" role="button">Cancel</a>
+							</div>
 							
 						
 

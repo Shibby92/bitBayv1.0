@@ -156,7 +156,7 @@ public class ProductApplication extends Controller {
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
 		Product.update(updateProduct);
 		Logger.info("product updated");
-		return redirect("/productpage");
+		return redirect("/profile");
 
 
 		

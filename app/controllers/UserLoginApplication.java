@@ -133,6 +133,7 @@ public class UserLoginApplication extends Controller {
 	 */
 	public static Promise<Result> contact() {
 		 String userEmail = session().get("email");
+			
 		//need this to get the google recapctha value
 		 DynamicForm temp = DynamicForm.form().bindFromRequest();
 		
@@ -168,7 +169,7 @@ public class UserLoginApplication extends Controller {
 							return redirect("/contactpage");
 						} else {
 							flash("error", "There has been a problem!");
-							return ok(contact.render(userEmail));
+							return ok(contact.render(userEmail, FAQ.all() ));
 
 						}
 					}
@@ -194,7 +195,7 @@ public class UserLoginApplication extends Controller {
 		}
 	public static Result contactPage(){
 		String email = session().get("email");
-		return ok(contact.render(email));
+		return ok(contact.render(email, FAQ.all()));
 	}
 	
 	
