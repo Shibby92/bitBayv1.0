@@ -122,7 +122,8 @@ public class UserController extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result toEditInfo() {
-		return ok(editadditionalinfo.render(User.find(session().get("email"))));
+		String email = session().get("email");
+		return ok(editadditionalinfo.render(email,User.find(session().get("email")), FAQ.all()));
 	}
 
 	
@@ -130,11 +131,12 @@ public class UserController extends Controller {
 	public static Result editAdditionalInfo() throws ParseException {
 		DynamicForm form = Form.form().bindFromRequest();
 		User u = User.find(session().get("email"));
+		String email = session().get("email");
 		if (!User.existsUsername(form.get("username"))) 
 			u.username = form.get("username");
 		else {
 			flash("error","Username already exists!");
-			return ok(editadditionalinfo.render(u));
+			return ok(editadditionalinfo.render(email,u, FAQ.all()));
 		}
 		Date current = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-mm");
@@ -144,7 +146,7 @@ public class UserController extends Controller {
 
 		if (!u.birth_date.before(current)) {
 			flash("error", "Enter valid date!");
-			return ok(editadditionalinfo.render(u));
+			return ok(editadditionalinfo.render(email,u, FAQ.all()));
 		}
 		u.city = form.get("city");
 		u.shipping_address = form.get("shipping_address");
@@ -153,7 +155,7 @@ public class UserController extends Controller {
 		if (!u.gender.toLowerCase().contains("m")
 				&& !u.gender.toLowerCase().contains("f")) {
 			flash("error", "Enter valid gender!");
-			return ok(editadditionalinfo.render(u));
+			return ok(editadditionalinfo.render(email,u, FAQ.all() ));
 		}
 
 			u.update();
