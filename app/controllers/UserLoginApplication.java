@@ -166,7 +166,7 @@ public class UserLoginApplication extends Controller {
 							flash("success", "Message sent!");
 							return redirect("/contactpage");
 						} else {
-							flash("error", "There has been a problem!");
+							flash("error", "You have to confirm that you are not a robot!");
 							return ok(contact.render(userEmail));
 
 						}
