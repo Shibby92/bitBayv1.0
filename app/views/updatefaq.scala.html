@@ -15,9 +15,12 @@
 	<div class="row">
 		<div class="col-md-12">
 		@if(flash.get("success")) {
-			<h4><center><strong>@flash.get("success")</strong></center></h4>
+			< <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("success")
+                     </div>
 			}
-			<div class="col-sm-4">
+			<div class="col-sm-10">
 				<div class="well login-box">
 				 
 					<form action="@routes.FAQController.updateFAQ(faq.id)" method ="POST" >
@@ -32,8 +35,9 @@
 					<div class="signup-form"><!--sign up form-->
 
 							<input type="text" name="question" id="question" value= "@faq.question" required/>
-							<textarea name="answer" id="answer" rows="6" required> @faq.answer </textarea>
-							<button type="submit" class="btn btn-success">Update</button>
+							<textarea name="answer" id="answer" rows="10" required> @faq.answer </textarea>
+							<a href="/faq" class="btn btn-danger"> Back </a>
+							<button  type="submit" class="btn btn-success">Update</button>
 								<p></p>
 									<p></p>
 										<p></p>
