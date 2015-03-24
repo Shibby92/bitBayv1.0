@@ -47,7 +47,7 @@ public class UserLoginApplication extends Controller {
 	// if the user is not in database, he gets redirected to register page
 	public static Result login() {
 		DynamicForm form = Form.form().bindFromRequest();
-
+		
 		String email = form.get("email");
 		String password = form.get("password");
 
@@ -66,7 +66,7 @@ public class UserLoginApplication extends Controller {
 		}
 
 		flash("error", "Email does not exist!");
-		return ok(toregister.render(loginUser));
+		return ok(toregister.render(loginUser, email, FAQ.all()));
 	}
 
 	// tries to register user
@@ -84,7 +84,7 @@ public class UserLoginApplication extends Controller {
 			String passconfirm = form.get("confirm_pass");
 			if(!password.equals(passconfirm)) {
 				flash("error","Passwords are not the same!");
-				return ok(toregister.render(loginUser));
+				return ok(toregister.render(loginUser, email, FAQ.all()));
 			}
 			String confirmation = UUID.randomUUID().toString();
 			User u = new User(email, password, confirmation);
@@ -99,7 +99,7 @@ public class UserLoginApplication extends Controller {
 			return redirect("/login");
 		}else {
 			flash("error", "There is already a user with that username!");
-			return ok(toregister.render(loginUser));
+			return ok(toregister.render(loginUser, email, FAQ.all()));
 		}
 
 	}
@@ -108,9 +108,10 @@ public class UserLoginApplication extends Controller {
 
 	// goes to page where the user can be registered
 	public static Result toRegister() {
+		String email = session().get("email");
 		Logger.info("toregister page rendered");
 
-		return ok(toregister.render(loginUser));
+		return ok(toregister.render(loginUser, email, FAQ.all()));
 	}
 	
 	static Form <Contact> contactForm= new Form<Contact>(Contact.class);
