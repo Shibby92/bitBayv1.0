@@ -2,6 +2,7 @@
 
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -104,6 +105,19 @@ public class Product extends Model {
 	public static void create(String name,  double price, String description,int id, String image_url) {
 		new Product(name,  price, description,id,image_url).save();
 	}
+	
+	public Product(String name, double price, User owner, String description,int id, String image_url) {
+		this.name = name;
+		this.price = price;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.image_url=image_url;
+	}
+	
+	public static void create(String name,  double price, User owner, String description,int id, String image_url) {
+		new Product(name,  price, owner, description,id,image_url).save();
+	}
 
 	/**
 	 * finds a product by his id
@@ -156,15 +170,9 @@ public class Product extends Model {
 	}
 	
 	public static List<Product> myProducts(int id) {
-		List<Product> allProducts = productList();
-		List<Product> myProducts = null;
-		Iterator<Product> iterator = allProducts.iterator();
-		while(iterator.hasNext()) {
-			Product current = iterator.next();
-			if(current.owner.equals(User.find(id)))
-				myProducts.add(current);
-		}
-		return myProducts;
+		
+		List<Product> pp = find.where("owner_id = " + id).findList();
+		return pp;
 	}
 
 	

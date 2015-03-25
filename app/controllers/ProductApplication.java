@@ -73,7 +73,7 @@ public class ProductApplication extends Controller {
 		String description = form.get("description");
 		String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
-		Product.create(name, price,
+		Product.create(name, price, User.find(session().get("email")),
 				description,id,image_url);
 		Logger.info("User with email: " + session().get("email") + "created product with name: " + name);
 		return redirect("/homepage");
@@ -220,8 +220,9 @@ public class ProductApplication extends Controller {
 	
 	public static Result myProducts(int id) {
 		Logger.info("User with email: " + session().get("email") + " has opened his products");
-		//return ok(myproducts.render(Product.myProducts(id)));
-		return TODO;
+		return ok(myproducts.render(Product.myProducts(id)));
+	
+		
 	}
 
 }
