@@ -2,6 +2,7 @@ package controllers;
 
 import helpers.AdminFilter;
 import models.Category;
+import models.FAQ;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -29,7 +30,8 @@ public class CategoryApplication extends Controller {
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewCategory() {
 		Logger.info("Opened page for adding category");
-		return ok(addcategorypage.render(categoryForm));
+		String email = session().get("email");
+		return ok(addcategorypage.render(email, categoryForm, FAQ.all()));
 	}
 
 
@@ -76,8 +78,10 @@ public class CategoryApplication extends Controller {
 	 * @return results
 	 */
 	public static Result updateCategory(int id){
+
 		Logger.info("Update category page opened");
-		return ok(updatecategory.render(Category.find(id)));
+		String email = session().get("email");
+		return ok(updatecategory.render(email, Category.find(id), FAQ.all()));
 	}
 	
 

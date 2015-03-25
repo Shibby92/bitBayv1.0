@@ -93,8 +93,10 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result toPickCategory() {
+
 		Logger.info("Opened page for adding category for product");
-		return ok(addproductcategory.render(Category.list()));
+		String email = session().get("email");
+		return ok(addproductcategory.render(email, Category.list(), FAQ.all()));
 	}
 
 	/**
@@ -103,8 +105,10 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result toInfo(int id) {
+
 		Logger.info("Opened page for adding product");
-		return ok(addproduct.render(id,productForm));
+		String email = session().get("email");
+		return ok(addproduct.render(email,id,productForm, FAQ.all()));
 	}
 
 	/**
@@ -145,7 +149,7 @@ public class ProductApplication extends Controller {
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
 		Product.update(updateProduct);
 		Logger.info("Product with id: " + id + " has been updated");
-		return redirect("/productpage");
+		return redirect("/profile");
 
 
 		
@@ -195,6 +199,10 @@ public class ProductApplication extends Controller {
 	 * @return result
 	 */
 	public static Result itemPage(int id){
+		if(session().get("email") == null)
+			Logger.info("Guest has opened item with id: " + id);
+		else
+			Logger.info("User with email: " + session().get("email") + " opened item with id: " + id);
 		return ok(itempage.render(session("email"), Product.find(id), FAQ.all()));
 		
 	}

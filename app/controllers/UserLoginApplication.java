@@ -131,6 +131,7 @@ public class UserLoginApplication extends Controller {
 	 */
 	public static Promise<Result> contact() {
 		 String userEmail = session().get("email");
+			
 		//need this to get the google recapctha value
 		 DynamicForm temp = DynamicForm.form().bindFromRequest();
 		
@@ -169,12 +170,14 @@ public class UserLoginApplication extends Controller {
 								Logger.info("User with email: " + session().get("email") + " has sent message to admin");
 							return redirect("/contactpage");
 						} else {
+
 							if(session().get("email") == null)
 								Logger.info("Guest did not confirm its humanity");
 							else
 								Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
 							flash("error", "You have to confirm that you are not a robot!");
-							return ok(contact.render(userEmail));
+
+							return ok(contact.render(userEmail, FAQ.all() ));
 
 						}
 					}
@@ -203,7 +206,7 @@ public class UserLoginApplication extends Controller {
 			Logger.info("Guest has opened contact us page");
 		else
 			Logger.info("User with email: " + session().get("email") + " has opened contact us page");
-		return ok(contact.render(email));
+		return ok(contact.render(email, FAQ.all()));
 	}
 	
 	

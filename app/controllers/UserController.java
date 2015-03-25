@@ -22,8 +22,8 @@ public class UserController extends Controller {
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateUser(int id) {
 		Logger.info("User update page opened");
-		
-		return ok(listofuserspage.render(User.find(id)));
+		String email = session().get("email");		
+		return ok(listofuserspage.render(email,User.find(id),  FAQ.all()));
 	}
 
 	// gets data from updated user
@@ -112,8 +112,10 @@ public class UserController extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result toEditInfo() {
+
 		Logger.info("User " + session().get("email") + "has opened his additional info");
-		return ok(editadditionalinfo.render(User.find(session().get("email"))));
+		String email = session().get("email");
+		return ok(editadditionalinfo.render(email,User.find(session().get("email")), FAQ.all()));
 	}
 
 	
@@ -121,12 +123,15 @@ public class UserController extends Controller {
 	public static Result editAdditionalInfo() throws ParseException {
 		DynamicForm form = Form.form().bindFromRequest();
 		User u = User.find(session().get("email"));
-		if (!User.existsUsername(form.get("username")) || form.get("username").equals(u.username)) 
-			u.username = form.get("username");
+		String email = session().get("email");
+		if (!User.existsUsername(form.get("username")) || form.get("username").equals(u.username)) {
+				if (!User.existsUsername(form.get("username"))) 
+						u.username = form.get("username");
+		}
 		else {
 			Logger.error("User " + session().get("email") + "has entered invalid username");
 			flash("error","Username already exists!");
-			return ok(editadditionalinfo.render(u));
+			return ok(editadditionalinfo.render(email,u, FAQ.all()));
 		}
 		Date current = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-mm");
@@ -140,7 +145,7 @@ public class UserController extends Controller {
 		if (!u.birth_date.before(current)) {
 			Logger.error("User " + session().get("email") + "has entered invalid date");
 			flash("error", "Enter valid date!");
-			return ok(editadditionalinfo.render(u));
+			return ok(editadditionalinfo.render(email,u, FAQ.all()));
 		}
 		}
 		u.city = form.get("city");
@@ -152,7 +157,7 @@ public class UserController extends Controller {
 				&& !u.gender.toLowerCase().contains("f")) {
 			Logger.error("User " + session().get("email") + "has entered invalid gender");
 			flash("error", "Enter valid gender!");
-			return ok(editadditionalinfo.render(u));
+			return ok(editadditionalinfo.render(email,u, FAQ.all() ));
 		}
 		}
 			u.update();

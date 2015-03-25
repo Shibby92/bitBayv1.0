@@ -19,7 +19,8 @@ public class FAQController extends Controller {
 	 */
 	public static Result allFAQs() {
 		Logger.info("Opened FAQs page");
-		return ok(faq.render(FAQ.all()));
+		String email = session().get("email");
+		return ok(faq.render(email, FAQ.all()));
 	}
 	
 	/**
@@ -28,8 +29,10 @@ public class FAQController extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toAddNewFAQ() {
+
 		Logger.info("Opened page for adding new FAQ");
-		return ok(newfaq.render());
+		String email = session().get("email");
+		return ok(newfaq.render(email));
 	}
 	
 	/**
@@ -38,6 +41,7 @@ public class FAQController extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewFAQ() {
+		String email = session().get("email");
 		DynamicForm form = Form.form().bindFromRequest();
 		
 		String question = form.get("question");
@@ -45,7 +49,7 @@ public class FAQController extends Controller {
 		FAQ.createFAQ(question, answer);	
 		Logger.info("New FAQ added with question: " + question);
 		flash("success","New question added!");
-		return ok(newfaq.render());
+		return ok(newfaq.render(email));
 	}
 	
 	/**
@@ -95,10 +99,11 @@ public class FAQController extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteFAQ(int id) {
+		String email = session().get("email");
 		FAQ.delete(id);
 		Logger.warn("FAQ with id: " + id + " has been deleted");
 		flash("success", "Question deleted!");
-		return ok(faq.render(FAQ.all()));
+		return ok(faq.render(email, FAQ.all()));
 	}
 	
 	
