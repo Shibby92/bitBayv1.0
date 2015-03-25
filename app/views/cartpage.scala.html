@@ -15,7 +15,7 @@
    @if(flash.get("error")){
 							<h2><center><strong>@flash.get("error")</strong></center></h2>
 							}
-      <legend>Ordered products: </legend>
+      <legend>Your Cart: </legend>
       <div class="row">
          @for(product <- cart.productList){           
          <div class="col-md-4 portfolio-item">
@@ -32,8 +32,10 @@
             </div>
          </div>
          }
-         <p> @cart.checkout</p>
+       
       </div>
+      <p>--------------------------------------------------------------------------------------------</p>
+        <p>Total price @cart.checkout</p>
    </div>
       <div class="container">
       <hr>
