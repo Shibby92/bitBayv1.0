@@ -35,13 +35,11 @@ public class ProductApplication extends Controller {
 	// user picks new category for his product
 	@Security.Authenticated(UserFilter.class)
 	public static Result pickCategory() {
-		Logger.info("category picked");
+		
 		DynamicForm form = Form.form().bindFromRequest();
 
 		String category = form.data().get("category");
-
-		// if there is no category by that name it creates redirect to previous
-		// page
+		Logger.info(category + " category has been picked");
 		return redirect("/addproduct/" + Category.categoryId(category));
 	}
 
@@ -55,10 +53,12 @@ public class ProductApplication extends Controller {
 	public static Product find(int id) {
 		return find.byId(id);
 	} 
+	
+	
 	@Security.Authenticated(UserFilter.class)
 	public static Result addAdditionalInfo(int id) {
 		
-		Logger.info("add aditional info opened");
+		
 		//Form <Product> form=productForm.bindFromRequest();
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.get("name");
@@ -73,8 +73,9 @@ public class ProductApplication extends Controller {
 		String description = form.get("description");
 		String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
-		Product.create(name, price,
+		Product.create(name, price, User.find(session().get("email")),
 				description,id,image_url);
+		Logger.info("User with email: " + session().get("email") + "created product with name: " + name);
 		return redirect("/homepage");
 	}
 
@@ -83,18 +84,19 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result productPage(){
-		Logger.info("product page opened");
+		Logger.info("Product page opened");
 		return ok(productpage.render(Product.productList(), FAQ.all()));
 	}
-
+	
 	/**
 	 * opens a page with all of the categories
 	 * @param name String name of the category
 	 * @return
 	 */
 	public static Result category(String name) {
+		String email = session().get("email");
 		Logger.info("Category page list opened");
-		return ok(category.render(name,Product.listByCategory(name), FAQ.all()));
+		return ok(category.render(email,name,Product.listByCategory(name), FAQ.all()));
 	}
 
 	/**
@@ -102,8 +104,10 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result toPickCategory() {
-		Logger.info("add product category opened");
-		return ok(addproductcategory.render(Category.list()));
+
+		Logger.info("Opened page for adding category for product");
+		String email = session().get("email");
+		return ok(addproductcategory.render(email, Category.list(), FAQ.all()));
 	}
 
 	/**
@@ -112,8 +116,10 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result toInfo(int id) {
-		Logger.info("add product rendered");
-		return ok(addproduct.render(id,productForm));
+
+		Logger.info("Opened page for adding product");
+		String email = session().get("email");
+		return ok(addproduct.render(email,id,productForm, FAQ.all()));
 	}
 
 	/**
@@ -122,8 +128,9 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result deleteProduct(int id) {
-		Logger.warn("product deleted");
+		
 		Product.delete(id);
+		Logger.warn("product with id: " + id + " has been deleted");
 		return redirect("/productpage");
 
 	}
@@ -134,7 +141,7 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result updateProduct(int id){
-		Logger.info("update product rendered");
+		Logger.info("Opened page for updating product");
 		return ok(updateproduct.render(Product.find(id)));
 	}
 	
@@ -144,7 +151,7 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return
 	 */
-	public static Result update (int id){
+	public static Result update(int id){
 		savePicture(id);
 		
 		Product updateProduct= Product.find(id);
@@ -152,17 +159,17 @@ public class ProductApplication extends Controller {
 		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
 		Product.update(updateProduct);
-		Logger.info("product updated");
-		return redirect("/productpage");
+		Logger.info("Product with id: " + id + " has been updated");
+		return redirect("/profile");
 
 
 		
 	}
 	
 	/**
-	 * 
-	 * @param id
-	 * @return
+	 * saves picture in product
+	 * @param id int id of the product
+	 * @return result
 	 */
 	public static Result savePicture(int id){
 		Product updateProduct = ProductApplication.find(id);
@@ -197,8 +204,24 @@ public class ProductApplication extends Controller {
 		return redirect("/profile");
 	}
 	
+	/**
+	 * 
+	 * @param id int id of the 
+	 * @return result
+	 */
 	public static Result itemPage(int id){
+		if(session().get("email") == null)
+			Logger.info("Guest has opened item with id: " + id);
+		else
+			Logger.info("User with email: " + session().get("email") + " opened item with id: " + id);
 		return ok(itempage.render(session("email"), Product.find(id), FAQ.all()));
+		
+	}
+	
+	public static Result myProducts(int id) {
+		Logger.info("User with email: " + session().get("email") + " has opened his products");
+		return ok(myproducts.render(Product.myProducts(id)));
+	
 		
 	}
 

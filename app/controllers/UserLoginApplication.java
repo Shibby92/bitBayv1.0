@@ -33,11 +33,16 @@ import views.html.*;
  */
 public class UserLoginApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
+	static Form <Contact> contactForm= new Form<Contact>(Contact.class);
 	
 	// main page
 	// login page
 	public static Result homePage() {
 		String email = session().get("email");
+		if(session().get("email") == null)
+			Logger.info("Homepage has been opened by guest");
+		else
+			Logger.info("Homepage has been opened by user with email: " + session().get("email"));
 		
 		return ok(homePage.render(email,Category.list(),Product.productList(), FAQ.all()));
 	}
@@ -47,14 +52,16 @@ public class UserLoginApplication extends Controller {
 	// if the user is not in database, he gets redirected to register page
 	public static Result login() {
 		DynamicForm form = Form.form().bindFromRequest();
-
+		
 		String email = form.get("email");
 		String password = form.get("password");
 
 		if (User.existsEmail(email)) {
 			if (User.checkLogin(email, password)) {
+				
 				session("email", email);
-
+				Logger.info("User with email: "+ email + " has logged in.");
+				
 				if(User.find(email).hasAdditionalInfo)
 					return redirect("/homepage");
 
@@ -66,7 +73,8 @@ public class UserLoginApplication extends Controller {
 		}
 
 		flash("error", "Email does not exist!");
-		return ok(toregister.render(loginUser));
+		Logger.error("User has entered wrong email");
+		return ok(toregister.render(loginUser, email, FAQ.all()));
 	}
 
 	// tries to register user
@@ -75,16 +83,17 @@ public class UserLoginApplication extends Controller {
 	// if the user gets registered, he gets a verification email on his email address
 	@SuppressWarnings("static-access")
 	public static Result register() throws MalformedURLException {
-		Logger.info("create user");
+		
 		DynamicForm form = loginUser.form().bindFromRequest();
 			//User u = loginUser.bindFromRequest().get();
-			Logger.info("user created");
+			
 			String email = form.get("email");
 			String password = form.get("password");
 			String passconfirm = form.get("confirm_pass");
 			if(!password.equals(passconfirm)) {
+				Logger.error("User has entered unmatching passwords");
 				flash("error","Passwords are not the same!");
-				return ok(toregister.render(loginUser));
+				return ok(toregister.render(loginUser, email, FAQ.all()));
 			}
 			String confirmation = UUID.randomUUID().toString();
 			User u = new User(email, password, confirmation);
@@ -92,14 +101,14 @@ public class UserLoginApplication extends Controller {
 			String urlS = "http://localhost:9000" + "/" + "confirm/" + confirmation;
 			URL url = new URL(urlS);
 			MailHelper.send(email, url.toString()); 
-			if (u.verification == true) {
-				return redirect("/homepage");
-			}
+			Logger.info("User with email: " + email + " has registered");
 			flash("validate", "Please check your email");
+			
 			return redirect("/login");
 		}else {
-			flash("error", "There is already a user with that username!");
-			return ok(toregister.render(loginUser));
+			Logger.error("User has entered invalid email");
+			flash("error", "There is already a user with that email!");
+			return ok(toregister.render(loginUser, email, FAQ.all()));
 		}
 
 	}
@@ -108,30 +117,22 @@ public class UserLoginApplication extends Controller {
 
 	// goes to page where the user can be registered
 	public static Result toRegister() {
-		Logger.info("toregister page rendered");
+		String email = session().get("email");
+		Logger.info("Page for registration has been opened");
 
-		return ok(toregister.render(loginUser));
+		return ok(toregister.render(loginUser, email, FAQ.all()));
 	}
 	
-	static Form <Contact> contactForm= new Form<Contact>(Contact.class);
 	
-//	public static Result contact(){
-//		DynamicForm form=contactForm.form().bindFromRequest();
-//		String email= form.get("email");
-//		String message= form.get("message");
-//		List<User> admins=User.admins();
-//		for(User admin : admins){
-//			ContactHelper.send(email, admin.email, message);
-//		}
-//		return TODO;		
-//	}
+
 	/**
 	 * We return whatever the promise returns, so the return value is changed from Result to Promise<Result>
-	 * 
 	 * @return the contact page with a message indicating if the email has been sent.
 	 */
 	public static Promise<Result> contact() {
+
 		 final String userEmail = session().get("email");
+
 		//need this to get the google recapctha value
 		 final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		
@@ -164,10 +165,20 @@ public class UserLoginApplication extends Controller {
 								ContactHelper.send(email, admin.email, message);
 							}
 							flash("success", "Message sent!");
+							if(session().get("email") == null)
+								Logger.info("Guest has sent message to admin");
+							else
+								Logger.info("User with email: " + session().get("email") + " has sent message to admin");
 							return redirect("/contactpage");
 						} else {
-							flash("error", "There has been a problem!");
-							return ok(contact.render(userEmail));
+
+							if(session().get("email") == null)
+								Logger.info("Guest did not confirm its humanity");
+							else
+								Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
+							flash("error", "You have to confirm that you are not a robot!");
+
+							return ok(contact.render(userEmail, FAQ.all() ));
 
 						}
 					}
@@ -176,23 +187,27 @@ public class UserLoginApplication extends Controller {
 		return holder;
 	}
 
-	// home page of the user
-	// he can see ads that someone else had added
-	// he has an option to add his own ad
 
 	public static Result toLogin() {
-		Logger.info("logintest rendered");
+		String email = session().get("email");
+		Logger.info("Opened page for login");
 		
-		return ok(logintest.render());
+		return ok(logintest.render(email, FAQ.all()));
 	}
+	
+	
 	public static Result logOut(){
-		Logger.warn("user logged out");
+		Logger.warn("User with email: " + session().get("email") + " has logged out");
 		session().clear();
 		return redirect("/");
 		}
 	public static Result contactPage(){
 		String email = session().get("email");
-		return ok(contact.render(email));
+		if(session().get("email") == null)
+			Logger.info("Guest has opened contact us page");
+		else
+			Logger.info("User with email: " + session().get("email") + " has opened contact us page");
+		return ok(contact.render(email, FAQ.all()));
 	}
 	
 	

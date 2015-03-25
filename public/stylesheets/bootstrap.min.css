@@ -1444,7 +1444,7 @@ hr {
 	margin-top: 20px;
 	margin-bottom: 20px;
 	border: 0;
-	border-top: 1px solid #eee
+	border-top: 2px solid #e5e5e5
 }
 
 .sr-only {
@@ -2878,7 +2878,7 @@ output {
 
 .form-control {
 	display: block;
-	width: 100%;
+	width: 90%;
 	height: 34px;
 	padding: 6px 12px;
 	font-size: 14px;
@@ -3419,8 +3419,9 @@ select[multiple].form-group-lg .form-control, textarea.form-group-lg .form-contr
 
 .btn-primary {
 	color: #fff;
+	width: 90%;
 	background-color: #4AB55A;
-	border-color: #2e6da4
+	
 }
 
 .btn-primary.active, .btn-primary.focus, .btn-primary:active,
@@ -5055,8 +5056,8 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 }
 
 .navbar-inverse {
-	background-color: #fff;
-	border-color: #fff;
+	background-color: #f5f5f5;
+	border-color: #e5e5e5;
 }
 
 .navbar-inverse .navbar-brand {
