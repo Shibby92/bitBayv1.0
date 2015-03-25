@@ -3,6 +3,7 @@
 package models;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.*;
@@ -152,6 +153,18 @@ public class Product extends Model {
 		Logger.info(""+product.name);
 		product.update();
 		
+	}
+	
+	public static List<Product> myProducts(int id) {
+		List<Product> allProducts = productList();
+		List<Product> myProducts = null;
+		Iterator<Product> iterator = allProducts.iterator();
+		while(iterator.hasNext()) {
+			Product current = iterator.next();
+			if(current.owner.equals(User.find(id)))
+				myProducts.add(current);
+		}
+		return myProducts;
 	}
 
 	

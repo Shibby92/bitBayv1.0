@@ -87,6 +87,17 @@ public class ProductApplication extends Controller {
 		Logger.info("Product page opened");
 		return ok(productpage.render(Product.productList(), FAQ.all()));
 	}
+	
+	/**
+	 * opens a page with all of the categories
+	 * @param name String name of the category
+	 * @return
+	 */
+	public static Result category(String name) {
+		String email = session().get("email");
+		Logger.info("Category page list opened");
+		return ok(category.render(email,name,Product.listByCategory(name), FAQ.all()));
+	}
 
 	/**
 	 * opens a page where user can pick category for his product
@@ -205,6 +216,12 @@ public class ProductApplication extends Controller {
 			Logger.info("User with email: " + session().get("email") + " opened item with id: " + id);
 		return ok(itempage.render(session("email"), Product.find(id), FAQ.all()));
 		
+	}
+	
+	public static Result myProducts(int id) {
+		Logger.info("User with email: " + session().get("email") + " has opened his products");
+		//return ok(myproducts.render(Product.myProducts(id)));
+		return TODO;
 	}
 
 }
