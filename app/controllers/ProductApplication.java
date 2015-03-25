@@ -131,7 +131,7 @@ public class ProductApplication extends Controller {
 		
 		Product.delete(id);
 		Logger.warn("product with id: " + id + " has been deleted");
-		return redirect("/productpage");
+		return redirect("/profile");
 
 	}
 	

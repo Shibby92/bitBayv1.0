@@ -65,19 +65,25 @@
          </div>
       </div>
       <div class="row">
-         @for(product <- products){           
-         <div class="col-md-4 portfolio-item">
-            <a href="#">
-            <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-            </a>
-            <h3 class="pull-right">@product.price</h3>
-            <h3>
-                <a href="/itempage/@product.id">@product.name</a>
-            </h3>
-            <p> @product.description </p>
+      @for(product <- products){
+      <div class="col-sm-4 col-lg-4 col-md-4">
+         <div class="thumbnail">
+            <img src="@routes.Assets.at(product.image_url)" alt="">
+            <div class="caption">
+               <h4 class="pull-right">US @product.price $</h4>
+               <h4> <a href="/itempage/@product.id">@product.name</a>
+               </h4>
+               <p> @product.description </p>
+            </div>
          </div>
-         }
       </div>
+      }
+   </div>
+     
+         
+           
+          
+   
       <!-- Pagination -->
       <div class="row text-center">
          <div class="col-lg-12">

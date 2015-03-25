@@ -88,7 +88,7 @@
    <div class="row">
       <form style="margin: 15px 75px" class="navbar-form navbar-left"  method="GET" action="/searchusers" role="search">
                <div class="form-group">
-                  <input type="text" class="form-control" name="q" id="q" placeholder="Search users" required>
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search users..." required>
                </div>
                <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
             </form>
@@ -167,28 +167,30 @@
         
          
      
-      </div>
-    
-      
+      </div>  
       <div class="row">
        <hr>
          @for(product <- products){           
-         <div class="col-md-4 portfolio-item">
-            <a href="#">
-            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" alt="">
-            </a>
-            <h3 class="pull-right">@product.price $</h3>
-            <h3>
-               <a href="/itempage/@product.id">@product.name</a>
-            </h3>
+         <div class="col-sm-4 col-lg-4 col-md-4">
+         <div class="thumbnail">
+           
+            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" width="700" height="400" alt="">
+             <div class="caption">
+            <h4 class="pull-right">@product.price</h4>
+            <h4>
+               <a href="itempage/@product.id">@product.name</a>
+            </h4>
             <p> @product.description </p>
             <div>
-              <!--   <a class="btn  btn-info glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button");">Update</a> -->
+               
                <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a> 
             </div>
          </div>
+           </div>
+      </div>
          }
       </div>
+  
          </div>
         </div>
       </div>
