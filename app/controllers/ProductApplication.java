@@ -136,7 +136,7 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return
 	 */
-	public static Result update (int id){
+	public static Result update(int id){
 		savePicture(id);
 		
 		Product updateProduct= Product.find(id);
@@ -152,9 +152,9 @@ public class ProductApplication extends Controller {
 	}
 	
 	/**
-	 * 
-	 * @param id
-	 * @return
+	 * saves picture in product
+	 * @param id int id of the product
+	 * @return result
 	 */
 	public static Result savePicture(int id){
 		Product updateProduct = ProductApplication.find(id);
@@ -189,6 +189,11 @@ public class ProductApplication extends Controller {
 		return redirect("/profile");
 	}
 	
+	/**
+	 * 
+	 * @param id int id of the 
+	 * @return result
+	 */
 	public static Result itemPage(int id){
 		return ok(itempage.render(session("email"), Product.find(id), FAQ.all()));
 		
