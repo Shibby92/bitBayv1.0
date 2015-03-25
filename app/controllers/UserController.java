@@ -23,7 +23,7 @@ public class UserController extends Controller {
 	public static Result toUpdateUser(int id) {
 		Logger.info("User update page opened");
 		
-		return ok(listofuserspage.render(User.find(id)));
+		return ok(listofuserspage.render(session().get("email"), User.find(id), FAQ.all()));
 	}
 
 	// gets data from updated user

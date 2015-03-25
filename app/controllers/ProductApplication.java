@@ -32,6 +32,8 @@ public class ProductApplication extends Controller {
 			Integer.class, Product.class);
 	static Form<User> loginUser = new Form<User>(User.class);
 	static Form<Product> productForm= new Form <Product>(Product.class);
+	
+	
 	// user picks new category for his product
 	@Security.Authenticated(UserFilter.class)
 	public static Result pickCategory() {
@@ -58,7 +60,6 @@ public class ProductApplication extends Controller {
 	@Security.Authenticated(UserFilter.class)
 	public static Result addAdditionalInfo(int id) {
 		
-		
 		//Form <Product> form=productForm.bindFromRequest();
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.get("name");
@@ -75,6 +76,7 @@ public class ProductApplication extends Controller {
 		
 		Product.create(name, price,
 				description,id,image_url);
+		savePicture(id);
 		Logger.info("User with email: " + session().get("email") + "created product with name: " + name);
 		return redirect("/homepage");
 	}
@@ -94,7 +96,7 @@ public class ProductApplication extends Controller {
 	 */
 	public static Result toPickCategory() {
 		Logger.info("Opened page for adding category for product");
-		return ok(addproductcategory.render(Category.list()));
+		return ok(addproductcategory.render(session().get("email"),Category.list(),FAQ.all()));
 	}
 
 	/**
@@ -104,7 +106,7 @@ public class ProductApplication extends Controller {
 	 */
 	public static Result toInfo(int id) {
 		Logger.info("Opened page for adding product");
-		return ok(addproduct.render(id,productForm));
+		return ok(addproduct.render(session().get("email"),id,productForm, FAQ.all()));
 	}
 
 	/**
@@ -137,7 +139,8 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result update (int id){
-		savePicture(id);
+		
+		updatePicture(id);
 		
 		Product updateProduct= Product.find(id);
 		updateProduct.name=productForm.bindFromRequest().field("name").value();
@@ -145,8 +148,74 @@ public class ProductApplication extends Controller {
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
 		Product.update(updateProduct);
 		Logger.info("Product with id: " + id + " has been updated");
-		return redirect("/productpage");
+		return redirect("/myproducts");	
+	}
+	
+	/**
+	 * updates picture on given product
+	 * @param id int id of the product
+	 * @return result 
+	 */
+	public static Result updatePicture(int id){
+		
+			
+		MultipartFormData body = request().body().asMultipartFormData(); 
+		FilePart filePart = body.getFile("image_url");
+		if(filePart  == null){
+			Logger.debug("File part is null");
+			flash("error","File part is null");
+			if(User.find(session().get("email")).admin)
+				return redirect("/profile");
+			return redirect("/myproducts");
+		}
+		Logger.debug("Content type: " + filePart.getContentType());
+		Logger.debug("Key: " + filePart.getKey());
+		File image = filePart.getFile();
+		String extension = filePart.getFilename().substring(
+				filePart.getFilename().lastIndexOf('.'));
+		extension.trim();
 
+		if (!extension.equalsIgnoreCase(".jpeg")
+				&& !extension.equalsIgnoreCase(".jpg")
+				&& !extension.equalsIgnoreCase(".png")) {
+			Logger.error("Image type not valid");
+			flash("error", "Image type not valid");
+			if(User.find(session().get("email")).admin)
+				return redirect("/profile");
+			return redirect("/myproducts");
+		}
+		double megabiteSyze = (double) ((image.length()/1024)/1024);
+		if(megabiteSyze >2) {
+			Logger.debug("Image size not valid ");
+			flash("error", "Image size not valid");
+			if(User.find(session().get("email")).admin)
+				return redirect("/profile");
+			return redirect("/myproducts");
+		}
+
+		try {
+			Files.move(image, new File("./public/images/Productimages/"+new Date().toString()+filePart.getFilename()));
+			String image_url="images" + File.separator + "Productimages" + File.separator + new Date().toString() + filePart.getFilename();
+			
+			Product updateProduct = ProductApplication.find(id);
+			updateProduct.image_url=image_url;
+			Product.update(updateProduct);
+			ImageIcon tmp= new ImageIcon(image_url);
+			Image resize = tmp.getImage();
+			resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
+			flash("success","Your photo have been successfully updated");
+			if(User.find(session().get("email")).admin)
+				return redirect("/profile");
+			return redirect("/myproducts");
+			
+		} catch (IOException e) {
+			Logger.error("Failed to move file");
+			e.printStackTrace();
+			flash("error", "Failed to move file");
+			if(User.find(session().get("email")).admin)
+				return redirect("/profile");
+			return redirect("/myproducts");
+		}
 
 		
 	}
@@ -157,40 +226,65 @@ public class ProductApplication extends Controller {
 	 * @return result 
 	 */
 	public static Result savePicture(int id){
-		Product updateProduct = ProductApplication.find(id);
+		
 			
 		MultipartFormData body = request().body().asMultipartFormData(); 
 		FilePart filePart = body.getFile("image_url");
 		if(filePart  == null){
-			return redirect("/profile");
+			Logger.debug("File part is null");
+			if(User.find(session().get("email")).admin)
+				return redirect("/profile");
+			return redirect("/myproducts");
 		}
 		Logger.debug("Content type: " + filePart.getContentType());
 		Logger.debug("Key: " + filePart.getKey());
 		File image = filePart.getFile();
-		double megabiteSyze = (image.length()/1024)/1024;
-		if(megabiteSyze >2)
-			return redirect("/productpage");
-		try {
-			
-			Files.move(image, new File("./public/images/Productimages/"+new Date().toString()+filePart.getFilename()));
-			Logger.debug("file should be moved");
-		} catch (IOException e) {
-			
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String image_url="images/Productimages/"+new Date().toString()+filePart.getFilename();
+		String extension = filePart.getFilename().substring(
+				filePart.getFilename().lastIndexOf('.'));
+		extension.trim();
 
-		updateProduct.image_url=image_url;
-		Product.update(updateProduct);
-		ImageIcon tmp= new ImageIcon(image_url);
-		Image resize = tmp.getImage();
-		resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
-		return redirect("/profile");
+		if (!extension.equalsIgnoreCase(".jpeg")
+				&& !extension.equalsIgnoreCase(".jpg")
+				&& !extension.equalsIgnoreCase(".png")) {
+			Logger.error("Image type not valid");
+			flash("error", "Image type not valid");
+			if(User.find(session().get("email")).admin)
+				return redirect("/profile");
+			return redirect("/myproducts");
+		}
+		double megabiteSyze = (double) ((image.length()/1024)/1024);
+		if(megabiteSyze >2) {
+			Logger.debug("Image size not valid ");
+			flash("error", "Image size not valid");
+			if(User.find(session().get("email")).admin)
+				return redirect("/profile");
+			return redirect("/myproducts");
+		}
+
+		try {
+			Files.move(image, new File("./public/images/Productimages/"+new Date().toString()+filePart.getFilename()));
+			String image_url="images" + File.separator + "Productimages" + File.separator + new Date().toString() + filePart.getFilename();
+			
+			ImageIcon tmp= new ImageIcon(image_url);
+			Image resize = tmp.getImage();
+			resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
+			if(User.find(session().get("email")).admin)
+				return redirect("/profile");
+			return redirect("/myproducts");
+			
+		} catch (IOException e) {
+			Logger.error("Failed to move file");
+			e.printStackTrace();
+			if(User.find(session().get("email")).admin)
+				return redirect("/profile");
+			return redirect("/myproducts");
+		}
+
+		
 	}
 	
 	/**
-	 * 
+	 * Page of the product
 	 * @param id int id of the product
 	 * @return result
 	 */

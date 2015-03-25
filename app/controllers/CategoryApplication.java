@@ -2,6 +2,7 @@ package controllers;
 
 import helpers.AdminFilter;
 import models.Category;
+import models.FAQ;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -29,7 +30,7 @@ public class CategoryApplication extends Controller {
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewCategory() {
 		Logger.info("Opened page for adding category");
-		return ok(addcategorypage.render(categoryForm));
+		return ok(addcategorypage.render(session().get("email"), categoryForm, FAQ.all()));
 	}
 
 
