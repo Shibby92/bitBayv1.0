@@ -12,14 +12,18 @@
    <div class="row">
       <div class="col-md-12">
          @if(flash.get("error")){
-         <h2>
-            <center><strong> @flash.get("error") </strong></center>
-         </h2>
+        <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
          }
          @if(flash.get("warning")){
-         <h2>
-            <center><strong> @flash.get("warning") </strong></center>
-         </h2>
+       <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("warning")
+                     </div>
+                  </div>
          }
          <div class="col-sm-4">
             <div class="well login-box">
@@ -52,6 +56,7 @@
                   <div class="form-group text-center">
                      <input type="submit" value="Add" class="btn btn-success"/>
                      <a href="/login" class="btn btn-danger"> Back </a>
+                     <a href="/homepage" class="btn btn-danger"> Cancel </a>
                   </div>
                </form>
             </div>

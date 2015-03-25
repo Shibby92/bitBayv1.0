@@ -1,30 +1,81 @@
+@(email: String,  faqs: List[FAQ])
 @import helper._
 @main("Login") {
 <body>
-   <!-- Navigation -->
-   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-         <div class="navbar-header">
-            <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-         </div>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
       </div>
-      <!-- /.container -->
-   </nav>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+            <li>
+              
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
+               @if(email == null) {
+            <li>
+               <h4>
+                  <p style="color: #000">Hello, please  
+                     <a href="login">
+                     <button class="btn btn-success btn-login"> Log in</button> 
+                     </a>
+                     or 
+                     <a href="toregister">
+                     <button class="btn btn-success btn-register" >Register</button>
+                     </a>
+                  </p>
+               </h4>
+            </li>
+         </ul>
+         } else {
+      
+         <li >
+            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+               @if(User.find(email).admin == true) {
+               <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' > Profile</a></li>
+               } else {
+               <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
+               }
+               <li class="divider"></li>
+               <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+            </ul>
+         </li>
+         </ul>
+         }
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
    <div class="row">
       <div class="col-md-12">
          @if(flash.get("success")){
-         <h2>
-            <center><strong> @flash.get("success") </strong></center>
-         </h2>
+         <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("success")
+                     </div>
+                  </div>
          }
          @if(flash.get("validate")){
-         <h2>
-            <center><strong> @flash.get("validate") </strong></center>
-         </h2>
+        <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("validate")
+                     </div>
+                  </div>
          }
          <div class="col-sm-3">
-            <div class="well login-box">
-               <legend>Login</legend>
+            <div style="margin: 126.5px -15px"  class="well login-box">
+               <legend >Login</legend>
                @helper.form(routes.UserLoginApplication.login(), 'method-> "post"){
                <div class="form-group">
                   <label for="email">Email</label>
@@ -43,5 +94,15 @@
          </div>
       </div>
    </div>
+   <div class="container">
+   <hr>
+   <a href="/contactpage">
+      <h3>Contact Us</h3>
+   </a>
+   <a href="faq">
+      <h3> FAQs</h3>
+   </a>
+</div>
+<!-- /.container -->
 </body>
 }

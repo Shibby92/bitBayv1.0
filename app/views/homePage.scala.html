@@ -5,29 +5,24 @@
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-       
          <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
-        
-        <div class="span12">
-            <form id="custom-search-form" method="GET" action="/search" class="form-search form-horizontal pull-right">
-                <div class="input-append span12">
-                    <input type="text" name="q" id="q" class="search-query mac-style" placeholder="Search" required/>
-                   
-                    <button type="submit" class="btn glyphicon glyphicon-search"></button>
-                </div>
+            <li>
+              
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
             </form>
-        </div>
-
-                   
-         @if(email == null) {
-        
+         </li>
+               @if(email == null) {
             <li>
                <h4>
-                  <p style="color: #000">Hello, to access BitBay please  
+                  <p style="color: #000">Hello, please  
                      <a href="login">
                      <button class="btn btn-success btn-login"> Log in</button> 
                      </a>
@@ -41,16 +36,18 @@
          </ul>
          } else {
          <ul class='nav navbar-nav pull-right'>
+
                     <li class='dropdown'>
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-               <button class="btn btn-success glyphicon glyphicon-menu-hamburger">  @User.find(email).username <span class="caret"></span> </button></a>
+               <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+               <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
               
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' class="glyphicon glyphicon-user">Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-2"  href="editinfo"> Add Additional Info</a></li>
                   }
                   <li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
@@ -115,7 +112,7 @@
       @for(product <- products){
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
-            <img src="http://placehold.it/320x150" alt="">
+            <img src="@routes.Assets.at(product.image_url)" alt="">
             <div class="caption">
                <h4 class="pull-right">US @product.price $</h4>
                <h4> <a href="itempage/@product.id">@product.name</a>
@@ -130,12 +127,12 @@
 <!-- /.container -->
 <div class="container">
    <hr>
-    <a href="/contactpage">
-                                  <h3>Contact Us</h3>
-                                </a>
-                                   <a href="faq">
-                        <h3> FAQs</h3>
-                        </a>
+   <a href="/contactpage">
+      <h3>Contact Us</h3>
+   </a>
+   <a href="faq">
+      <h3> FAQs</h3>
+   </a>
 </div>
 <!-- /.container -->
 }

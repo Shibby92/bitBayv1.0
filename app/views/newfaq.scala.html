@@ -11,34 +11,45 @@
 		<!-- /.container -->
 	</nav>
 
-	<div class="row">
-		<div class="col-md-12">
+	<div class="row" align="center">
+		
 		 @if(flash.get("success")) {
-                    	<h4><center><strong> @flash.get("success") </strong></center> </h4>
+                    	<div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("success")
+                     </div>
+                  </div>
                     	}
-			<div class="col-sm-4">
-				<div class="well login-box">
+			 <div class="col-md-6 column">
+			 <form action="@routes.FAQController.addNewFAQ()" method ="POST" >
+				<div class="form-group">
 				 
-					<form action="@routes.FAQController.addNewFAQ()" method ="POST" >
-						<legend>Add FAQ </legend>
-						
-						
-						<div class="col-sm-6 col-sm-offset-1">
 					
-					<div class="signup-form">
-							<input type="text" name="question" id="question" placeholder="Question" required/>
-							<textarea name="answer" id="answer" rows="6" placeholder="Answer" required></textarea>
-							<button type="submit" class="btn btn-default">Add FAQ</button>
-								<p></p>
-									<p></p>
-										<p></p>
-											<p></p>
+						<legend>Add FAQ </legend>
+						  <label for="inputEmail3" class="col-sm-2 control-label">Question</label>
+					<div class="col-sm-10">
+               <input type="text" class="form-control" placeholder="Question" name="question" id="question" required>				
+            </div>
+            </div>
+            <div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">Answer</label>	
+						<div class="col-sm-10">
+             <textarea rows="5" cols="69" placeholder="Answer" name="answer" id="answer" required></textarea>
+						 <p class="help-block"></p>
+						</div>
+         </div>
+             <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+					<a href="/faq" class="btn btn-danger"> Back </a>
+							<button type="submit" class="btn btn-success">Add FAQ</button>
+									
+					 </div>
+                </div>
 						
 
 					</form>
 				</div>
 			</div>
-		</div>
-	</div>
+	
 </body>
 }

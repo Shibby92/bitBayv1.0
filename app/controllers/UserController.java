@@ -3,9 +3,6 @@ package controllers;
 import java.net.MalformedURLException;
 import java.text.*;
 import java.util.Date;
-import java.util.Locale;
-
-import org.springframework.format.datetime.DateFormatter;
 
 import helpers.*;
 import models.*;
@@ -24,23 +21,16 @@ public class UserController extends Controller {
 	// goes to page where admin can update user
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateUser(int id) {
-		Logger.info("user update page opened");
+		Logger.info("User update page opened");
 		
 		return ok(listofuserspage.render(User.find(id)));
-	}
-
-	// goes to page where it lists all of registered users
-	@Security.Authenticated(AdminFilter.class)
-	public static Result toUpdate() {
-		Logger.info("listofusers rendered");
-		return ok(listofusers.render(User.all()));
 	}
 
 	// gets data from updated user
 	// redirect to page where it lists all users
 	@Security.Authenticated(AdminFilter.class)
 	public static Result updateUser(int id) throws MalformedURLException{
-		Logger.info("user updated");
+		
 		DynamicForm form =  Form.form().bindFromRequest();
 		User updateUser= User.find(id);
 		updateUser.email = form.get("email");
@@ -51,37 +41,32 @@ public class UserController extends Controller {
 		}
 
 		updateUser.update();
+		Logger.info("User with id: " + id + " has been updated");
 
 
-		return redirect("/listofusers");
-	}
-
-	// redirect to page where it lists all students
-	@Security.Authenticated(AdminFilter.class)
-	public static Result toList() {
-		Logger.info("list of users rendered");
-		return redirect("/listofusers");
+		return redirect("/profile");
 	}
 
 	// deletes user and redirect to list of all users
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteUser(int id){
-		Logger.warn("user will be deleted");
+		
 		User.delete(id);
-		return redirect("/listofusers");
+		Logger.warn("User with id: " + id + " has been deleted");
+		return redirect("/profile");
 	}
 
 	// redirects to page with additional info
 	@Security.Authenticated(UserFilter.class)
 	public static Result toAdditionalInfo() {
-		Logger.info("add aditional info rendered");
+		Logger.info(session().get("email") + " has opened additional info page");
 		return ok(additionalinfo.render());
 	}
 
 	// adds additional info to user profile
 	@Security.Authenticated(UserFilter.class)
 	public static Result additionalInfo() throws ParseException {
-		Logger.info("aditional info added");
+		
 		DynamicForm form =  Form.form().bindFromRequest();
 		String email = session().get("email");
 		String username = form.get("username");
@@ -94,6 +79,7 @@ public class UserController extends Controller {
 		Date birth_date = format.parse(birth_date_string);
 		Logger.debug(birth_date.toString());
 		if (!birth_date.before(current)) {
+			Logger.error("User " + session().get("email") + "has entered invalid date");
 			flash("error", "Enter valid date!");
 			return ok(additionalinfo.render());
 		}
@@ -103,6 +89,7 @@ public class UserController extends Controller {
 		String gender = form.get("gender");
 		if (!gender.toLowerCase().contains("m")
 				&& !gender.toLowerCase().contains("f")) {
+			Logger.error("User " + session().get("email") + "has entered invalid gender");
 			flash("error", "Enter valid gender!");
 			return ok(additionalinfo.render());
 		}
@@ -113,16 +100,19 @@ public class UserController extends Controller {
 			User u = User.find(email);
 			u.hasAdditionalInfo = true;
 			u.update();
+			Logger.info("User " + session().get("email") + "has added his additional info");
 			return redirect("/homepage");
 		}
 
 		flash("warning", "Username already exists!");
+		Logger.error("User " + session().get("email") + "has entered invalid username");
 		return ok(additionalinfo.render());	
 		
 	}
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result toEditInfo() {
+		Logger.info("User " + session().get("email") + "has opened his additional info");
 		return ok(editadditionalinfo.render(User.find(session().get("email"))));
 	}
 
@@ -131,33 +121,42 @@ public class UserController extends Controller {
 	public static Result editAdditionalInfo() throws ParseException {
 		DynamicForm form = Form.form().bindFromRequest();
 		User u = User.find(session().get("email"));
-		if (!User.existsUsername(form.get("username"))) 
+		if (!User.existsUsername(form.get("username")) || form.get("username").equals(u.username)) 
 			u.username = form.get("username");
 		else {
+			Logger.error("User " + session().get("email") + "has entered invalid username");
 			flash("error","Username already exists!");
 			return ok(editadditionalinfo.render(u));
 		}
 		Date current = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-mm");
-		String birth_date_string = userForm.bindFromRequest()
+		if(!userForm.bindFromRequest()
+				.field("birth_date").value().equals(""))
+		{
+			String birth_date_string = userForm.bindFromRequest()
 				.field("birth_date").value();
 		u.birth_date = format.parse(birth_date_string);
 
 		if (!u.birth_date.before(current)) {
+			Logger.error("User " + session().get("email") + "has entered invalid date");
 			flash("error", "Enter valid date!");
 			return ok(editadditionalinfo.render(u));
+		}
 		}
 		u.city = form.get("city");
 		u.shipping_address = form.get("shipping_address");
 		u.user_address = form.get("user_address");
-		u.gender = form.get("gender");
+		if(!form.get("gender").equals(""))
+		{u.gender = form.get("gender");
 		if (!u.gender.toLowerCase().contains("m")
 				&& !u.gender.toLowerCase().contains("f")) {
+			Logger.error("User " + session().get("email") + "has entered invalid gender");
 			flash("error", "Enter valid gender!");
 			return ok(editadditionalinfo.render(u));
 		}
-
+		}
 			u.update();
+			Logger.info("User " + session().get("email") + "has updated his additional info");
 			flash("success","Additional info updated successfuly!");
 			return redirect("/homepage");
 
@@ -166,7 +165,9 @@ public class UserController extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result profile() {
-		return ok(profile.render(User.all(), Category.list(), Product.productList(), FAQ.all()));
+		Logger.info("User " + session().get("email") + " has opened his profile page");
+		String email = session().get("email");
+		return ok(profile.render(email,User.all(), Category.list(), Product.productList(), FAQ.all()));
 		
 	}
 	
