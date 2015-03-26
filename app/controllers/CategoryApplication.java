@@ -78,8 +78,7 @@ public class CategoryApplication extends Controller {
 	 * @return results
 	 */
 	public static Result updateCategory(int id){
-
-		Logger.info("Update category page opened");
+	Logger.info("Update category page opened");
 		String email = session().get("email");
 		return ok(updatecategory.render(email, Category.find(id), FAQ.all()));
 	}

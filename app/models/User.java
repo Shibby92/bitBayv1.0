@@ -80,7 +80,9 @@ public class User extends Model {
 	
 	public boolean hasAdditionalInfo;
 
-	static Finder<Integer, User> find = new Finder<Integer, User>(
+	 static Finder<Integer, User> find = new Finder<Integer, User>(
+			Integer.class, User.class);
+	public static Finder<Integer, User> findUser = new Finder<Integer, User>(
 			Integer.class, User.class);
 
 	/**
