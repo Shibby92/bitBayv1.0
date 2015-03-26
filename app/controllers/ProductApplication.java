@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
@@ -222,6 +221,8 @@ public class ProductApplication extends Controller {
 				.render(session("email"), Product.find(id), FAQ.all()));
 
 	}
+	/********************************************************************
+	 ************************* CART SECTION ****************************/
 
 	static Finder<Integer, Cart> cartFinder = new Finder<Integer, Cart>(
 			Integer.class, Cart.class);
@@ -249,5 +250,5 @@ public class ProductApplication extends Controller {
 		return ok(cartpage.render(cart, FAQ.all()));
 
 	}
-
-}
+	/***************************************************************/
+	}

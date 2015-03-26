@@ -73,7 +73,6 @@ GET    /assets/*file            controllers.Assets.at(path="/public", file)
 GET    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
-GET    /creditpurchase          controllers.UserLoginApplication.showPurchase()
 POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcessing()
 GET    /creditsuccess           controllers.UserLoginApplication.creditSuccess()
 GET    /creditfail              controllers.UserLoginApplication.creditFail()

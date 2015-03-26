@@ -79,6 +79,8 @@ public class User extends Model {
 	public String confirmation;
 	
 	public boolean hasAdditionalInfo;
+	
+	public Cart userCart;
 
 	static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);
@@ -101,7 +103,6 @@ public class User extends Model {
 		this.admin = false;
 		this.confirmation = confirmation;
 		this.hasAdditionalInfo = false;
-		Logger.info(Integer.toString(id));
 	}
 	
 	public User(String email, String password, boolean admin, boolean verification) {
@@ -140,7 +141,7 @@ public class User extends Model {
 	
 	public static void create(User user) {
 		user.save();
-		new Cart(user.id).save();;
+		new Cart(user.id,user.email).save();
 		
 	}
 

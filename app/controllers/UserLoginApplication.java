@@ -229,14 +229,13 @@ public class UserLoginApplication extends Controller {
 		}
 
 	}
-
-	public static Result showPurchase() {
-		return ok(paypalbutton.render());
-	}
+	/*********************************************************************/
+	/*********************** PAYPAL SECTION ******************************/
 
 	public static Result purchaseProcessing() {
 
 		try {
+			String total=String.valueOf(Cart.getCart(session().get("email")).checkout);
 			String accessToken = new OAuthTokenCredential(
 					"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
 					"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe")
@@ -247,10 +246,10 @@ public class UserLoginApplication extends Controller {
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(sdkConfig);
 			Amount amount = new Amount();
-			amount.setTotal("7.47");
+			amount.setTotal(total+"0");
 			amount.setCurrency("USD");
 			Transaction transaction = new Transaction();
-			transaction.setDescription("Deskripcija transakcije");
+			transaction.setDescription("Order via bitBay");
 			transaction.setAmount(amount);
 			List<Transaction> transactions = new ArrayList<Transaction>();
 			transactions.add(transaction);
@@ -274,7 +273,7 @@ public class UserLoginApplication extends Controller {
 			}
 
 		} catch (PayPalRESTException e) {
-			// TODO Auto-generated catch block
+			
 			Logger.warn(e.getMessage());
 		}
 
@@ -312,4 +311,6 @@ public class UserLoginApplication extends Controller {
 		return ok(creditresult.render("nije proslo"));
 
 	}
+	
+	/*******************************************************************/
 }

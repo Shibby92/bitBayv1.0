@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import play.Logger;
 import play.db.ebean.Model;
 
 @Entity
@@ -24,11 +23,15 @@ public class Cart extends Model {
 
 	@OneToOne
 	public int userid;
+	
+	@OneToOne
+	public String userMail;
 
 	public double checkout;
 
-	public Cart(int id) {
+	public Cart(int id,String userMail) {
 		this.userid = id;
+		this.userMail=userMail;
 		this.checkout = 0;
 	}
 
@@ -43,7 +46,7 @@ public class Cart extends Model {
 		product.update();
 	}
 
-	public static List getProducts(int id) {
+	public static List<Product> getProducts(int id) {
 		return find.where().eq("userid", id).findUnique().productList;
 
 	}
@@ -51,4 +54,9 @@ public class Cart extends Model {
 	public static Cart getCart(int id) {
 		return find.where().eq("userid", id).findUnique();
 	}
+	
+	public static Cart getCart(String email){
+		return find.where().eq("userMail", email).findUnique();
+	}
+	
 }

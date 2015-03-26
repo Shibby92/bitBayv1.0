@@ -32,10 +32,21 @@
             </div>
          </div>
          }
-       
+      
       </div>
+       @if(cart.checkout>0){
       <p>--------------------------------------------------------------------------------------------</p>
         <p>Total price @cart.checkout</p>
+        
+        <form action="/creditpurchase" method="POST">
+	<a href="/creditpurchase" data-paypal-button="true">
+  <button class="submit" ><img src="//www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Check out with PayPal" />
+  </button>
+</a>
+</form>
+}else{
+<p> Your cart is empty</p>
+}
    </div>
       <div class="container">
       <hr>

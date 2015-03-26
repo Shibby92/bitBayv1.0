@@ -6,6 +6,7 @@
 create table cart (
   id                        integer not null,
   userid                    integer,
+  user_mail                 varchar(255),
   checkout                  double,
   constraint pk_cart primary key (id))
 ;
