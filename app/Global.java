@@ -39,13 +39,13 @@ public class Global extends GlobalSettings {
 					"House",
 					100000,
 					"This house has got four bedrooms, a living-room, a dining-room, a kitchen",
-					1,"images/bitbaySlika2.jpg");
+					5,"images/bitbaySlika2.jpg");
 
 			Product.create(
 					"Mazda",
 					25000,
 					"Auto mazda mx-5 skoro novo!!!",
-					2,"images/bitbaySlika2.jpg");
+					1,"images/bitbaySlika2.jpg");
 
 
 		}

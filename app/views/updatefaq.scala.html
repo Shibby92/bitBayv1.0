@@ -1,53 +1,104 @@
-@(faq: FAQ)
+@(email: String, faq: FAQ,faqs: List[FAQ])
  @main("Update FAQ") {
 <body>
-
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-			</div>
-		</div>
-		<!-- /.container -->
-	</nav>
-
-	<div class="row" align="center">
-		@if(flash.get("success")) {
-			< <div class="alert alert-success" role="alert">
+<!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+            <li>
+              
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
+               @if(email == null) {
+            <li>
+               <h4>
+                  <p style="color: #000">Hello, please  
+                     <a href="/login">
+                     <button class="btn btn-success btn-login"> Log in</button> 
+                     </a>
+                     or 
+                     <a href="/toregister">
+                     <button class="btn btn-success btn-register" >Register</button>
+                     </a>
+                  </p>
+               </h4>
+            </li>
+         </ul>
+           </li>
+         </ul>
+         } else {
+      
+         <li >
+            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+             
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>                                                      	           
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+               </ul>
+         </li>
+         </ul>
+         }
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
+	<div style="margin: 80.5px -15px" class="row">
+		<div class="col-md-12">
+		 @if(flash.get("success")) {
+ <div class="alert alert-success" role="alert">
                      <div class="container">
                         @flash.get("success")
                      </div>
-			}
-			 <div class="col-md-6 column">
-			 <form action="@routes.FAQController.updateFAQ(faq.id)" method ="POST" >
-			
-				  <div class="form-group">
-				  <legend>Update FAQ </legend>
-		  <label for="inputEmail3" class="col-sm-2 control-label">Question</label>
-						<div class="col-sm-10">
-               <input type="text" class="form-control" placeholder="Question" value="@faq.question" name="question" id="question" required>				
-            </div>
-						</div>
-				
-						 <div class="form-group">
-						<label for="inputPassword3" class="col-sm-2 control-label">Answer</label>	
-						<div class="col-sm-10">
-						 <textarea rows="5" cols="69" placeholder="Answer" name="answer" id="answer" >@faq.answer</textarea>
-						 <p class="help-block"></p>
-						</div>
-         </div>
-          <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                     <a href="/faq" class="btn btn-danger"> Back </a>
-                    <button  type="submit" class="btn btn-success">Update</button>	
+                  </div>                    	
+                  }
+			<div class="col-sm-4">
+				<div class="well login-box">
+				 
+					<form action="@routes.FAQController.updateFAQ(faq.id)" method ="POST" >
+						  <legend>Update FAQ </legend>
+					
+                     <dt><label for="question">Question:</label> </dt>
+                     <dd><input type="text" name="question" id="question" placeholder="Question" value="@faq.question" class="form-control" required/></dd>
+                  </dl>
+                     <dt><label for="answer">Answer:</label> </dt>
+                     <dd><textarea name="answer" id="answer" rows="5" cols="50" placeholder="Answer" required>@faq.answer</textarea></dd>
+                  </dl>
+							
+							 <div class="form-group text-center">
+							 					<a href="/faq" class="btn btn-danger"> Back </a>
+							<button type="submit" class="btn btn-success">Update</button>
+							</div>
+								
 						
-					 </div>
-                </div>
-         
-      </form>
-      </div>
+
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
+	 <div class="container">
+   <hr>
+     <a href="/contactpage">
+                                  <h3>Contact Us</h3>
+                                </a>
+       <a href="faq">
+                        <h3> FAQs</h3>
+                        </a>
+</div>
 </body>
 }
+

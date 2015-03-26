@@ -34,20 +34,19 @@
                </h4>
             </li>
          </ul>
+           </li>
+         </ul>
          } else {
       
          <li >
             <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-               @if(User.find(email).admin == true) {
-               <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' > Profile</a></li>
-               } else {
-               <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
-               }
-               <li class="divider"></li>
-               <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
-            </ul>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+             
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>                                                      	           
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+               </ul>
          </li>
          </ul>
          }

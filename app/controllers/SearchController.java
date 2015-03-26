@@ -16,12 +16,8 @@ public class SearchController extends Controller{
 		List<Product> products = Product.find.where()
 				.ilike("name", "%" + q + "%").findList();
 		String email = session().get("email");
-		if (products.size() > 0) {
 			return ok(showsearchresults.render(email, products, FAQ.all()));
-		} else {
-			return redirect("/showsearchresults");
-		}
-
+	
 	}
 	public static Result searchUsers(String q) {
 		List<User> users = User.findUser.where()
