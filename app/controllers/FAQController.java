@@ -59,10 +59,10 @@ public class FAQController extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateFAQ(int id) {
-		
+		String email = session().get("email");
 		FAQ q = FAQ.find(id);
 		Logger.info("Opened page for FAQ update");
-		return ok(updatefaq.render(q));
+		return ok(updatefaq.render(email,q,FAQ.all() ));
 	}
 	
 	/**
@@ -73,6 +73,7 @@ public class FAQController extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result updateFAQ(int id) {
+		String email = session().get("email");
 		DynamicForm form = Form.form().bindFromRequest();
 		FAQ f = FAQ.find(id);
 		FAQ oldFAQ = f;
@@ -88,7 +89,7 @@ public class FAQController extends Controller {
 			Logger.info("FAQ with id: " + id + " updated with answer: " + f.answer);
 		else
 			Logger.info("FAQ with id: " + id + " hasn't been changed");
-		return ok(updatefaq.render(f));
+		return ok(updatefaq.render(email,f ,FAQ.all()));
 	}
 	
 	/**
