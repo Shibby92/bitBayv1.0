@@ -230,10 +230,13 @@ public class ProductApplication extends Controller {
 	public static Result productToCart(int id) {
 		int userid = findUser.where().eq("email", session().get("email"))
 				.findUnique().id;
+		Logger.info(String.valueOf(userid));
 		Cart temp = cartFinder.where().eq("userid", userid).findUnique();
+		if(temp.productList!=null){
 		if(temp.productList.contains(find.byId(id))){
 			flash("error","You have added that product already!");
 			return ok(cartpage.render(Cart.getCart(userid), FAQ.all()));
+		}
 		}
 		Cart.addProduct(find.byId(id), temp);
 		return ok(cartpage.render(Cart.getCart(userid), FAQ.all()));
