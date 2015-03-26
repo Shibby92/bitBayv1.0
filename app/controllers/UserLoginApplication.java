@@ -77,11 +77,13 @@ public class UserLoginApplication extends Controller {
 
 				Logger.info("User with email: "+ email + " has logged in.");
 				
-				if(User.find(email).hasAdditionalInfo)
-
+				if(User.find(email).hasAdditionalInfo){
 					return redirect("/homepage");
-
+			} else {
+				
 				return redirect("/additionalinfo");
+			}
+			
 			} else {
 				return redirect("/login");
 			}
