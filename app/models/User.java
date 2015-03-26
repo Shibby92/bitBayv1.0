@@ -133,7 +133,9 @@ public class User extends Model {
 	public static boolean create(String email, String password, String confirmation) {
 		if (existsEmail(email))
 			return false;
-		new User(email, HashHelper.createPassword(password), confirmation).save();
+		User user=new User(email, HashHelper.createPassword(password), confirmation);
+		user.save();
+		new Cart(user.id,user.email).save();
 		return true;
 	}
 	
