@@ -98,6 +98,11 @@
          <h3 style="color: #4AB55A">@product.name</a>
          </h3>
          <p> @product.description </p>
+         @if((email==null)||(User.find(email).admin == false)) {
+            	<a href="/producttocart/@product.id"
+            	<button type="button" class="btn btn-warning">Add to Cart</button>
+            	</a>
+            	}
       </div>
    </div>
    </div>

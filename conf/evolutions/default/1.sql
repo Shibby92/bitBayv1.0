@@ -3,6 +3,14 @@
 
 # --- !Ups
 
+create table cart (
+  id                        integer not null,
+  userid                    integer,
+  user_mail                 varchar(255),
+  checkout                  double,
+  constraint pk_cart primary key (id))
+;
+
 create table category (
   id                        integer not null,
   name                      varchar(255),
@@ -20,6 +28,7 @@ create table product (
   id                        integer not null,
   name                      varchar(255),
   category_id               integer,
+  cart_id                   integer,
   owner_id                  integer,
   created                   timestamp,
   quantity                  integer,
@@ -47,6 +56,8 @@ create table user (
   constraint pk_user primary key (id))
 ;
 
+create sequence cart_seq;
+
 create sequence category_seq;
 
 create sequence faq_seq;
@@ -55,14 +66,18 @@ create sequence product_seq;
 
 create sequence user_seq;
 
-alter table product add constraint fk_product_owner_1 foreign key (owner_id) references user (id) on delete restrict on update restrict;
-create index ix_product_owner_1 on product (owner_id);
+alter table product add constraint fk_product_cart_1 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
+create index ix_product_cart_1 on product (cart_id);
+alter table product add constraint fk_product_owner_2 foreign key (owner_id) references user (id) on delete restrict on update restrict;
+create index ix_product_owner_2 on product (owner_id);
 
 
 
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
+
+drop table if exists cart;
 
 drop table if exists category;
 
@@ -73,6 +88,8 @@ drop table if exists product;
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists cart_seq;
 
 drop sequence if exists category_seq;
 
