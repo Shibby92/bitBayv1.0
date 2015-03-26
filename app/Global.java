@@ -38,13 +38,17 @@ public class Global extends GlobalSettings {
 			Product.create(
 					"House",
 					100000,
-					"This house has got four bedrooms, a living-room, a dining-room, a kitchen, a bathroom and a separate toilet.",
+					"This house has got four bedrooms, a living-room, a dining-room, a kitchen",
 					1,"images/bitbaySlika2.jpg");
+
 			Product.create(
 					"Mazda",
 					25000,
 					"Auto mazda mx-5 skoro novo!!!",
 					2,"images/bitbaySlika2.jpg");
+
+
+		}
 
 			if (!FAQ.find("I can't get items shipped until Monday and I'm afraid of hurting my top-rated seller qualification. How should I go about this?")) {
 				FAQ.createFAQ(
@@ -58,6 +62,9 @@ public class Global extends GlobalSettings {
 						"Promo offers are by invitation only; no party crashing allowed.  Unless there is an einstein among us, no one can figure out the criteria used by EBay to get these promos.");
 			}
 
-		}
-	}
+		
+	
+	
+	
 }
+	}
