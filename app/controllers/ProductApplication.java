@@ -142,8 +142,9 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result updateProduct(int id){
+		String email = session().get("email");
 		Logger.info("Opened page for updating product");
-		return ok(updateproduct.render(Product.find(id)));
+		return ok(updateproduct.render(email,Product.find(id),FAQ.all()));
 	}
 	
 	/**

@@ -35,8 +35,8 @@
       
       </div>
        @if(cart.checkout>0){
-      <p>--------------------------------------------------------------------------------------------</p>
-        <p>Total price @cart.checkout</p>
+      <hr>
+      <p>Total price @cart.checkout</p>
         
         <form action="/creditpurchase" method="POST">
 	<a href="/creditpurchase" data-paypal-button="true">
