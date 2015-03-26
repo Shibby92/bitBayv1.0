@@ -77,13 +77,11 @@ public class UserLoginApplication extends Controller {
 
 				Logger.info("User with email: "+ email + " has logged in.");
 				
-				if(User.find(email).hasAdditionalInfo){
+				if(User.find(email).hasAdditionalInfo)
+
 					return redirect("/homepage");
-			} else {
-				
+
 				return redirect("/additionalinfo");
-			}
-			
 			} else {
 				return redirect("/login");
 			}
@@ -92,7 +90,7 @@ public class UserLoginApplication extends Controller {
 
 		flash("error", "Email does not exist!");
 		Logger.error("User has entered wrong email");
-		return ok(toregister.render(loginUser, email, FAQ.all()));
+		return redirect("/toregister");
 	}
 
 	// tries to register user
