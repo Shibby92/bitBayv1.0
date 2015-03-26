@@ -84,5 +84,9 @@ POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcess
 GET    /creditsuccess           controllers.UserLoginApplication.creditSuccess()
 GET    /creditfail              controllers.UserLoginApplication.creditFail()
 
+#Order routes
+
+GET		/orderpage/:id			controllers.OrderController.orderPage(id: Integer)
+
 #POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
 

@@ -54,6 +54,9 @@ public class Product extends Model {
 
 	
 	public String image_url;
+	
+	@ManyToOne
+	public Orders order;
 
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);

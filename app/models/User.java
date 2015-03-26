@@ -81,6 +81,9 @@ public class User extends Model {
 	public boolean hasAdditionalInfo;
 	
 	public Cart userCart;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
+	public List<Orders> orderList;
 
 	 static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);

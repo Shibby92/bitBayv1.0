@@ -1,3 +1,5 @@
+import java.util.List;
+
 import helpers.HashHelper;
 import models.*;
 import play.Application;
@@ -49,6 +51,7 @@ public class Global extends GlobalSettings {
 
 
 		}
+	
 
 			if (!FAQ.find("I can't get items shipped until Monday and I'm afraid of hurting my top-rated seller qualification. How should I go about this?")) {
 				FAQ.createFAQ(

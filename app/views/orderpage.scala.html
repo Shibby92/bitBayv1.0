@@ -1,0 +1,61 @@
+@(orders: List[Orders])
+@main("Orders") {
+<body>
+   <!-- Navigation -->
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+         <div class="navbar-header">
+            <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+         </div>
+      </div>
+      <!-- /.container -->
+   </nav>
+   <!-- Page Content -->
+   <div class="container">
+   @if(orders.isEmpty){
+							<h3><center><strong>You have no orders!</strong></center></h3>
+							}else{
+      <legend>Your Orders: </legend>
+      <div class="row">
+         @for(order <- orders){           
+         <table class="data-table">
+    <colgroup><col width="1">
+    <col width="1">
+    <col>
+    <col width="1">
+    <col width="1">
+    <col width="1">
+        </colgroup><thead>
+            <tr class="first last">
+                <th>Order number</th>
+                <th>Products</th>
+                <th><span class="nobr">Total</span></th>
+            </tr>
+        </thead>
+        <tbody>
+                            <tr>
+                    <td>@order.id</td>
+                    <td><span class="price">$&nbsp;@order.price</span></td>
+                    <td>
+                    @for(product <- order.productList){
+                    	<li>@product.name</li>
+                    }
+                    </td>
+                </tr>
+                    </tbody>
+    </table>
+         }
+      </div>
+      }
+   </div>
+      <div class="container">
+      <hr>
+      <a href="/contactpage">
+         <h3>Contact Us</h3>
+      </a>
+      <a href="faq">
+         <h3> FAQs</h3>
+      </a>
+   </div>
+</body>
+}
