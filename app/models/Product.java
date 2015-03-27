@@ -2,6 +2,7 @@
 
 package models;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -175,14 +176,19 @@ public class Product extends Model {
 	}
 	public static void update(Product product) {
 		Logger.info(""+product.name);
-		product.update();
-		
+		product.save();
 	}
 	
 	public static List<Product> myProducts(int id) {
 		
 		List<Product> pp = find.where("owner_id = " + id).findList();
 		return pp;
+	}
+	
+	public static void deleteImage(Product p) {
+		File f = new File("./public/" + p.image_url); 
+		boolean b = f.delete();
+
 	}
 
 	
