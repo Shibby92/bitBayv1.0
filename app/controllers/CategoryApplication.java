@@ -55,7 +55,8 @@ public class CategoryApplication extends Controller {
 	 */
 	public static Result categoryPage(){
 		Logger.info("Category page opened");
-		return ok(categorypage.render(Category.list()));
+		String email = session().get("email");
+		return ok(categorypage.render(email, Category.list(), FAQ.all()));
 	}
 	
 	/**

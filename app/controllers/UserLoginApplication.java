@@ -90,8 +90,9 @@ public class UserLoginApplication extends Controller {
 
 		flash("error", "Email does not exist!");
 		Logger.error("User has entered wrong email");
-		return ok(toregister.render(loginUser, email, FAQ.all()));
+		return redirect("/toregister");
 	}
+
 
 	// tries to register user
 	// if there is already user with the same username he gets redirected to
@@ -299,6 +300,7 @@ public class UserLoginApplication extends Controller {
 	}
 
 	public static Result creditSuccess() {
+		String email = session().get("email");
 		try{
 		DynamicForm paypalReturn = Form.form().bindFromRequest();
 		String paymentID = paypalReturn.get("paymentId");
@@ -336,7 +338,7 @@ public class UserLoginApplication extends Controller {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}
 		
-		return ok(orderpage.render(User.find(session().get("email")).orderList));
+		return ok(orderpage.render(email,User.find(session().get("email")).orderList,  FAQ.all()));
 	}
 
 	public static Result creditFail() {

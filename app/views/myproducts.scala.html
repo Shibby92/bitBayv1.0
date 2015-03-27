@@ -1,4 +1,4 @@
-@(products:List[Product])
+@(email: String, products:List[Product], faqs: List[FAQ])
 @main("Categories") {
 <body>
    <!-- Navigation -->
@@ -26,14 +26,17 @@
                <button class="btn btn-success glyphicon glyphicon-user">  @User.find(session().get("email")).username <span class="caret"></span> </button></a>
               
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-                 @if(User.find(session().get("email")).admin == true) {
+                 @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   
                   } else {
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
-                   <li role="presentation"><a role="menuitem" tabindex="-2"  href="editinfo"> Add Additional Info</a></li>
-                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
                  
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
+
                   }
                   <li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
