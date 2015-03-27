@@ -29,7 +29,6 @@ create table orders (
   buyer_id                  integer,
   price                     double,
   token                     varchar(255),
-
   constraint pk_orders primary key (id))
 ;
 

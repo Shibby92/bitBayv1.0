@@ -1,4 +1,4 @@
-@(categoryList:List[Category])
+@(email: String, categoryList:List[Category], faqs: List[FAQ])
 @main("Categories") {
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
@@ -36,5 +36,14 @@
       </table>
    </div>
 </div>
+</div>
+<div class="container">
+   <hr>
+   <a href="/contactpage">
+      <h3>Contact Us</h3>
+   </a>
+   <a href="faq">
+      <h3> FAQs</h3>
+   </a>
 </div>
 }
