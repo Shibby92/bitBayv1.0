@@ -142,9 +142,8 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result updateProduct(int id){
-		String email = session().get("email");
 		Logger.info("Opened page for updating product");
-		return ok(updateproduct.render(email,Product.find(id),FAQ.all()));
+		return ok(updateproduct.render(Product.find(id)));
 	}
 	
 	/**
@@ -231,11 +230,12 @@ public class ProductApplication extends Controller {
 	static Finder<Integer, Cart> cartFinder = new Finder<Integer, Cart>(
 			Integer.class, Cart.class);
 
-	
+	public static Result cartPage(int id){
+		return ok(cartpage.render(Cart.getCart(id), FAQ.all()));
+	}
 	
 
 	public static Result productToCart(int id) {
-		String email = session().get("email");
 		int userid = User.findUser.where().eq("email", session().get("email"))
 				.findUnique().id;
 		Logger.info(String.valueOf(userid));
@@ -243,15 +243,14 @@ public class ProductApplication extends Controller {
 		if(temp.productList!=null){
 		if(temp.productList.contains(find.byId(id))){
 			flash("error","You have added that product already!");
-			return ok(cartpage.render(email, Cart.getCart(userid), FAQ.all()));
+			return ok(cartpage.render(Cart.getCart(userid), FAQ.all()));
 		}
 		}
 		Cart.addProduct(find.byId(id), temp);
-		return ok(cartpage.render(email, Cart.getCart(userid), FAQ.all()));
+		return ok(cartpage.render(Cart.getCart(userid), FAQ.all()));
 	}
 
 	public static Result deleteProductFromCart(int id) {
-		String email = session().get("email");
 		Product toDelete = find.byId(id);
 		Cart cart = toDelete.cart;
 		cart.productList.remove(toDelete);
@@ -259,7 +258,7 @@ public class ProductApplication extends Controller {
 		toDelete.cart = null;
 		cart.update();
 		toDelete.update();
-		return ok(cartpage.render(email, cart, FAQ.all()));
+		return ok(cartpage.render(cart, FAQ.all()));
 
 	}
 	/***************************************************************/

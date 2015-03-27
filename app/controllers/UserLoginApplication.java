@@ -90,7 +90,7 @@ public class UserLoginApplication extends Controller {
 
 		flash("error", "Email does not exist!");
 		Logger.error("User has entered wrong email");
-		return redirect("/toregister");
+		return ok(toregister.render(loginUser, email, FAQ.all()));
 	}
 
 	// tries to register user
@@ -318,11 +318,26 @@ public class UserLoginApplication extends Controller {
 		PaymentExecution paymentExecution=new PaymentExecution();
 		paymentExecution.setPayerId(payerID);
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
+		User temp=User.find(session().get("email"));
+		Orders order= new Orders(Cart.getCart(session().get("email")),temp,token);
+		order.save();
+		temp.orderList.add(order);
+		temp.update();
+		Cart.clear(temp.id);
+		Iterator<Product> itr = order.productList.iterator();
+		while (itr.hasNext()) {
+			Product product=itr.next();
+			product.order=order;
+			product.sold=true;
+			product.update();
+			
+		}
+		Cart.clear(temp.id);
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}
 		
-		return ok(creditresult.render("Proslo"));
+		return ok(orderpage.render(User.find(session().get("email")).orderList));
 	}
 
 	public static Result creditFail() {

@@ -1,4 +1,4 @@
-@(email: String, users: List[User], categoryList: List[Category], products: List[Product], myproducts:List[Product] ,  faqs: List[FAQ])
+@(email: String, users: List[User], categoryList: List[Category], products: List[Product],  faqs: List[FAQ])
 
 @main("Profile") {
 <body>
@@ -40,12 +40,17 @@
          <li >
             <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-             
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>                                                      	           
-                  <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
-               </ul>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+               @if(User.find(email).admin) {
+               <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' > Profile</a></li>
+               } else {
+               <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
+               }
+               <li class="divider"></li>
+               <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+            </ul>
+         </li>
+         </ul>
          }
       </div>
       <!-- /.navbar-collapse -->
@@ -62,7 +67,7 @@
       <h5>Email:  @User.find(session().get("email")).email</h5> 
       <h5>Address:  @User.find(session().get("email")).user_address</h5> 
       <div class="col-md-5">
-      <a href="/editinfo"><button class="btn btn-md btn-info " >Edit additional info</button></a>
+      <a href="/editinfo"><button class="btn btn-md btn-info" >Edit additional info</button></a>
        </div>
       </div>
       
@@ -73,9 +78,7 @@
           <li ><a href="#listofusers" data-toggle="tab">List Of Users</a></li>
           <li><a href="#categories" data-toggle="tab">Categories</a></li>
           <li><a href="#products" data-toggle="tab">Products</a></li> 
-          } else {
-             <li ><a href="#myproducts" data-toggle="tab">My products</a></li> 
-             }
+          }
         </ul>
         
           <!-- Tab panes -->
@@ -83,7 +86,7 @@
          <div class="tab-pane" class="tab-pane active" id="listofusers" style="margin: 0px 35px">
          			<div class="container">
    <div class="row">
-      <form style="margin: 15px 175px" class="navbar-form navbar-left"  method="GET" action="/searchusers" role="search">
+      <form style="margin: 15px 75px" class="navbar-form navbar-left"  method="GET" action="/searchusers" role="search">
                <div class="form-group">
                   <input type="text" class="form-control" name="q" id="q" placeholder="Search users..." required>
                </div>
@@ -160,7 +163,7 @@
     
      	 <div style="margin:0 auto;width:100px">
    
-         <a style="margin: 16.5px -2px" class="btn btn-success glyphicon glyphicon-plus" href="/addproductcategory" role="button"></a>
+         <a style="margin: 16.5px -15px" class="btn btn-success glyphicon glyphicon-plus" href="/addproductcategory" role="button"></a>
         
          
      
@@ -176,46 +179,23 @@
                <h4> <a href="itempage/@product.id">@product.name</a>
                </h4>
               
-               <p> @product.description </p>                                                                
+               <p> @product.description </p>
+               
+             
+            
+               
+                
+           
             </div>
          </div>
            <a style="margin: 10.5px 0px" class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
                 
       </div>
-      } 
-      
+      }
    </div>  
-    </div>  
-    <div class="tab-pane" class="tab-pane active" id="myproducts"> 
-   <div class="container">
-      <form action="/">
-      <div class="form-group text-center">
-         <a style="margin: 16.5px -5px" class="btn btn-success glyphicon glyphicon-plus" href="/addproductcategory" role="button"></a>
-      </div>
-      <h4>Products: </h4>
-       <hr>
-      <div class="row">
-         @for(product <- myproducts){           
-         <div class="col-md-4 portfolio-item">
-            <a href="#">
-            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" width="700" height="400" alt="">
-            </a>
-            <h3 class="pull-right">@product.price</h3>
-            <h3>
-               <a href="itempage/@product.id">@product.name</a>
-            </h3>
-            <p> @product.description </p>
-            <div>
-               <a class="btn btn-warning glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button");">Update</a>
-               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a> 
-            </div>
+
+  
          </div>
-         }
-      </div>
-      
-       </div>
-      </div>
-      
         </div>
       </div>
    </div>

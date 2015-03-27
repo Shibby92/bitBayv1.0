@@ -28,6 +28,7 @@ create table orders (
   id                        integer not null,
   buyer_id                  integer,
   price                     double,
+  token                     varchar(255),
   constraint pk_orders primary key (id))
 ;
 
@@ -43,6 +44,7 @@ create table product (
   description               varchar(255),
   image_url                 varchar(255),
   order_id                  integer,
+  sold                      boolean,
   constraint pk_product primary key (id))
 ;
 
