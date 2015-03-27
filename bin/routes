@@ -19,8 +19,8 @@ GET    /confirm/:confirmation   controllers.Verification.verificateEmail(confirm
 
 GET    /deleteproduct/:id       controllers.ProductApplication.deleteProduct(id: Integer)
 #POST     /deleteproductpage         controllers.ProductApplication.toDeleteProduct()
-
 GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
+POST 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
 GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
 POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
@@ -35,6 +35,7 @@ GET		/myproducts/:id			controllers.ProductApplication.myProducts(id: Integer)
 
 
 GET    /category/:name          controllers.ProductApplication.category(name:String)
+
 GET    /categorypage            controllers.CategoryApplication.categoryPage()
 GET    /addnewcategory          controllers.CategoryApplication.addNewCategory()
 GET    /newcategory             controllers.CategoryApplication.addCategory()
