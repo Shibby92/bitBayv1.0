@@ -54,6 +54,11 @@ public class Product extends Model {
 
 	
 	public String image_url;
+	
+	@ManyToOne
+	public Orders order;
+	
+	public boolean sold;
 
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
@@ -79,6 +84,7 @@ public class Product extends Model {
 		this.price = price;
 		this.description = description;
 		this.image_url = image_url;
+		this.sold=false;
 	}
 	
 	/**
@@ -103,6 +109,7 @@ public class Product extends Model {
 		this.description = description;
 		this.category_id=id;
 		this.image_url=image_url;
+		this.sold=false;
 	}
 	public static void create(String name,  double price, String description,int id, String image_url) {
 		new Product(name,  price, description,id,image_url).save();
@@ -115,6 +122,7 @@ public class Product extends Model {
 		this.description = description;
 		this.category_id=id;
 		this.image_url=image_url;
+		this.sold=false;
 	}
 	
 	public static void create(String name,  double price, User owner, String description,int id, String image_url) {

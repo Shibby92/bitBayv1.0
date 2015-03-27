@@ -1,13 +1,12 @@
-@(cart:Cart, faqs: List[FAQ])
-@main("Cart") {
+@(orders: List[Orders])
+@main("Orders") {
 <body>
    <!-- Navigation -->
    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
          <div class="navbar-header">
             <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-            
-            <ul class='nav navbar-nav pull-right'>
+             <ul class='nav navbar-nav pull-right'>
 
                     <li class='dropdown'>
                <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -34,41 +33,38 @@
    </nav>
    <!-- Page Content -->
    <div class="container">
-   @if(flash.get("error")){
-							<h2><center><strong>@flash.get("error")</strong></center></h2>
-							}
-      <legend>Your Cart: </legend>
+   @if(orders.isEmpty){
+							<h3><center><strong>You have no orders!</strong></center></h3>
+							}else{
+      <legend>Your Orders: </legend>
       <div class="row">
-         @for(product <- cart.productList){           
-         <div class="col-md-4 portfolio-item">
-            <a href="#">
-            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" width="700" height="400" alt="">
-            </a>
-            <h3 class="pull-right">@product.price</h3>
-            <h3>
-               <a href="itempage/@product.id">@product.name</a>
-            </h3>
-            <p> @product.description </p>
-            <div>
-               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a> 
-            </div>
-         </div>
-         }
-      
-      </div>
-       @if(cart.checkout>0){
-      <p>--------------------------------------------------------------------------------------------</p>
-        <p>Total price @cart.checkout</p>
         
-        <form action="/creditpurchase" method="POST">
-	<a href="/creditpurchase" data-paypal-button="true">
-  <button class="submit" ><img src="//www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Check out with PayPal" />
-  </button>
-</a>
-</form>
-}else{
-<p> Your cart is empty</p>
-}
+         <table class="table table-bordered">	
+      <thead>
+        <tr>
+          <th>Order number</th>
+                <th>Products</th>
+                <th><span class="nobr">Total</span></th>
+        </tr>
+      </thead>
+      <tbody>
+       @for(order <- orders){
+        <tr>
+         <td>@order.id</td>
+          <td>
+                    @for(product <- order.productList){
+                    	<p>@product.name ($ @product.price)</p>
+                    }
+                    </td>
+                    <td><span class="price">$&nbsp;@order.price,-</span></td>
+                   
+        </tr>
+         }
+      </tbody>
+      </table>
+
+      </div>
+      }
    </div>
       <div class="container">
       <hr>

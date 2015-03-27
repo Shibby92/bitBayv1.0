@@ -24,6 +24,15 @@ create table faq (
   constraint pk_faq primary key (id))
 ;
 
+create table orders (
+  id                        integer not null,
+  buyer_id                  integer,
+  price                     double,
+  token                     varchar(255),
+
+  constraint pk_orders primary key (id))
+;
+
 create table product (
   id                        integer not null,
   name                      varchar(255),
@@ -35,6 +44,8 @@ create table product (
   price                     double,
   description               varchar(255),
   image_url                 varchar(255),
+  order_id                  integer,
+  sold                      boolean,
   constraint pk_product primary key (id))
 ;
 
@@ -62,14 +73,20 @@ create sequence category_seq;
 
 create sequence faq_seq;
 
+create sequence orders_seq;
+
 create sequence product_seq;
 
 create sequence user_seq;
 
-alter table product add constraint fk_product_cart_1 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
-create index ix_product_cart_1 on product (cart_id);
-alter table product add constraint fk_product_owner_2 foreign key (owner_id) references user (id) on delete restrict on update restrict;
-create index ix_product_owner_2 on product (owner_id);
+alter table orders add constraint fk_orders_buyer_1 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_buyer_1 on orders (buyer_id);
+alter table product add constraint fk_product_cart_2 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
+create index ix_product_cart_2 on product (cart_id);
+alter table product add constraint fk_product_owner_3 foreign key (owner_id) references user (id) on delete restrict on update restrict;
+create index ix_product_owner_3 on product (owner_id);
+alter table product add constraint fk_product_order_4 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_product_order_4 on product (order_id);
 
 
 
@@ -83,6 +100,8 @@ drop table if exists category;
 
 drop table if exists faq;
 
+drop table if exists orders;
+
 drop table if exists product;
 
 drop table if exists user;
@@ -94,6 +113,8 @@ drop sequence if exists cart_seq;
 drop sequence if exists category_seq;
 
 drop sequence if exists faq_seq;
+
+drop sequence if exists orders_seq;
 
 drop sequence if exists product_seq;
 

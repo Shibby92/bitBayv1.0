@@ -43,9 +43,9 @@ public class CategoryApplication extends Controller {
 	 */
 	public static Result deleteCategory(int id) {
 		
-		Logger.warn(Category.find(id).name + " category is deleted");
 		Category.delete(id);
-		return redirect("/profile");
+		Logger.warn(Category.find(id).name + " category is deleted");
+		return redirect("/categorypage");
 
 	}
 	

@@ -31,10 +31,7 @@ GET 	/profile			controllers.UserController.profile()
 #POST    /pictureupload          controllers.ProductApplication.savePicture(id:Integer)
 GET      /itempage/logout             controllers.UserLoginApplication.logOut()
 GET      /itempage/:id             controllers.ProductApplication.itemPage(id:Integer)
-GET		/profile/myproducts/:id			controllers.ProductApplication.myProducts(id: Integer)
-
 GET		/myproducts/:id			controllers.ProductApplication.myProducts(id: Integer)
-
 
 
 GET    /category/:name          controllers.ProductApplication.category(name:String)
@@ -80,12 +77,17 @@ GET    /assets/*file            controllers.Assets.at(path="/public", file)
 
 #Paypal routes
 
+GET		/cartpage/:id			controllers.ProductApplication.cartPage(id: Integer)
 GET    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcessing()
 GET    /creditsuccess           controllers.UserLoginApplication.creditSuccess()
 GET    /creditfail              controllers.UserLoginApplication.creditFail()
+
+#Order routes
+
+GET		/orderpage/:id			controllers.OrderController.orderPage(id: Integer)
 
 #POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
 
