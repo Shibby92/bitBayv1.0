@@ -2,9 +2,12 @@ package controllers;
 
 import java.util.List;
 
+
 import models.FAQ;
 import models.Product;
 import models.User;
+import models.Product;
+import models.*;
 import play.mvc.*;
 import views.*;
 import views.html.*;
@@ -30,6 +33,7 @@ public class SearchController extends Controller{
 		
 			return ok(searchusers.render(email, users, FAQ.all()));
 		
+
 
 	}
 }

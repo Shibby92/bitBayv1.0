@@ -24,6 +24,7 @@ public class UserController extends Controller {
 		Logger.info("User update page opened");
 		String email = session().get("email");		
 		return ok(listofuserspage.render(email,User.find(id),  FAQ.all()));
+
 	}
 
 	// gets data from updated user
@@ -112,10 +113,10 @@ public class UserController extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result toEditInfo() {
-
 		Logger.info("User " + session().get("email") + "has opened his additional info");
 		String email = session().get("email");
 		return ok(editadditionalinfo.render(email,User.find(session().get("email")), FAQ.all()));
+
 	}
 
 	
@@ -151,8 +152,8 @@ public class UserController extends Controller {
 		u.city = form.get("city");
 		u.shipping_address = form.get("shipping_address");
 		u.user_address = form.get("user_address");
-		if(!form.get("gender").equals(""))
-		{u.gender = form.get("gender");
+		if(!form.get("gender").equals("")) {
+			u.gender = form.get("gender");
 		if (!u.gender.toLowerCase().contains("m")
 				&& !u.gender.toLowerCase().contains("f")) {
 			Logger.error("User " + session().get("email") + "has entered invalid gender");
@@ -160,6 +161,7 @@ public class UserController extends Controller {
 			return ok(editadditionalinfo.render(email,u, FAQ.all() ));
 		}
 		}
+
 			u.update();
 			Logger.info("User " + session().get("email") + "has updated his additional info");
 			flash("success","Additional info updated successfuly!");

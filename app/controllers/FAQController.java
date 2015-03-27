@@ -21,6 +21,7 @@ public class FAQController extends Controller {
 		Logger.info("Opened FAQs page");
 		String email = session().get("email");
 		return ok(faq.render(email, FAQ.all()));
+
 	}
 	
 	/**
@@ -29,10 +30,10 @@ public class FAQController extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toAddNewFAQ() {
-
 		Logger.info("Opened page for adding new FAQ");
 		String email = session().get("email");
 		return ok(newfaq.render(email));
+
 	}
 	
 	/**
