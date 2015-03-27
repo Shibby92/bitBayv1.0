@@ -53,6 +53,8 @@ public class Product extends Model {
 
 	
 	public String image_url;
+	
+	public static List<String> image_urls;
 
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
@@ -114,6 +116,19 @@ public class Product extends Model {
 		this.description = description;
 		this.category_id=id;
 		this.image_url=image_url;
+	}
+	
+	public Product(String name, double price, User owner, String description,int id, List<String> image_urls) {
+		this.name = name;
+		this.price = price;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.image_urls=image_urls;
+	}
+	
+	public static void create(String name,  double price, User owner, String description,int id, List<String> image_urls) {
+		new Product(name,  price, owner, description,id,image_urls).save();
 	}
 	
 	public static void create(String name,  double price, User owner, String description,int id, String image_url) {
@@ -179,6 +194,10 @@ public class Product extends Model {
 		File f = new File("./public/" + p.image_url); 
 		boolean b = f.delete();
 
+	}
+	
+	public static List<String> allImages() {
+		return image_urls;
 	}
 
 	

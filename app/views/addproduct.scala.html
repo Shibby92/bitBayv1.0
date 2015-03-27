@@ -85,13 +85,14 @@
 							 class="form-control" required></textarea> </dd>
                   </dl>
                   <dl class=" " id="image_url">
-							<dt><label for="image_url">Image:</label> </dt>
-							<div class="form-group text-center">
-							<input type="file" name="image_url" id="image_url" /> 
-							</div>
+							<dt><label for="image_url">Select images:</label> </dt>
+							<form action="demo_form.asp">
+  								<input type="file" name="image_url" multiple>
+ 								 <input type="submit" class="btn btn-success" value="Add">
+								</form>
 							</dl>
                   <div class="form-group text-center">
-                     <input type="submit" value="Add" class="btn btn-success"/>
+                    
                      <a href="/addproductcategory" class="btn btn-danger"> Back </a>
                   </div>
                </form>

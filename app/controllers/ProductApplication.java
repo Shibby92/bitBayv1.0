@@ -5,7 +5,9 @@ import helpers.*;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.swing.ImageIcon;
@@ -74,22 +76,25 @@ public class ProductApplication extends Controller {
 		
 		String description = form.get("description");
 		//String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
-		String image_url = savePicture(id);
-		Logger.debug("Path: " + image_url);
-		if(image_url == null) {
-			flash("error", "Image not valid!");
-			return redirect("/addproductpage/" + id);
-		}
-		else {
+		
+		List<String> image_urls = savePicture(id);
+		for(String image_url: image_urls) {
+			
+			if(image_url == null) {
+				flash("error", "Image not valid!");
+				return redirect("/addproductpage/" + id);
+			}
+	}
 		//String image_url = savePicture(id);
-		Product.create(name, price, User.find(session().get("email")),
-				description,id,image_url);
+				Product.create(name, price, User.find(session().get("email")),
+						description,id,image_urls);
 		
 
-		Logger.info("User with email: " + session().get("email") + "created product with name: " + name);
-		return redirect("/homepage");
-		}
+				Logger.info("User with email: " + session().get("email") + "created product with name: " + name);
+				return redirect("/homepage");
+			
 	}
+			
 
 	/**
 	 * opens a page with all products
@@ -188,8 +193,6 @@ public class ProductApplication extends Controller {
 	 * @return result 
 	 */
 	public static String updatePicture(int id){
-		
-			
 		MultipartFormData body = request().body().asMultipartFormData(); 
 		FilePart filePart = body.getFile("image_url");
 		if(filePart  == null){
@@ -269,17 +272,18 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return result 
 	 */
-	public static String savePicture(int id){		
+	public static List<String> savePicture(int id){		
+		List<String> image_urls = new ArrayList<String>();
 		MultipartFormData body = request().body().asMultipartFormData();
-
-		FilePart filePart = body.getFile("image_url");
+		List<FilePart> fileParts = body.getFiles();
+		for(FilePart filePart: fileParts) {
+		//filePart = body.getFile("image_url");
+		
 		if (filePart == null) {
 			Logger.debug("File part is null");
-//			if (User.find(session().get("email")).admin)
-//				return redirect("/profile");
-//			return redirect("/homepage");
 			return null;
 		}
+		Logger.debug("Filepart: " + filePart.toString());
 		Logger.debug("Content type: " + filePart.getContentType());
 		Logger.debug("Key: " + filePart.getKey());
 		File image = filePart.getFile();
@@ -326,7 +330,7 @@ public class ProductApplication extends Controller {
 //			if (User.find(session().get("email")).admin)
 //				return redirect("/profile");
 //			return redirect("/homepage");
-			return image_url;
+			image_urls.add(image_url);
 
 		} catch (IOException e) {
 			Logger.error("Failed to move file");
@@ -336,6 +340,8 @@ public class ProductApplication extends Controller {
 //			return redirect("/homepage");
 			return null;
 		}
+		}
+		return image_urls;
 		
 	}
 		
@@ -351,7 +357,7 @@ public class ProductApplication extends Controller {
 			Logger.info("Guest has opened item with id: " + id);
 		else
 			Logger.info("User with email: " + session().get("email") + " opened item with id: " + id);
-		return ok(itempage.render(session("email"), Product.find(id), FAQ.all()));
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), Product.find(id).allImages()));
 		
 	}
 	
