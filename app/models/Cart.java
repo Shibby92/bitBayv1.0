@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import play.Logger;
 import play.db.ebean.Model;
 
 @Entity
@@ -40,6 +41,7 @@ public class Cart extends Model {
 			cart.productList = new LinkedList<Product>();
 		}
 		cart.productList.add(product);
+		Logger.info("nalazim se u add product");
 		product.cart = cart;
 		cart.checkout += product.price;
 		cart.update();
@@ -51,12 +53,20 @@ public class Cart extends Model {
 
 	}
 
-	public static Cart getCart(int id) {
-		return find.where().eq("userid", id).findUnique();
+	public static Cart getCart(int user_id) {
+		return find.where().eq("userid", user_id).findUnique();
 	}
 	
 	public static Cart getCart(String email){
 		return find.where().eq("userMail", email).findUnique();
+	}
+
+	public static void clear(int id) {
+		Cart cart=getCart(id);
+		cart.productList.clear();
+		cart.checkout=0;
+		cart.update();
+		
 	}
 	
 }

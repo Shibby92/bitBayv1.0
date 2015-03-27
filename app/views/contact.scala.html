@@ -2,7 +2,6 @@
 @main("Contact us"){
 <body>
    <!-- Navigation -->
-   <!-- Navigation -->
    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
          <!-- Brand and toggle get grouped for better mobile display -->
@@ -35,18 +34,22 @@
                   </h4>
                </li>
             </ul>
-              </li>
-         </ul>
             } else {
             <li >
                <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-             
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>                                                      	           
+                  @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' > Profile</a></li>
+                  } else {
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                  }
                   <li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
                </ul>
+            </li>
+            </ul>
             }
          </div>
          <!-- /.navbar-collapse -->
@@ -57,13 +60,13 @@
       <div class="col-md-12">
          <center>
             @if(flash.get("success")){
-             <div class="alert alert-success" role="alert">
+              <div class="alert alert-success" role="alert">
                      <div class="container">
                         @flash.get("success")
                      </div>
                   </div>
-            }
-            @if(flash.get("error")){
+                  }
+                  @if(flash.get("error")){
              <div class="alert alert-success" role="alert">
                      <div class="container">
                         @flash.get("error")
@@ -111,5 +114,6 @@
    </div>
    <!-- /.container -->
    <script src='https://www.google.com/recaptcha/api.js'></script>
+	<body>
 </body>
 }

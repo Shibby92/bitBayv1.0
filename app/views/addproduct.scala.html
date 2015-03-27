@@ -35,19 +35,22 @@
                </h4>
             </li>
          </ul>
-           </li>
-         </ul>
          } else {
       
          <li >
             <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-             
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>                                                      	           
-                  <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
-               </ul>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+               @if(User.find(email).admin == true) {
+               <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' > Profile</a></li>
+               } else {
+               <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
+               }
+               <li class="divider"></li>
+               <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+            </ul>
+         </li>
+         </ul>
          }
       </div>
       <!-- /.navbar-collapse -->
@@ -57,9 +60,16 @@
 
    <div  style="margin: 80.5px -15px" class="row">
       <div class="col-md-12">
+       @if(flash.get("error")) {
+         	<div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
+         	}
          <div class="col-sm-4">
             <div class="well login-box">
-               <form action="@routes.ProductApplication.addAdditionalInfo(id)"  method="GET">
+               <form action="@routes.ProductApplication.addAdditionalInfo(id)"  method="POST" enctype="multipart/form-data">
                   <legend>Add product </legend>
                   <dl class=" " id="name_field">
                      <dt><label for="name">Name:</label> </dt>
@@ -77,7 +87,7 @@
                   <dl class=" " id="image_url">
 							<dt><label for="image_url">Image:</label> </dt>
 							<div class="form-group text-center">
-							<input type="file" name="image_url" id="image_url" value=""/> 
+							<input type="file" name="image_url" id="image_url" /> 
 							</div>
 							</dl>
                   <div class="form-group text-center">

@@ -28,7 +28,10 @@ create table orders (
   id                        integer not null,
   buyer_id                  integer,
   price                     double,
+<<<<<<< HEAD
   token                     varchar(255),
+=======
+>>>>>>> 48dae6f05bba8f0c32b44254e928493074dff261
   constraint pk_orders primary key (id))
 ;
 
@@ -44,7 +47,10 @@ create table product (
   description               varchar(255),
   image_url                 varchar(255),
   order_id                  integer,
+<<<<<<< HEAD
   sold                      boolean,
+=======
+>>>>>>> 48dae6f05bba8f0c32b44254e928493074dff261
   constraint pk_product primary key (id))
 ;
 

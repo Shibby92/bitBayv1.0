@@ -90,7 +90,7 @@ public class UserLoginApplication extends Controller {
 
 		flash("error", "Email does not exist!");
 		Logger.error("User has entered wrong email");
-		return redirect("/toregister");
+		return ok(toregister.render(loginUser, email, FAQ.all()));
 	}
 
 	// tries to register user
@@ -144,7 +144,6 @@ public class UserLoginApplication extends Controller {
 	 * @return the contact page with a message indicating if the email has been sent.
 	 */
 	public static Promise<Result> contact() {
-
 		 final String userEmail = session().get("email");
 
 		//need this to get the google recapctha value
@@ -188,14 +187,13 @@ public class UserLoginApplication extends Controller {
 								Logger.info("User with email: " + session().get("email") + " has sent message to admin");
 							return redirect("/contactpage");
 						} else {
-
 							if(session().get("email") == null)
 								Logger.info("Guest did not confirm its humanity");
 							else
 								Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
 							flash("error", "You have to confirm that you are not a robot!");
-
 							return ok(contact.render(userEmail, FAQ.all() ));
+
 
 						}
 					}
@@ -228,6 +226,7 @@ public class UserLoginApplication extends Controller {
 		else
 			Logger.info("User with email: " + session().get("email") + " has opened contact us page");
 		return ok(contact.render(email, FAQ.all()));
+
 	}
 
 	// avoiding model creation for contact form
@@ -318,11 +317,26 @@ public class UserLoginApplication extends Controller {
 		PaymentExecution paymentExecution=new PaymentExecution();
 		paymentExecution.setPayerId(payerID);
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
+		User temp=User.find(session().get("email"));
+		Orders order= new Orders(Cart.getCart(session().get("email")),temp,token);
+		order.save();
+		temp.orderList.add(order);
+		temp.update();
+		Cart.clear(temp.id);
+		Iterator<Product> itr = order.productList.iterator();
+		while (itr.hasNext()) {
+			Product product=itr.next();
+			product.order=order;
+			product.sold=true;
+			product.update();
+			
+		}
+		Cart.clear(temp.id);
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}
 		
-		return ok(creditresult.render("Proslo"));
+		return ok(orderpage.render(User.find(session().get("email")).orderList));
 	}
 
 	public static Result creditFail() {

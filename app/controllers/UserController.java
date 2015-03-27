@@ -24,6 +24,7 @@ public class UserController extends Controller {
 		Logger.info("User update page opened");
 		String email = session().get("email");		
 		return ok(listofuserspage.render(email,User.find(id),  FAQ.all()));
+
 	}
 
 	// gets data from updated user
@@ -59,9 +60,8 @@ public class UserController extends Controller {
 	// redirects to page with additional info
 	@Security.Authenticated(UserFilter.class)
 	public static Result toAdditionalInfo() {
-		String email = session().get("email");		
 		Logger.info(session().get("email") + " has opened additional info page");
-		return ok(additionalinfo.render(email, FAQ.all()));
+		return ok(additionalinfo.render());
 	}
 
 	// adds additional info to user profile
@@ -82,7 +82,7 @@ public class UserController extends Controller {
 		if (!birth_date.before(current)) {
 			Logger.error("User " + session().get("email") + "has entered invalid date");
 			flash("error", "Enter valid date!");
-			return ok(additionalinfo.render(email, FAQ.all()));
+			return ok(additionalinfo.render());
 		}
 		String city = form.get("city");
 		String shipping_address = form.get("shipping_address");
@@ -92,7 +92,7 @@ public class UserController extends Controller {
 				&& !gender.toLowerCase().contains("f")) {
 			Logger.error("User " + session().get("email") + "has entered invalid gender");
 			flash("error", "Enter valid gender!");
-			return ok(additionalinfo.render(email, FAQ.all()));
+			return ok(additionalinfo.render());
 		}
 
 		if (User.AdditionalInfo(email, username, birth_date, shipping_address,
@@ -107,16 +107,16 @@ public class UserController extends Controller {
 
 		flash("warning", "Username already exists!");
 		Logger.error("User " + session().get("email") + "has entered invalid username");
-		return ok(additionalinfo.render(email, FAQ.all()));	
+		return ok(additionalinfo.render());	
 		
 	}
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result toEditInfo() {
-
 		Logger.info("User " + session().get("email") + "has opened his additional info");
 		String email = session().get("email");
 		return ok(editadditionalinfo.render(email,User.find(session().get("email")), FAQ.all()));
+
 	}
 
 	
@@ -152,8 +152,8 @@ public class UserController extends Controller {
 		u.city = form.get("city");
 		u.shipping_address = form.get("shipping_address");
 		u.user_address = form.get("user_address");
-		if(!form.get("gender").equals(""))
-		{u.gender = form.get("gender");
+		if(!form.get("gender").equals("")) {
+			u.gender = form.get("gender");
 		if (!u.gender.toLowerCase().contains("m")
 				&& !u.gender.toLowerCase().contains("f")) {
 			Logger.error("User " + session().get("email") + "has entered invalid gender");
@@ -161,6 +161,7 @@ public class UserController extends Controller {
 			return ok(editadditionalinfo.render(email,u, FAQ.all() ));
 		}
 		}
+
 			u.update();
 			Logger.info("User " + session().get("email") + "has updated his additional info");
 			flash("success","Additional info updated successfuly!");
@@ -173,7 +174,7 @@ public class UserController extends Controller {
 	public static Result profile() {
 		Logger.info("User " + session().get("email") + " has opened his profile page");
 		String email = session().get("email");
-		return ok(profile.render(email,User.all(), Category.list(), Product.productList(), Product.myProducts(User.find(session().get("email")).id), FAQ.all()));
+		return ok(profile.render(email,User.all(), Category.list(), Product.productList(), FAQ.all()));
 		
 	}
 	
