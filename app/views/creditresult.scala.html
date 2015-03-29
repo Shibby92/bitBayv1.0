@@ -1,7 +1,22 @@
-@(status: String)
-@main("User"){
+@import helper._
+
+@main("Buy Result") {
+<div class="container">
+<div class="navbar-header">
+       
+         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      </div><br><br><br><br>
 	
-	<div class="container">
-	<h1>@status</h1>
+         @if(flash.get("failBuy")){
+        <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("failBuy")
+                     </div>
+                  </div>
+         }
+	
+	
 </div>
+
 }
+

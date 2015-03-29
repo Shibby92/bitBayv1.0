@@ -341,7 +341,9 @@ public class UserLoginApplication extends Controller {
 	}
 
 	public static Result creditFail() {
-		return ok(creditresult.render("nije proslo"));
+		//return ok(creditresult.render("nije proslo"));
+		flash("failBuy", "Transaction canceled!");
+		return ok(creditresult.render());
 
 	}
 	
