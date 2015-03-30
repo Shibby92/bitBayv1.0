@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import helpers.HashHelper;
@@ -37,17 +38,19 @@ public class Global extends GlobalSettings {
 
 
 		if (Product.find(1) == null) {
+			List<String>list=new ArrayList<String>();
+			list.add("images/bitbaySlika2.jpg");
 			Product.create(
 					"House",
-					100000,
+					100000,User.find(2),
 					"This house has got four bedrooms, a living-room, a dining-room, a kitchen",
-					1,"images/bitbaySlika2.jpg");
+					1,list);
 
 			Product.create(
 					"Mazda",
-					25000,
+					25000,User.find(2),
 					"Auto mazda mx-5 skoro novo!!!",
-					2,"images/bitbaySlika2.jpg");
+					2,list);
 
 
 		}
