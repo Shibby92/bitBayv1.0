@@ -1,0 +1,139 @@
+@(email: String, product: Product, faqs: List[FAQ], images: List[String])
+
+@import java.math.BigInteger; var i=0
+@main("ItemPage") {
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+            <li>
+              
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
+               @if(email == null) {
+            <li>
+               <h4>
+                  <p style="color: #000">Hello, please  
+                     <a href="/login">
+                     <button class="btn btn-success btn-login"> Log in</button> 
+                     </a>
+                     or 
+                     <button class="btn btn-success btn-register" >Register</button>
+                     </a>
+                  </p>
+               </h4>
+            </li>
+         </ul>
+         } else {
+      
+         <li >
+            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                 @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
+                  } else {
+                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
+
+
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+               </ul>
+         </li>
+         </ul>
+         }
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
+<body>
+<div class="container">
+	<div style="margin: 80px -15px" class="row">
+   <div class="col-md-5">
+   <centar>
+      <div class="row carousel-holder">
+         <div class="col-md-12">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+               <ol class="carousel-indicators">
+                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
+                  </li>
+                      @for(image <- images) {
+                      	@if(images.indexOf(image) != 0) {    
+                      	@{i=i+1}                  	
+                  <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
+              	 }
+                }
+              
+               </ol>
+              
+               <div class="carousel-inner" style="max-width: 800px;	height: 250px;">
+                  <div class="item active">       
+                     <img class="slide-image" src="@routes.Assets.at(images.get(0))" />  
+                  </div>
+                 
+                   @for(image <- images) {
+                   	@if(images.indexOf(image) == 0) {
+                   		} else {
+                  <div class="item">       
+                     <img class="slide-image" src="@routes.Assets.at(image)" />  
+                  </div>
+                  }
+                  }
+                  </div>
+                 
+               <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+               <span class="glyphicon glyphicon-chevron-left"></span>
+               </a>
+               <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+               <span class="glyphicon glyphicon-chevron-right"></span>
+               </a>
+                </centar>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-11">
+         <h4 class="pull-right">US @product.price $</h4>
+         <h3 style="color: #4AB55A">@product.name</a>
+         </h3>
+         <p> @product.description </p>
+         @if((email==null)||(User.find(email).admin == false)) {
+            	<a href="/producttocart/@product.id"
+            	<button type="button" class="btn btn-warning">Add to Cart</button>
+            	</a>
+            	}
+      </div>
+   </div>
+   </div>
+   </div>
+   </div>
+   <div class="container">
+      <hr>
+      <a href="/contactpage">
+         <h3>Contact Us</h3>
+      </a>
+
+      <a href="/faq">
+         <h3> FAQs</h3>
+      </a>
+   </div>
+</body>
+}
