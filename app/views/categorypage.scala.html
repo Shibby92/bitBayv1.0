@@ -1,10 +1,10 @@
-@(categoryList:List[Category])
+@(email: String, categoryList:List[Category], faqs: List[FAQ])
 @main("Categories") {
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
    <!-- Brand and toggle get grouped for better mobile display -->
    <div class="navbar-header">
-      <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>    
+      <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>    
    </div>
 </nav>
 <div class="container">
@@ -22,7 +22,7 @@
             <tbody>
                @for(category <- categoryList){
                <tr>
-                  <td> <a href="category/@category.name" class="list-group-item">@category.name</a> </td>
+                  <td> <a href="/category/@category.name" class="list-group-item">@category.name</a> </td>
                   <div>
                      <td style="float: left">  
                         <a class="btn btn-warning" href="/updatecategory/@category.id" role="button" );">Update</a>
@@ -36,5 +36,14 @@
       </table>
    </div>
 </div>
+</div>
+<div class="container">
+   <hr>
+   <a href="/contactpage">
+      <h3>Contact Us</h3>
+   </a>
+   <a href="/faq">
+      <h3> FAQs</h3>
+   </a>
 </div>
 }

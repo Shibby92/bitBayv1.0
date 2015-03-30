@@ -39,15 +39,23 @@
          <li >
             <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-               @if(User.find(email).admin == true) {
-               <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' > Profile</a></li>
-               } else {
-               <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
-               }
-               <li class="divider"></li>
-               <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
-            </ul>
+             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                 @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
+                  } else {
+                 <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
+
+
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+               </ul>
          </li>
          </ul>
          }
@@ -69,7 +77,11 @@
                      <a href="addproductpage/@category.id" class="list-group-item glyphicon glyphicon-shopping-cart"> @category.name </a>
                      }						
                      <div class="form-group text-center">
-                        <a style="margin: 8.5px -15px" class="btn btn-danger" href="/profile" role="button">Cancel</a>
+                     @if(User.find(session().get("email")).admin) {
+                        <a style="margin: 8.5px -15px" class="btn btn-danger" href="/profil" role="button">Cancel</a>
+                        } else {
+                        <a style="margin: 8.5px -15px" class="btn btn-danger" href="/homepage" role="button">Cancel</a>
+                        }
                      </div>
                   </div>
                </div>
@@ -85,7 +97,7 @@
    <a href="/contactpage">
       <h3>Contact Us</h3>
    </a>
-   <a href="faq">
+   <a href="/faq">
       <h3> FAQs</h3>
    </a>
 </div>

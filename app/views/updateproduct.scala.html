@@ -1,19 +1,80 @@
-@(product: Product)
+@(email: String, product: Product, faqs: List[FAQ])
 @main("Update Product"){
 	<body>
 
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-			</div>
-		</div>
-		<!-- /.container -->
-	</nav>
+	 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+            <li>
+              
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
+               @if(email == null) {
+            <li>
+               <h4>
+                  <p style="color: #000">Hello, please  
+                     <a href="/login">
+                     <button class="btn btn-success btn-login"> Log in</button> 
+                     </a>
+                     or 
+                     <a href="/toregister">
+                     <button class="btn btn-success btn-register" >Register</button>
+                     </a>
+                  </p>
+               </h4>
+            </li>
+         </ul>
+         } else {
+     
+         <li>
+            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+              @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
+                  } else {
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
 
+
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+                  </li>
+               </ul>
+         </li>
+         </ul>
+         }
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
+<div class="container">
 	<div class="row">
 		<div class="col-md-12">
+			@if(flash.get("error")){
+			 <div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+		}		
 			<div class="col-sm-4">
 				<div class="well login-box">
 					<form action="/updateproduct/@product.id" method="POST" enctype="multipart/form-data">
@@ -21,13 +82,13 @@
 						<dl class=" " id="name_field">
 							<dt><label for="name">Name:</label> </dt>
 							<dd>
-							<input value=@product.name name="name"id="name" placeholder="Name of your product" type="text" class="form-control" />
+							<input value=@product.name name="name"id="name" placeholder="Name of your product" type="text" class="form-control" required/>
 						
 						</dl>
 						<dl class=" " id="price_field">
 							<dt><label for="price">Price:</label> </dt>
 							<dd>
-							<input value=@product.price name="price"id="price" placeholder="Price of your product" type="text" class="form-control" />
+							<input value=@product.price name="price"id="price" placeholder="Price of your product" type="text" class="form-control" required/>
 						
 						</dl>
 						<dl class=" " id="description_field">
@@ -35,14 +96,24 @@
 							<dd>
 
 							<textarea rows="4" cols="50"  name="description" id="description" placeholder="Description of your product"
-							 class="form-control">@product.description </textarea>
+						 class="form-control" required>@product.description </textarea>
 						
 						</dl>
-							<input type="submit" class="btn btn-success btn-login-submit" role="button" value="Update" /> 
-							
-							<input type="file" class = "btn btn-info" role="button" name="image_url" id="image_url" value="@product.image_url"/> 
-	
-							<a class="btn btn-danger" href="/" role="button">Cancel</a>
+							<dl class=" " id="image_url">
+							<dt><label for="image_url">Image:</label> </dt>
+							<div class="form-group text-center">
+							<input type="file" name="image_url" id="image_url" value="@product.image_url"/> 
+							</div>
+							</dl>
+							<div class="form-group text-center">
+							<input type="submit"“ class="btn btn-success btn-login-submit" role="button" value="Update" /> 							
+							@if(User.find(session().get("email")).admin) {
+								<a href="/profile" class="btn btn-danger"> Back </a>
+								} else {
+								<a href="/homepage" class="btn btn-danger"> Back </a>
+								}
+							</div>
+
 							
 						
 
@@ -50,6 +121,16 @@
 				</div>
 			</div>
 		</div>
+		</div>
 	</div>
+	 <div class="container">
+      <hr>
+      <a href="/contactpage">
+         <h3>Contact Us</h3>
+      </a>
+      <a href="/faq">
+         <h3> FAQs</h3>
+      </a>
+   </div>
 </body>
 }

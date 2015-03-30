@@ -1,14 +1,69 @@
+@(email: String,faqs: List[FAQ])
 @main("Additional Info") {
 <body>
    <!-- Navigation -->
    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-         <div class="navbar-header">
-            <a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-         </div>
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
       </div>
-      <!-- /.container -->
-   </nav>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+            <li>
+              
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
+               @if(email == null) {
+            <li>
+               <h4>
+                  <p style="color: #000">Hello, please  
+                     <a href="/login">
+                     <button class="btn btn-success btn-login"> Log in</button> 
+                     </a>
+                     or 
+                     <a href="/toregister">
+                     <button class="btn btn-success btn-register" >Register</button>
+                     </a>
+                  </p>
+               </h4>
+            </li>
+         </ul>
+           </li>
+         </ul>
+         } else {
+      
+         <li >
+            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                 @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
+                  } else {
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
+
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+               </ul>
+         }
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
    <div class="row">
       <div class="col-md-12">
          @if(flash.get("error")){
@@ -56,12 +111,22 @@
                   <div class="form-group text-center">
                      <input type="submit" value="Add" class="btn btn-success"/>
                      <a href="/login" class="btn btn-danger"> Back </a>
-                     <a href="/homepage" class="btn btn-danger"> Cancel </a>
+                     <a href="/homepage" class="btn btn-info"> Skip </a>
                   </div>
                </form>
             </div>
          </div>
       </div>
    </div>
+    <div class="container">
+   <hr>
+   <a href="/contactpage">
+      <h3>Contact Us</h3>
+   </a>
+   <a href="/faq">
+      <h3> FAQs</h3>
+   </a>
+</div>
+<!-- /.container -->
 </body>
 }

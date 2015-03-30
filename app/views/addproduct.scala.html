@@ -40,15 +40,23 @@
          <li >
             <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-               @if(User.find(email).admin == true) {
-               <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' > Profile</a></li>
-               } else {
-               <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
-               }
-               <li class="divider"></li>
-               <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
-            </ul>
+             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                 @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
+                  } else {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
+
+
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+               </ul>
          </li>
          </ul>
          }
@@ -60,9 +68,16 @@
 
    <div  style="margin: 80.5px -15px" class="row">
       <div class="col-md-12">
+       @if(flash.get("error")) {
+         	<div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
+         	}
          <div class="col-sm-4">
             <div class="well login-box">
-               <form action="@routes.ProductApplication.addAdditionalInfo(id)"  method="GET">
+               <form action="@routes.ProductApplication.addAdditionalInfo(id)"  method="POST" enctype="multipart/form-data">
                   <legend>Add product </legend>
                   <dl class=" " id="name_field">
                      <dt><label for="name">Name:</label> </dt>
@@ -78,13 +93,14 @@
 							 class="form-control" required></textarea> </dd>
                   </dl>
                   <dl class=" " id="image_url">
-							<dt><label for="image_url">Image:</label> </dt>
-							<div class="form-group text-center">
-							<input type="file" name="image_url" id="image_url" value=""/> 
-							</div>
+							<dt><label for="image_url">Select images:</label> </dt>
+							<form action="demo_form.asp">
+  								<input type="file" name="image_url" multiple>
+ 								 <input type="submit" class="btn btn-success" value="Add">
+								</form>
 							</dl>
                   <div class="form-group text-center">
-                     <input type="submit" value="Add" class="btn btn-success"/>
+                    
                      <a href="/addproductcategory" class="btn btn-danger"> Back </a>
                   </div>
                </form>
@@ -97,7 +113,7 @@
    <a href="/contactpage">
       <h3>Contact Us</h3>
    </a>
-   <a href="faq">
+   <a href="/faq">
       <h3> FAQs</h3>
    </a>
 </div>

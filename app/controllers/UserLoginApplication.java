@@ -4,7 +4,11 @@ import helpers.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -22,6 +26,10 @@ import play.libs.ws.WSResponse;
 import play.mvc.*;
 import views.html.*;
 
+import com.paypal.api.payments.*;
+import com.paypal.base.rest.APIContext;
+import com.paypal.base.rest.OAuthTokenCredential;
+import com.paypal.base.rest.PayPalRESTException;
 
 /**
  * Controls the login application Redirects on the pages when needed When the
@@ -33,18 +41,24 @@ import views.html.*;
  */
 public class UserLoginApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
+
+
+
 	static Form <Contact> contactForm= new Form<Contact>(Contact.class);
 	
+
 	// main page
 	// login page
 	public static Result homePage() {
 		String email = session().get("email");
+
 		if(session().get("email") == null)
 			Logger.info("Homepage has been opened by guest");
 		else
 			Logger.info("Homepage has been opened by user with email: " + session().get("email"));
 		
 		return ok(homePage.render(email,Category.list(),Product.productList(), FAQ.all()));
+
 	}
 
 	// tries to log user to page
@@ -60,9 +74,11 @@ public class UserLoginApplication extends Controller {
 			if (User.checkLogin(email, password)) {
 				
 				session("email", email);
+
 				Logger.info("User with email: "+ email + " has logged in.");
 				
 				if(User.find(email).hasAdditionalInfo)
+
 					return redirect("/homepage");
 
 				return redirect("/additionalinfo");
@@ -74,19 +90,19 @@ public class UserLoginApplication extends Controller {
 
 		flash("error", "Email does not exist!");
 		Logger.error("User has entered wrong email");
-		return ok(toregister.render(loginUser, email, FAQ.all()));
+		return redirect("/toregister");
 	}
+
 
 	// tries to register user
 	// if there is already user with the same username he gets redirected to
 	// login page
-	// if the user gets registered, he gets a verification email on his email address
+	// if the user gets registered, he gets a verification email on his email
+	// address
 	@SuppressWarnings("static-access")
 	public static Result register() throws MalformedURLException {
 		
-		DynamicForm form = loginUser.form().bindFromRequest();
-			//User u = loginUser.bindFromRequest().get();
-			
+		DynamicForm form = loginUser.form().bindFromRequest();	
 			String email = form.get("email");
 			String password = form.get("password");
 			String passconfirm = form.get("confirm_pass");
@@ -112,8 +128,6 @@ public class UserLoginApplication extends Controller {
 		}
 
 	}
-	
-
 
 	// goes to page where the user can be registered
 	public static Result toRegister() {
@@ -122,42 +136,46 @@ public class UserLoginApplication extends Controller {
 
 		return ok(toregister.render(loginUser, email, FAQ.all()));
 	}
-	
-	
+
+
+
 
 	/**
 	 * We return whatever the promise returns, so the return value is changed from Result to Promise<Result>
 	 * @return the contact page with a message indicating if the email has been sent.
 	 */
 	public static Promise<Result> contact() {
-		 String userEmail = session().get("email");
+		 final String userEmail = session().get("email");
 		//need this to get the google recapctha value
-		 DynamicForm temp = DynamicForm.form().bindFromRequest();
+		 final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		
 		/* send a request to google recaptcha api with the value of our secret code and the value
 		 * of the recaptcha submitted by the form */
 		Promise<Result> holder = WS
 				.url("https://www.google.com/recaptcha/api/siteverify")
 				.setContentType("application/x-www-form-urlencoded")
-				.post(String.format("secret=%s&response=%s",
-						//get the API key from the config file
-						Play.application().configuration().getString("recaptchaKey"),
+				.post(String.format(
+						"secret=%s&response=%s",
+						// get the API key from the config file
+						Play.application().configuration()
+								.getString("recaptchaKey"),
 						temp.get("g-recaptcha-response")))
 				.map(new Function<WSResponse, Result>() {
-					//once we get the response this method is loaded
+					// once we get the response this method is loaded
 					public Result apply(WSResponse response) {
-						//get the response as JSON
+						// get the response as JSON
 						JsonNode json = response.asJson();
 						System.out.println(json);
 						System.out.println(temp.get("g-recaptcha-response"));
 						Form<Contact> submit = Form.form(Contact.class)
 								.bindFromRequest();
-						
-						//check if value of success is true
+
+						// check if value of success is true
 						if (json.findValue("success").asBoolean() == true
 								&& !submit.hasErrors()) {
-							String email= temp.get("email");
-							String message= temp.get("message");
+
+							final String email= temp.get("email");
+							final String message= temp.get("message");
 							List<User> admins=User.admins();
 							for(User admin : admins){
 								ContactHelper.send(email, admin.email, message);
@@ -174,17 +192,19 @@ public class UserLoginApplication extends Controller {
 							else
 								Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
 							flash("error", "You have to confirm that you are not a robot!");
-							return ok(contact.render(userEmail));
+							return ok(contact.render(userEmail, FAQ.all() ));
+
 
 						}
 					}
 				});
-		//return the promisse
+		// return the promisse
 		return holder;
 	}
 
 
 	public static Result toLogin() {
+
 		String email = session().get("email");
 		Logger.info("Opened page for login");
 		
@@ -194,34 +214,136 @@ public class UserLoginApplication extends Controller {
 	
 	public static Result logOut(){
 		Logger.warn("User with email: " + session().get("email") + " has logged out");
+
 		session().clear();
 		return redirect("/");
-		}
-	public static Result contactPage(){
+	}
+
+	public static Result contactPage() {
 		String email = session().get("email");
 		if(session().get("email") == null)
 			Logger.info("Guest has opened contact us page");
 		else
 			Logger.info("User with email: " + session().get("email") + " has opened contact us page");
-		return ok(contact.render(email));
+		return ok(contact.render(email, FAQ.all()));
+
 	}
-	
-	
-	//avoiding model creation for contact form
-	public static class Contact{
+
+	// avoiding model creation for contact form
+	public static class Contact {
 		@Required
 		@Email
 		public String email;
 		@Required
 		public String message;
 
-		public Contact(){
+		public Contact() {
 		}
 
-		public Contact(String email, String message){
-			this.email=email;
-			this.message=message;
+		public Contact(String email, String message) {
+			this.email = email;
+			this.message = message;
 		}
 
 	}
+	/*********************************************************************/
+	/*********************** PAYPAL SECTION ******************************/
+
+	public static Result purchaseProcessing() {
+
+		try {
+			String total=String.valueOf(Cart.getCart(session().get("email")).checkout);
+			String accessToken = new OAuthTokenCredential(
+					"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
+					"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe")
+					.getAccessToken();
+
+			Map<String, String> sdkConfig = new HashMap<String, String>();
+			sdkConfig.put("mode", "sandbox");
+			APIContext apiContext = new APIContext(accessToken);
+			apiContext.setConfigurationMap(sdkConfig);
+			Amount amount = new Amount();
+			amount.setTotal(total+"0");
+			amount.setCurrency("USD");
+			Transaction transaction = new Transaction();
+			transaction.setDescription("Order via bitBay");
+			transaction.setAmount(amount);
+			List<Transaction> transactions = new ArrayList<Transaction>();
+			transactions.add(transaction);
+			Payer payer = new Payer();
+			payer.setPaymentMethod("paypal");
+			Payment payment = new Payment();
+			payment.setIntent("sale");
+			payment.setPayer(payer);
+			payment.setTransactions(transactions);
+			RedirectUrls redirectUrls = new RedirectUrls();
+			redirectUrls.setCancelUrl("http://localhost:9000/creditfail");
+			redirectUrls.setReturnUrl("http://localhost:9000/creditsuccess");
+			payment.setRedirectUrls(redirectUrls);
+			Payment createdPayment = payment.create(apiContext);
+			Iterator<Links> itr = createdPayment.getLinks().iterator();
+			while (itr.hasNext()) {
+				Links link = itr.next();
+				if (link.getRel().equals("approval_url")) {
+					return redirect(link.getHref());
+				}
+			}
+
+		} catch (PayPalRESTException e) {
+			
+			Logger.warn(e.getMessage());
+		}
+
+		return TODO;
+
+	}
+
+	public static Result creditSuccess() {
+		String email = session().get("email");
+		try{
+		DynamicForm paypalReturn = Form.form().bindFromRequest();
+		String paymentID = paypalReturn.get("paymentId");
+		String payerID = paypalReturn.get("PayerID");
+		String token = paypalReturn.get("token");
+		String accessToken = new OAuthTokenCredential(
+				"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
+				"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe")
+				.getAccessToken();
+		Map<String, String> sdkConfig = new HashMap<String, String>();
+		sdkConfig.put("mode", "sandbox");
+		APIContext apiContext = new APIContext(accessToken);
+		apiContext.setConfigurationMap(sdkConfig);
+		
+		Payment payment= Payment.get(accessToken, paymentID);
+		PaymentExecution paymentExecution=new PaymentExecution();
+		paymentExecution.setPayerId(payerID);
+		Payment newPayment=payment.execute(apiContext, paymentExecution);
+		User temp=User.find(session().get("email"));
+		Orders order= new Orders(Cart.getCart(session().get("email")),temp,token);
+		order.save();
+		temp.orderList.add(order);
+		temp.update();
+		Cart.clear(temp.id);
+		Iterator<Product> itr = order.productList.iterator();
+		while (itr.hasNext()) {
+			Product product=itr.next();
+			product.order=order;
+			product.sold=true;
+			product.update();
+			
+		}
+		Cart.clear(temp.id);
+	} catch (PayPalRESTException e) {
+		// TODO Auto-generated catch block
+		Logger.warn(e.getMessage());}
+		
+		return ok(orderpage.render(email,User.find(session().get("email")).orderList,  FAQ.all()));
+	}
+
+	public static Result creditFail() {
+		return ok(creditresult.render("nije proslo"));
+
+	}
+	
+	/*******************************************************************/
 }

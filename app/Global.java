@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 import helpers.HashHelper;
 import models.*;
 import play.Application;
@@ -35,11 +38,23 @@ public class Global extends GlobalSettings {
 
 
 		if (Product.find(1) == null) {
+			List<String>list=new ArrayList<String>();
+			list.add("images/bitbaySlika2.jpg");
 			Product.create(
 					"House",
-					100000,
-					"This house has got four bedrooms, a living-room, a dining-room, a kitchen, a bathroom and a separate toilet.",
-					1,"images/bitbaySlika2.jpg");
+					100000,User.find(2),
+					"This house has got four bedrooms, a living-room, a dining-room, a kitchen",
+					1,list);
+
+			Product.create(
+					"Mazda",
+					25000,User.find(2),
+					"Auto mazda mx-5 skoro novo!!!",
+					2,list);
+
+
+		}
+	
 
 			if (!FAQ.find("I can't get items shipped until Monday and I'm afraid of hurting my top-rated seller qualification. How should I go about this?")) {
 				FAQ.createFAQ(
@@ -53,6 +68,9 @@ public class Global extends GlobalSettings {
 						"Promo offers are by invitation only; no party crashing allowed.  Unless there is an einstein among us, no one can figure out the criteria used by EBay to get these promos.");
 			}
 
-		}
-	}
+		
+	
+	
+	
 }
+	}

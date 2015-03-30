@@ -1,4 +1,6 @@
-@(email: String, product: Product, faqs: List[FAQ])
+@(email: String, product: Product, faqs: List[FAQ], images: List[String])
+
+@import java.math.BigInteger; var i=0
 @main("ItemPage") {
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -39,14 +41,22 @@
             <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-               @if(User.find(email).admin == true) {
-               <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' > Profile</a></li>
-               } else {
-               <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>
-               }
-               <li class="divider"></li>
-               <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
-            </ul>
+                 @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
+                  } else {
+                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
+
+
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+               </ul>
          </li>
          </ul>
          }
@@ -66,26 +76,30 @@
                <ol class="carousel-indicators">
                   <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
                   </li>
-                  <li data-target="#carousel-example-generic" data-slide-to="1">
-                  </li>
-                  <li data-target="#carousel-example-generic" data-slide-to="2">
-                  </li>
+                      @for(image <- images) {
+                      	@if(images.indexOf(image) != 0) {    
+                      	@{i=i+1}                  	
+                  <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
+              	 }
+                }
+              
                </ol>
-
+              
                <div class="carousel-inner" style="max-width: 800px;	height: 250px;">
-                  <div class="item active">
-                     <img class="slide-image" src="@routes.Assets.at(product.image_url)" />
-                     </a>    
+                  <div class="item active">       
+                     <img class="slide-image" src="@routes.Assets.at(images.get(0))" />  
                   </div>
-                  <div class="item">
-                     <img class="slide-image" src="@routes.Assets.at("images/bitbaySlika1.jpg")" />
-                     </a>    
+                 
+                   @for(image <- images) {
+                   	@if(images.indexOf(image) == 0) {
+                   		} else {
+                  <div class="item">       
+                     <img class="slide-image" src="@routes.Assets.at(image)" />  
                   </div>
-                  <div class="item">
-                     <img class="slide-image" src="@routes.Assets.at("images/bitbaySlika2.jpg")" />
-                     </a>    
+                  }
+                  }
                   </div>
-               </div>
+                 
                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                <span class="glyphicon glyphicon-chevron-left"></span>
                </a>
@@ -101,6 +115,11 @@
          <h3 style="color: #4AB55A">@product.name</a>
          </h3>
          <p> @product.description </p>
+         @if((email==null)||(User.find(email).admin == false)) {
+            	<a href="/producttocart/@product.id"
+            	<button type="button" class="btn btn-warning">Add to Cart</button>
+            	</a>
+            	}
       </div>
    </div>
    </div>

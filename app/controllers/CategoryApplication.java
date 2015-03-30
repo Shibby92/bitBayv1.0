@@ -30,7 +30,8 @@ public class CategoryApplication extends Controller {
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewCategory() {
 		Logger.info("Opened page for adding category");
-		return ok(addcategorypage.render(session().get("email"), categoryForm, FAQ.all()));
+		String email = session().get("email");
+		return ok(addcategorypage.render(email, categoryForm, FAQ.all()));
 	}
 
 
@@ -54,7 +55,8 @@ public class CategoryApplication extends Controller {
 	 */
 	public static Result categoryPage(){
 		Logger.info("Category page opened");
-		return ok(categorypage.render(Category.list()));
+		String email = session().get("email");
+		return ok(categorypage.render(email, Category.list(), FAQ.all()));
 	}
 	
 	/**
@@ -77,8 +79,9 @@ public class CategoryApplication extends Controller {
 	 * @return results
 	 */
 	public static Result updateCategory(int id){
-		Logger.info("Update category page opened");
-		return ok(updatecategory.render(Category.find(id)));
+	Logger.info("Update category page opened");
+		String email = session().get("email");
+		return ok(updatecategory.render(email, Category.find(id), FAQ.all()));
 	}
 	
 

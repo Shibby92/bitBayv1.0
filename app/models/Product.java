@@ -2,7 +2,10 @@
 
 package models;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.*;
@@ -30,6 +33,8 @@ public class Product extends Model {
 	
 	public int category_id;
 
+	@ManyToOne
+	public Cart cart;
 	
 	@ManyToOne
 	public User owner;
@@ -50,6 +55,12 @@ public class Product extends Model {
 
 	
 	public String image_url;
+	
+	@ManyToOne
+	public Orders order;
+	
+	public boolean sold;
+	public static List<String> image_urls;
 
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
@@ -75,6 +86,7 @@ public class Product extends Model {
 		this.price = price;
 		this.description = description;
 		this.image_url = image_url;
+		this.sold=false;
 	}
 	
 	/**
@@ -99,9 +111,37 @@ public class Product extends Model {
 		this.description = description;
 		this.category_id=id;
 		this.image_url=image_url;
+		this.sold=false;
 	}
 	public static void create(String name,  double price, String description,int id, String image_url) {
 		new Product(name,  price, description,id,image_url).save();
+	}
+	
+	public Product(String name, double price, User owner, String description,int id, String image_url) {
+		this.name = name;
+		this.price = price;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.image_url=image_url;
+		this.sold=false;
+	}
+	
+	public Product(String name, double price, User owner, String description,int id, List<String> image_urls) {
+		this.name = name;
+		this.price = price;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.image_urls=image_urls;
+	}
+	
+	public static void create(String name,  double price, User owner, String description,int id, List<String> image_urls) {
+		new Product(name,  price, owner, description,id,image_urls).save();
+	}
+	
+	public static void create(String name,  double price, User owner, String description,int id, String image_url) {
+		new Product(name,  price, owner, description,id,image_url).save();
 	}
 
 	/**
@@ -150,8 +190,23 @@ public class Product extends Model {
 	}
 	public static void update(Product product) {
 		Logger.info(""+product.name);
-		product.update();
+		product.save();
+	}
+	
+	public static List<Product> myProducts(int id) {
 		
+		List<Product> pp = find.where("owner_id = " + id).findList();
+		return pp;
+	}
+	
+	public static void deleteImage(Product p) {
+		File f = new File("./public/" + p.image_url); 
+		boolean b = f.delete();
+
+	}
+	
+	public static List<String> allImages() {
+		return image_urls;
 	}
 
 	
