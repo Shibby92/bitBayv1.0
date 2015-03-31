@@ -83,9 +83,9 @@ GET    /producttocart/:id       controllers.ProductApplication.productToCart(id:
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcessing()
-GET    /creditsuccess           controllers.UserLoginApplication.creditSuccess()
-GET    /creditfail              controllers.UserLoginApplication.creditFail()
-
+GET    /ordersuccess    controllers.UserLoginApplication.orderSuccess(paymentID:String,payerID:String,token:String)
+GET    /orderfail              controllers.UserLoginApplication.orderFail()
+GET		/orderconfirm			controllers.UserLoginApplication.orderConfirm()
 #Order routes
 
 GET		/orderpage/:id			controllers.OrderController.orderPage(id: Integer)
