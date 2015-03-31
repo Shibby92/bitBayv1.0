@@ -357,7 +357,7 @@ public class ProductApplication extends Controller {
 			Logger.info("Guest has opened item with id: " + id);
 		else
 			Logger.info("User with email: " + session().get("email") + " opened item with id: " + id);
-		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), Product.find(id).allImages()));
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), Product.find(id).allImages(id)));
 		
 	}
 	

@@ -60,7 +60,8 @@ public class Product extends Model {
 	public Orders order;
 	
 	public boolean sold;
-	public static List<String> image_urls;
+	
+	public List<String> image_urls;
 
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
@@ -134,7 +135,8 @@ public class Product extends Model {
 		this.description = description;
 		this.category_id=id;
 		this.image_urls=image_urls;
-	}
+		this.image_url=image_urls.get(0);
+				}
 	
 	public static void create(String name,  double price, User owner, String description,int id, List<String> image_urls) {
 		new Product(name,  price, owner, description,id,image_urls).save();
@@ -205,8 +207,9 @@ public class Product extends Model {
 
 	}
 	
-	public static List<String> allImages() {
-		return image_urls;
+	
+	public static List<String> allImages(int id) {
+		return find.byId(id).image_urls;
 	}
 
 	
