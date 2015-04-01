@@ -255,8 +255,11 @@ public class UserLoginApplication extends Controller {
 		try {
 			String total=String.valueOf(Cart.getCart(session().get("email")).checkout);
 			String accessToken = new OAuthTokenCredential(
-					"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
-					"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe")
+					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
+					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai"
+					//"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
+				//	"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe"
+					)
 					.getAccessToken();
 
 			Map<String, String> sdkConfig = new HashMap<String, String>();
@@ -313,23 +316,26 @@ public class UserLoginApplication extends Controller {
 			 
 			 token = paypalReturn.get("token");
 			String accessToken = new OAuthTokenCredential(
-					"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
-					"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe")
+					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
+					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai"
+					//"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
+					//"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe"
+					)
 					.getAccessToken();
 			Map<String, String> sdkConfig = new HashMap<String, String>();
 			sdkConfig.put("mode", "sandbox");
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(sdkConfig);
-			
+//			
 			Payment payment= Payment.get(accessToken, paymentID);
-			PaymentExecution paymentExecution=new PaymentExecution();
-			paymentExecution.setPayerId(payerID);
-			Payment newPayment=payment.execute(apiContext, paymentExecution);
-			User temp=User.find(session().get("email"));
-			Orders order= new Orders(Cart.getCart(session().get("email")),temp,token);
+//			PaymentExecution paymentExecution=new PaymentExecution();
+//			paymentExecution.setPayerId(payerID);
+//			Payment newPayment=payment.execute(apiContext, paymentExecution);
+			User user=User.find(session().get("email"));
+			Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
 			order.save();
-			temp.orderList.add(order);
-			temp.update();
+			user.orderList.add(order);
+			user.update();
 		//	Cart.clear(temp.id);
 			Iterator<Product> itr = order.productList.iterator();
 			while (itr.hasNext()) {
@@ -357,8 +363,11 @@ public class UserLoginApplication extends Controller {
 	String payerID = payerId;
 		String ttoken = token;
 		String accessToken = new OAuthTokenCredential(
-				"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
-				"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe")
+				"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
+				"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai"
+				//"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
+				//"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe"
+				)
 				.getAccessToken();
 		Map<String, String> sdkConfig = new HashMap<String, String>();
 		sdkConfig.put("mode", "sandbox");
