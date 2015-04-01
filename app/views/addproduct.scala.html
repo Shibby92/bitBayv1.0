@@ -1,53 +1,122 @@
-@(id:Integer,productForm: Form[Product])
- @main("Add your additional info") {
+@(email: String, id:Integer,productForm: Form[Product], faqs: List[FAQ])
+@main("Add your additional info") {
 <body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+            <li>
+              
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
+               @if(email == null) {
+            <li>
+               <h4>
+                  <p style="color: #000">Hello, please  
+                     <a href="/login">
+                     <button class="btn btn-success btn-login"> Log in</button> 
+                     </a>
+                     or 
+                     <a href="/toregister">
+                     <button class="btn btn-success btn-register" >Register</button>
+                     </a>
+                  </p>
+               </h4>
+            </li>
+         </ul>
+         } else {
+      
+         <li >
+            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                 @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
+                  } else {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
 
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a href="/"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-			</div>
-		</div>
-		<!-- /.container -->
-	</nav>
 
-	<div class="row">
-		<div class="col-md-12">
-			<div class="col-sm-4">
-				<div class="well login-box">
-				 
-					<form action="@routes.ProductApplication.addAdditionalInfo(id)"  method="GET">
-						<legend>Add product </legend>
-						
-						
-						
-						<dl class=" " id="name_field">
-							<dt><label for="name">Name:</label> </dt>
-							<dd><input value='' name="name" id="name" placeholder="Name of your product" type="text" class="form-control" required/></dd>
-						</dl>
-						
-						<dl class=" " id="price_field">
-							<dt><label for="price">Price:</label> </dt>
-							<dd><input name="price" id="price" value='' placeholder="Enter price of your product" type="number" step="0.01" min="0"  max="999999" class="form-control" required/> </dd>
-						</dl>
-						
-						<dl class=" " id="description_field">
-							<dt><label for="description">Description:</label> </dt>
-							<dd><input name="description" id="description" value='' placeholder="Enter description" type="text" class="form-control" required/> </dd>
-						</dl>
-					
-						
-						
-						<div class="form-group text-center">
-							<input type="submit" value="Add" class="btn btn-success"/>
-							<a href="/addproductcategory" class="btn btn-danger"> Back </a>
-						</div>
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+               </ul>
+         </li>
+         </ul>
+         }
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
 
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+   <div  style="margin: 80.5px -15px" class="row">
+      <div class="col-md-12">
+       @if(flash.get("error")) {
+         	<div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
+         	}
+         <div class="col-sm-4">
+            <div class="well login-box">
+               <form action="@routes.ProductApplication.addAdditionalInfo(id)"  method="POST" enctype="multipart/form-data">
+                  <legend>Add product </legend>
+                  <dl class=" " id="name_field">
+                     <dt><label for="name">Name:</label> </dt>
+                     <dd><input value='' name="name" id="name" placeholder="Name of your product" type="text" class="form-control" required/></dd>
+                  </dl>
+                  <dl class=" " id="price_field">
+                     <dt><label for="price">Price:</label> </dt>
+                     <dd><input name="price" id="price" value='' placeholder="Enter price of your product" type="number" step="0.01" min="0"  max="999999" class="form-control" required/> </dd>
+                  </dl>
+                  <dl class=" " id="description_field">
+                     <dt><label for="description">Description:</label> </dt>
+                     <dd>	<textarea rows="4" cols="60"  name="description" id="description" placeholder="Description of your product"
+							 class="form-control" required></textarea> </dd>
+                  </dl>
+                  <dl class=" " id="image_url">
+							<dt><label for="image_url">Select images:</label> </dt>
+							<form action="demo_form.asp">
+  								<input type="file" name="image_url" multiple>
+ 								 <input type="submit" class="btn btn-success" value="Add">
+								</form>
+							</dl>
+                  <div class="form-group text-center">
+                    
+                     <a href="/addproductcategory" class="btn btn-danger"> Back </a>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+    <div class="container">
+   <hr>
+   <a href="/contactpage">
+      <h3>Contact Us</h3>
+   </a>
+   <a href="/faq">
+      <h3> FAQs</h3>
+   </a>
+</div>
+<!-- /.container -->
 </body>
 }

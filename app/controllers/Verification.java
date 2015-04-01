@@ -9,6 +9,7 @@ import play.mvc.Result;
 public class Verification extends Controller{
 	
 	public static Result verificateEmail(String confirmation) {
+		Logger.info("Verification started");
 		
 		User u = User.findByConfirmation(confirmation);
 		 if(confirmation == null) {
@@ -16,7 +17,7 @@ public class Verification extends Controller{
 	            return redirect("/");
 		 }
 		 if (User.confirm(u)) {
-			 Logger.debug("conf good");
+			 Logger.info("Verification successfully confirmed");
 	            flash("success", Messages.get("Successfully verificated"));
 	            return redirect("/login");
 	        } else {

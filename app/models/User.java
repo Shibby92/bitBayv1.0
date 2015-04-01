@@ -79,8 +79,15 @@ public class User extends Model {
 	public String confirmation;
 	
 	public boolean hasAdditionalInfo;
+	
+	public Cart userCart;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
+	public List<Orders> orderList;
 
-	static Finder<Integer, User> find = new Finder<Integer, User>(
+	 static Finder<Integer, User> find = new Finder<Integer, User>(
+			Integer.class, User.class);
+	public static Finder<Integer, User> findUser = new Finder<Integer, User>(
 			Integer.class, User.class);
 
 	/**
@@ -109,6 +116,7 @@ public class User extends Model {
 		this.admin = admin;
 		this.verification = verification;
 		this.hasAdditionalInfo = false;
+		
 	}
 
 	/**
@@ -130,7 +138,9 @@ public class User extends Model {
 	public static boolean create(String email, String password, String confirmation) {
 		if (existsEmail(email))
 			return false;
-		new User(email, HashHelper.createPassword(password), confirmation).save();
+		User user=new User(email, HashHelper.createPassword(password), confirmation);
+		user.save();
+		new Cart(user.id,user.email).save();
 		return true;
 	}
 	
@@ -138,6 +148,8 @@ public class User extends Model {
 	
 	public static void create(User user) {
 		user.save();
+		new Cart(user.id,user.email).save();
+		
 	}
 
 	/**
@@ -257,7 +269,7 @@ public class User extends Model {
 	//updates user with his additional info
 	public static boolean AdditionalInfo(String email, String username, Date birth_date, String shipping_address, String user_address, String gender, String city) {
 		User u = User.find(email);
-		if(existsUsername(username))
+		if(existsUsername(username) && !u.find(email).username.equals(username))
 			return false;
 		u.username = username;
 		u.birth_date = birth_date;
@@ -269,6 +281,7 @@ public class User extends Model {
 		u.update();
 		return true;
 	}
+	
 
 
 }

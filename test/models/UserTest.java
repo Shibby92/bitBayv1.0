@@ -1,4 +1,4 @@
-package models;
+/*package models;
 
 import static org.junit.Assert.*;
 import static play.test.Helpers.*;
@@ -11,12 +11,25 @@ import play.test.WithApplication;
 
 public class UserTest extends WithApplication {
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+	
+}
+=======
 	//sets new database for every test
 	@Before
 	public void setUp() {
 		fakeApplication(inMemoryDatabase());
 	}
 	
+=======
+	//sets new database for every test
+	@Before
+	public void setUp() {
+		fakeApplication(inMemoryDatabase());
+	}
+	
+>>>>>>> 855fe0bcd150adf209db135b43c37ae3a59ffdfd
 //	//checks if there is a bugg in registring user in database
 	@Test
 	public void testCreate() {
@@ -51,3 +64,4 @@ public class UserTest extends WithApplication {
 		assertEquals(u.admin,true);
 	}
 }
+*/
