@@ -66,6 +66,8 @@ GET    /deletefaq               controllers.FAQController.deleteFAQ(id: Integer)
 
 GET		/search					controllers.SearchController.search(q: String)
 GET		/searchusers					controllers.SearchController.searchUsers(q: String)
+GET		/advancedsearch					controllers.SearchController.advancedSearch()
+GET		/advancedsearchpage					controllers.SearchController.searchUsers(q: String)
 
 
 # Routes for contact form

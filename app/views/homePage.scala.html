@@ -4,28 +4,24 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
+      <div class="navbar-header" style="margin: 0px -155px">
          <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-         <ul class="nav navbar-nav">
-            <li style="margin: 0px 35px">
-               
-            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search" >
-               <div class="form-group">
-                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." size="40" required>
-               </div>
-              
-
-               
-               
-               
-            </form>
-            <button style="margin: 8px -15px" class="btn btn-default">Advanced</button> 
-         </li>
+       
         
                @if(email == null) {
+               	  <ul class="nav navbar-nav">
+                 <li  style="margin: 0px 155px">
+               <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
             <li>
                <h4>
                   <p style="color: #000">Hello   
@@ -41,6 +37,19 @@
             </li>
          </ul>
          } else {
+          <ul class="nav navbar-nav">
+                 <li  style="margin: 0px 235px">
+              <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+            
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                  
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
+      
          <ul class='nav navbar-nav pull-right'>
 
                     <li class='dropdown'>
