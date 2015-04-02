@@ -189,8 +189,12 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return
 	 */
-	public static Result update (int id){	
+	public static Result updateP (int id){	
+		Logger.info("NALAZIM SE U UPDATE-U");
 		Product updateProduct= Product.find(id);
+		if(updateProduct.sold==true){
+			updateProduct.sold=false;
+		}
 		updateProduct.name=productForm.bindFromRequest().field("name").value();
 		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
 		updateProduct.description=productForm.bindFromRequest().field("description").value();

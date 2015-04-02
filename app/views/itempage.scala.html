@@ -67,11 +67,7 @@
 </nav>
 <body>
 <div class="container">
- @if(flash.get("guest")){
-        <div class="alert alert-error" role="alert">
-                       <h2 style="strong">@flash.get("guest")</h2> 
-                  </div>
-         }
+ 
 	<div style="margin: 80px -15px" class="row">
    <div class="col-md-5">
    <centar>
@@ -121,9 +117,11 @@
          </h3>
          <p> @product.description </p>
          @if((email==null)||(User.find(email).admin == false)) {
+         	@if((product.sold==false)&&(session().get("email")!=product.owner.email)){
             	<a href="/producttocart/@product.id"
             	<button type="button" class="btn btn-warning">Add to Cart</button>
             	</a>
+            	}
             	}
       </div>
    </div>

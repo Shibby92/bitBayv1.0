@@ -1,5 +1,7 @@
-@(email: String,orders: List[Orders], faqs: List[FAQ])
-@main("Orders") {
+@(paymentID:String,payerID:String,token:String,email: String,orders: List[Orders], faqs: List[FAQ])
+@main("Confirm") {
+	<head><h1>Confirm order:</h1></head>
+	<br><br>
 <body>
   <!-- Navigation -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -27,6 +29,7 @@
                      <a href="/login">
                      <button class="btn btn-success btn-login"> Log in</button> 
                      </a>
+                     or 
                      <a href="/toregister">
                      <button class="btn btn-success btn-register" >Register</button>
                      </a>
@@ -34,7 +37,7 @@
                </h4>
             </li>
          </ul>
-         }else{
+         } else {
       
          <li >
             <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -42,13 +45,19 @@
              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
                    <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
                    <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   
+                 
+
+
+                  }
                   <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
                </ul>
          </li>
          </ul>
@@ -60,15 +69,10 @@
 </nav>
    <!-- Page Content -->
    <div class="container">
-    @if(flash.get("refund")){
-         <div class="alert alert-success" role="alert">
-                        @flash.get("refund")
-                  </div>
-                  }
    @if(orders.isEmpty){
 							<h3><center><strong>You have no orders!</strong></center></h3>
 							}else{
-      <legend>Your Orders: </legend>
+      
       <div class="row">
         
          <table class="table table-bordered">	
@@ -88,25 +92,30 @@
                     	<p>@product.name ($ @product.price)</p>
                     }
                     </td>
-                    <td><span class="price">$ @order.price,-</span>
-                    <a href ="/refundorder/@order.id">
-                    	<button type="button" class="btn btn-warning">Refund</button></td>
-                   </a>
+                    <td><span class="price">$&nbsp;@order.price,-</span></td>
+                   
         </tr>
-        </div>
-        </tbody>
          }
+      </tbody>
       </table>
-}
-      
+
+      </div>
       }
+   </div>
+   <div>
+   <a href="@routes.UserLoginApplication.orderSuccess(paymentID,payerID,token)">
+            	 <button type="button" class="btn btn-warning">Confirm</button>
+            	</a>
+            	<a href="/orderfail"
+            	<button type="button" class="btn btn-warning">Cancel</button>
+            	</a>
    </div>
       <div class="container">
       <hr>
       <a href="/contactpage">
          <h3>Contact Us</h3>
       </a>
-      <a href="/faq">
+      <a href="faq">
          <h3> FAQs</h3>
       </a>
    </div>
