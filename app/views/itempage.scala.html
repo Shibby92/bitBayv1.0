@@ -67,6 +67,7 @@
 </nav>
 <body>
 <div class="container">
+ 
 	<div style="margin: 80px -15px" class="row">
    <div class="col-md-5">
    <centar>
@@ -116,18 +117,20 @@
          </h3>
          <p> @product.description </p>
          @if((email==null)||(User.find(email).admin == false)) {
+         	@if((product.sold==false)&&(session().get("email")!=product.owner.email)){
             	<a href="/producttocart/@product.id"
             	<button type="button" class="btn btn-warning">Add to Cart</button>
             	</a>
+            	}
             	}
       </div>
      
      	<table class='table'>
 		<thead> <tr> <th style="float: left"> Comments: </th>  </tr>  </thead>
 		<tbody>
- 		@if(comments.get(0) != null) {
+ 		@if(comments != null) {
 				@for(comment <- comments){
-												
+							@if(comment.product == product) {
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
@@ -136,8 +139,9 @@
 									<td>
 									
 									<li>
-										
-										<p> <strong>@session().get("email"): </strong> @comment.comment </p>
+									
+										<p> <strong>@comment.owner.email: </strong> @comment.comment </p>
+										}
 										
 										@if(session().get("email") != null) {
 										@if(User.find(session().get("email")).admin) { 
@@ -147,7 +151,7 @@
 										
 										
 										}  
-										}
+										
 										</li>
 										
 										</td>
@@ -157,6 +161,7 @@
 									</div>					
 								</div>
 							</div>
+							}
 							}
 							}
 		</tbody>

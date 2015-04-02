@@ -92,11 +92,12 @@ public class ProductApplication extends Controller {
 	}
 		
 		String image1 = image_urls.get(0);
+		if(image_urls.size()>1){
 		if(image_urls.get(1) != null)
 			image2 = image_urls.get(1);
 		if(image_urls.get(2) != null)
 			image3 = image_urls.get(2);
-
+		}
 		if(image_urls.size() == 1)
 				Product.create(name, price, User.find(session().get("email")),
 						description,id,image1);
@@ -188,8 +189,12 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return
 	 */
-	public static Result update (int id){	
+	public static Result updateP (int id){	
+		Logger.info("NALAZIM SE U UPDATE-U");
 		Product updateProduct= Product.find(id);
+		if(updateProduct.sold==true){
+			updateProduct.sold=false;
+		}
 		updateProduct.name=productForm.bindFromRequest().field("name").value();
 		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
@@ -404,6 +409,10 @@ public class ProductApplication extends Controller {
 
 	public static Result productToCart(int id) {
 		String email = session().get("email");
+		if(session().isEmpty()){
+			flash("guest","Please log in to buy stuff!");
+			return redirect("/login");
+		}
 		int userid = User.findUser.where().eq("email", session().get("email"))
 				.findUnique().id;
 		Logger.info(String.valueOf(userid));
@@ -434,11 +443,12 @@ public class ProductApplication extends Controller {
 	
 	public static Result addNewComment(int id) {
 		DynamicForm form = Form.form().bindFromRequest();
+		Product p = Product.find(id);
 		String comment = form.get("comment");
-		Comment.createComment(comment, User.find(session().get("email")));
+		Comment.createComment(comment, User.find(session().get("email")), p);
 		Logger.info("New comment added: " + comment);
 		flash("success", "New comment added");
-		Product p = Product.find(id);
+	
 		List<String> list = new ArrayList<String>();
 		list.add(p.image1);
 		list.add(p.image2);

@@ -3,15 +3,14 @@ package models;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.*;
 
 import play.Logger;
-import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
 
 /**
  * Creates product/add
@@ -36,7 +35,8 @@ public class Product extends Model {
 	
 	@ManyToOne
 	public User owner;
-
+	
+	@Version
 	public Date created;
 
 	
@@ -101,6 +101,7 @@ public class Product extends Model {
 		this.owner = owner;
 		this.description = description;
 		this.category_id=id;
+		this.image_url=image1;
 		this.image1 = image1;
 		this.image_urls.add(image1);
 		this.sold=false;
@@ -196,7 +197,8 @@ public class Product extends Model {
 	}
 	public static void update(Product product) {
 		Logger.info(""+product.name);
-		product.save();
+		Logger.debug(product.name);
+		product.update();
 	}
 	
 	public static List<Product> myProducts(int id) {
@@ -238,9 +240,6 @@ public class Product extends Model {
 	public static List<String> allImages(int id) {
 		return find.byId(id).image_urls;
 	}
-
 	
-	
- 
 
 }

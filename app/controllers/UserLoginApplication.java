@@ -2,6 +2,7 @@ package controllers;
 
 import helpers.*;
 
+import java.util.List;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -254,8 +255,11 @@ public class UserLoginApplication extends Controller {
 		try {
 			String total=String.valueOf(Cart.getCart(session().get("email")).checkout);
 			String accessToken = new OAuthTokenCredential(
-					"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
-					"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe")
+					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
+					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai"
+					//"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
+				//	"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe"
+					)
 					.getAccessToken();
 
 			Map<String, String> sdkConfig = new HashMap<String, String>();
@@ -277,8 +281,8 @@ public class UserLoginApplication extends Controller {
 			payment.setPayer(payer);
 			payment.setTransactions(transactions);
 			RedirectUrls redirectUrls = new RedirectUrls();
-			redirectUrls.setCancelUrl("http://localhost:9000/creditfail");
-			redirectUrls.setReturnUrl("http://localhost:9000/creditsuccess");
+			redirectUrls.setCancelUrl("http://localhost:9000/orderfail");
+			redirectUrls.setReturnUrl("http://localhost:9000/orderconfirm");
 			payment.setRedirectUrls(redirectUrls);
 			Payment createdPayment = payment.create(apiContext);
 			Iterator<Links> itr = createdPayment.getLinks().iterator();
@@ -298,41 +302,79 @@ public class UserLoginApplication extends Controller {
 
 	}
 
-	public static Result creditSuccess() {
+	public static Result orderConfirm(){
+		String email = session().get("email");
+		String paymentID = null;
+		String payerID = null;
+		String token=null;
+	
+		try{
+			DynamicForm paypalReturn = Form.form().bindFromRequest();
+			//String paymentID = paypalReturn.get("paymentId");
+			 paymentID = paypalReturn.get("paymentId");
+			 payerID = paypalReturn.get("PayerID");
+			 
+			 token = paypalReturn.get("token");
+			String accessToken = new OAuthTokenCredential(
+					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
+					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai"
+					//"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
+					//"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe"
+					)
+					.getAccessToken();
+			Map<String, String> sdkConfig = new HashMap<String, String>();
+			sdkConfig.put("mode", "sandbox");
+			APIContext apiContext = new APIContext(accessToken);
+			apiContext.setConfigurationMap(sdkConfig);
+//			
+			Payment payment= Payment.get(accessToken, paymentID);
+			User user=User.find(session().get("email"));
+			Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
+			order.save();
+			user.orderList.add(order);
+			user.update();
+			User temp=User.find(session().get("email"));
+			Cart.clear(temp.id);
+			Iterator<Product> itr = order.productList.iterator();
+			while (itr.hasNext()) {
+				Product product=itr.next();
+				product.order=order;
+				product.sold=true;
+				product.update();
+				
+			}
+			//Cart.clear(temp.id);
+		} catch (PayPalRESTException e) {
+			// TODO Auto-generated catch block
+			Logger.warn(e.getMessage());
+			}
+		
+		return ok(confirmorder.render(paymentID,payerID,token,email,User.find(session().get("email")).orderList,  FAQ.all()));	
+		}
+	
+	public static Result orderSuccess(String paymentId,String payerId,String token) {
 		String email = session().get("email");
 		try{
 		DynamicForm paypalReturn = Form.form().bindFromRequest();
-		String paymentID = paypalReturn.get("paymentId");
-		String payerID = paypalReturn.get("PayerID");
-		String token = paypalReturn.get("token");
+		//String paymentID = paypalReturn.get("paymentID");
+	String paymentID=paymentId;
+	String payerID = payerId;
+		String ttoken = token;
 		String accessToken = new OAuthTokenCredential(
-				"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
-				"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe")
+				"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
+				"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai"
+				//"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
+				//"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe"
+				)
 				.getAccessToken();
 		Map<String, String> sdkConfig = new HashMap<String, String>();
 		sdkConfig.put("mode", "sandbox");
 		APIContext apiContext = new APIContext(accessToken);
 		apiContext.setConfigurationMap(sdkConfig);
-		
 		Payment payment= Payment.get(accessToken, paymentID);
 		PaymentExecution paymentExecution=new PaymentExecution();
 		paymentExecution.setPayerId(payerID);
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
-		User temp=User.find(session().get("email"));
-		Orders order= new Orders(Cart.getCart(session().get("email")),temp,token);
-		order.save();
-		temp.orderList.add(order);
-		temp.update();
-		Cart.clear(temp.id);
-		Iterator<Product> itr = order.productList.iterator();
-		while (itr.hasNext()) {
-			Product product=itr.next();
-			product.order=order;
-			product.sold=true;
-			product.update();
-			
-		}
-		Cart.clear(temp.id);
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}
@@ -340,9 +382,20 @@ public class UserLoginApplication extends Controller {
 		return ok(orderpage.render(email,User.find(session().get("email")).orderList,  FAQ.all()));
 	}
 
-	public static Result creditFail() {
-		return ok(creditresult.render("nije proslo"));
+	public static Result orderFail() {
+		//return ok(creditresult.render("nije proslo"));
+		flash("failBuy", "Transaction canceled!");
+		return ok(orderresult.render());
 
+	}
+	public static Result refundOrder(int id){
+		RefundHelper.send(Orders.find(id).buyer.email, Orders.find(id).token);
+		
+		
+		String href="/orderpage/"+Orders.find(id).buyer.id;
+		flash("refund","Token has been sent to your email!");
+		return redirect(href);
+		
 	}
 	
 	/*******************************************************************/

@@ -21,16 +21,20 @@ public class Comment extends Model {
 	@ManyToOne
 	public User owner;
 	
+	@OneToOne
+	public Product product;
+	
 	static Finder<Integer, Comment> find = new Finder<Integer, Comment>(Integer.class, Comment.class);
 	
 	
-	public Comment(String comment, User owner) {
+	public Comment(String comment, User owner, Product product) {
 		this.comment = comment;
 		this.owner = owner;
+		this.product = product;
 	}
 	
-	public static int createComment(String comment, User owner) {
-		Comment c = new Comment(comment, owner);
+	public static int createComment(String comment, User owner, Product product) {
+		Comment c = new Comment(comment, owner, product);
 		c.save();
 		return c.id;
 	}

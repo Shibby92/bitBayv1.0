@@ -81,8 +81,7 @@ public class User extends Model {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
 	public List<Orders> orderList;
-
-	 static Finder<Integer, User> find = new Finder<Integer, User>(
+	static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);
 	public static Finder<Integer, User> findUser = new Finder<Integer, User>(
 			Integer.class, User.class);
