@@ -97,23 +97,6 @@ public class UserLoginApplication extends Controller {
 	// tries to register user
 	// if there is already user with the same username he gets redirected to
 	// login page
-<<<<<<< HEAD
-	// if the user gets registered, he gets redirected to his home page
-	public static Result register() {
-		DynamicForm form = loginUser.form().bindFromRequest();
-		if (form.get("username").equals("") || form.get("password").equals(""))
-			return ok(toregister.render(loginUser));
-		else {
-
-			User u = loginUser.bindFromRequest().get();
-			if (User.create(u.username, u.password)) {
-				return redirect("/homepage");
-			}
-
-			return ok(toregister.render(loginUser));
-		}
-
-=======
 	// if the user gets registered, he gets a verification email on his email
 	// address
 	@SuppressWarnings("static-access")
@@ -144,7 +127,6 @@ public class UserLoginApplication extends Controller {
 			return ok(toregister.render(loginUser, email, FAQ.all()));
 		}
 
->>>>>>> novoEmina
 	}
 
 	// goes to page where the user can be registered
