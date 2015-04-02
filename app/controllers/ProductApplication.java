@@ -76,7 +76,8 @@ public class ProductApplication extends Controller {
 //		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
 		//double price= 100;
 		double price = Double.valueOf(form.get("price"));
-		
+		int quantity=Integer.valueOf(form.get("quantity"));
+
 		String description = form.get("description");
 		//String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
@@ -99,15 +100,17 @@ public class ProductApplication extends Controller {
 			image3 = image_urls.get(2);
 		}
 		if(image_urls.size() == 1)
-				Product.create(name, price, User.find(session().get("email")),
-						description,id,image1);
+				//Product.create(name, price, User.find(session().get("email")),description,id,image1);
+			Product.create(name, price,quantity, User.find(session().get("email")),
+					description,id,image1);
 		if(image_urls.size() == 2)
-			Product.create(name, price, User.find(session().get("email")),
-					description,id,image1, image2);
+			//Product.create(name, price, User.find(session().get("email")),description,id,image1, image2);
+			Product.create(name, price,quantity, User.find(session().get("email")),
+					description,id,image1,image2);
 		if(image_urls.size() == 3)
-			Product.create(name, price, User.find(session().get("email")),
+			//Product.create(name, price, User.find(session().get("email")),description,id,image1, image2, image3);
+			Product.create(name, price,quantity, User.find(session().get("email")),
 					description,id,image1, image2, image3);
-		
 
 				Logger.info("User with email: " + session().get("email") + "created product with name: " + name);
 				return redirect("/homepage");
@@ -384,7 +387,7 @@ public class ProductApplication extends Controller {
 		list.add(p.image1);
 		list.add(p.image2);
 		list.add(p.image3);
-		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), list));
+		return ok(itempage.render(session("email"), p, FAQ.all(), list));
 		
 	}
 	

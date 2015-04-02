@@ -136,6 +136,40 @@ public class Product extends Model {
 		this.sold=false;
 	}
 	
+	public Product(String name, double price, int quantity, User owner, String description, int id, String image1,String image2) {
+		this.name = name;
+		this.price = price;
+		this.quantity=quantity;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.image1 = image1;
+		this.image2 = image2;
+	}
+	
+	public Product(String name, double price, int quantity, User owner, String description, int id, String image1) {
+		this.name = name;
+		this.price = price;
+		this.quantity=quantity;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.image1 = image1;
+		
+	}
+	
+	public Product(String name, double price, int quantity, User owner, String description, int id, String image1,String image2,String image3) {
+		this.name = name;
+		this.price = price;
+		this.quantity=quantity;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.image1 = image1;
+		this.image2 = image2;
+		this.image3 = image3;
+	}
+
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
 		new Product(name,  price, owner, description,id,image1).save();
 	}
@@ -152,6 +186,17 @@ public class Product extends Model {
 		new Product(name, category_id, owner, created, quantity, price, description, image_url).save();
 	}
 	
+	public static void create(String name, double price, int quantity, User owner, String description, int id, String image1,String image2) {
+		new Product(name,  price,quantity, owner, description,id,image1,image2).save();
+		}
+	
+	public static void create(String name, double price, int quantity, User owner, String description, int id, String image1) {
+		new Product(name,  price,quantity, owner, description,id,image1).save();
+		}
+	
+	public static void create(String name, double price, int quantity, User owner, String description, int id, String image1,String image2,String image3) {
+		new Product(name,  price,quantity, owner, description,id,image1,image2,image3).save();
+		}
 	/**
 	 * finds a product by his id
 	 * @param id int id of the product
@@ -241,6 +286,8 @@ public class Product extends Model {
 	public static List<String> allImages(int id) {
 		return find.byId(id).image_urls;
 	}
+
+	
 	
 
 }
