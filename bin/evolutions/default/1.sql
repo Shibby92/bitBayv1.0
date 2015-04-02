@@ -24,6 +24,10 @@ create table faq (
   constraint pk_faq primary key (id))
 ;
 
+create table image (
+  product_id                integer)
+;
+
 create table orders (
   id                        integer not null,
   buyer_id                  integer,
@@ -98,6 +102,8 @@ drop table if exists cart;
 drop table if exists category;
 
 drop table if exists faq;
+
+drop table if exists image;
 
 drop table if exists orders;
 
