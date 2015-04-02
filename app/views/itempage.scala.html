@@ -122,6 +122,11 @@
             	<button type="button" class="btn btn-warning">Add to Cart</button>
             	</a>
             	}
+            	@if(session().get("email")!=product.owner.email){
+            	<a href="/contactsellerpage/@product.id"
+            	<button type="button" class="btn btn-success">Contact seller</button>
+            	</a>
+            	}
             	}
       </div>
      

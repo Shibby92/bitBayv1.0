@@ -12,12 +12,19 @@ import java.util.UUID;
 
 import javax.swing.ImageIcon;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.io.Files;
 
+import controllers.UserLoginApplication.Contact;
 import models.*;
 import play.Logger;
+import play.Play;
 import play.data.*;
 import play.db.ebean.Model.Finder;
+import play.libs.F.Function;
+import play.libs.F.Promise;
+import play.libs.ws.WS;
+import play.libs.ws.WSResponse;
 import play.mvc.*;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
@@ -466,6 +473,69 @@ public class ProductApplication extends Controller {
 		return redirect("/itempage/" + p_id);
 		
 	}
+	
+	public static Result contactSellerPage(int id) {
+		String email = session().get("email");
+		Logger.info("User with email: " + session().get("email") + " has opened contact us page");
+	
+		return ok(contactseller.render(email, FAQ.all(), Product.find(id)));
+
+	}
+	
+	public static Promise<Result> contactSeller(int id) {
+		 final String userEmail = session().get("email");
+		//need this to get the google recapctha value
+		 final DynamicForm temp = DynamicForm.form().bindFromRequest();
+		
+		/* send a request to google recaptcha api with the value of our secret code and the value
+		 * of the recaptcha submitted by the form */
+		Promise<Result> holder = WS
+				.url("https://www.google.com/recaptcha/api/siteverify")
+				.setContentType("application/x-www-form-urlencoded")
+				.post(String.format(
+						"secret=%s&response=%s",
+						// get the API key from the config file
+						Play.application().configuration()
+								.getString("recaptchaKey"),
+						temp.get("g-recaptcha-response")))
+				.map(new Function<WSResponse, Result>() {
+					// once we get the response this method is loaded
+					public Result apply(WSResponse response) {
+						// get the response as JSON
+						JsonNode json = response.asJson();
+						System.out.println(json);
+						System.out.println(temp.get("g-recaptcha-response"));
+						Form<Contact> submit = Form.form(Contact.class)
+								.bindFromRequest();
+
+						// check if value of success is true
+						if (json.findValue("success").asBoolean() == true
+								&& !submit.hasErrors()) {
+
+							final String email= temp.get("email");
+							final String message= temp.get("message");
+							
+								ContactHelper.send(email, Product.find(id).owner.email, message);
+							
+							flash("success", "Message sent!");
+							
+								Logger.info("User with email: " + session().get("email") + " has sent message to seller: " + Product.find(id).owner.email);
+							return redirect("/contactsellerpage");
+						} else {
+							
+								Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
+							flash("error", "You have to confirm that you are not a robot!");
+							return ok(contactseller.render(userEmail, FAQ.all(), Product.find(id) ));
+
+
+						}
+					}
+				});
+		// return the promisse
+		return holder;
+	}
+
+
 	
 	
 	}
