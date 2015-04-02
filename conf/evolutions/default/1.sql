@@ -46,7 +46,6 @@ create table product (
   category_id               integer,
   cart_id                   integer,
   owner_id                  integer,
-  created                   timestamp,
   quantity                  integer,
   price                     double,
   description               varchar(255),
@@ -56,6 +55,7 @@ create table product (
   image3                    varchar(255),
   order_id                  integer,
   sold                      boolean,
+  created                   timestamp not null,
   constraint pk_product primary key (id))
 ;
 

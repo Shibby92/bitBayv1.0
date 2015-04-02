@@ -36,7 +36,8 @@ public class Product extends Model {
 	
 	@ManyToOne
 	public User owner;
-
+	
+	@Version
 	public Date created;
 
 	
@@ -197,7 +198,8 @@ public class Product extends Model {
 	}
 	public static void update(Product product) {
 		Logger.info(""+product.name);
-		product.save();
+		Logger.debug(product.name);
+		product.update();
 	}
 	
 	public static List<Product> myProducts(int id) {

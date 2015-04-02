@@ -328,15 +328,13 @@ public class UserLoginApplication extends Controller {
 			apiContext.setConfigurationMap(sdkConfig);
 //			
 			Payment payment= Payment.get(accessToken, paymentID);
-//			PaymentExecution paymentExecution=new PaymentExecution();
-//			paymentExecution.setPayerId(payerID);
-//			Payment newPayment=payment.execute(apiContext, paymentExecution);
 			User user=User.find(session().get("email"));
 			Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
 			order.save();
 			user.orderList.add(order);
 			user.update();
-		//	Cart.clear(temp.id);
+			User temp=User.find(session().get("email"));
+			Cart.clear(temp.id);
 			Iterator<Product> itr = order.productList.iterator();
 			while (itr.hasNext()) {
 				Product product=itr.next();
@@ -373,26 +371,10 @@ public class UserLoginApplication extends Controller {
 		sdkConfig.put("mode", "sandbox");
 		APIContext apiContext = new APIContext(accessToken);
 		apiContext.setConfigurationMap(sdkConfig);
-		
 		Payment payment= Payment.get(accessToken, paymentID);
 		PaymentExecution paymentExecution=new PaymentExecution();
 		paymentExecution.setPayerId(payerID);
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
-		User temp=User.find(session().get("email"));
-		Orders order= new Orders(Cart.getCart(session().get("email")),temp,ttoken);
-		order.save();
-		temp.orderList.add(order);
-		temp.update();
-		Cart.clear(temp.id);
-		Iterator<Product> itr = order.productList.iterator();
-		while (itr.hasNext()) {
-			Product product=itr.next();
-			product.order=order;
-			product.sold=true;
-			product.update();
-			
-		}
-		Cart.clear(temp.id);
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}
