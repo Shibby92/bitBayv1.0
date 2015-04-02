@@ -1,5 +1,3 @@
-
-
 package models;
 
 import java.io.File;

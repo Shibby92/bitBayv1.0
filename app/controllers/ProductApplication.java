@@ -379,7 +379,7 @@ public class ProductApplication extends Controller {
 		list.add(p.image1);
 		list.add(p.image2);
 		list.add(p.image3);
-		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), list));
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), list, Comment.all()));
 		
 	}
 	
@@ -431,4 +431,31 @@ public class ProductApplication extends Controller {
 
 	}
 	/***************************************************************/
+	
+	public static Result addNewComment(int id) {
+		DynamicForm form = Form.form().bindFromRequest();
+		String comment = form.get("comment");
+		Comment.createComment(comment, User.find(session().get("email")));
+		Logger.info("New comment added: " + comment);
+		flash("success", "New comment added");
+		Product p = Product.find(id);
+		List<String> list = new ArrayList<String>();
+		list.add(p.image1);
+		list.add(p.image2);
+		list.add(p.image3);
+		List<Comment> list2 = Comment.all();
+		
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), list, list2));
+		
+	}
+	
+	public static Result deleteComment(int id, int p_id){
+		Comment.delete(id);
+		Logger.warn("Comment with id: " + id + " has been deleted");
+		flash("success", "Comment deleted!");
+		return redirect("/itempage/" + p_id);
+		
+	}
+	
+	
 	}

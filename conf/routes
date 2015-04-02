@@ -64,6 +64,9 @@ GET    /updatefaq/:id           controllers.FAQController.toUpdateFAQ(id: Intege
 GET    /deletefaq               controllers.FAQController.deleteFAQ(id: Integer)
 
 
+GET		/itempage/:idc/:idp		controllers.ProductApplication.deleteComment(idc: Integer, idp: Integer)
+POST	/itempage/:id			controllers.ProductApplication.addNewComment(id: Integer)
+
 GET		/search					controllers.SearchController.search(q: String)
 GET		/searchusers					controllers.SearchController.searchUsers(q: String)
 
