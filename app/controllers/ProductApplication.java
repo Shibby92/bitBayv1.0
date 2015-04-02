@@ -92,11 +92,12 @@ public class ProductApplication extends Controller {
 	}
 		
 		String image1 = image_urls.get(0);
+		if(image_urls.size()>1){
 		if(image_urls.get(1) != null)
 			image2 = image_urls.get(1);
 		if(image_urls.get(2) != null)
 			image3 = image_urls.get(2);
-
+		}
 		if(image_urls.size() == 1)
 				Product.create(name, price, User.find(session().get("email")),
 						description,id,image1);
@@ -404,6 +405,10 @@ public class ProductApplication extends Controller {
 
 	public static Result productToCart(int id) {
 		String email = session().get("email");
+		if(session().isEmpty()){
+			flash("guest","Please log in to buy stuff!");
+			return redirect("/login");
+		}
 		int userid = User.findUser.where().eq("email", session().get("email"))
 				.findUnique().id;
 		Logger.info(String.valueOf(userid));

@@ -67,6 +67,11 @@
 </nav>
 <body>
 <div class="container">
+ @if(flash.get("guest")){
+        <div class="alert alert-error" role="alert">
+                       <h2 style="strong">@flash.get("guest")</h2> 
+                  </div>
+         }
 	<div style="margin: 80px -15px" class="row">
    <div class="col-md-5">
    <centar>

@@ -101,6 +101,7 @@ public class Product extends Model {
 		this.owner = owner;
 		this.description = description;
 		this.category_id=id;
+		this.image_url=image1;
 		this.image1 = image1;
 		this.image_urls.add(image1);
 		this.sold=false;
