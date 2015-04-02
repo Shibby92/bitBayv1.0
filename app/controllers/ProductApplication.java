@@ -63,6 +63,8 @@ public class ProductApplication extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result addAdditionalInfo(int id) {
+		String image2 = null;
+		String image3 = null;
 		
 		//Form <Product> form=productForm.bindFromRequest();
 		DynamicForm form = Form.form().bindFromRequest();
@@ -79,16 +81,31 @@ public class ProductApplication extends Controller {
 		//String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
 		List<String> image_urls = savePicture(id);
+			
 		for(String image_url: image_urls) {
 			
 			if(image_url == null) {
 				flash("error", "Image not valid!");
 				return redirect("/addproductpage/" + id);
 			}
+			
 	}
-		//String image_url = savePicture(id);
+		
+		String image1 = image_urls.get(0);
+		if(image_urls.get(1) != null)
+			image2 = image_urls.get(1);
+		if(image_urls.get(2) != null)
+			image3 = image_urls.get(2);
+
+		if(image_urls.size() == 1)
 				Product.create(name, price, User.find(session().get("email")),
-						description,id,image_urls);
+						description,id,image1);
+		if(image_urls.size() == 2)
+			Product.create(name, price, User.find(session().get("email")),
+					description,id,image1, image2);
+		if(image_urls.size() == 3)
+			Product.create(name, price, User.find(session().get("email")),
+					description,id,image1, image2, image3);
 		
 
 				Logger.info("User with email: " + session().get("email") + "created product with name: " + name);
@@ -281,7 +298,6 @@ public class ProductApplication extends Controller {
 		List<FilePart> fileParts = body.getFiles();
 		for(FilePart filePart: fileParts) {
 		//filePart = body.getFile("image_url");
-		
 		if (filePart == null) {
 			Logger.debug("File part is null");
 			return null;
@@ -357,7 +373,13 @@ public class ProductApplication extends Controller {
 			Logger.info("Guest has opened item with id: " + id);
 		else
 			Logger.info("User with email: " + session().get("email") + " opened item with id: " + id);
-		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), Product.find(id).allImages()));
+		
+		Product p = Product.find(id);
+		List<String> list = new ArrayList<String>();
+		list.add(p.image1);
+		list.add(p.image2);
+		list.add(p.image3);
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), list));
 		
 	}
 	

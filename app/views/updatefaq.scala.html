@@ -54,7 +54,7 @@
 
                   }
                   <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                </ul>
          </li>
          </ul>
@@ -66,9 +66,10 @@
 </nav>
 	<div class="row" align="center">
 		@if(flash.get("success")) {
-			< <div class="alert alert-success" role="alert">
+			 <div class="alert alert-success" role="alert">
                      <div class="container">
                         @flash.get("success")
+                     </div>
                      </div>
 			}
 			 <div class="col-md-6 column">

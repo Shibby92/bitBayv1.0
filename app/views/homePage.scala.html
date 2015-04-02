@@ -23,11 +23,11 @@
             <li>
                <h4>
                   <p style="color: #000">Hello   
-                     <a href="login">
+                     <a href="/login">
                      <button class="btn btn-success btn-login"> Log in</button> 
                      </a>
                      or 
-                     <a href="toregister">
+                     <a href="/toregister">
                      <button class="btn btn-success btn-register" >Register</button>
                      </a>
                   </p>
@@ -47,16 +47,16 @@
                   
                   } else {
                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="addproductcategory"> Add New Product</a></li>      
-                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
 
-                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
-                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
                  
 
                   }
                   <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                </ul>
             </li>
          </ul>
@@ -136,7 +136,7 @@
    <a href="/contactpage">
       <h3>Contact Us</h3>
    </a>
-   <a href="faq">
+   <a href="/faq">
       <h3> FAQs</h3>
    </a>
 </div>
