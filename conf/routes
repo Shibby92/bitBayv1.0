@@ -80,6 +80,8 @@ GET    /assets/*file            controllers.Assets.at(path="/public", file)
 
 GET		/cartpage/:id			controllers.ProductApplication.cartPage(id: Integer)
 GET    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
+POST    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
+
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcessing()

@@ -80,7 +80,9 @@
             <a href="#">
             <img class="img-responsive" src="@routes.Assets.at(product.image_url)" width="700" height="400" alt="">
             </a>
-            <h3 class="pull-right">@product.price</h3>
+            <h4 class="pull-right">Price:@product.price</h4>
+             <h4 class="pull-right">Ordered:@product.orderedQuantity</h4>
+            
             <h3>
                <a href="itempage/@product.id">@product.name</a>
             </h3>
@@ -94,7 +96,7 @@
       </div>
        @if(cart.checkout>0){
       <p>--------------------------------------------------------------------------------------------</p>
-        <p>Total price @cart.checkout</p>
+        <p><h1>Total price @cart.checkout</h1></p>
         
         <form action="/creditpurchase" method="POST">
 	<a href="/creditpurchase" data-paypal-button="true">

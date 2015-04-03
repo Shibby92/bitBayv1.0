@@ -117,14 +117,16 @@
          </h3>
          @if((email==null)||(User.find(email).admin == false)) {
          	@if((product.sold==false)&&(session().get("email")!=product.owner.email)){
-         <div class="container">
-   <dl class=" " id="quantity_field">
-                     <dt><label for="quantity">Quantity:</label> </dt>
-                     <dd><input name="quantity" id="quantity" value='' placeholder="Enter quantity " type="number" step="1" min="0"  max="999999" class="form-control" required/> </dd>
-                  </dl></div>}
-                  
+    <form action="@routes.ProductApplication.productToCart(product.id)"  method="POST" enctype="multipart/form-data">
+    <div class="container">
+   <dl class=" " id="orderedQuantity_field">
+                     <dt><label for="orderedQuantity">Quantity:</label> </dt>
+                     <dd><input name="orderedQuantity" id="orderedQuantity" value='1' placeholder="Enter quantity " type="number" step="1" min="0"  max="999999" class="form-control" required/> </dd>
+                  </dl></div>
+                  </form>
+                     }
                   }
-                  <p> On Stock: @product.quantity </p>
+                  <p><h4> On Stock: @product.quantity </h4></h2></p>
          <p> @product.description </p>
          @if((email==null)||(User.find(email).admin == false)) {
          	@if((product.sold==false)&&(session().get("email")!=product.owner.email)){

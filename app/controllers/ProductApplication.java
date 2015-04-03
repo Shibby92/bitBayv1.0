@@ -411,6 +411,14 @@ public class ProductApplication extends Controller {
 	
 
 	public static Result productToCart(int id) {
+		DynamicForm form = Form.form().bindFromRequest();
+		//int orderedQuantity=Integer.valueOf(form.get("orderedQuantity"));
+		if(form.get("orderedQuantity")==null)
+				return TODO;
+		int orderedQuantity=Integer.parseInt(form.get("orderedQuantity"));
+
+		Product p=find.byId(id);
+		p.setOrderedQuantity(orderedQuantity);
 		String email = session().get("email");
 		if(session().isEmpty()){
 			flash("guest","Please log in to buy stuff!");
@@ -419,14 +427,14 @@ public class ProductApplication extends Controller {
 		int userid = User.findUser.where().eq("email", session().get("email"))
 				.findUnique().id;
 		Logger.info(String.valueOf(userid));
-		Cart temp = cartFinder.where().eq("userid", userid).findUnique();
-		if(temp.productList!=null){
-		if(temp.productList.contains(find.byId(id))){
+		Cart cart = cartFinder.where().eq("userid", userid).findUnique();
+		if(cart.productList!=null){
+		if(cart.productList.contains(find.byId(id))){
 			flash("error","You have added that product already!");
 			return ok(cartpage.render(email,Cart.getCart(userid), FAQ.all()));
 		}
 		}
-		Cart.addProduct(find.byId(id), temp);
+		Cart.addProduct(find.byId(id), cart);
 		return ok(cartpage.render(email,Cart.getCart(userid), FAQ.all()));
 	}
 

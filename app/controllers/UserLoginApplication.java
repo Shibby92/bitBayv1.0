@@ -333,8 +333,7 @@ public class UserLoginApplication extends Controller {
 			order.save();
 			user.orderList.add(order);
 			user.update();
-			User temp=User.find(session().get("email"));
-			Cart.clear(temp.id);
+			Cart.clear(user.id);
 			Iterator<Product> itr = order.productList.iterator();
 			while (itr.hasNext()) {
 				Product product=itr.next();
@@ -375,6 +374,15 @@ public class UserLoginApplication extends Controller {
 		PaymentExecution paymentExecution=new PaymentExecution();
 		paymentExecution.setPayerId(payerID);
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
+		User currUser=User.find(session().get("email"));
+		List<Orders> userOrders=currUser.orderList;
+		for(Orders order:userOrders){
+			for(Product product:order.productList){
+				int leftQuantity=product.getQuantity()-product.getOrderedQuantity();
+				product.setQuantity(leftQuantity);
+				product.setOrderedQuantity(0);
+			}
+		}
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}

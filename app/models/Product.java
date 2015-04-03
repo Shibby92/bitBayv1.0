@@ -18,6 +18,10 @@ import play.db.ebean.Model;
  * @author eminamuratovic
  *
  */
+/**
+ * @author user
+ *
+ */
 @Entity
 public class Product extends Model {
 
@@ -40,7 +44,7 @@ public class Product extends Model {
 	@Version
 	public Date created;
 
-	
+	@Required
 	public int quantity;
 
 	@Required
@@ -68,6 +72,7 @@ public class Product extends Model {
 	
 	public List<String> image_urls = new ArrayList<String>();
 	
+	public int orderedQuantity;
 
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
@@ -206,6 +211,14 @@ public class Product extends Model {
 		return find.byId(id);
 	}
 
+	public int getOrderedQuantity() {
+		return orderedQuantity;
+	}
+
+	public void setOrderedQuantity(int orderedQuantity) {
+		this.orderedQuantity = orderedQuantity;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -257,6 +270,14 @@ public class Product extends Model {
 		return this.image1;
 	}
 	
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public String getSecondPic() {
 		return this.image2;
 	}

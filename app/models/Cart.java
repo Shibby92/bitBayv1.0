@@ -43,7 +43,7 @@ public class Cart extends Model {
 		cart.productList.add(product);
 		Logger.info("nalazim se u add product");
 		product.cart = cart;
-		cart.checkout += product.price;
+		cart.checkout += product.price*product.orderedQuantity;
 		cart.update();
 		product.update();
 	}
