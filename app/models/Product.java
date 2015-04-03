@@ -1,6 +1,8 @@
 package models;
 
 import java.io.File;
+import java.sql.Timestamp;
+//import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -23,6 +25,7 @@ import play.db.ebean.Model;
  *
  */
 @Entity
+//@EntityConcurrencyMode(ConcurrencyMode.NONE)
 public class Product extends Model {
 
 	@Id
@@ -99,6 +102,7 @@ public class Product extends Model {
 		this.description = description;
 		this.image_url = image_url;
 		this.sold=false;
+		this.orderedQuantity=1;
 	}
 	
 	public Product(String name, double price, User owner, String description,int id, String image1) {
@@ -111,6 +115,8 @@ public class Product extends Model {
 		this.image1 = image1;
 		this.image_urls.add(image1);
 		this.sold=false;
+		this.orderedQuantity=1;
+
 	}
 	
 	public Product(String name, double price, User owner, String description,int id, String image1, String image2) {
@@ -124,6 +130,8 @@ public class Product extends Model {
 		this.image2 = image2;
 		this.image_urls.add(image2);
 		this.sold=false;
+		this.orderedQuantity=1;
+
 	}
 	
 	public Product(String name, double price, User owner, String description,int id, String image1, String image2, String image3) {
@@ -139,6 +147,8 @@ public class Product extends Model {
 		this.image3 = image3;
 		this.image_urls.add(image3);
 		this.sold=false;
+		this.orderedQuantity=1;
+
 	}
 	
 	public Product(String name, double price, int quantity, User owner, String description, int id, String image1,String image2) {
@@ -150,6 +160,8 @@ public class Product extends Model {
 		this.category_id=id;
 		this.image1 = image1;
 		this.image2 = image2;
+		this.orderedQuantity=1;
+
 	}
 	
 	public Product(String name, double price, int quantity, User owner, String description, int id, String image1) {
@@ -160,6 +172,8 @@ public class Product extends Model {
 		this.description = description;
 		this.category_id=id;
 		this.image1 = image1;
+		this.orderedQuantity=1;
+
 		
 	}
 	
@@ -173,6 +187,8 @@ public class Product extends Model {
 		this.image1 = image1;
 		this.image2 = image2;
 		this.image3 = image3;
+		this.orderedQuantity=1;
+
 	}
 
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {

@@ -66,23 +66,23 @@
    <!-- /.container -->
 </nav>
    <!-- Page Content -->
-   <div class="container">
+  <div class="container">
    @if(flash.get("error")){
-							    <div class="container">
-                        @flash.get("error")
-                     </div>
-                  </div>
+							<h2><center><strong>@flash.get("error")</strong></center></h2>
 							}
+                  
+							
       <legend>Your Cart: </legend>
-      <div class="row">
+      <div>
          @for(product <- cart.productList){           
          <div class="col-md-4 portfolio-item">
             <a href="#">
             <img class="img-responsive" src="@routes.Assets.at(product.image_url)" width="700" height="400" alt="">
             </a>
-            <h4 class="pull-right">Price:@product.price</h4>
-             <h4 class="pull-right">Ordered:@product.orderedQuantity</h4>
-            
+            <ol>
+          <il>  <h4 class="pull-right">Price:@product.price</h4></il>
+         <il>   <h4 class="pull-right">Quantity:@product.orderedQuantity</h4></il>
+            </ol>
             <h3>
                <a href="itempage/@product.id">@product.name</a>
             </h3>
@@ -96,7 +96,9 @@
       </div>
        @if(cart.checkout>0){
       <p>--------------------------------------------------------------------------------------------</p>
-        <p><h1>Total price @cart.checkout</h1></p>
+          <div class="container">
+    
+        <p><h2>Total price @cart.checkout</h2></p>
         
         <form action="/creditpurchase" method="POST">
 	<a href="/creditpurchase" data-paypal-button="true">
@@ -104,6 +106,7 @@
   </button>
 </a>
 </form>
+
 }else{
 <p> Your cart is empty</p>
 }

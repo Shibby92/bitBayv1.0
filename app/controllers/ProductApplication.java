@@ -198,9 +198,16 @@ public class ProductApplication extends Controller {
 		if(updateProduct.sold==true){
 			updateProduct.sold=false;
 		}
+		
+	     if ( productForm.hasErrors() ) {
+	        return TODO;
+	     } else {
+	        
 		updateProduct.name=productForm.bindFromRequest().field("name").value();
 		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
+		updateProduct.quantity=Integer.parseInt(productForm.bindFromRequest().field("quantity").value());
+
 		String image_url = updatePicture(id);
 		if(image_url == null){
 			flash("error", "Image not valid!");
@@ -212,6 +219,7 @@ public class ProductApplication extends Controller {
 		if(User.find(session().get("email")).admin)
 			return redirect("/profile");
 		return redirect("/myproducts/" + User.find(session().get("email")).id);	
+	     }
 	}
 	
 	
@@ -412,14 +420,15 @@ public class ProductApplication extends Controller {
 
 	public static Result productToCart(int id) {
 		DynamicForm form = Form.form().bindFromRequest();
-		//int orderedQuantity=Integer.valueOf(form.get("orderedQuantity"));
 		if(form.get("orderedQuantity")==null)
-				return TODO;
-		//int orderedQuantity=Integer.parseInt(form.get("orderedQuantity"));
-		int orderedQuantity=5;
-
+			return TODO;
+		int orderedQuantity=Integer.valueOf(form.get("orderedQuantity"));
 		Product p=find.byId(id);
 		p.setOrderedQuantity(orderedQuantity);
+		if(orderedQuantity>p.getQuantity()){
+			flash("excess","You cannot order quantity that exceeds one available on stock!");
+			return redirect("/itempage/"+id);
+		}
 		String email = session().get("email");
 		if(session().isEmpty()){
 			flash("guest","Please log in to buy stuff!");
@@ -428,26 +437,36 @@ public class ProductApplication extends Controller {
 		int userid = User.findUser.where().eq("email", session().get("email"))
 				.findUnique().id;
 		Logger.info(String.valueOf(userid));
+
+		Logger.info(String.valueOf("Naruceno: "+orderedQuantity));
+		
+		p.setOrderedQuantity(orderedQuantity);
+		p.save();
 		Cart cart = cartFinder.where().eq("userid", userid).findUnique();
-		if(cart.productList!=null){
-		if(cart.productList.contains(find.byId(id))){
+		//if(cart.productList!=null){
+		if(cart.productList.contains(p)){
 			flash("error","You have added that product already!");
-			return ok(cartpage.render(email,Cart.getCart(userid), FAQ.all()));
+			return ok(cartpage.render(email,cart, FAQ.all()));
 		}
-		}
-		Cart.addProduct(find.byId(id), cart);
-		return ok(cartpage.render(email,Cart.getCart(userid), FAQ.all()));
+		Cart.addProduct(p, cart);
+		//cart.save();
+		Logger.info(String.valueOf("Naruceno posle: "+p.orderedQuantity));
+		return ok(cartpage.render(email,cart, FAQ.all()));
+
+		
+
 	}
+
 
 	public static Result deleteProductFromCart(int id) {
 		String email = session().get("email");
-		Product toDelete = find.byId(id);
-		Cart cart = toDelete.cart;
-		cart.productList.remove(toDelete);
-		cart.checkout-=toDelete.price;
-		toDelete.cart = null;
+		Product productDel = find.byId(id);
+		Cart cart = productDel.cart;
+		cart.productList.remove(productDel);
+		cart.checkout-=productDel.price*productDel.getOrderedQuantity();
+		productDel.cart = null;
 		cart.update();
-		toDelete.update();
+		productDel.update();
 		return ok(cartpage.render(email,cart, FAQ.all()));
 
 	}

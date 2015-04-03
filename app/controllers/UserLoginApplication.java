@@ -381,6 +381,7 @@ public class UserLoginApplication extends Controller {
 				int leftQuantity=product.getQuantity()-product.getOrderedQuantity();
 				product.setQuantity(leftQuantity);
 				product.setOrderedQuantity(0);
+				product.save();
 			}
 		}
 	} catch (PayPalRESTException e) {
