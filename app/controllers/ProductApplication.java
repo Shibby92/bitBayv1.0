@@ -415,7 +415,8 @@ public class ProductApplication extends Controller {
 		//int orderedQuantity=Integer.valueOf(form.get("orderedQuantity"));
 		if(form.get("orderedQuantity")==null)
 				return TODO;
-		int orderedQuantity=Integer.parseInt(form.get("orderedQuantity"));
+		//int orderedQuantity=Integer.parseInt(form.get("orderedQuantity"));
+		int orderedQuantity=5;
 
 		Product p=find.byId(id);
 		p.setOrderedQuantity(orderedQuantity);
