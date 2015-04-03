@@ -1,0 +1,126 @@
+@(email: String,faqs: List[FAQ], product: Product)
+@main("Contact us"){
+<body>
+   <!-- Navigation -->
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header">
+            <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+         </div>
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+               <li>
+                  <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                     <div class="form-group">
+                        <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+                     </div>
+                     <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+                  </form>
+               </li>
+               @if(email == null) {
+               <li>
+                  <h4>
+                     <p style="color: #000">Hello, please  
+                        <a href="/login">
+                        <button class="btn btn-success btn-login"> Log in</button> 
+                        </a>
+                        or 
+                        <a href="/toregister">
+                        <button class="btn btn-success btn-register" >Register</button>
+                        </a>
+                     </p>
+                  </h4>
+               </li>
+            </ul>
+            } else {
+            <li >
+               <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+               <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                 @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
+                  } else {
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
+
+
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+               </ul>
+            </li>
+            </ul>
+            }
+         </div>
+         <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+   </nav>
+   <div style="margin: 80.5px -15px" class="row">
+      <div class="col-md-12">
+         <center>
+            @if(flash.get("success")){
+              <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("success")
+                     </div>
+                  </div>
+                  }
+                  @if(flash.get("error")){
+             <div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
+            }
+            <div class="col-sm-offset-4 col-sm-3">
+               <div  class="well login-box" >
+                  <legend>Contact Seller: @product.owner.email</legend>
+                  <form action="/contactseller/@product.id" method="post">
+                     <div class="form-horizontal">
+                        <div class="form-group">
+                           <label class=" control-label required" for="yourEmail">Your Email</label>
+                           <div >@if(email==null){
+                              <input type="email" id="email" name="email" value="" placeholder="Enter email" class="form-control" required
+                              } else {
+                              <input type="email" id="email" name="email" value=@email placeholder="Enter email" class="form-control" required>
+                              }
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label class=" control-label required" for="yourMessage" >Your Message</label>
+                           <textarea rows="4" cols="40" id="message" name="message" value="" placeholder="Enter your message" class="form-control" required></textarea>
+                        </div>
+                        <div class="g-recaptcha form-group" data-sitekey="6LcQrwMTAAAAAGQWadA5axJJ0LESg0CUYWQtJ9SK"></div>
+                        <div class="form-group text-center">
+                           <button type="submit" class="btn btn-large btn-primary ">Send</button><img class="ajax-loader" src="http://www.YOURSITE.com/wp-content/plugins/contact-form-7/images/ajax-loader.gif" alt="Sending ..." style="visibility: hidden; opacity: 1;"/>
+                        </div>
+                     </div>
+               </div>
+               </form>
+            </div>
+      </div>
+   </div>
+   </center>
+   </div>
+   <div class="container">
+      <hr>
+      <a href="/contactpage">
+         <h3>Contact Us</h3>
+      </a>
+      <a href="/faq">
+         <h3> FAQs</h3>
+      </a>
+   </div>
+   <!-- /.container -->
+   <script src='https://www.google.com/recaptcha/api.js'></script>
+	<body>
+</body>
+}
