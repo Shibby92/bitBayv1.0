@@ -75,12 +75,13 @@
       <hr>
       <div class="row">
        
-            <form  method="GET" action="/advencedsearch" role="search">
+            <form  id="categories" method="GET" action="/advancedsearchpage" role="search">
               <div class="col-sm-3" style="margin: -6.5px 0px">
                <dl >
                   <dt><label>Select Category</label></dt>
                   <dd>
-                     <select  width: 100px>
+                     <select  form="categories" width: 100px class="form-control">
+                     
                         @for(category <- categoryList){
                         <option>@category.name</option>
                         }
@@ -90,7 +91,7 @@
                <dl >
                   <dt><label >Product</label></dt>
                   <dd>
-                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Product ..." >
+                     <input type="text" class="form-control" size="40" placeholder="Product ..." >
                   </dd>
                </dl>
                </div>
@@ -98,13 +99,13 @@
                <dl  >
                   <dt><label >Description</label></dt>
                   <dd>
-                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Description..." >
+                     <input type="text" class="form-control" size="40" placeholder="Description..." >
                   </dd>
                </dl>
                <dl  >
                   <dt><label >Price</label></dt>
                   <dd>
-                    <input type="text" class="form-control" name="q" id="q" size="5" placeholder="From.." ><input type="text" style="margin: -33.5px 290px" class="form-control" name="q" id="q" size="5" placeholder="To..." >
+                    <input type="text" class="form-control" size="5" placeholder="From.." ><input type="text" style="margin: -33.5px 290px" class="form-control" size="5" placeholder="To..." >
                   </dd>
                
                </dl>

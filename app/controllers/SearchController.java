@@ -3,8 +3,8 @@ package controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
+
+
 
 import models.*;
 import play.data.DynamicForm;
@@ -41,7 +41,9 @@ public class SearchController extends Controller{
 	}
 	
 	public static Result advancedSearchpage() {
+		
 		DynamicForm form = Form.form().bindFromRequest();
+		
 		Category category = Category.findCategory.where().eq(form.data().get("category"), "name").findUnique();
 		String productName = form.data().get("name");
 		String description = form.data().get("description");
