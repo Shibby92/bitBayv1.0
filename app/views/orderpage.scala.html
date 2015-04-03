@@ -27,7 +27,6 @@
                      <a href="/login">
                      <button class="btn btn-success btn-login"> Log in</button> 
                      </a>
-                     or 
                      <a href="/toregister">
                      <button class="btn btn-success btn-register" >Register</button>
                      </a>
@@ -35,7 +34,7 @@
                </h4>
             </li>
          </ul>
-         } else {
+         }else{
       
          <li >
             <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -43,17 +42,11 @@
              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
                    <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
                    <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
-                   
-                 
-
-
-                  }
                   <li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                </ul>
@@ -67,6 +60,11 @@
 </nav>
    <!-- Page Content -->
    <div class="container">
+    @if(flash.get("refund")){
+         <div class="alert alert-success" role="alert">
+                        @flash.get("refund")
+                  </div>
+                  }
    @if(orders.isEmpty){
 							<h3><center><strong>You have no orders!</strong></center></h3>
 							}else{
@@ -90,14 +88,17 @@
                     	<p>@product.name ($ @product.price)</p>
                     }
                     </td>
-                    <td><span class="price">$&nbsp;@order.price,-</span></td>
-                   
+                    <td><span class="price">$ @order.price,-</span>
+                    <a href ="/refundorder/@order.id">
+                    	<button type="button" class="btn btn-warning">Refund</button></td>
+                   </a>
         </tr>
+        </div>
+        </tbody>
          }
-      </tbody>
       </table>
-
-      </div>
+}
+      
       }
    </div>
       <div class="container">

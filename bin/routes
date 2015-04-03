@@ -25,7 +25,7 @@ GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
 POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer)
-POST 	/updateproduct/:id		controllers.ProductApplication.update(id:Integer)
+POST 	/updateproduct/:id		controllers.ProductApplication.updateP(id:Integer)
 GET 	/productpage			controllers.ProductApplication.productPage()
 GET 	/profile			controllers.UserController.profile()
 #POST    /pictureupload          controllers.ProductApplication.savePicture(id:Integer)
@@ -64,6 +64,9 @@ GET    /updatefaq/:id           controllers.FAQController.toUpdateFAQ(id: Intege
 GET    /deletefaq               controllers.FAQController.deleteFAQ(id: Integer)
 
 
+GET		/itempage/:idc/:idp		controllers.ProductApplication.deleteComment(idc: Integer, idp: Integer)
+POST	/itempage/:id			controllers.ProductApplication.addNewComment(id: Integer)
+
 GET		/search					controllers.SearchController.search(q: String)
 GET		/searchusers					controllers.SearchController.searchUsers(q: String)
 
@@ -72,6 +75,11 @@ GET		/searchusers					controllers.SearchController.searchUsers(q: String)
 
 GET    /contactpage             controllers.UserLoginApplication.contactPage()
 POST   /contact                 controllers.UserLoginApplication.contact()
+
+GET		/contactsellerpage/:id		controllers.ProductApplication.contactSellerPage(id: Integer)
+POST	/contactseller/:id				controllers.ProductApplication.contactSeller(id: Integer)
+GET		/contactseller/:id				controllers.ProductApplication.contactSeller(id: Integer)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file            controllers.Assets.at(path="/public", file)
@@ -83,9 +91,10 @@ GET    /producttocart/:id       controllers.ProductApplication.productToCart(id:
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcessing()
-GET    /creditsuccess           controllers.UserLoginApplication.creditSuccess()
-GET    /creditfail              controllers.UserLoginApplication.creditFail()
-
+GET    /ordersuccess    controllers.UserLoginApplication.orderSuccess(paymentID:String,payerID:String,token:String)
+GET    /orderfail              controllers.UserLoginApplication.orderFail()
+GET		/orderconfirm			controllers.UserLoginApplication.orderConfirm()
+GET		/refundorder/:id			controllers.UserLoginApplication.refundOrder(id: Integer)
 #Order routes
 
 GET		/orderpage/:id			controllers.OrderController.orderPage(id: Integer)

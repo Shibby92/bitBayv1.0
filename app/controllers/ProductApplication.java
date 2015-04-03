@@ -12,12 +12,19 @@ import java.util.UUID;
 
 import javax.swing.ImageIcon;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.io.Files;
 
+import controllers.UserLoginApplication.Contact;
 import models.*;
 import play.Logger;
+import play.Play;
 import play.data.*;
 import play.db.ebean.Model.Finder;
+import play.libs.F.Function;
+import play.libs.F.Promise;
+import play.libs.ws.WS;
+import play.libs.ws.WSResponse;
 import play.mvc.*;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
@@ -63,6 +70,8 @@ public class ProductApplication extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result addAdditionalInfo(int id) {
+		String image2 = null;
+		String image3 = null;
 		
 		//Form <Product> form=productForm.bindFromRequest();
 		DynamicForm form = Form.form().bindFromRequest();
@@ -79,16 +88,32 @@ public class ProductApplication extends Controller {
 		//String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
 		List<String> image_urls = savePicture(id);
+			
 		for(String image_url: image_urls) {
 			
 			if(image_url == null) {
 				flash("error", "Image not valid!");
 				return redirect("/addproductpage/" + id);
 			}
+			
 	}
-		//String image_url = savePicture(id);
+		
+		String image1 = image_urls.get(0);
+		if(image_urls.size()>1){
+		if(image_urls.get(1) != null)
+			image2 = image_urls.get(1);
+		if(image_urls.get(2) != null)
+			image3 = image_urls.get(2);
+		}
+		if(image_urls.size() == 1)
 				Product.create(name, price, User.find(session().get("email")),
-						description,id,image_urls);
+						description,id,image1);
+		if(image_urls.size() == 2)
+			Product.create(name, price, User.find(session().get("email")),
+					description,id,image1, image2);
+		if(image_urls.size() == 3)
+			Product.create(name, price, User.find(session().get("email")),
+					description,id,image1, image2, image3);
 		
 
 				Logger.info("User with email: " + session().get("email") + "created product with name: " + name);
@@ -171,17 +196,47 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return
 	 */
-	public static Result update (int id){	
+	public static Result updateP (int id){	
+		String image1 = null;
+		String image2 = null;
+		String image3 = null;
+		Logger.info("Opened page for updating producct");
 		Product updateProduct= Product.find(id);
+		if(updateProduct.sold==true){
+			updateProduct.sold=false;
+		}
 		updateProduct.name=productForm.bindFromRequest().field("name").value();
 		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
-		String image_url = updatePicture(id);
+		List<String> image_urls = updatePicture(id);
+		Logger.info(image_urls.get(0) + "     " + image_urls.get(1) + "     " + image_urls.get(2));
+		for(String image_url: image_urls) {
 		if(image_url == null){
 			flash("error", "Image not valid!");
 			return redirect("/updateproduct/" + id);
 		}
-		updateProduct.image_url = image_url;
+		}
+		updateProduct.image1 = image_urls.get(0);
+		List<String> list = new ArrayList<String>();
+		image1 = image_urls.get(0);
+		list.add(image1);
+		if(image_urls.size()>1){
+		if(image_urls.get(1) != null) {
+			updateProduct.image2 = image_urls.get(1);
+			image2 = image_urls.get(1);
+			list.add(image2);
+		}
+		if(image_urls.size()>2) {
+		if(image_urls.get(2) != null) {
+			updateProduct.image3 = image_urls.get(2);
+			image3 = image_urls.get(2);
+			list.add(image3);
+		}
+		}
+		}
+
+		updateProduct.image_urls = list;
+		
 		Product.update(updateProduct);
 		Logger.info("Product with id: " + id + " has been updated");
 		if(User.find(session().get("email")).admin)
@@ -195,15 +250,15 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return result 
 	 */
-	public static String updatePicture(int id){
-		MultipartFormData body = request().body().asMultipartFormData(); 
-		FilePart filePart = body.getFile("image_url");
-		if(filePart  == null){
+	public static List<String> updatePicture(int id){
+//		MultipartFormData body = request().body().asMultipartFormData(); 
+//		FilePart filePart = body.getFile("image_url");
+		List<String> image_urls = new ArrayList<String>();
+		MultipartFormData body = request().body().asMultipartFormData();
+		List<FilePart> fileParts = body.getFiles();
+		for(FilePart filePart: fileParts) {
+		if (filePart == null) {
 			Logger.debug("File part is null");
-			flash("error","File part is null");
-//			if(User.find(session().get("email")).admin)
-//				return redirect("/profile");
-//			return redirect("/myproducts");
 			return null;
 		}
 		Logger.debug("Content type: " + filePart.getContentType());
@@ -255,7 +310,7 @@ public class ProductApplication extends Controller {
 //			if(User.find(session().get("email")).admin)
 //				return redirect("/profile");
 //			return redirect("/myproducts");
-			return image_url;
+			image_urls.add(image_url);
 			
 		} catch (IOException e) {
 			Logger.error("Failed to move file");
@@ -266,6 +321,9 @@ public class ProductApplication extends Controller {
 //			return redirect("/myproducts");
 			return null;
 		}
+		}
+		
+		return image_urls;
 
 		
 	}
@@ -281,7 +339,6 @@ public class ProductApplication extends Controller {
 		List<FilePart> fileParts = body.getFiles();
 		for(FilePart filePart: fileParts) {
 		//filePart = body.getFile("image_url");
-		
 		if (filePart == null) {
 			Logger.debug("File part is null");
 			return null;
@@ -357,7 +414,13 @@ public class ProductApplication extends Controller {
 			Logger.info("Guest has opened item with id: " + id);
 		else
 			Logger.info("User with email: " + session().get("email") + " opened item with id: " + id);
-		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), Product.find(id).allImages(id)));
+		
+		Product p = Product.find(id);
+		List<String> list = new ArrayList<String>();
+		list.add(p.image1);
+		list.add(p.image2);
+		list.add(p.image3);
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), list, Comment.all()));
 		
 	}
 	
@@ -382,6 +445,10 @@ public class ProductApplication extends Controller {
 
 	public static Result productToCart(int id) {
 		String email = session().get("email");
+		if(session().isEmpty()){
+			flash("guest","Please log in to buy stuff!");
+			return redirect("/login");
+		}
 		int userid = User.findUser.where().eq("email", session().get("email"))
 				.findUnique().id;
 		Logger.info(String.valueOf(userid));
@@ -409,4 +476,95 @@ public class ProductApplication extends Controller {
 
 	}
 	/***************************************************************/
+	
+	public static Result addNewComment(int id) {
+		DynamicForm form = Form.form().bindFromRequest();
+		Product p = Product.find(id);
+		String comment = form.get("comment");
+		Comment.createComment(comment, User.find(session().get("email")), p);
+		Logger.info("New comment added: " + comment);
+		flash("success", "New comment added");
+	
+		List<String> list = new ArrayList<String>();
+		list.add(p.image1);
+		list.add(p.image2);
+		list.add(p.image3);
+		List<Comment> list2 = Comment.all();
+		
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), list, list2));
+		
+	}
+	
+	public static Result deleteComment(int id, int p_id){
+		Comment.delete(id);
+		Logger.warn("Comment with id: " + id + " has been deleted");
+		flash("success", "Comment deleted!");
+		return redirect("/itempage/" + p_id);
+		
+	}
+	
+	public static Result contactSellerPage(int id) {
+		String email = session().get("email");
+		Logger.info("User with email: " + session().get("email") + " has opened contact us page");
+	
+		return ok(contactseller.render(email, FAQ.all(), Product.find(id)));
+
+	}
+	
+	public static Promise<Result> contactSeller(int id) {
+		 final String userEmail = session().get("email");
+		//need this to get the google recapctha value
+		 final DynamicForm temp = DynamicForm.form().bindFromRequest();
+		
+		/* send a request to google recaptcha api with the value of our secret code and the value
+		 * of the recaptcha submitted by the form */
+		Promise<Result> holder = WS
+				.url("https://www.google.com/recaptcha/api/siteverify")
+				.setContentType("application/x-www-form-urlencoded")
+				.post(String.format(
+						"secret=%s&response=%s",
+						// get the API key from the config file
+						Play.application().configuration()
+								.getString("recaptchaKey"),
+						temp.get("g-recaptcha-response")))
+				.map(new Function<WSResponse, Result>() {
+					// once we get the response this method is loaded
+					public Result apply(WSResponse response) {
+						// get the response as JSON
+						JsonNode json = response.asJson();
+						System.out.println(json);
+						System.out.println(temp.get("g-recaptcha-response"));
+						Form<Contact> submit = Form.form(Contact.class)
+								.bindFromRequest();
+
+						// check if value of success is true
+						if (json.findValue("success").asBoolean() == true
+								&& !submit.hasErrors()) {
+
+							final String email= temp.get("email");
+							final String message= temp.get("message");
+							
+								ContactHelper.send(email, Product.find(id).owner.email, message);
+							
+							flash("success", "Message sent!");
+							
+								Logger.info("User with email: " + session().get("email") + " has sent message to seller: " + Product.find(id).owner.email);
+							return redirect("/contactsellerpage/" + id);
+						} else {
+							
+								Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
+							flash("error", "You have to confirm that you are not a robot!");
+							return ok(contactseller.render(userEmail, FAQ.all(), Product.find(id) ));
+
+
+						}
+					}
+				});
+		// return the promisse
+		return holder;
+	}
+
+
+	
+	
 	}

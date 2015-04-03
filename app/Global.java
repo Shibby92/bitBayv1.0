@@ -23,6 +23,10 @@ public class Global extends GlobalSettings {
 			User u2 = new User("mustafa@gmail.com",
 					HashHelper.createPassword("123456"), false, true);
 			User.create(u2);
+			
+			User u3 = new User("emina.muratovic@bitcamp.ba", HashHelper.createPassword("emina"), false, true);
+			u.username = "Emina";
+			User.create(u3);
 
 		}
 
@@ -38,19 +42,20 @@ public class Global extends GlobalSettings {
 
 
 		if (Product.find(1) == null) {
-			List<String>list=new ArrayList<String>();
-			list.add("images/bitbaySlika2.jpg");
+			
 			Product.create(
 					"House",
 					100000,User.find(2),
 					"This house has got four bedrooms, a living-room, a dining-room, a kitchen",
-					1,list);
+					1,"images/logo.png");
 
 			Product.create(
 					"Mazda",
 					25000,User.find(2),
 					"Auto mazda mx-5 skoro novo!!!",
-					2,list);
+					2,"images/logo.png");
+			
+			Product.create("Eminin proizvod", 2000, User.find(3), "Neki opis", 3, "eminamuratovic/Downloads/10846602_1024193347607270_1598213656_n.jpg");
 
 
 		}
