@@ -17,6 +17,14 @@ create table category (
   constraint pk_category primary key (id))
 ;
 
+create table comment (
+  id                        integer not null,
+  comment                   varchar(255),
+  owner_id                  integer,
+  product_id                integer,
+  constraint pk_comment primary key (id))
+;
+
 create table faq (
   id                        integer not null,
   question                  varchar(255),
@@ -46,7 +54,6 @@ create table product (
   category_id               integer,
   cart_id                   integer,
   owner_id                  integer,
-  created                   timestamp,
   quantity                  integer,
   price                     double,
   description               varchar(255),
@@ -56,6 +63,7 @@ create table product (
   image3                    varchar(255),
   order_id                  integer,
   sold                      boolean,
+  created                   timestamp not null,
   constraint pk_product primary key (id))
 ;
 
@@ -81,6 +89,8 @@ create sequence cart_seq;
 
 create sequence category_seq;
 
+create sequence comment_seq;
+
 create sequence faq_seq;
 
 create sequence image_seq;
@@ -91,16 +101,20 @@ create sequence product_seq;
 
 create sequence user_seq;
 
-alter table image add constraint fk_image_product_1 foreign key (product_id) references product (id) on delete restrict on update restrict;
-create index ix_image_product_1 on image (product_id);
-alter table orders add constraint fk_orders_buyer_2 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
-create index ix_orders_buyer_2 on orders (buyer_id);
-alter table product add constraint fk_product_cart_3 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
-create index ix_product_cart_3 on product (cart_id);
-alter table product add constraint fk_product_owner_4 foreign key (owner_id) references user (id) on delete restrict on update restrict;
-create index ix_product_owner_4 on product (owner_id);
-alter table product add constraint fk_product_order_5 foreign key (order_id) references orders (id) on delete restrict on update restrict;
-create index ix_product_order_5 on product (order_id);
+alter table comment add constraint fk_comment_owner_1 foreign key (owner_id) references user (id) on delete restrict on update restrict;
+create index ix_comment_owner_1 on comment (owner_id);
+alter table comment add constraint fk_comment_product_2 foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_comment_product_2 on comment (product_id);
+alter table image add constraint fk_image_product_3 foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_image_product_3 on image (product_id);
+alter table orders add constraint fk_orders_buyer_4 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_buyer_4 on orders (buyer_id);
+alter table product add constraint fk_product_cart_5 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
+create index ix_product_cart_5 on product (cart_id);
+alter table product add constraint fk_product_owner_6 foreign key (owner_id) references user (id) on delete restrict on update restrict;
+create index ix_product_owner_6 on product (owner_id);
+alter table product add constraint fk_product_order_7 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_product_order_7 on product (order_id);
 
 
 
@@ -111,6 +125,8 @@ SET REFERENTIAL_INTEGRITY FALSE;
 drop table if exists cart;
 
 drop table if exists category;
+
+drop table if exists comment;
 
 drop table if exists faq;
 
@@ -127,6 +143,8 @@ SET REFERENTIAL_INTEGRITY TRUE;
 drop sequence if exists cart_seq;
 
 drop sequence if exists category_seq;
+
+drop sequence if exists comment_seq;
 
 drop sequence if exists faq_seq;
 

@@ -29,6 +29,8 @@ public class Category extends Model {
 
 	static Finder<String, Category> find = new Finder<String, Category>(
 			String.class, Category.class);
+	public static Finder<String, Category> findCategory = new Finder<String, Category>(
+			String.class, Category.class);
 
 	public static int categoryId(String name) {
 		Category found = find.where().eq("name", name).findUnique();
@@ -56,5 +58,6 @@ public class Category extends Model {
 	public static Category find(int id) {
 		return findId.byId(id);
 	}
+
 
 }

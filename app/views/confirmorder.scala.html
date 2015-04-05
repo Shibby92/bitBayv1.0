@@ -1,0 +1,123 @@
+@(paymentID:String,payerID:String,token:String,email: String,orders: List[Orders], faqs: List[FAQ])
+@main("Confirm") {
+	<head><h1>Confirm order:</h1></head>
+	<br><br>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+            <li>
+              
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
+               @if(email == null) {
+            <li>
+               <h4>
+                  <p style="color: #000">Hello, please  
+                     <a href="/login">
+                     <button class="btn btn-success btn-login"> Log in</button> 
+                     </a>
+                     or 
+                     <a href="/toregister">
+                     <button class="btn btn-success btn-register" >Register</button>
+                     </a>
+                  </p>
+               </h4>
+            </li>
+         </ul>
+         } else {
+      
+         <li >
+            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                 @if(User.find(email).admin == true) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
+                  } else {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
+                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                   
+                 
+
+
+                  }
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+               </ul>
+         </li>
+         </ul>
+         }
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
+   <!-- Page Content -->
+   <div class="container">
+   @if(orders.isEmpty){
+							<h3><center><strong>You have no orders!</strong></center></h3>
+							}else{
+      
+      <div class="row">
+        
+         <table class="table table-bordered">	
+      <thead>
+        <tr>
+          <th>Order number</th>
+                <th>Products</th>
+                <th><span class="nobr">Total</span></th>
+        </tr>
+      </thead>
+      <tbody>
+       @for(order <- orders){
+        <tr>
+         <td>@order.id</td>
+          <td>
+                    @for(product <- order.productList){
+                    	<p>@product.name ($ @product.price)</p>
+                    }
+                    </td>
+                    <td><span class="price">$&nbsp;@order.price,-</span></td>
+                   
+        </tr>
+         }
+      </tbody>
+      </table>
+
+      </div>
+      }
+   </div>
+   <div>
+   <a href="@routes.UserLoginApplication.orderSuccess(paymentID,payerID,token)">
+            	 <button type="button" class="btn btn-warning">Confirm</button>
+            	</a>
+            	<a href="/orderfail"
+            	<button type="button" class="btn btn-warning">Cancel</button>
+            	</a>
+   </div>
+      <div class="container">
+      <hr>
+      <a href="/contactpage">
+         <h3>Contact Us</h3>
+      </a>
+      <a href="faq">
+         <h3> FAQs</h3>
+      </a>
+   </div>
+</body>
+}

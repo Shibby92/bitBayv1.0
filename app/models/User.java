@@ -6,20 +6,17 @@ import helpers.MailHelper;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.*;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.*;
 
-import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
-import play.mvc.Result;
 
 
 /**
@@ -84,8 +81,7 @@ public class User extends Model {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
 	public List<Orders> orderList;
-
-	 static Finder<Integer, User> find = new Finder<Integer, User>(
+	static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);
 	public static Finder<Integer, User> findUser = new Finder<Integer, User>(
 			Integer.class, User.class);
