@@ -63,10 +63,25 @@ public class Cart extends Model {
 
 	public static void clear(int id) {
 		Cart cart=getCart(id);
+		for(Product product:cart.productList){
+			product.cart=null;
+			product.update();
+		}
 		cart.productList.clear();
 		cart.checkout=0;
 		cart.update();
 		
+	}
+
+	public static Cart removeProductFromCart(int id) {
+		Product toDelete = Product.find.byId(id);
+		Cart cart = toDelete.cart;
+		cart.productList.remove(toDelete);
+		cart.checkout-=toDelete.price;
+		toDelete.cart = null;
+		cart.update();
+		toDelete.update();
+		return cart;
 	}
 	
 }

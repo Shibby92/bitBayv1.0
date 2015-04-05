@@ -47,13 +47,13 @@ public class Global extends GlobalSettings {
 					"House",
 					100000,User.find(2),
 					"This house has got four bedrooms, a living-room, a dining-room, a kitchen",
-					1,"images/logo.png");
+					1,"images/Logo.png");
 
 			Product.create(
 					"Mazda",
 					25000,User.find(2),
 					"Auto mazda mx-5 skoro novo!!!",
-					2,"images/logo.png");
+					2,"images/Logo.png");
 
 
 		}

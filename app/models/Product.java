@@ -14,6 +14,8 @@ import play.Logger;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
+import play.db.ebean.Model.*;
+
 
 /**
  * Creates product/add

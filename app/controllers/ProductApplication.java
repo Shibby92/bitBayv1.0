@@ -436,13 +436,7 @@ public class ProductApplication extends Controller {
 
 	public static Result deleteProductFromCart(int id) {
 		String email = session().get("email");
-		Product toDelete = find.byId(id);
-		Cart cart = toDelete.cart;
-		cart.productList.remove(toDelete);
-		cart.checkout-=toDelete.price;
-		toDelete.cart = null;
-		cart.update();
-		toDelete.update();
+		Cart cart=Cart.removeProductFromCart(id);
 		return ok(cartpage.render(email,cart, FAQ.all()));
 
 	}
@@ -482,7 +476,7 @@ public class ProductApplication extends Controller {
 
 	}
 	
-	public static Promise<Result> contactSeller(int id) {
+	public static Promise<Result> contactSeller(final int id) {
 		 final String userEmail = session().get("email");
 		//need this to get the google recapctha value
 		 final DynamicForm temp = DynamicForm.form().bindFromRequest();
