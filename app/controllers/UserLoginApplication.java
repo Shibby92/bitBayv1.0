@@ -270,7 +270,8 @@ public class UserLoginApplication extends Controller {
 			amount.setTotal(total+"0");
 			amount.setCurrency("USD");
 			Transaction transaction = new Transaction();
-			transaction.setDescription("Order via bitBay");
+			String stringCart=cartToString(Cart.getCart(session().get("email")));
+			transaction.setDescription(stringCart);
 			transaction.setAmount(amount);
 			List<Transaction> transactions = new ArrayList<Transaction>();
 			transactions.add(transaction);
@@ -302,7 +303,18 @@ public class UserLoginApplication extends Controller {
 
 	}
 
+	private static String cartToString(Cart cart) {
+		StringBuilder sb= new StringBuilder();
+		sb.append("Your order via bitBay: ");
+		for(Product product: cart.productList){
+			sb.append(product.name+" ("+product.price+"0 $), ");
+		}
+		sb.append("which is a total prize of: "+cart.checkout+"0 $");
+		return sb.toString();
+	}
+
 	public static Result orderConfirm(){
+		Logger.debug("NALAZIM SE U ORDER CONFIRM!");
 		String email = session().get("email");
 		String paymentID = null;
 		String payerID = null;
@@ -334,15 +346,17 @@ public class UserLoginApplication extends Controller {
 			user.orderList.add(order);
 			user.update();
 			User temp=User.find(session().get("email"));
-			Cart.clear(temp.id);
-			Iterator<Product> itr = order.productList.iterator();
-			while (itr.hasNext()) {
-				Product product=itr.next();
+			
+			Logger.debug("PRED FOR PETLJOM!");
+			for (Product product: order.productList) {
+				Logger.debug(product.name+"NALAZIM SE U TESTU ZA PAYPAL CONFIRM");
 				product.order=order;
 				product.sold=true;
 				product.update();
 				
 			}
+			Cart.clear(temp.id);
+			Logger.debug("POSLIJE FOR PETLJE");
 			//Cart.clear(temp.id);
 		} catch (PayPalRESTException e) {
 			// TODO Auto-generated catch block

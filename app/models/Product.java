@@ -1,21 +1,16 @@
-
-
 package models;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.*;
 
 import play.Logger;
-import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
-import play.db.ebean.Model.*;
-
+import play.db.ebean.Model.Finder;
 
 /**
  * Creates product/add
@@ -40,7 +35,8 @@ public class Product extends Model {
 	
 	@ManyToOne
 	public User owner;
-
+	
+	@Version
 	public Date created;
 
 	
@@ -105,6 +101,7 @@ public class Product extends Model {
 		this.owner = owner;
 		this.description = description;
 		this.category_id=id;
+		this.image_url=image1;
 		this.image1 = image1;
 		this.image_urls.add(image1);
 		this.image_url=this.image_urls.get(0);
@@ -141,6 +138,22 @@ public class Product extends Model {
 		this.sold=false;
 	}
 	
+	public Product(Product product) {
+		this.name = product.name;
+		this.price = product.price;
+		this.owner = product.owner;
+		this.description = product.description;
+		this.category_id=product.id;
+		this.image1 = product.image1;
+		this.image_urls.add(product.image1);
+		this.image2 = product.image2;
+		this.image_urls.add(product.image2);
+		this.image3 = product.image3;
+		this.image_urls.add(product.image3);
+		this.image_url=this.image_urls.get(0);
+		this.sold=false;
+	}
+
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
 		new Product(name,  price, owner, description,id,image1).save();
 	}
@@ -202,8 +215,7 @@ public class Product extends Model {
 		}
 	}
 	public static void update(Product product) {
-		Logger.info(""+product.name);
-		product.save();
+		product.update();
 	}
 	
 	public static List<Product> myProducts(int id) {
@@ -245,9 +257,6 @@ public class Product extends Model {
 	public static List<String> allImages(int id) {
 		return find.byId(id).image_urls;
 	}
-
 	
-	
- 
 
 }

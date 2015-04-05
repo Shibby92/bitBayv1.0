@@ -8,7 +8,6 @@ import play.db.ebean.Model;
 
 @Entity
 public class Image extends Model {
-	
 	@Id
 	public int id;
 	
@@ -62,5 +61,6 @@ public class Image extends Model {
 		}
 		return byProduct;
 	}
+
 
 }

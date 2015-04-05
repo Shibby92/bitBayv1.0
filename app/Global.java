@@ -54,6 +54,7 @@ public class Global extends GlobalSettings {
 					25000,User.find(2),
 					"Auto mazda mx-5 skoro novo!!!",
 					2,"images/Logo.png");
+			Product.create("Eminin proizvod", 2000, User.find(3), "Neki opis", 3, "images/Logo.png");
 
 
 		}

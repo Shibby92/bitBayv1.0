@@ -196,8 +196,11 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return
 	 */
-	public static Result updateP (int id){	
-		Logger.info("NALAZIM SE U UPDATE-U");
+	public static Result updateP (int id){
+		String image1 = null;
+		String image2 = null;
+		String image3 = null;
+		Logger.info("Opened page for updating producct");
 		Product updateProduct= Product.find(id);
 		if(updateProduct.sold==true){
 			updateProduct.sold=false;
@@ -205,12 +208,35 @@ public class ProductApplication extends Controller {
 		updateProduct.name=productForm.bindFromRequest().field("name").value();
 		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
-		String image_url = updatePicture(id);
+		List<String> image_urls = updatePicture(id);
+		Logger.info(image_urls.get(0) + "     " + image_urls.get(1) + "     " + image_urls.get(2));
+		for(String image_url: image_urls) {
 		if(image_url == null){
 			flash("error", "Image not valid!");
 			return redirect("/updateproduct/" + id);
 		}
-		updateProduct.image_url = image_url;
+		}
+		updateProduct.image1 = image_urls.get(0);
+		List<String> list = new ArrayList<String>();
+		image1 = image_urls.get(0);
+		list.add(image1);
+		if(image_urls.size()>1){
+		if(image_urls.get(1) != null) {
+			updateProduct.image2 = image_urls.get(1);
+			image2 = image_urls.get(1);
+			list.add(image2);
+		}
+		if(image_urls.size()>2) {
+		if(image_urls.get(2) != null) {
+			updateProduct.image3 = image_urls.get(2);
+			image3 = image_urls.get(2);
+			list.add(image3);
+		}
+		}
+		}
+
+		updateProduct.image_urls = list;
+		
 		Product.update(updateProduct);
 		Logger.info("Product with id: " + id + " has been updated");
 		if(User.find(session().get("email")).admin)
@@ -224,15 +250,15 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return result 
 	 */
-	public static String updatePicture(int id){
-		MultipartFormData body = request().body().asMultipartFormData(); 
-		FilePart filePart = body.getFile("image_url");
-		if(filePart  == null){
+	public static List<String> updatePicture(int id){
+//		MultipartFormData body = request().body().asMultipartFormData(); 
+//		FilePart filePart = body.getFile("image_url");
+		List<String> image_urls = new ArrayList<String>();
+		MultipartFormData body = request().body().asMultipartFormData();
+		List<FilePart> fileParts = body.getFiles();
+		for(FilePart filePart: fileParts) {
+		if (filePart == null) {
 			Logger.debug("File part is null");
-			flash("error","File part is null");
-//			if(User.find(session().get("email")).admin)
-//				return redirect("/profile");
-//			return redirect("/myproducts");
 			return null;
 		}
 		Logger.debug("Content type: " + filePart.getContentType());
@@ -284,7 +310,7 @@ public class ProductApplication extends Controller {
 //			if(User.find(session().get("email")).admin)
 //				return redirect("/profile");
 //			return redirect("/myproducts");
-			return image_url;
+			image_urls.add(image_url);
 			
 		} catch (IOException e) {
 			Logger.error("Failed to move file");
@@ -295,6 +321,9 @@ public class ProductApplication extends Controller {
 //			return redirect("/myproducts");
 			return null;
 		}
+		}
+		
+		return image_urls;
 
 		
 	}
@@ -402,6 +431,11 @@ public class ProductApplication extends Controller {
 	
 		
 	}
+	
+	
+	
+	
+	
 	/********************************************************************
 	 ************************* CART SECTION ****************************/
 
@@ -441,6 +475,11 @@ public class ProductApplication extends Controller {
 
 	}
 	/***************************************************************/
+	
+	
+	
+	
+	
 	
 	public static Result addNewComment(int id) {
 		DynamicForm form = Form.form().bindFromRequest();
@@ -527,6 +566,14 @@ public class ProductApplication extends Controller {
 				});
 		// return the promisse
 		return holder;
+	}
+	public static Result renew(int id){
+		Product temp=find.byId(id);
+		temp.sold=false;
+		temp.order=null;
+		temp.update();
+		flash("renew","Product "+temp.name+" has been successfully renewed!");
+		return redirect("/myproducts/"+User.find(session().get("email")).id);
 	}
 
 

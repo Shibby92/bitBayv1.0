@@ -113,15 +113,16 @@
 							<textarea rows="4" cols="50"  name="description" id="description" placeholder="Description of your product"
 						 class="form-control" required>@product.description </textarea>
 						
-						</dl>
-							<dl class=" " id="image_url">
-							<dt><label for="image_url">Image:</label> </dt>
-							<div class="form-group text-center">
-							<input type="file" name="image_url" id="image_url" value="@product.image_url"/> 
-							</div>
+						  <dl class=" " id="image_url">
+							<dt><label for="image_url">Select images:</label> </dt>
+							
+  								<input type="file" name="image_url" multiple>
+ 								 <input type="submit" class="btn btn-success" value="Update">
+								
 							</dl>
+                  <div class="form-group text-center">
 							<div class="form-group text-center">
-							<input type="submit"“ class="btn btn-success btn-login-submit" role="button" value="Update" /> 							
+							<!--  <input type="submit"“ class="btn btn-success btn-login-submit" role="button" value="Update" /> 	-->						
 							@if(User.find(session().get("email")).admin) {
 								<a href="/profile" class="btn btn-danger"> Back </a>
 								} else {

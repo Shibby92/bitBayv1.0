@@ -139,7 +139,7 @@
             	<button type="button" class="btn btn-warning">Add to Cart</button>
             	</a>
             	}
-            	@if(session().get("email")!=product.owner.email){
+            	@if(session().get("email")!=product.owner.email && session().get("email")!=null){
             	<a href="/contactsellerpage/@product.id"
             	<button type="button" class="btn btn-success">Contact seller</button>
             	</a>
