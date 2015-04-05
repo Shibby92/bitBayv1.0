@@ -105,6 +105,7 @@ public class Product extends Model {
 		this.category_id=id;
 		this.image1 = image1;
 		this.image_urls.add(image1);
+		this.image_url=this.image_urls.get(0);
 		this.sold=false;
 	}
 	
@@ -118,6 +119,7 @@ public class Product extends Model {
 		this.image_urls.add(image1);
 		this.image2 = image2;
 		this.image_urls.add(image2);
+		this.image_url=this.image_urls.get(0);
 		this.sold=false;
 	}
 	
@@ -133,6 +135,7 @@ public class Product extends Model {
 		this.image_urls.add(image2);
 		this.image3 = image3;
 		this.image_urls.add(image3);
+		this.image_url=this.image_urls.get(0);
 		this.sold=false;
 	}
 	
