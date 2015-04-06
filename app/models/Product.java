@@ -194,6 +194,7 @@ public class Product extends Model {
 		this.image3 = product.image3;
 		this.image_urls.add(product.image3);
 		this.image_url=this.image_urls.get(0);
+		this.quantity=product.quantity-product.orderedQuantity;
 		this.sold=false;
 	}
 	public Product(String name, double price, int quantity, User owner, String description, int id, String image1,String image2,String image3) {

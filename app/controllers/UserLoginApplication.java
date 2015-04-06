@@ -350,7 +350,9 @@ public class UserLoginApplication extends Controller {
 			for (Product product: order.productList) {
 				Logger.debug(product.name+"NALAZIM SE U TESTU ZA PAYPAL CONFIRM");
 				product.order=order;
-				product.sold=true;
+				if(product.quantity==product.orderedQuantity){
+					product.sold=true;	
+				}
 				product.update();
 				
 			}
