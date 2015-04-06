@@ -392,16 +392,25 @@ public class UserLoginApplication extends Controller {
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
 		User currUser=User.find(session().get("email"));
 		List<Orders> userOrders=currUser.orderList;
-		for(Orders order:userOrders){
-			for(Product product:order.productList){
-				if(product.getOrderedQuantity()>=product.getQuantity())
-					product.sold=true;
-				int leftQuantity=product.getQuantity()-product.getOrderedQuantity();
-				product.setQuantity(leftQuantity);
-				product.setOrderedQuantity(0);
-				product.update();
-			}
+		Iterator<Orders> orderIterator = userOrders.iterator();
+		while (orderIterator.hasNext()) {
+			Orders order=orderIterator.next();
+			Iterator<Product> productIterator = order.productList.iterator();
+			while (productIterator.hasNext()) {
+				Product p=productIterator.next();
+				if(p.getOrderedQuantity()>=p.getQuantity())
+					p.sold=true;
+				int leftQuantity=p.getQuantity()-p.getOrderedQuantity();
+				p.setQuantity(leftQuantity);
+				p.setOrderedQuantity(0);
+				p.save();
 		}
+			Cart cart=Cart.getCart(email);
+			cart.size=0;
+			cart.checkout=0;
+			cart.update();
+			cart.save();
+			}
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}
