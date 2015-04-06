@@ -1,6 +1,8 @@
 package models;
 
 import java.io.File;
+import java.sql.Timestamp;
+//import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +19,12 @@ import play.db.ebean.Model.Finder;
  * @author eminamuratovic
  *
  */
+/**
+ * @author user
+ *
+ */
 @Entity
+//@EntityConcurrencyMode(ConcurrencyMode.NONE)
 public class Product extends Model {
 
 	@Id
@@ -39,7 +46,7 @@ public class Product extends Model {
 	@Version
 	public Date created;
 
-	
+	@Required
 	public int quantity;
 
 	@Required
@@ -67,6 +74,7 @@ public class Product extends Model {
 	
 	public List<String> image_urls = new ArrayList<String>();
 	
+	public int orderedQuantity;
 
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
@@ -93,6 +101,7 @@ public class Product extends Model {
 		this.description = description;
 		this.image_url = image_url;
 		this.sold=false;
+		this.orderedQuantity=0;
 	}
 	
 	public Product(String name, double price, User owner, String description,int id, String image1) {
@@ -106,6 +115,8 @@ public class Product extends Model {
 		this.image_urls.add(image1);
 		this.image_url=this.image_urls.get(0);
 		this.sold=false;
+		this.orderedQuantity=0;
+
 	}
 	
 	public Product(String name, double price, User owner, String description,int id, String image1, String image2) {
@@ -120,6 +131,8 @@ public class Product extends Model {
 		this.image_urls.add(image2);
 		this.image_url=this.image_urls.get(0);
 		this.sold=false;
+		this.orderedQuantity=0;
+
 	}
 	
 	public Product(String name, double price, User owner, String description,int id, String image1, String image2, String image3) {
@@ -136,6 +149,36 @@ public class Product extends Model {
 		this.image_urls.add(image3);
 		this.image_url=this.image_urls.get(0);
 		this.sold=false;
+		this.orderedQuantity=0;
+
+	}
+	
+	public Product(String name, double price, int quantity, User owner, String description, int id, String image1,String image2) {
+		this.name = name;
+		this.price = price;
+		this.quantity=quantity;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.image1 = image1;
+		this.image2 = image2;
+		this.image_url=image1;
+		this.orderedQuantity=0;
+
+	}
+	
+	public Product(String name, double price, int quantity, User owner, String description, int id, String image1) {
+		this.name = name;
+		this.price = price;
+		this.quantity=quantity;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.image1 = image1;
+		this.image_url=image1;
+		this.orderedQuantity=0;
+
+		
 	}
 	
 	public Product(Product product) {
@@ -151,7 +194,21 @@ public class Product extends Model {
 		this.image3 = product.image3;
 		this.image_urls.add(product.image3);
 		this.image_url=this.image_urls.get(0);
+		this.quantity=product.quantity-product.orderedQuantity;
 		this.sold=false;
+	}
+	public Product(String name, double price, int quantity, User owner, String description, int id, String image1,String image2,String image3) {
+		this.name = name;
+		this.price = price;
+		this.quantity=quantity;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.image1 = image1;
+		this.image2 = image2;
+		this.image3 = image3;
+		this.image_url=image1;
+		this.orderedQuantity=0;
 	}
 
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
@@ -170,6 +227,17 @@ public class Product extends Model {
 		new Product(name, category_id, owner, created, quantity, price, description, image_url).save();
 	}
 	
+	public static void create(String name, double price, int quantity, User owner, String description, int id, String image1,String image2) {
+		new Product(name,  price,quantity, owner, description,id,image1,image2).save();
+		}
+	
+	public static void create(String name, double price, int quantity, User owner, String description, int id, String image1) {
+		new Product(name,  price,quantity, owner, description,id,image1).save();
+		}
+	
+	public static void create(String name, double price, int quantity, User owner, String description, int id, String image1,String image2,String image3) {
+		new Product(name,  price,quantity, owner, description,id,image1,image2,image3).save();
+		}
 	/**
 	 * finds a product by his id
 	 * @param id int id of the product
@@ -177,6 +245,14 @@ public class Product extends Model {
 	 */
 	public static Product find(int id) {
 		return find.byId(id);
+	}
+
+	public int getOrderedQuantity() {
+		return orderedQuantity;
+	}
+
+	public void setOrderedQuantity(int orderedQuantity) {
+		this.orderedQuantity = orderedQuantity;
 	}
 
 	public String getName() {
@@ -228,6 +304,14 @@ public class Product extends Model {
 		return this.image1;
 	}
 	
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public String getSecondPic() {
 		return this.image2;
 	}
@@ -257,6 +341,8 @@ public class Product extends Model {
 	public static List<String> allImages(int id) {
 		return find.byId(id).image_urls;
 	}
+
+	
 	
 
 }

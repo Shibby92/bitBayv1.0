@@ -34,6 +34,7 @@ public class Orders extends Model {
 	public Orders(Cart cart, User buyer, String token) {
 		for(Product product: cart.productList){
 			productList.add(new Product(product));
+			product.delete();
 		}
 		price=cart.checkout;
 		this.token=token;

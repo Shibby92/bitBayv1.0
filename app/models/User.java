@@ -96,6 +96,7 @@ public class User extends Model {
 		this.password = password;
 		this.admin = false;
 		this.hasAdditionalInfo = false;
+		//this.userCart=new Cart(this.id,email);
 	}
 	
 	public User(String email, String password, String confirmation) {
@@ -104,6 +105,8 @@ public class User extends Model {
 		this.admin = false;
 		this.confirmation = confirmation;
 		this.hasAdditionalInfo = false;
+		//this.userCart=new Cart(this.id,email);
+
 	}
 	
 	public User(String email, String password, boolean admin, boolean verification) {
@@ -112,6 +115,8 @@ public class User extends Model {
 		this.admin = admin;
 		this.verification = verification;
 		this.hasAdditionalInfo = false;
+	//	this.userCart=new Cart(this.id,email);
+
 		
 	}
 
