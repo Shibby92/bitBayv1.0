@@ -89,7 +89,7 @@
          <td>@order.id</td>
           <td>
                     @for(product <- order.productList){
-                    	<p>@product.name ($ @product.price)</p>
+                    	<p>@Product.find(product).name ($ @Product.find(product).price)</p>
                     }
                     </td>
                     <td><span class="price">$&nbsp;@order.price,-</span></td>

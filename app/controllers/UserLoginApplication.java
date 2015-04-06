@@ -347,13 +347,13 @@ public class UserLoginApplication extends Controller {
 			user.update();
 			User temp=User.find(session().get("email"));
 			Logger.debug("PRED FOR PETLJOM!");
-			for (Product product: order.productList) {
-				Logger.debug(product.name+"NALAZIM SE U TESTU ZA PAYPAL CONFIRM");
-				product.order=order;
-				if(product.quantity==product.orderedQuantity){
-					product.sold=true;	
+			for (int product: order.productList) {
+				Logger.debug(Product.find(product).name+"NALAZIM SE U TESTU ZA PAYPAL CONFIRM");
+				Product.find(product).order=order;
+				if(Product.find(product).quantity==Product.find(product).orderedQuantity){
+					Product.find(product).sold=true;	
 				}
-				product.update();
+				Product.find(product).update();
 				
 			}
 			Cart.clear(temp.id);
@@ -395,9 +395,9 @@ public class UserLoginApplication extends Controller {
 		Iterator<Orders> orderIterator = userOrders.iterator();
 		while (orderIterator.hasNext()) {
 			Orders order=orderIterator.next();
-			Iterator<Product> productIterator = order.productList.iterator();
+			Iterator<Integer> productIterator = order.productList.iterator();
 			while (productIterator.hasNext()) {
-				Product p=productIterator.next();
+				Product p=Product.find(productIterator.next());
 				if(p.getOrderedQuantity()>=p.getQuantity())
 					p.sold=true;
 				int leftQuantity=p.getQuantity()-p.getOrderedQuantity();

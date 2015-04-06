@@ -67,7 +67,7 @@ public class Product extends Model {
 
 	public String image3;
 	
-	@ManyToOne
+	@ManyToMany(cascade = CascadeType.ALL,mappedBy="productList")
 	public Orders order;
 	
 	public boolean sold;
