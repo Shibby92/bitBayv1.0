@@ -11,24 +11,21 @@ public class Image extends Model {
 	@Id
 	public int id;
 	
-	public String path;
-	public String savePath;
+	public String image;
 	
 	@ManyToOne
 	public Product product;
-	
-	
+
 	static Finder<Integer, Image> find = new Finder<Integer, Image>(Integer.class, Image.class);
 	
-	public Image(String path,String savePath, Product product){
-		this.path = path;
+	public Image(String image, Product product){
+		this.image = image;
 		this.product = product;
-		this.savePath = savePath;
 	}
 	
 	
-	public static void create(String path,String savePath, Product cp){
-		new Image(path,savePath, cp).save();
+	public static void create(String image, Product product){
+		new Image(image, product).save();
 	}
 	
 	public static void delete(int id){

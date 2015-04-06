@@ -32,7 +32,6 @@ import views.html.*;
 
 /**
  * Controls the ad application Redirects on the pages when needed
- * 
  * @author eminamuratovic
  *
  */
@@ -87,38 +86,23 @@ public class ProductApplication extends Controller {
 		String description = form.get("description");
 		//String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
-		List<String> image_urls = savePicture(id);
+		List<Image> image_urls = savePicture(id);
 			
-		for(String image_url: image_urls) {
-			
-			if(image_url == null) {
+		for (Image image_url : image_urls) {
+
+			if (image_url == null) {
 				flash("error", "Image not valid!");
 				return redirect("/addproductpage/" + id);
 			}
-			
-	}
-		
-		String image1 = image_urls.get(0);
-		if(image_urls.size()>1){
-		if(image_urls.get(1) != null)
-			image2 = image_urls.get(1);
-		if(image_urls.get(2) != null)
-			image3 = image_urls.get(2);
-		}
-		if(image_urls.size() == 1)
-				Product.create(name, price, User.find(session().get("email")),
-						description,id,image1);
-		if(image_urls.size() == 2)
-			Product.create(name, price, User.find(session().get("email")),
-					description,id,image1, image2);
-		if(image_urls.size() == 3)
-			Product.create(name, price, User.find(session().get("email")),
-					description,id,image1, image2, image3);
-		
 
-				Logger.info("User with email: " + session().get("email") + "created product with name: " + name);
-				return redirect("/homepage");
-			
+		}
+		Product.create(name, price, User.find(session().get("email")),
+				description, id, image_urls);
+
+		Logger.info("User with email: " + session().get("email")
+				+ "created product with name: " + name);
+		return redirect("/homepage");
+
 	}
 			
 
@@ -302,7 +286,6 @@ public class ProductApplication extends Controller {
 			Product updateProduct = ProductApplication.find(id);
 			Product.deleteImage(updateProduct);
 			updateProduct.image_url=image_url;
-			Product.update(updateProduct);
 			ImageIcon tmp= new ImageIcon(image_url);
 			Image resize = tmp.getImage();
 			resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
@@ -333,8 +316,8 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return result 
 	 */
-	public static List<String> savePicture(int id){		
-		List<String> image_urls = new ArrayList<String>();
+	public static List<Image> savePicture(int id){		
+		List<Image> image_urls = new ArrayList<Image>();
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
 		for(FilePart filePart: fileParts) {
@@ -372,6 +355,7 @@ public class ProductApplication extends Controller {
 		}
 	
 		try {
+			Image image;
 			
 			File profile = new File("./public/images/Productimages/"
 					+ UUID.randomUUID().toString() + extension);

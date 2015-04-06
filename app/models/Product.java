@@ -60,6 +60,9 @@ public class Product extends Model {
 
 	public String image3;
 	
+	@OneToMany
+	public List<Image> images;
+	
 	@ManyToOne
 	public Orders order;
 	
@@ -135,6 +138,16 @@ public class Product extends Model {
 		this.sold=false;
 	}
 	
+	public Product(String name, double price, User owner, String description, int id, List<Image> images) {
+		this.name = name;
+		this.price = price;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.images = images;
+		this.sold=false;
+	}
+	
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
 		new Product(name,  price, owner, description,id,image1).save();
 	}
@@ -149,6 +162,10 @@ public class Product extends Model {
 
 	public static void create(String name, int category_id, User owner, Date created, int quantity, double price, String description, String image_url) {
 		new Product(name, category_id, owner, created, quantity, price, description, image_url).save();
+	}
+	
+	public static void create(String name,  double price, User owner, String description,int id, List<Image> images) {
+		new Product(name,  price, owner, description,id, images).save();
 	}
 	
 	/**
@@ -203,30 +220,6 @@ public class Product extends Model {
 		
 		List<Product> pp = find.where("owner_id = " + id).findList();
 		return pp;
-	}
-	
-	public String getFirstPic() {
-		return this.image1;
-	}
-	
-	public String getSecondPic() {
-		return this.image2;
-	}
-	
-	public String getLastPic() {
-		return this.image3;
-	}
-	
-	public void updateFirstPic(String image1) {
-		this.image1 = image1;
-	}
-	
-	public void updateSecondPic(String image2) {
-		this.image2 = image2;
-	}
-	
-	public void updateLastPic(String image3) {
-		this.image3 = image3;
 	}
 	
 	public static void deleteImage(Product p) {
