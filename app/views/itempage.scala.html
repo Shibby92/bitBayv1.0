@@ -29,6 +29,7 @@
                      <button class="btn btn-success btn-login"> Log in</button> 
                      </a>
                      or 
+                     <a href="/toregister">
                      <button class="btn btn-success btn-register" >Register</button>
                      </a>
                   </p>
@@ -116,7 +117,10 @@
       <div class="col-md-11">
          <h4 class="pull-right">US @product.price $</h4>
          <h3 style="color: #4AB55A">@product.name</a>
-         </h3>
+         </h3><br>
+         
+         <h4>In Cart(this item): @product.getOrderedQuantity</a>
+         </h4>
          @if((email==null)||(User.find(email).admin == false)) {
          	@if((product.sold==false)&&(session().get("email")!=product.owner.email)){
     

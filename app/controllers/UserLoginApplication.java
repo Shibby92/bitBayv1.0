@@ -338,7 +338,7 @@ public class UserLoginApplication extends Controller {
 			while (itr.hasNext()) {
 				Product product=itr.next();
 				product.order=order;
-				product.sold=true;
+				//product.sold=true;
 				product.update();
 				
 			}
@@ -378,6 +378,8 @@ public class UserLoginApplication extends Controller {
 		List<Orders> userOrders=currUser.orderList;
 		for(Orders order:userOrders){
 			for(Product product:order.productList){
+				if(product.getOrderedQuantity()>=product.getQuantity())
+					product.sold=true;
 				int leftQuantity=product.getQuantity()-product.getOrderedQuantity();
 				product.setQuantity(leftQuantity);
 				product.setOrderedQuantity(0);

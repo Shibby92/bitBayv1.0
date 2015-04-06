@@ -1,6 +1,7 @@
 package controllers;
 
 import helpers.*;
+import java.util.Iterator;
 
 import java.awt.Image;
 import java.io.File;
@@ -419,54 +420,99 @@ public class ProductApplication extends Controller {
 	
 
 	public static Result productToCart(int id) {
-		DynamicForm form = Form.form().bindFromRequest();
-		if(form.get("orderedQuantity")==null)
-			return TODO;
-		int orderedQuantity=Integer.valueOf(form.get("orderedQuantity"));
-		Product p=find.byId(id);
-		p.setOrderedQuantity(orderedQuantity);
-		if(orderedQuantity>p.getQuantity()){
-			flash("excess","You cannot order quantity that exceeds one available on stock!");
-			return redirect("/itempage/"+id);
-		}
+		int orderedTotalQta=0;
 		String email = session().get("email");
+		Product p=find.byId(id);
 		if(session().isEmpty()){
 			flash("guest","Please log in to buy stuff!");
 			return redirect("/login");
 		}
 		int userid = User.findUser.where().eq("email", session().get("email"))
 				.findUnique().id;
-		Logger.info(String.valueOf(userid));
+		Cart cart = Cart.getCart(email);
 
+		Logger.info(String.valueOf(userid));
+		DynamicForm form = Form.form().bindFromRequest();
+		int orderedQuantity=Integer.valueOf(form.get("orderedQuantity"));
+		orderedTotalQta=orderedQuantity+p.getOrderedQuantity();
+		if(orderedTotalQta>p.getQuantity()){
+			flash("excess","You cannot order quantity that exceeds one available on stock!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+			return redirect("/itempage/"+id);
+		}
+		else{
+		p.setOrderedQuantity(orderedTotalQta);
 		Logger.info(String.valueOf("Naruceno: "+orderedQuantity));
-		
-		p.setOrderedQuantity(orderedQuantity);
+		p.update();
 		p.save();
-		Cart cart = cartFinder.where().eq("userid", userid).findUnique();
 		//if(cart.productList!=null){
 		if(cart.productList.contains(p)){
-			flash("error","You have added that product already!");
+			//int orderedQtyTotal=p.getOrderedQuantity()+orderedQuantity;
+			//p.setOrderedQuantity(orderedQtyTotal);
+			//p.save();
+			Cart.addQuantity(p, cart,orderedQuantity);
+			//flash("error","You have added that product already!");
 			return ok(cartpage.render(email,cart, FAQ.all()));
 		}
+		else{
 		Cart.addProduct(p, cart);
 		//cart.save();
 		Logger.info(String.valueOf("Naruceno posle: "+p.orderedQuantity));
 		return ok(cartpage.render(email,cart, FAQ.all()));
+		}
+		}
+			}
 
+	/*public static Result emptyCart(int id){
+		Cart cart=Cart.find(id);
+		String email = session().get("email");
+		cart.productList.clear();
+		cart.size=0;
+		cart.checkout=0;
+		//cart.clear(id);
+		for (Iterator<Product> iterator = cart.productList.iterator(); iterator.hasNext() ;){
+			Product p=iterator.next();
+			p.setOrderedQuantity(0);
+			p.update();
+			cart.productList.remove(p);
+			p.cart=null;
+		}
+		 
+		 cart.update();
+		cart.save();
 		
+		return ok(cartpage.render(email,cart, FAQ.all()));
 
-	}
-
+	}*/
 
 	public static Result deleteProductFromCart(int id) {
 		String email = session().get("email");
 		Product productDel = find.byId(id);
 		Cart cart = productDel.cart;
+
+		//if(productDel==null){
+		//	return ok(cartpage.render(email,cart, FAQ.all()));
+//		}
 		cart.productList.remove(productDel);
-		cart.checkout-=productDel.price*productDel.getOrderedQuantity();
-		productDel.cart = null;
 		cart.update();
+		cart.save();
+		if(cart.productList.size()<1){
+			cart.checkout=0;
+			cart.size=0;
+		}
+		else{
+		cart.checkout=cart.checkout-productDel.price*productDel.getOrderedQuantity();
+		if(cart.checkout<0)
+			cart.checkout=0;
+		cart.size=cart.size-productDel.getOrderedQuantity();
+		}
+		cart.update();
+		cart.save();
+		productDel.cart = null;
+		productDel.setOrderedQuantity(0);
 		productDel.update();
+		productDel.save();
+
 		return ok(cartpage.render(email,cart, FAQ.all()));
 
 	}

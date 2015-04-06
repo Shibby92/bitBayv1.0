@@ -77,9 +77,8 @@ POST   /contact                 controllers.UserLoginApplication.contact()
 GET    /assets/*file            controllers.Assets.at(path="/public", file)
 
 #Paypal routes
-
+#GET      /emptycart/:id			controllers.ProductApplication.emptyCart(id: Integer)
 GET		/cartpage/:id			controllers.ProductApplication.cartPage(id: Integer)
-GET    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
 POST    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
 
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)

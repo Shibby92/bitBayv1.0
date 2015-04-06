@@ -8,6 +8,7 @@ create table cart (
   userid                    integer,
   user_mail                 varchar(255),
   checkout                  double,
+  size                      integer,
   constraint pk_cart primary key (id))
 ;
 
@@ -57,7 +58,6 @@ create table product (
   sold                      boolean,
   ordered_quantity          integer,
   created                   timestamp not null,
-  last_update               timestamp not null,
   constraint pk_product primary key (id))
 ;
 
