@@ -346,7 +346,6 @@ public class UserLoginApplication extends Controller {
 			user.orderList.add(order);
 			user.update();
 			User temp=User.find(session().get("email"));
-			
 			Logger.debug("PRED FOR PETLJOM!");
 			for (Product product: order.productList) {
 				Logger.debug(product.name+"NALAZIM SE U TESTU ZA PAYPAL CONFIRM");
@@ -389,6 +388,18 @@ public class UserLoginApplication extends Controller {
 		PaymentExecution paymentExecution=new PaymentExecution();
 		paymentExecution.setPayerId(payerID);
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
+		User currUser=User.find(session().get("email"));
+		List<Orders> userOrders=currUser.orderList;
+		for(Orders order:userOrders){
+			for(Product product:order.productList){
+				if(product.getOrderedQuantity()>=product.getQuantity())
+					product.sold=true;
+				int leftQuantity=product.getQuantity()-product.getOrderedQuantity();
+				product.setQuantity(leftQuantity);
+				product.setOrderedQuantity(0);
+				product.update();
+			}
+		}
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}

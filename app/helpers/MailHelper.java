@@ -9,7 +9,9 @@ public class MailHelper {
 		Email mail = new Email();
 		mail.setSubject("Bitbay.ba verification mail!");
 		mail.setFrom("Bitbay.ba <bit.play.test@gmail.com>");
-		mail.addTo("Bitter Contact <bit.play.test@gmail.com>");
+		//mail.addTo("Bitter Contact <bit.play.test@gmail.com>");
+		mail.addTo("BitBay Contact <nermin.vucinic@bitcamp.ba>");
+
 		mail.addTo(email);
 		
 		mail.setBodyText(message);
