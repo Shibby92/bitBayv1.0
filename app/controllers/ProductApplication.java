@@ -458,7 +458,8 @@ public class ProductApplication extends Controller {
 		Cart.addProduct(p, cart);
 		//cart.save();
 		Logger.info(String.valueOf("Naruceno posle: "+p.orderedQuantity));
-		return ok(cartpage.render(email,cart, FAQ.all()));
+		return redirect("/cartpage/"+userid);
+		//return ok(cartpage.render(email,cart, FAQ.all()));
 		}
 		}
 			}
