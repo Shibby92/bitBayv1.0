@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,44 +23,49 @@ public class Orders extends Model {
 
 	@Id
 	public int id;
-	
-	@ManyToMany(mappedBy="order",cascade=CascadeType.ALL)
-	public List<Integer> productList;
-	
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "productList_order", joinColumns = { @JoinColumn(name = "order_id", referencedColumnName = "id") },
+	inverseJoinColumns = { @JoinColumn(name = "product_id", referencedColumnName = "id") })
+	public List<Integer> productList= new ArrayList<Integer>();
+
 	@ManyToOne
 	public User buyer;
-	
+
 	public double price;
-	
+
 	public String token;
-	
-	
-	public Orders(List<Integer> productList){
-		this.productList=productList;
-		
-	}
-	public Orders(Cart cart, User buyer, String token) {
-		if (cart.productList!=null){
-			play.Logger.debug(cart.productList.get(0).name);
-			this.productList= new ArrayList<Integer>();
-		for(int i=0;i<cart.productList.size();i++ ){
-			this.productList.add(cart.productList.get(i).id);
-		}
-		price=cart.checkout;
-		this.token=token;
-		this.buyer=buyer;
-		this.saveManyToManyAssociations("productList");
-	}
+
+	public Orders(List<Integer> productList) {
+		this.productList = productList;
+
 	}
 
-	static Finder<Integer,Orders> findOrder=new Finder<Integer,Orders>(Integer.class,Orders.class);
+	public Orders(Cart cart, User buyer, String token) {
+		if (cart.productList != null) {
+			play.Logger.debug(cart.productList.get(0).name);
+			this.productList = new ArrayList<Integer>();
+			for (int i = 0; i < cart.productList.size(); i++) {
+				this.productList.add(cart.productList.get(i).id);
+			}
+			price = cart.checkout;
+			this.token = token;
+			this.buyer = buyer;
+			this.saveManyToManyAssociations("productList");
+		}
+	}
+
+	static Finder<Integer, Orders> findOrder = new Finder<Integer, Orders>(
+			Integer.class, Orders.class);
+
 	public static Orders find(int id) {
-		
+
 		return findOrder.byId(id);
 	}
+
 	public static void create(Orders orders) {
 		orders.save();
-		
+
 	}
 
 }
