@@ -442,6 +442,7 @@ public class ProductApplication extends Controller {
 		}
 		else{
 		p.setOrderedQuantity(orderedTotalQta);
+		p.amount=p.getPrice()*p.getOrderedQuantity();
 		Logger.info(String.valueOf("Naruceno: "+orderedQuantity));
 		p.update();
 		p.save();

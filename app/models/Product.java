@@ -76,6 +76,8 @@ public class Product extends Model {
 	public List<String> image_urls = new ArrayList<String>();
 	
 	public int orderedQuantity;
+	
+	public double amount;
 
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
@@ -161,7 +163,6 @@ public class Product extends Model {
 		this.image1 = image1;
 		this.image2 = image2;
 		this.orderedQuantity=0;
-
 	}
 	
 	public Product(String name, double price, int quantity, User owner, String description, int id, String image1) {
@@ -173,7 +174,6 @@ public class Product extends Model {
 		this.category_id=id;
 		this.image1 = image1;
 		this.orderedQuantity=0;
-
 		
 	}
 	
@@ -188,7 +188,6 @@ public class Product extends Model {
 		this.image2 = image2;
 		this.image3 = image3;
 		this.orderedQuantity=0;
-
 	}
 
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
@@ -314,6 +313,14 @@ public class Product extends Model {
 		this.image3 = image3;
 	}
 	
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public static void deleteImage(Product p) {
 		File f = new File("./public/" + p.image_url); 
 		boolean b = f.delete();

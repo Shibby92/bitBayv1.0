@@ -307,7 +307,7 @@ public class UserLoginApplication extends Controller {
 		String paymentID = null;
 		String payerID = null;
 		String token=null;
-	
+	Orders order=new Orders();
 		try{
 			DynamicForm paypalReturn = Form.form().bindFromRequest();
 			//String paymentID = paypalReturn.get("paymentId");
@@ -329,7 +329,7 @@ public class UserLoginApplication extends Controller {
 //			
 			Payment payment= Payment.get(accessToken, paymentID);
 			User user=User.find(session().get("email"));
-			Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
+			 order= new Orders(Cart.getCart(session().get("email")),user,token);
 			order.save();
 			user.orderList.add(order);
 			user.update();
@@ -348,7 +348,7 @@ public class UserLoginApplication extends Controller {
 			Logger.warn(e.getMessage());
 			}
 		
-		return ok(confirmorder.render(paymentID,payerID,token,email,User.find(session().get("email")).orderList,  FAQ.all()));	
+		return ok(confirmorder.render(paymentID,payerID,token,email,order,  FAQ.all()));	
 		}
 	
 	public static Result orderSuccess(String paymentId,String payerId,String token) {
