@@ -1,4 +1,4 @@
-@(paymentID:String,payerID:String,token:String,email: String,order:Orders, faqs: List[FAQ])
+@(paymentID:String,payerID:String,token:String,email: String,cart:Cart, faqs: List[FAQ])
 @main("Confirm") {
 	<head><h1>Confirm order:</h1></head>
 	<br><br>
@@ -69,7 +69,7 @@
 </nav>
    <!-- Page Content -->
    <div class="container">
-   @if(order==null){
+   @if(cart.productList.size()==0){
 							<h3><center><strong>You have no orders!</strong></center></h3>
 							}else{
       
@@ -78,7 +78,7 @@
          <table class="table table-bordered">	
       <thead>
         <tr>
-          <th>Order number</th>
+          <th>Cart id</th>
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Price</th>
@@ -86,10 +86,10 @@
         </tr>
       </thead>
       <tbody>
-     @for(product <- order.productList){
+     @for(product <- cart.productList){
         <tr>
         
-         <td>@order.id</td>
+         <td>@cart.id</td>
           
                    
                     	<td>@product.name ()</td>
@@ -101,7 +101,7 @@
       </tbody>
       </table>
 <br>
-                    <h3>Total: @order.price</h3>
+                    <h3>Total: @cart.checkout</h3>
                     
                    
      </div>

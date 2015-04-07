@@ -42,6 +42,10 @@ public class Cart extends Model {
 		//productList=new LinkedList<Product>();
 	}
 
+	public Cart() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static void addProduct(Product product, Cart cart) {
 		if (cart.productList == null) {
 			cart.productList = new LinkedList<Product>();
