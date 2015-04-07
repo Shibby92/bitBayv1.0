@@ -254,13 +254,15 @@ public class UserLoginApplication extends Controller {
 
 		try {
 			String total=String.valueOf(Cart.getCart(session().get("email")).checkout);
-			String accessToken = new OAuthTokenCredential(
+			String payPalPublicKey=Play.application().configuration().getString("payPalPublicKey");
+			 String payPalSecretKey=Play.application().configuration().getString("payPalSecretKey");
+			String accessToken = new OAuthTokenCredential(payPalPublicKey,payPalSecretKey).getAccessToken();
+		/*	String accessToken = new OAuthTokenCredential
 					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
 					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai"
-					//"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
-				//	"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe"
+				
 					)
-					.getAccessToken();
+					.getAccessToken();*/
 
 			Map<String, String> sdkConfig = new HashMap<String, String>();
 			sdkConfig.put("mode", "sandbox");
@@ -313,15 +315,11 @@ public class UserLoginApplication extends Controller {
 			//String paymentID = paypalReturn.get("paymentId");
 			 paymentID = paypalReturn.get("paymentId");
 			 payerID = paypalReturn.get("PayerID");
-			 
 			 token = paypalReturn.get("token");
-			String accessToken = new OAuthTokenCredential(
-					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
-					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai"
-					//"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
-					//"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe"
-					)
-					.getAccessToken();
+
+			 String payPalPublicKey=Play.application().configuration().getString("payPalPublicKey");
+			 String payPalSecretKey=Play.application().configuration().getString("payPalSecretKey");
+			String accessToken = new OAuthTokenCredential(payPalPublicKey,payPalSecretKey).getAccessToken();
 			Map<String, String> sdkConfig = new HashMap<String, String>();
 			sdkConfig.put("mode", "sandbox");
 			APIContext apiContext = new APIContext(accessToken);
@@ -359,13 +357,9 @@ public class UserLoginApplication extends Controller {
 	String paymentID=paymentId;
 	String payerID = payerId;
 		String ttoken = token;
-		String accessToken = new OAuthTokenCredential(
-				"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
-				"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai"
-				//"AYZe2FNhJ97hr8qBLfXk7TUerHmzqWeDlrS23g5CIEWRXZ_nwuiw-bffSb85AfdezwLcf1tcv7P4hOUe",
-				//"EFggF9gtemTL-YvgplaYzS4TyBwAnHkYIYg785IM9uzTWEAaVDa_9gX1qAGa7GrzZ6iQrMi1A9HsTfVe"
-				)
-				.getAccessToken();
+		String payPalPublicKey=Play.application().configuration().getString("payPalPublicKey");
+		 String payPalSecretKey=Play.application().configuration().getString("payPalSecretKey");
+		String accessToken = new OAuthTokenCredential(payPalPublicKey,payPalSecretKey).getAccessToken();
 		Map<String, String> sdkConfig = new HashMap<String, String>();
 		sdkConfig.put("mode", "sandbox");
 		APIContext apiContext = new APIContext(accessToken);
