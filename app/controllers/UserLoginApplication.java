@@ -254,15 +254,10 @@ public class UserLoginApplication extends Controller {
 
 		try {
 			String total=String.valueOf(Cart.getCart(session().get("email")).checkout);
-			String payPalPublicKey=Play.application().configuration().getString("payPalPublicKey");
+			
+			 String payPalPublicKey=Play.application().configuration().getString("payPalPublicKey");
 			 String payPalSecretKey=Play.application().configuration().getString("payPalSecretKey");
 			String accessToken = new OAuthTokenCredential(payPalPublicKey,payPalSecretKey).getAccessToken();
-		/*	String accessToken = new OAuthTokenCredential
-					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
-					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai"
-				
-					)
-					.getAccessToken();*/
 
 			Map<String, String> sdkConfig = new HashMap<String, String>();
 			sdkConfig.put("mode", "sandbox");
@@ -301,15 +296,16 @@ public class UserLoginApplication extends Controller {
 		}
 
 		return TODO;
+}
 
-	}
-
+	
 	public static Result orderConfirm(){
 		String email = session().get("email");
 		String paymentID = null;
 		String payerID = null;
 		String token=null;
-	
+		Cart cart=new Cart();
+	Orders order=new Orders();
 		try{
 			DynamicForm paypalReturn = Form.form().bindFromRequest();
 			//String paymentID = paypalReturn.get("paymentId");
@@ -327,7 +323,8 @@ public class UserLoginApplication extends Controller {
 //			
 			Payment payment= Payment.get(accessToken, paymentID);
 			User user=User.find(session().get("email"));
-			Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
+			cart=Cart.getCart(email);
+			/* order= new Orders(Cart.getCart(session().get("email")),user,token);
 			order.save();
 			user.orderList.add(order);
 			user.update();
@@ -339,15 +336,15 @@ public class UserLoginApplication extends Controller {
 				//product.sold=true;
 				product.update();
 				
-			}
+			}*/
 			//Cart.clear(temp.id);
 		} catch (PayPalRESTException e) {
 			// TODO Auto-generated catch block
 			Logger.warn(e.getMessage());
 			}
-		
-		return ok(confirmorder.render(paymentID,payerID,token,email,User.find(session().get("email")).orderList,  FAQ.all()));	
+			return ok(confirmorder.render(paymentID,payerID,token,email,cart,  FAQ.all()));	
 		}
+	
 	
 	public static Result orderSuccess(String paymentId,String payerId,String token) {
 		String email = session().get("email");
@@ -368,13 +365,26 @@ public class UserLoginApplication extends Controller {
 		PaymentExecution paymentExecution=new PaymentExecution();
 		paymentExecution.setPayerId(payerID);
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
-		User currUser=User.find(session().get("email"));
-		List<Orders> userOrders=currUser.orderList;
+		User user=User.find(session().get("email"));
+		Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
+		order.save();
+		user.orderList.add(order);
+		user.update();
+		Cart.clear(user.id);
+		Iterator<Product> itr = order.productList.iterator();
+		while (itr.hasNext()) {
+			Product product=itr.next();
+			product.order=order;
+			//product.sold=true;
+			product.update();
+			
+		}
+		List<Orders> userOrders=user.orderList;
 		
 		Iterator<Orders> orderIterator = userOrders.iterator();
 		while (orderIterator.hasNext()) {
-			Orders order=orderIterator.next();
-			Iterator<Product> productIterator = order.productList.iterator();
+			Orders orderO=orderIterator.next();
+			Iterator<Product> productIterator = orderO.productList.iterator();
 			while (productIterator.hasNext()) {
 				Product p=productIterator.next();
 				if(p.getOrderedQuantity()>=p.getQuantity())
@@ -382,7 +392,8 @@ public class UserLoginApplication extends Controller {
 				int leftQuantity=p.getQuantity()-p.getOrderedQuantity();
 				p.setQuantity(leftQuantity);
 				p.setOrderedQuantity(0);
-				p.save();
+				//p.save();
+				p.update();
 		}
 			Cart cart=Cart.getCart(email);
 			cart.size=0;
