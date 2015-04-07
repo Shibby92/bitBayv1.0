@@ -8,6 +8,7 @@ import play.db.ebean.Model;
 
 @Entity
 public class Image extends Model {
+	
 	@Id
 	public int id;
 	
@@ -23,6 +24,10 @@ public class Image extends Model {
 		this.product = product;
 	}
 	
+	public Image() {
+		this.image = null;
+		this.id = 0;
+	}
 	
 	public static void create(String image, Product product){
 		new Image(image, product).save();
@@ -34,6 +39,10 @@ public class Image extends Model {
 	
 	public static Image find(int id){
 		return find.byId(id);
+	}
+	
+	public static void saveImg(Image img) {
+		img.save();
 	}
 	
 

@@ -43,19 +43,53 @@ public class Global extends GlobalSettings {
 
 		if (Product.find(1) == null) {
 			
-			Product.create(
-					"House",
+			Product.create("House",
 					100000,User.find(2),
-					"This house has got four bedrooms, a living-room, a dining-room, a kitchen",
-					1,"images/logo.png");
+					"This house has got four bedrooms, a living-room, a dining-room, a kitchen");
+			Product p =  Product.find(1);
+			
+			Image img1 = new Image();
+			img1.image = "images/logo.png";
+			img1.product = p;
+	
 
+			List<Image> img = new ArrayList<Image>();
+			img.add(img1);
+			Image.saveImg(img1);
+			p.images = img;
+			p.category_id = 1;
+
+			
 			Product.create(
 					"Mazda",
 					25000,User.find(2),
-					"Auto mazda mx-5 skoro novo!!!",
-					2,"images/logo.png");
+					"Auto mazda mx-5 skoro novo!!!");
+			Product pr = Product.find(2);
 			
-			Product.create("Eminin proizvod", 2000, User.find(3), "Neki opis", 3, "eminamuratovic/Downloads/10846602_1024193347607270_1598213656_n.jpg");
+			Image img2 = new Image();
+			img2.image = "images/logo.png";
+			img2.product = pr;
+		
+
+			List<Image> imgg = new ArrayList<Image>();
+			imgg.add(img2);
+			Image.saveImg(img2);
+			p.category_id = 2;
+			p.images = imgg;
+			
+			
+			Product.create("Eminin proizvod", 2000, User.find(3), "Neki opis");
+			Product pro = Product.find(3);
+			Image img3 = new Image();
+			img3.image = "eminamuratovic/Downloads/10846602_1024193347607270_1598213656_n.jpg";
+			img3.product = pro;
+		
+
+			List<Image> imggg = new ArrayList<Image>();
+			imggg.add(img3);
+			Image.saveImg(img3);
+			pro.category_id = 3;
+			pro.images = imggg;
 
 
 		}

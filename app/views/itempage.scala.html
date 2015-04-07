@@ -1,4 +1,4 @@
-@(email: String, product: Product, faqs: List[FAQ], images: List[String], comments: List[Comment])
+@(email: String, product: Product, faqs: List[FAQ], images: List[Image], comments: List[Comment])
 
 @import java.math.BigInteger; var i=0
 @main("ItemPage") {
@@ -77,8 +77,8 @@
                <ol class="carousel-indicators">
                   <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
                   </li>
-                      @for(image <- images) {
-                      	@if(images.indexOf(image) != 0) {    
+                      @for(img <- images) {
+                      	@if(images.indexOf(img) != 0) {    
                       	@{i=i+1}                  	
                   <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
               	 }
@@ -88,14 +88,14 @@
               
                <div class="carousel-inner" style="max-width: 800px;	height: 250px;">
                   <div class="item active">       
-                     <img class="slide-image" src="@routes.Assets.at(images.get(0))" />  
+                     <img class="slide-image" src="@routes.Assets.at(images.get(0).image)" />  
                   </div>
                  
-                   @for(image <- images) {
-                   	@if(images.indexOf(image) == 0) {
+                   @for(img <- images) {
+                   	@if(images.indexOf(img) == 0) {
                    		} else {
                   <div class="item">       
-                     <img class="slide-image" src="@routes.Assets.at(image)" />  
+                     <img class="slide-image" src="@routes.Assets.at(img.image)" />  
                   </div>
                   }
                   }

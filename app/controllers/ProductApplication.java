@@ -69,9 +69,6 @@ public class ProductApplication extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result addAdditionalInfo(int id) {
-		String image2 = null;
-		String image3 = null;
-		
 		//Form <Product> form=productForm.bindFromRequest();
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.get("name");
@@ -86,9 +83,10 @@ public class ProductApplication extends Controller {
 		String description = form.get("description");
 		//String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
-		List<Image> image_urls = savePicture(id);
+		List<models.Image> image_urls = savePicture(id);
+		
 			
-		for (Image image_url : image_urls) {
+		for (models.Image image_url : image_urls) {
 
 			if (image_url == null) {
 				flash("error", "Image not valid!");
@@ -316,8 +314,8 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return result 
 	 */
-	public static List<Image> savePicture(int id){		
-		List<Image> image_urls = new ArrayList<Image>();
+	public static List<models.Image> savePicture(int id){		
+		List<models.Image> image_urls = new ArrayList<models.Image>();
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
 		for(FilePart filePart: fileParts) {
@@ -355,7 +353,7 @@ public class ProductApplication extends Controller {
 		}
 	
 		try {
-			Image image;
+			models.Image img = new models.Image();
 			
 			File profile = new File("./public/images/Productimages/"
 					+ UUID.randomUUID().toString() + extension);
@@ -364,9 +362,13 @@ public class ProductApplication extends Controller {
 			String image_url = "images" + File.separator + "Productimages/"
 					+ profile.getName();
 			
+			img.image = image_url;
+			img.id = id;
+			
+			img.save();
 			
 			Files.move(image, profile);
-			ImageIcon tmp = new ImageIcon(image_url);
+			ImageIcon tmp = new ImageIcon(img.image);
 			Image resize = tmp.getImage();
 			resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
 			
@@ -374,7 +376,7 @@ public class ProductApplication extends Controller {
 //			if (User.find(session().get("email")).admin)
 //				return redirect("/profile");
 //			return redirect("/homepage");
-			image_urls.add(image_url);
+			image_urls.add(img);
 
 		} catch (IOException e) {
 			Logger.error("Failed to move file");
@@ -400,11 +402,8 @@ public class ProductApplication extends Controller {
 			Logger.info("User with email: " + session().get("email") + " opened item with id: " + id);
 		
 		Product p = Product.find(id);
-		List<String> list = new ArrayList<String>();
-		list.add(p.image1);
-		list.add(p.image2);
-		list.add(p.image3);
-		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), list, Comment.all()));
+		
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), models.Image.photosByProduct(p), Comment.all()));
 		
 	}
 	
@@ -469,13 +468,9 @@ public class ProductApplication extends Controller {
 		Logger.info("New comment added: " + comment);
 		flash("success", "New comment added");
 	
-		List<String> list = new ArrayList<String>();
-		list.add(p.image1);
-		list.add(p.image2);
-		list.add(p.image3);
 		List<Comment> list2 = Comment.all();
 		
-		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), list, list2));
+		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), models.Image.photosByProduct(p), list2));
 		
 	}
 	

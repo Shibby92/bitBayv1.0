@@ -34,8 +34,7 @@ create table faq (
 
 create table image (
   id                        integer not null,
-  path                      varchar(255),
-  save_path                 varchar(255),
+  image                     varchar(255),
   product_id                integer,
   constraint pk_image primary key (id))
 ;

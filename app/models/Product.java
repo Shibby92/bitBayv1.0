@@ -148,7 +148,16 @@ public class Product extends Model {
 		this.sold=false;
 	}
 	
+	public Product(String name, double price, User owner, String description) {
+		this.name = name;
+		this.price = price;
+		this.owner = owner;
+		this.description = description;
+		this.sold=false;
+	}
+	
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
+		
 		new Product(name,  price, owner, description,id,image1).save();
 	}
 	
@@ -166,6 +175,11 @@ public class Product extends Model {
 	
 	public static void create(String name,  double price, User owner, String description,int id, List<Image> images) {
 		new Product(name,  price, owner, description,id, images).save();
+	}
+	
+	public static void create(String name, int price, User owner, String description) {
+		new Product(name,  price, owner, description).save();
+		
 	}
 	
 	/**
@@ -231,6 +245,8 @@ public class Product extends Model {
 	public static List<String> allImages(int id) {
 		return find.byId(id).image_urls;
 	}
+
+
 	
 
 }
