@@ -67,8 +67,8 @@ public class Product extends Model {
 
 	public String image3;
 	
-	@ManyToMany(cascade = CascadeType.ALL,mappedBy="productList")
-	public Orders order;
+	@ManyToMany(mappedBy="productList",cascade=CascadeType.ALL)
+	public List<Integer> order= new ArrayList<Integer>();
 	
 	public boolean sold;
 	
@@ -102,6 +102,7 @@ public class Product extends Model {
 		this.image_url = image_url;
 		this.sold=false;
 		this.orderedQuantity=0;
+		this.saveManyToManyAssociations("order");
 	}
 	
 	public Product(String name, double price, User owner, String description,int id, String image1) {
@@ -116,7 +117,7 @@ public class Product extends Model {
 		this.image_url=this.image_urls.get(0);
 		this.sold=false;
 		this.orderedQuantity=0;
-
+		this.saveManyToManyAssociations("order");
 	}
 	
 	public Product(String name, double price, User owner, String description,int id, String image1, String image2) {
@@ -132,7 +133,7 @@ public class Product extends Model {
 		this.image_url=this.image_urls.get(0);
 		this.sold=false;
 		this.orderedQuantity=0;
-
+		this.saveManyToManyAssociations("order");
 	}
 	
 	public Product(String name, double price, User owner, String description,int id, String image1, String image2, String image3) {
@@ -150,6 +151,7 @@ public class Product extends Model {
 		this.image_url=this.image_urls.get(0);
 		this.sold=false;
 		this.orderedQuantity=0;
+		this.saveManyToManyAssociations("order");
 
 	}
 	
@@ -164,6 +166,7 @@ public class Product extends Model {
 		this.image2 = image2;
 		this.image_url=image1;
 		this.orderedQuantity=0;
+		this.saveManyToManyAssociations("order");
 
 	}
 	
@@ -177,6 +180,7 @@ public class Product extends Model {
 		this.image1 = image1;
 		this.image_url=image1;
 		this.orderedQuantity=0;
+		this.saveManyToManyAssociations("order");
 
 		
 	}
@@ -196,6 +200,7 @@ public class Product extends Model {
 		this.image_url=this.image_urls.get(0);
 		this.quantity=product.quantity-product.orderedQuantity;
 		this.sold=false;
+		this.saveManyToManyAssociations("order");
 	}
 	public Product(String name, double price, int quantity, User owner, String description, int id, String image1,String image2,String image3) {
 		this.name = name;
@@ -209,10 +214,12 @@ public class Product extends Model {
 		this.image3 = image3;
 		this.image_url=image1;
 		this.orderedQuantity=0;
+		this.saveManyToManyAssociations("order");
 	}
 
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
 		new Product(name,  price, owner, description,id,image1).save();
+	
 	}
 	
 	public static void create(String name,  double price, User owner, String description,int id, String image1, String image2) {

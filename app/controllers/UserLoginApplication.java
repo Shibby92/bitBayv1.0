@@ -343,17 +343,22 @@ public class UserLoginApplication extends Controller {
 			User user=User.find(session().get("email"));
 			Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
 			order.save();
+
+			Logger.debug(String.valueOf(order.id)+" VEDAD ZORNIC");
 			user.orderList.add(order);
 			user.update();
 			User temp=User.find(session().get("email"));
-			Logger.debug("PRED FOR PETLJOM!");
-			for (int product: order.productList) {
-				Logger.debug(Product.find(product).name+"NALAZIM SE U TESTU ZA PAYPAL CONFIRM");
-				Product.find(product).order=order;
-				if(Product.find(product).quantity==Product.find(product).orderedQuantity){
-					Product.find(product).sold=true;	
+			Logger.debug("PRED FOR PETLJOM! "+order.productList.get(0));
+			Iterator<Integer> productIterator = order.productList.iterator();
+			while (productIterator.hasNext()) {
+				int p=Product.find(productIterator.next()).id;
+				Product prod = Product.find(p); 
+				prod.order.add(order.id);
+				Logger.debug(""+prod.order.get(0));
+				if(Product.find(p).quantity==Product.find(p).orderedQuantity){
+					Product.find(p).sold=true;	
 				}
-				Product.find(product).update();
+				Product.find(p).update();
 				
 			}
 			Cart.clear(temp.id);

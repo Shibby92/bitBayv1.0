@@ -62,7 +62,6 @@ create table product (
   image1                    varchar(255),
   image2                    varchar(255),
   image3                    varchar(255),
-  order_id                  integer,
   sold                      boolean,
   ordered_quantity          integer,
   created                   timestamp not null,
@@ -115,8 +114,6 @@ alter table product add constraint fk_product_cart_5 foreign key (cart_id) refer
 create index ix_product_cart_5 on product (cart_id);
 alter table product add constraint fk_product_owner_6 foreign key (owner_id) references user (id) on delete restrict on update restrict;
 create index ix_product_owner_6 on product (owner_id);
-alter table product add constraint fk_product_order_7 foreign key (order_id) references orders (id) on delete restrict on update restrict;
-create index ix_product_order_7 on product (order_id);
 
 
 

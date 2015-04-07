@@ -209,7 +209,7 @@
 	</table>
 	
 		@if(Product.find(product.id).order != null) {
-     	@if(Product.find(product.id).order.buyer == User.find(session().get("email"))) {
+     	@if(Product.find(product.id).order.contains(User.find(session().get("email")))) {
      	<div class="col-sm-4">
 				
 				 
