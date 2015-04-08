@@ -174,7 +174,13 @@ public class Product extends Model {
 	}
 	
 	public static void create(String name,  double price, User owner, String description,int id, List<Image> images) {
-		new Product(name,  price, owner, description,id, images).save();
+		
+		Product p = new Product(name,  price, owner, description,id, images);
+		p.save();
+		for(Image image: images) {
+			image.product = Product.find(p.getId());
+			image.save();
+		}
 	}
 	
 	public static void create(String name, int price, User owner, String description) {
@@ -193,6 +199,10 @@ public class Product extends Model {
 
 	public String getName() {
 		return name;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 
 	public void setName(String name) {

@@ -363,9 +363,6 @@ public class ProductApplication extends Controller {
 					+ profile.getName();
 			
 			img.image = image_url;
-			img.id = id;
-			
-			img.save();
 			
 			Files.move(image, profile);
 			ImageIcon tmp = new ImageIcon(img.image);

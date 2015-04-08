@@ -33,6 +33,12 @@ public class Image extends Model {
 		new Image(image, product).save();
 	}
 	
+	public static Image createI(String image, Product product){
+		Image i = new Image(image, product);
+		i.save();
+		return i;
+	}
+	
 	public static void delete(int id){
 		find.byId(id).delete();
 	}
