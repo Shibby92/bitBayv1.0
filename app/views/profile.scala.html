@@ -91,7 +91,7 @@
       <h5>Email:  @User.find(session().get("email")).email</h5> 
       <h5>Address:  @User.find(session().get("email")).user_address</h5> 
       <div class="col-md-5">
-      <a href="/editinfo"><button class="btn btn-md btn-info " >Edit additional info</button></a>
+      <a href="/editinfo"><button class="btn btn-md btn-info " style="width: 280px; height: 40px; margin: 1px -20px" >Edit additional info</button></a>
        </div>
       </div>
       
@@ -193,7 +193,7 @@
       @for(product <- products){
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
-            <img src="@routes.Assets.at(product.image_url)" alt="">
+            <img src="@routes.Assets.at(product.image_url)" alt="" style="width:500px;height:228px">
             <div class="caption">
                <h4 class="pull-right"> @product.price $</h4>
                <h4> <a href="itempage/@product.id">@product.name</a>
@@ -224,7 +224,7 @@
       @for(product <- myproducts){
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
-            <img src="@routes.Assets.at(product.image_url)" alt="">
+            <img src="@routes.Assets.at(product.image_url)" alt="" style="width:500px;height:228px">
             <div class="caption">
                <h4 class="pull-right">US @product.price $</h4>
                <h4> <a href="itempage/@product.id">@product.name</a>
@@ -232,8 +232,8 @@
                <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
             </div>
              <div style="margin: 10px 70px">
-               <a class="btn btn-warning glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button");">Update</a>
-               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a> 
+               <a class="btn btn-info glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button" style="width: 300px; height: 40px; margin: 10px -40px">Update</a>
+               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?')" style="width: 300px; height: 40px; margin: 10px -40px">Delete</a> 
             </div>
          </div>
          
