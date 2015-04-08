@@ -307,8 +307,7 @@ public class UserLoginApplication extends Controller {
 		String paymentID = null;
 		String payerID = null;
 		String token=null;
-		Cart cart=new Cart();
-	Orders order=new Orders();
+		Cart cart=Cart.getCart(email);
 		try{
 			DynamicForm paypalReturn = Form.form().bindFromRequest();
 			//String paymentID = paypalReturn.get("paymentId");
@@ -329,27 +328,27 @@ public class UserLoginApplication extends Controller {
 			apiContext.setConfigurationMap(sdkConfig);
 //			
 			Payment payment= Payment.get(accessToken, paymentID);
-			User user=User.find(session().get("email"));
-			cart=Cart.getCart(email);
-			/* order= new Orders(Cart.getCart(session().get("email")),user,token);
+			/*User user=User.find(session().get("email"));
+			Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
 			order.save();
 			user.orderList.add(order);
 			user.update();
-			Cart.clear(user.id);
-			Iterator<Product> itr = order.productList.iterator();
+			//Cart.clear(user.id);
+*/			
+			/*Iterator<Product> itr = order.productList.iterator();
 			while (itr.hasNext()) {
 				Product product=itr.next();
 				product.order=order;
 				//product.sold=true;
 				product.update();
-				
-			}*/
+				}*/
 			//Cart.clear(temp.id);
 		} catch (PayPalRESTException e) {
 			// TODO Auto-generated catch block
 			Logger.warn(e.getMessage());
 			}
-			return ok(confirmorder.render(paymentID,payerID,token,email,cart,  FAQ.all()));	
+		
+		return ok(confirmorder.render(paymentID,payerID,token,email,cart,  FAQ.all()));	
 		}
 	
 	
@@ -376,47 +375,42 @@ public class UserLoginApplication extends Controller {
 		PaymentExecution paymentExecution=new PaymentExecution();
 		paymentExecution.setPayerId(payerID);
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
+		//User currUser=User.find(session().get("email"));
 		User user=User.find(session().get("email"));
 		Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
 		order.save();
 		user.orderList.add(order);
 		user.update();
-		Cart.clear(user.id);
 		Iterator<Product> itr = order.productList.iterator();
 		while (itr.hasNext()) {
 			Product product=itr.next();
 			product.order=order;
 			//product.sold=true;
 			product.update();
-			
-		}
-		List<Orders> userOrders=user.orderList;
-		
-		Iterator<Orders> orderIterator = userOrders.iterator();
-		while (orderIterator.hasNext()) {
-			Orders orderO=orderIterator.next();
-			Iterator<Product> productIterator = orderO.productList.iterator();
-			while (productIterator.hasNext()) {
-				Product p=productIterator.next();
-				if(p.getOrderedQuantity()>=p.getQuantity())
-					p.sold=true;
-				int leftQuantity=p.getQuantity()-p.getOrderedQuantity();
-				p.setQuantity(leftQuantity);
-				p.setOrderedQuantity(0);
-				p.save();
-		}
-			Cart cart=Cart.getCart(email);
-			cart.size=0;
-			cart.checkout=0;
-			cart.update();
-			cart.save();
 			}
+		List<Orders> userOrders=user.orderList;
+		//for(Orders order:userOrders){
+			for(Product product:order.productList){
+				if(product.getOrderedQuantity()>=product.getQuantity())
+					product.sold=true;
+				int leftQuantity=product.getQuantity()-product.getOrderedQuantity();
+				product.setQuantity(leftQuantity);
+				product.setOrderedQuantity(0);
+				product.save();
+			}
+		
+		Cart cart=Cart.getCart(email);
+		//Cart.nullCart(cart);
+		cart.checkout=0;
+		cart.size=0;
+		cart.update();
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}
 		
 		return ok(orderpage.render(email,User.find(session().get("email")).orderList,  FAQ.all()));
 	}
+
 
 	public static Result orderFail() {
 		//return ok(creditresult.render("nije proslo"));

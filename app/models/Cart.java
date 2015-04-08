@@ -60,6 +60,18 @@ public class Cart extends Model {
 		product.update();
 	}
 	
+	public static void nullCart(Cart cart){
+		cart.checkout=0;
+		cart.size=0;
+		Iterator<Product> productIterator = cart.productList.iterator();
+		while (productIterator.hasNext()) {
+			Product p=productIterator.next();
+			productIterator.remove();
+			cart.productList.remove(p);
+			}
+		cart.update();
+	}
+	
 	public static void addQuantity(Product product, Cart cart,int newQuantity) {
 		if (cart.productList == null) {
 			cart.productList = new LinkedList<Product>();
