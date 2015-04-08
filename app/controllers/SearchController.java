@@ -39,31 +39,8 @@ public class SearchController extends Controller {
 
 		DynamicForm form = Form.form().bindFromRequest();
 
-		/*
-		 * String productName = form.data().get("name"); String description =
-		 * form.data().get("description"); String minValuee =
-		 * form.data().get("minPrice"); String maxValuee =
-		 * form.data().get("maxPrice"); double minValue =
-		 * Double.parseDouble(minValuee); double maxValue =
-		 * Double.parseDouble(maxValuee);
-		 * 
-		 * List<Product> products = Product.find.all(); /*Product.find.where()
-		 * .ilike("category_id", String.valueOf(category.id)).findList();
-		 * 
-		 * if(productName != null) { products=products.stream().filter(product
-		 * -> product.name.contains(productName)).collect(Collectors.toList());
-		 * }
-		 * 
-		 * if(description != null) { products=products.stream().filter(product
-		 * ->
-		 * product.description.contains(description)).collect(Collectors.toList
-		 * ()); } if((minValue != 0) && (maxValue != 0) && (minValue <
-		 * maxValue)) { products=products.stream().filter(product ->
-		 * ((product.price > minValue) && (product.price >
-		 * maxValue))).collect(Collectors.toList()); } String email =
-		 * session().get("email"); return ok(advancedsearchpage.render(email,
-		 * products, FAQ.all()));
-		 */
+	
+		 
 		String email = session().get("email");
 		Form<Search> filteredSearch = new Form<Search>(Search.class);
 		String category = filteredSearch.bindFromRequest().get().category;

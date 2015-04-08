@@ -80,12 +80,93 @@
                <dl >
                   <dt><label>Select Category</label></dt>
                   <dd>
-                   <fieldset>
+                 
+				                        	<script language="JavaScript">
+				
+				
+				
+				var e = document.getElementById("category");
+				
+				function showHideCategoryFields() {
+				
+				var selected = e.value;
+				
+				
+				
+				var hiddenDivs = document.querySelectorAll('.fieldsetToHide');
+				
+				
+				
+				for (var i = 0; i < hiddenDivs.length; i++) {
+				
+				hiddenDivs[i].style.display = 'none';
+				
+				}
+				
+				
+				
+				var actives = document.querySelectorAll("#subCategoryString");
+				
+				
+				
+				for (var i = 0; i < actives.length; i++) {
+				
+				actives[i].id = "inactive";
+				
+				actives[i].name = "inactive";
+				
+				}
+				
+				
+				
+				
+				
+				var shown = document.getElementById(selected);
+				
+				shown.style.display = 'block';
+				
+				
+				var children = shown.childNodes;
+				
+				var node = children[1];
+				
+				var children2 = node.childNodes;
+				
+				var selectNode = children2[3];
+				
+				
+				selectNode.id = "subCategoryString";
+				
+				selectNode.name = "subCategoryString";
+				
+				
+				
+				
+				};
+				
+				
+				e.onchange = showHideCategoryFields;
+				
+				
+				showHideCategoryFields();
+				
+				
+				</script>
+
+
+                         <fieldset>
                      <select  id="category" for="category" width: 100px class="form-control">
                      
-                        @for(category <- categoryList){
-                        <option>@category.name</option>
-                        }
+                        
+                        <option>Cars</option>
+                        <option>Fashion</option>
+                         <option>Mobile Phones</option>
+                          <option>Computers</option>
+                           <option>Houses</option>
+                            <option>Shoes</option>
+                             <option>Biznis</option>
+                              <option>Animals</option>
+                        
                      </select>
                      </fileset>
                     

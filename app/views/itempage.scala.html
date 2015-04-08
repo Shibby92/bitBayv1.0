@@ -1,5 +1,4 @@
 @(email: String, product: Product, faqs: List[FAQ], images: List[String], comments: List[Comment])
-
 @import java.math.BigInteger; var i=0
 @main("ItemPage") {
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -10,19 +9,17 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-       
-        
-               @if(email == null) {
-               	  <ul class="nav navbar-nav">
-                 <li  style="margin: 0px 155px">
+         @if(email == null) {
+         <ul class="nav navbar-nav">
+            <li  style="margin: 0px 155px">
                <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
-            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-               <div class="form-group">
-                  <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
-               </div>
-               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
-            </form>
-         </li>
+               <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                  <div class="form-group">
+                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                  </div>
+                  <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+               </form>
+            </li>
             <li>
                <h4>
                   <p style="color: #000">Hello   
@@ -38,38 +35,29 @@
             </li>
          </ul>
          } else {
-          <ul class="nav navbar-nav">
-                 <li  style="margin: 0px 235px">
-              <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
+         <ul class="nav navbar-nav">
+         <li  style="margin: 0px 235px">
+            <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
             <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-            
                <div class="form-group">
                   <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
-                  
                </div>
                <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
             </form>
          </li>
-      
          <ul class='nav navbar-nav pull-right'>
-
-                    <li class='dropdown'>
+            <li class='dropdown'>
                <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-              
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-                 @if(User.find(email).admin == true) {
+                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  
                   } else {
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
-                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
-
-                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
-                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
-                 
-
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
                   }
                   <li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
@@ -83,160 +71,141 @@
    <!-- /.container -->
 </nav>
 <body>
-<div class="container">
-  @if(flash.get("excess")){
-							<h4><center>@flash.get("excess")</center></h4>
-							}  
-	<div style="margin: 80px -15px" class="row">
-   <div class="col-md-5">
-   <centar>
-      <div class="row carousel-holder">
-         <div class="col-md-12">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-               <ol class="carousel-indicators">
-                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
-                  </li>
-                      @for(image <- images) {
-                      	@if(images.indexOf(image) != 0) {    
-                      	@{i=i+1}                  	
-                  <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
-              	 }
-                }
-              
-               </ol>
-              
-               <div class="carousel-inner" style="max-width: 800px;	height: 250px;">
-                  <div class="item active">       
-                     <img class="slide-image" src="@routes.Assets.at(images.get(0))" />  
-                  </div>
-                 
-                   @for(image <- images) {
-                   	@if(images.indexOf(image) == 0) {
-                   		} else {
-                  <div class="item">       
-                     <img class="slide-image" src="@routes.Assets.at(image)" />  
-                  </div>
-                  }
-                  }
-                  </div>
-                 
-               <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-               <span class="glyphicon glyphicon-chevron-left"></span>
-               </a>
-               <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-               <span class="glyphicon glyphicon-chevron-right"></span>
-               </a>
-                </centar>
+   <div class="container">
+      @if(flash.get("excess")){
+      <h4>
+         <center>@flash.get("excess")</center>
+      </h4>
+      }  
+      <div style="margin: 80px -15px" class="row">
+         <div class="col-md-5">
+            <centar>
+               <div class="row carousel-holder">
+                  <div class="col-md-12">
+                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                           <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
+                           </li>
+                           @for(image <- images) {
+                           @if(images.indexOf(image) != 0) {    
+                           @{i=i+1}                  	
+                           <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
+                           }
+                           }
+                        </ol>
+                        <div class="carousel-inner" style="max-width: 800px;	height: 250px;">
+                           <div class="item active">       
+                              <img class="slide-image" src="@routes.Assets.at(images.get(0))" />  
+                           </div>
+                           @for(image <- images) {
+                           @if(images.indexOf(image) == 0) {
+                           } else {
+                           <div class="item">       
+                              <img class="slide-image" src="@routes.Assets.at(image)" />  
+                           </div>
+                           }
+                           }
+                        </div>
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+            </centar>
             </div>
-         </div>
-      </div>
-      <div class="col-md-11">
-         <h4 class="pull-right">US @product.price $</h4>
-         <h3 style="color: #4AB55A">@product.name</a>
-         </h3><br>
-         
-         <h4>In Cart(this item): @product.getOrderedQuantity</a>
-         </h4>
-         @if((email==null)||(User.find(email).admin == false)) {
-         	@if((product.sold==false)&&(session().get("email")!=product.owner.email)){
-    
-    <form action="@routes.ProductApplication.productToCart(product.id)"  method="POST" enctype="multipart/form-data">
-    <div class="container">
-   <dl class=" " id="orderedQuantity_field">
-                     <dt><label for="orderedQuantity">Quantity:</label> </dt>
-                     <dd><input name="orderedQuantity" id="orderedQuantity" value='1' placeholder="Enter quantity " type="number" step="1" min="0"  max="999999" class="form-control" required/> </dd>
-                  </dl></div>
+            </div>
+            </div>
+            <div class="col-md-11">
+               <h3 class="pull-right"> @product.price $</h3>
+               <h3 style="color: #4AB55A">@product.name
+               </h3>
+               <br>
+               
+               
+                  <h4> On Stock: @product.quantity </h4>
                   
-                     }
-
+               @if((email==null)||(User.find(email).admin == false)) {
+               @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
+               <form action="@routes.ProductApplication.productToCart(product.id)"  method="POST" enctype="multipart/form-data">
+                  <div>
+                     <dl class=" " id="orderedQuantity_field">
+                        <dt><label for="orderedQuantity">Quantity:</label> </dt>
+                        <dd><input maxlength="6" size="6" name="orderedQuantity" id="orderedQuantity" value='1'  placeholder="Enter quantity " type="number" step="1" min="0"  max="999999" class="form-control" required/> </dd>
+                     </dl>
+                  </div>
                   }
-                  <p><h4> On Stock: @product.quantity </h4></h2></p>
-         <p> @product.description </p>
-         @if((email==null)||(User.find(email).admin == false)) {
-         	@if((product.sold==false)&&(session().get("email")!=product.owner.email)){
-  				<form action="demo_form.asp">
-  				 <input type="submit" class="btn btn-success" value="Add to cart">
-            	</form></form>
-            	}
-            	@if(session().get("email")!=product.owner.email && session().get("email")!=null){
-            	<a href="/contactsellerpage/@product.id"
-            	<button type="button" class="btn btn-success">Contact seller</button>
-            	</a>
-            	}
-            	}
+                  }
+                 
+              	<h4>In Cart(this item): @product.getOrderedQuantity</a>
+               </h4>
+                  @if((email==null)||(User.find(email).admin == false)) {
+                  @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
+               <form action="demo_form.asp">
+                  <input type="submit" class="btn btn-success " value="Add to cart" style="width: 350px; height: 40px">
+               </form>
+               </form>
+               }
+                 @if(session().get("email")!=product.owner.email && session().get("email")!=null){
+               <a href="/contactsellerpage/@product.id"
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Contact seller</button>
+               </a>
+               }
+              
+               }
+            </div>
+      
+       
       </div>
-     	<table class='table'>
-		<thead> <tr> <th style="float: left"> Comments: </th>  </tr>  </thead>
-		<tbody>
- 		@if(comments != null) {
-				@for(comment <- comments){
-							@if(comment.product == product) {
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-									
-									<tr> 
-									<td>
-									
-									<li>
-									
-										<p> <strong>@comment.owner.email: </strong> @comment.comment </p>
-										}
-										
-										@if(session().get("email") != null) {
-										@if(User.find(session().get("email")).admin) { 
-										
-										<a href="@routes.ProductApplication.deleteComment(comment.id, product.id)" onclick="return confirm('Are you sure you want to delete this comment?');"class="btn btn-danger">Delete</a>
-								
-										
-										
-										}  
-										
-										</li>
-										
-										</td>
-										</tr>
-										
-										
-									</div>					
-								</div>
-							</div>
-							}
-							}
-							}
-		</tbody>
-		</div>
-	</table>
-	
-		@if(Product.find(product.id).order != null) {
-     	@if(Product.find(product.id).order.buyer == User.find(session().get("email"))) {
-     	<div class="col-sm-4">
-				
-				 
-					<form action="@routes.ProductApplication.addNewComment(product.id)" method ="POST" >	
-                     <dt><label for="comment">Comment:</label> </dt>
-                     <dd><textarea name="comment" id="comment" rows="2" cols="50" placeholder="Comment" required></textarea></dd>
-                  </dl>
-							
-							 <div class="form-group text-center">
-							<button type="submit" class="btn btn-success">Add Comment</button>
-							</div>
-					</form>
-				
-			</div>
-			}
-			}
+       <div class="col-md-5" style="margin: 0px 35px">
+       <h3>Description: </34>
+       	    <h4> @product.description </h4>
+       	   
+       	      <table class='table'>
+               <thead>
+                  <tr>
+                     <th style="float: left"> Comments: </th>
+                  </tr>
+               </thead>
+               <tbody>
+                  @if(comments != null) {
+                  @for(comment <- comments){
+                  @if(comment.product == product) {
+                  <div class="product-image-wrapper">
+                     <div class="single-products">
+                        <div class="productinfo text-center">
+                           <tr>
+                              <td>
+                                 <li>
+                                    <p> <strong>@comment.owner.email: </strong> @comment.comment </p>
+                                    }
+                                    @if(session().get("email") != null) {
+                                    @if(User.find(session().get("email")).admin) { 
+                                    <a href="@routes.ProductApplication.deleteComment(comment.id, product.id)" onclick="return confirm('Are you sure you want to delete this comment?');"class="btn btn-danger">Delete</a>
+                                    }  
+                                 </li>
+                              </td>
+                           </tr>
+                        </div>
+                     </div>
+                  </div>
+                  }
+                  }
+                  }
+               </tbody>
+         </div>
+         </table>
+   </div>
+   
+   
    </div>
    </div>
    </div>
-   </div>
-
    <div class="container">
       <hr>
       <a href="/contactpage">
          <h3>Contact Us</h3>
       </a>
-
       <a href="/faq">
          <h3> FAQs</h3>
       </a>
