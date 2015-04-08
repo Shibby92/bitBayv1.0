@@ -247,8 +247,10 @@ public class Product extends Model {
 	}
 	
 	public static void deleteImage(Product p) {
-		File f = new File("./public/" + p.image_url); 
-		boolean b = f.delete();
+		for(Image image: p.images) {
+		File f = new File("./public/" + image.image); 
+		f.delete();
+		}
 	}
 	
 	
