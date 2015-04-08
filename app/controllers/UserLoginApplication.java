@@ -333,13 +333,12 @@ public class UserLoginApplication extends Controller {
 			order.save();
 			user.orderList.add(order);
 			user.update();
-			User temp=User.find(session().get("email"));
-			Cart.clear(temp.id);
+			Cart.clear(user.id);
 			Iterator<Product> itr = order.productList.iterator();
 			while (itr.hasNext()) {
 				Product product=itr.next();
 				product.order=order;
-				product.sold=true;
+				//product.sold=true;
 				product.update();
 				
 			}
@@ -375,6 +374,23 @@ public class UserLoginApplication extends Controller {
 		PaymentExecution paymentExecution=new PaymentExecution();
 		paymentExecution.setPayerId(payerID);
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
+		User currUser=User.find(session().get("email"));
+		Orders userOrder=currUser.orderList.get(currUser.orderList.size()-1);
+		User seller= userOrder.productList.get(0).owner;
+				seller.soldOrders.add(userOrder);
+				seller.soldOrders.get(seller.soldOrders.size()-1).notification=true;
+				seller.soldOrders.get(seller.soldOrders.size()-1).seller=seller;
+				seller.soldOrders.get(seller.soldOrders.size()-1).save();
+				seller.save();
+			for(Product product:userOrder.productList){
+				if(product.getOrderedQuantity()>=product.getQuantity())
+					product.sold=true;
+				int leftQuantity=product.getQuantity()-product.getOrderedQuantity();
+				product.setQuantity(leftQuantity);
+				product.setOrderedQuantity(0);
+				product.save();
+			}
+		
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}

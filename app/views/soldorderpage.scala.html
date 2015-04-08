@@ -1,8 +1,8 @@
-@(email: String, cart:Cart, faqs: List[FAQ])
-@import helper._ 
-@main("Cart") {
+
+@(email: String,orders: List[Orders], faqs: List[FAQ])
+@main("Orders") {
 <body>
- <!-- Navigation -->
+  <!-- Navigation -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,7 +28,6 @@
                      <a href="/login">
                      <button class="btn btn-success btn-login"> Log in</button> 
                      </a>
-                     or 
                      <a href="/toregister">
                      <button class="btn btn-success btn-register" >Register</button>
                      </a>
@@ -36,7 +35,7 @@
                </h4>
             </li>
          </ul>
-         } else {
+         }else{
       
          <li >
             <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -44,17 +43,11 @@
              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
                    <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
-                  
-                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
-                 
-
-
-                  }
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
                   <li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                </ul>
@@ -67,61 +60,53 @@
    <!-- /.container -->
 </nav>
    <!-- Page Content -->
-  <div class="container">
-   @if(flash.get("error")){
-							<h2><center><strong>@flash.get("error")</strong></center></h2>
-							}
-                  
-					@if(cart.productList.size()>0){		
-      <legend>Your Cart: </legend>
-      <div>
-         @for(product <- cart.productList){           
-         <div class="col-md-4 portfolio-item">
-            <a href="#">
-            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" width="700" height="400" alt="">
-            </a>
-            
-         
-            
-            <h3>
-               <a href="itempage/@product.id">@product.name</a>
-            </h3>
-            <p> @product.description </p>
-            <div class="container">
-              <h4 class="pull-down">Price:@product.price</h4><br>
-          <h4 class="pull-down">Quantity:@product.orderedQuantity</h4></div><br>
-               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Remove from Cart</a> 
-            </div><br>
-           
-         </div>
-         }
-      
-      </div>
-       
-      <p>--------------------------------------------------------------------------------------------</p>
-          <div class="container">
-    
-        <p><h2>Total price(items: @cart.size) @cart.checkout</h2></p>
-        <div class=container>
-        <form action="/creditpurchase" method="POST">
-	<a href="/creditpurchase" data-paypal-button="true">
-  <button class="submit" ><img src="//www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Check out with PayPal" />
-  </button>
-</a>
-</form>
-</div>
-}else{
-<p> <h4>Your cart is empty</h4></p>
-}
-   </div>
-   <br><br>
    <div class="container">
-    <div>
-               <a class="btn btn-danger" href="/" role="button" onclick="">View products</a> 
-            </div>
-   
-                
-            </div><br>
+    @if(flash.get("refund")){
+         <div class="alert alert-success" role="alert">
+                        @flash.get("refund")
+                  </div>
+                  }
+   @if(orders.isEmpty){
+							<h3><center><strong>You have no orders!</strong></center></h3>
+							}else{
+      <legend>Your Sold Orders: </legend>
+      <div class="row">
+        
+         <table class="table table-bordered">	
+      <thead>
+        <tr>
+          <th>Order number</th>
+                <th>Products</th>
+                <th><span class="nobr">Total</span></th>
+        </tr>
+      </thead>
+      <tbody>
+       @for(order <- orders){
+        <tr>
+         <td>@order.id</td>
+        
+          <td>
+                    @for(product <- order.productList){
+                    	<p>@product.name ($ @product.price)</p>
+                    }
+                    </td>
+                    <td><span class="price">$ @order.price,-</span>
+                    
+        </tr>
+         <a href ="/soldorderchecked/@order.id">
+                    	<button type="button" class="btn btn-warning">Ok, got it!</button></td>
+                   </a>
+        </div>
+        </tbody>
+      
+         }
+      </table>
+       
+      
+}
+      
+      }
+   </div>
       <div class="container">
       <hr>
       <a href="/contactpage">

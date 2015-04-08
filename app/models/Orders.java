@@ -26,10 +26,16 @@ public class Orders extends Model {
 	public double price;
 	
 	public String token;
+	
+	@ManyToOne
+	public User seller;
+	
+	public boolean notification;
 
 	public Orders(List<Product> productList){
 		this.productList=productList;
 		
+	
 	}
 	public Orders(Cart cart, User buyer, String token) {
 		productList=cart.productList;
