@@ -1,4 +1,4 @@
-@(email: String,categoryList:List[Category],faqs: List[FAQ])
+@(email: String, products:List[Product],categoryList:List[Category],faqs: List[FAQ])
 @main("Advenced Search") {
 <body>
    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -75,15 +75,14 @@
       <hr>
       <div class="row">
        
-            <form   method="GET" action="/advancedsearchpage" role="search">
+           <form action="@routes.SearchController.advancedSearch(Product.getIds(products))" method="POST"">
               <div class="col-sm-3" style="margin: -6.5px 0px">
                <dl >
                   <dt><label>Select Category</label></dt>
                   <dd>
 
                    <fieldset>
-                     <select  id="category" for="category" width: 100px class="form-control">
-                     
+                     <select  name ="category" id="category" for="category" width: 100px class="form-control">                     
                         @for(category <- categoryList){
                         <option>@category.name</option>
                         }
@@ -98,7 +97,7 @@
                <dl >
                   <dt><label >Product</label></dt>
                   <dd>
-                     <input type="text" class="form-control" size="40" placeholder="Product ..." >
+                     <input id="product" name="product" type="text" class="form-control" size="40" placeholder="Product ..." >
                   </dd>
                </dl>
                </div>
@@ -123,6 +122,65 @@
             </form>
          
       </div>
+   </div>
+    <div class="container">
+      <!-- Page Header -->
+      <div style="margin: 80px -15px" class="row">
+        @if(!products.isEmpty) {
+        	 <div class="col-lg-12">
+            <h3 class="page-header"> Product Page </h3>
+         </div>
+         @for(product <- products){           
+         <div class="col-md-4 portfolio-item">
+            <a href="#">
+            <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+            </a>
+            <h3 class="pull-right">@product.price</h3>
+            <h3>
+                <a href="/itempage/@product.id">@product.name</a>
+            </h3>
+            <p> @product.description </p>
+         </div>
+         }
+         } else {
+         	 <div class="col-lg-12">
+            <h3 class="page-header"> Product Page </h3>
+         </div>
+          <div class="row">
+          	<h4 style="margin: 180px 35px"> No search results... </h4>
+            </div>
+         }
+      </div>
+    
+      <!-- Pagination -->
+      <div class="row text-center">
+         <div class="col-lg-12">
+            <ul class="pagination">
+               <li>
+                  <a href="#">&laquo;</a>
+               </li>
+               <li >
+                  <a href="#">1</a>
+               </li>
+               <li>
+                  <a href="#">2</a>
+               </li>
+               <li>
+                  <a href="#">3</a>
+               </li>
+               <li>
+                  <a href="#">4</a>
+               </li>
+               <li>
+                  <a href="#">5</a>
+               </li>
+               <li>
+                  <a href="#">&raquo;</a>
+               </li>
+            </ul>
+         </div>
+      </div>
+      </hr>
    </div>
    <div class="container">
       <hr>

@@ -70,8 +70,10 @@ POST	/itempage/:id			controllers.ProductApplication.addNewComment(id: Integer)
 
 GET		/search					controllers.SearchController.search(q: String)
 GET		/searchusers					controllers.SearchController.searchUsers(q: String)
-GET		/advancedsearch					controllers.SearchController.advancedSearch()
-GET	/advancedsearchpage					controllers.SearchController.advancedSearchpage()
+
+GET		/advancedsearch					controllers.SearchController.advancedSearchPage()
+POST	/advancedsearch					controllers.SearchController.advancedSearch(ids: String)
+
 
 
 # Routes for contact form
