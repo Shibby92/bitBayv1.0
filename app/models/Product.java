@@ -60,7 +60,7 @@ public class Product extends Model {
 
 	public String image3;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	public List<Image> images;
 	
 	@ManyToOne
@@ -248,8 +248,12 @@ public class Product extends Model {
 	
 	public static void deleteImage(Product p) {
 		for(Image image: p.images) {
+			Image i = Image.find(image.id);
+			
 		File f = new File("./public/" + image.image); 
+		Logger.debug("File for delete: " + f.toString());
 		f.delete();
+		i.delete();
 		}
 	}
 	

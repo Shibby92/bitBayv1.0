@@ -92,7 +92,6 @@ public class ProductApplication extends Controller {
 				flash("error", "Image not valid!");
 				return redirect("/addproductpage/" + id);
 			}
-
 		}
 		Product.create(name, price, User.find(session().get("email")),
 				description, id, image_urls);
@@ -179,8 +178,6 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result updateP (int id){	
-		
-		Logger.info("Opened page for updating producct");
 		Product updateProduct= Product.find(id);
 		if(updateProduct.sold==true){
 			updateProduct.sold=false;
@@ -213,6 +210,7 @@ public class ProductApplication extends Controller {
 	public static List<models.Image> updatePicture(int id){
 		
 		Product updateProduct = ProductApplication.find(id);
+		Product.deleteImage(updateProduct);
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
 		for(FilePart filePart: fileParts) {
@@ -263,11 +261,7 @@ public class ProductApplication extends Controller {
 			models.Image.saveImg(img);
 			
 			Files.move(image, profile);
-			
-			Product.deleteImage(updateProduct);
-			
-			
-			
+
 			ImageIcon tmp= new ImageIcon(image_url);
 			Image resize = tmp.getImage();
 			resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
