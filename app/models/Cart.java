@@ -101,7 +101,6 @@ public class Cart extends Model {
 	
 	static Finder<Integer,Cart> findCart=new Finder<Integer,Cart>(Integer.class,Cart.class);
 	public static Cart find(int id) {
-		
 		return findCart.byId(id);
 	}
 
@@ -110,7 +109,7 @@ public class Cart extends Model {
 		cart.productList.clear();
 		cart.checkout=0;
 		cart.size=0;
-		//cart.update();
+		cart.update();
 		
 	}
 	

@@ -84,7 +84,7 @@ POST    /producttocart/:id       controllers.ProductApplication.productToCart(id
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcessing()
-GET    /ordersuccess    controllers.UserLoginApplication.orderSuccess(paymentID:String,payerID:String,token:String)
+GET    /ordersuccess       controllers.UserLoginApplication.orderSuccess(paymentID:String,payerID:String,token:String)
 GET    /orderfail              controllers.UserLoginApplication.orderFail()
 GET		/orderconfirm			controllers.UserLoginApplication.orderConfirm()
 GET		/refundorder/:id			controllers.UserLoginApplication.refundOrder(id: Integer)
