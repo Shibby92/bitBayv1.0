@@ -63,7 +63,6 @@ create table product (
   image1                    varchar(255),
   image2                    varchar(255),
   image3                    varchar(255),
-  order_id                  integer,
   sold                      boolean,
   ordered_quantity          integer,
   amount                    double,
@@ -90,6 +89,12 @@ create table user (
   constraint pk_user primary key (id))
 ;
 
+
+create table productList_order (
+  order_id                       integer not null,
+  product_id                     integer not null,
+  constraint pk_productList_order primary key (order_id, product_id))
+;
 create sequence cart_seq;
 
 create sequence category_seq;
@@ -120,10 +125,12 @@ alter table product add constraint fk_product_cart_6 foreign key (cart_id) refer
 create index ix_product_cart_6 on product (cart_id);
 alter table product add constraint fk_product_owner_7 foreign key (owner_id) references user (id) on delete restrict on update restrict;
 create index ix_product_owner_7 on product (owner_id);
-alter table product add constraint fk_product_order_8 foreign key (order_id) references orders (id) on delete restrict on update restrict;
-create index ix_product_order_8 on product (order_id);
 
 
+
+alter table productList_order add constraint fk_productList_order_orders_01 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+
+alter table productList_order add constraint fk_productList_order_product_02 foreign key (product_id) references product (id) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -140,6 +147,8 @@ drop table if exists faq;
 drop table if exists image;
 
 drop table if exists orders;
+
+drop table if exists productList_order;
 
 drop table if exists product;
 

@@ -2,33 +2,35 @@
 @import helper._
 @main("Register") {
 <body>
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+ <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
+      <div class="navbar-header" style="margin: 0px -155px">
          <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-         <ul class="nav navbar-nav">
-            <li>
-              
+       
+        
+               @if(email == null) {
+               	  <ul class="nav navbar-nav">
+                 <li  style="margin: 0px 155px">
+               <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
             <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                <div class="form-group">
-                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
+                  <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
                </div>
                <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
             </form>
          </li>
-               @if(email == null) {
             <li>
                <h4>
-                  <p style="color: #000">Hello, please  
-                     <a href="login">
+                  <p style="color: #000">Hello   
+                     <a href="/login">
                      <button class="btn btn-success btn-login"> Log in</button> 
                      </a>
                      or 
-                     <a href="toregister">
+                     <a href="/toregister">
                      <button class="btn btn-success btn-register" >Register</button>
                      </a>
                   </p>
@@ -36,28 +38,43 @@
             </li>
          </ul>
          } else {
+          <ul class="nav navbar-nav">
+                 <li  style="margin: 0px 235px">
+              <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+            
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                  
+               </div>
+               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+            </form>
+         </li>
       
-         <li >
-            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+         <ul class='nav navbar-nav pull-right'>
+
+                    <li class='dropdown'>
+               <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+               <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+              
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-              @if(User.find(email).admin == true) {
+                 @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   
                   } else {
-                 <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
                    <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+
                    <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
                    <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
                  
 
-
                   }
                   <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="logout">Logout</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                </ul>
-         </li>
+            </li>
          </ul>
          }
       </div>

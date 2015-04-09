@@ -51,8 +51,6 @@ public class Global extends GlobalSettings {
 			Image img1 = new Image();
 			img1.image = "images/Productimages/bitbaySlika2.jpg";
 			img1.product = p;
-	
-
 			List<Image> img = new ArrayList<Image>();
 			img.add(img1);
 			Image.saveImg(img1);

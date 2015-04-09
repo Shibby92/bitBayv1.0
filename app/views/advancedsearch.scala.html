@@ -1,0 +1,136 @@
+@(email: String,categoryList:List[Category],faqs: List[FAQ])
+@main("Advenced Search") {
+<body>
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header" style="margin: 0px -155px">
+            <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+         </div>
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            @if(email == null) {
+            <ul class="nav navbar-nav">
+               <li  style="margin: 0px 155px">
+                  <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
+                  <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                     <div class="form-group">
+                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                     </div>
+                     <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+                  </form>
+               </li>
+               <li>
+                  <h4>
+                     <p style="color: #000">Hello   
+                        <a href="/login">
+                        <button class="btn btn-success btn-login"> Log in</button> 
+                        </a>
+                        or 
+                        <a href="/toregister">
+                        <button class="btn btn-success btn-register" >Register</button>
+                        </a>
+                     </p>
+                  </h4>
+               </li>
+            </ul>
+            } else {
+            <ul class="nav navbar-nav">
+            <li  style="margin: 0px 235px">
+               <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
+               <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                  <div class="form-group">
+                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                  </div>
+                  <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+               </form>
+            </li>
+            <ul class='nav navbar-nav pull-right'>
+               <li class='dropdown'>
+                  <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                     @if(User.find(email).admin == true) {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                     } else {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                     }
+                     <li class="divider"></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+                  </ul>
+               </li>
+            </ul>
+            }
+         </div>
+         <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+   </nav>
+   <!-- Page Header -->
+   <div class="container">
+      <hr>
+      <div class="row">
+       
+            <form   method="GET" action="/advancedsearchpage" role="search">
+              <div class="col-sm-3" style="margin: -6.5px 0px">
+               <dl >
+                  <dt><label>Select Category</label></dt>
+                  <dd>
+                   <fieldset>
+                     <select  id="category" for="category" width: 100px class="form-control">
+                     
+                        @for(category <- categoryList){
+                        <option>@category.name</option>
+                        }
+                     </select>
+                     </fileset>
+                    
+
+  				
+                  </dd>
+               </dl>
+               <dl >
+                  <dt><label >Product</label></dt>
+                  <dd>
+                     <input type="text" class="form-control" size="40" placeholder="Product ..." >
+                  </dd>
+               </dl>
+               </div>
+                 <div class="col-sm-3" style="margin: -6.5px 0px">
+               <dl  >
+                  <dt><label >Description</label></dt>
+                  <dd>
+                     <input type="text" class="form-control" size="40" placeholder="Description..." >
+                  </dd>
+               </dl>
+               <dl  >
+                  <dt><label >Price</label></dt>
+                  <dd>
+                      <input type="number" min="1" max="9999999" step="any" value="" id="minValue" name="minValue" class="form-control" name="q" id="q" size="5" placeholder="From.." >
+                      <input type="number" min="1" max="9999999" step="any" value="" id="maxValue" name="maxValue" style="margin: -33.5px 290px" class="form-control" name="q" id="q" size="5" placeholder="To..." >
+                </dd>
+               
+               </dl>
+               	   <button type="submit" class="btn btn-success  glyphicon glyphicon-search" style="margin: 46.5px 0px"> Search</button>
+               </div>
+              
+            </form>
+         
+      </div>
+   </div>
+   <div class="container">
+      <hr>
+      <a href="/contactpage">
+         <h3>Contact Us</h3>
+      </a>
+      <a href="faq">
+         <h3> FAQs</h3>
+      </a>
+   </div>
+   <!-- /.container -->
+</body>
+}

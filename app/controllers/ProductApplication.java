@@ -178,7 +178,11 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return
 	 */
-	public static Result updateP (int id){	
+	public static Result updateP (int id){
+		String image1 = null;
+		String image2 = null;
+		String image3 = null;
+		Logger.info("Opened page for updating producct");
 		Product updateProduct= Product.find(id);
 		if(updateProduct.sold==true){
 			updateProduct.sold=false;
@@ -191,6 +195,7 @@ public class ProductApplication extends Controller {
 		updateProduct.name=productForm.bindFromRequest().field("name").value();
 		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
+		updateProduct.quantity=Integer.parseInt(productForm.bindFromRequest().field("quantity").value());
 		List<models.Image> image_urls = updatePicture(id);
 		Logger.info(image_urls.get(0) + "     " + image_urls.get(1) + "     " + image_urls.get(2));
 		for(models.Image image_url: image_urls) {
@@ -393,6 +398,11 @@ public class ProductApplication extends Controller {
 	
 		
 	}
+	
+	
+	
+	
+	
 	/********************************************************************
 	 ************************* CART SECTION ****************************/
 
@@ -504,7 +514,19 @@ public class ProductApplication extends Controller {
 		return ok(cartpage.render(email,cart, FAQ.all()));
 
 	}
+	
+	
+	
 	/***************************************************************/
+	/***************************************************************/
+	/***************************************************************/
+	
+	
+	
+	
+	
+	
+	
 	
 	public static Result addNewComment(int id) {
 		DynamicForm form = Form.form().bindFromRequest();
@@ -536,7 +558,7 @@ public class ProductApplication extends Controller {
 
 	}
 	
-	public static Promise<Result> contactSeller(int id) {
+	public static Promise<Result> contactSeller(final int id) {
 		 final String userEmail = session().get("email");
 		//need this to get the google recapctha value
 		 final DynamicForm temp = DynamicForm.form().bindFromRequest();
@@ -587,6 +609,14 @@ public class ProductApplication extends Controller {
 				});
 		// return the promisse
 		return holder;
+	}
+	public static Result renew(int id){
+		Product temp=find.byId(id);
+		temp.sold=false;
+		temp.order=null;
+		temp.update();
+		flash("renew","Product "+temp.name+" has been successfully renewed!");
+		return redirect("/myproducts/"+User.find(session().get("email")).id);
 	}
 
 
