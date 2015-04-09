@@ -31,6 +31,9 @@ public class User extends Model {
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
 	public List<Product> products;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="receiver")
+	public List<Message> msgs;
 
 	@Id
 	public int id;

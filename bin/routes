@@ -86,6 +86,14 @@ GET    /contactsellerpage/:id   controllers.ProductApplication.contactSellerPage
 POST   /contactseller/:id       controllers.ProductApplication.contactSeller(id: Integer)
 GET    /contactseller/:id       controllers.ProductApplication.contactSeller(id: Integer)
 
+GET		/replyToMessagePage/:id	controllers.ProductApplication.replyToMessagePage(id: Integer)
+POST	/reply/:id				controllers.ProductApplication.reply(id: Integer)
+GET		/reply/:id				controllers.ProductApplication.reply(id: Integer)
+
+GET		/open/:id				controllers.ProductApplication.openMessage(id: Integer)
+
+GET		/deletemessage/:id				controllers.ProductApplication.deleteMessage(id: Integer)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file            controllers.Assets.at(path="/public", file)

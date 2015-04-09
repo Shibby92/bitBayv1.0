@@ -176,7 +176,7 @@ public class UserController extends Controller {
 	public static Result profile() {
 		Logger.info("User " + session().get("email") + " has opened his profile page");
 		String email = session().get("email");
-		return ok(profile.render(email,User.all(), Category.list(), Product.productList(), Product.myProducts(User.find(session().get("email")).id), FAQ.all()));		
+		return ok(profile.render(email,User.all(), Category.list(), Product.productList(), Product.myProducts(User.find(session().get("email")).id), FAQ.all(), Message.all(User.find(session().get("email")))));		
 	}
 	
 

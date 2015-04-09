@@ -62,11 +62,12 @@ public class Global extends GlobalSettings {
 
 		if (Product.find(1) == null) {
 
-			Product.create("Eminin proizvod", 2000, User.find(3), "Neki opis");
+			Product.create("Eminin proizvod", 2000, 1, User.find(3), "Neki opis", 3);
 			Product pro = Product.find(1);
 			Image img3 = new Image();
 			img3.image = "images/Productimages/bitbaySlika2.jpg";
 			img3.product = pro;
+			
 
 			List<Image> imggg = new ArrayList<Image>();
 			imggg.add(img3);
@@ -78,7 +79,7 @@ public class Global extends GlobalSettings {
 			
 			Product.create("Mazda m5", 25000, 1, User.find(2),
 					"condition:	used, " + "year: 2010, " + "make: Mazda, "
-							+ "mileage: 49,831, " + "transmission: manual");
+							+ "mileage: 49,831, " + "transmission: manual", 1);
 
 			Product prod = Product.find(2);
 			Image img4 = new Image();
@@ -100,7 +101,7 @@ public class Global extends GlobalSettings {
 							+ " Type: Smartphone, " + "Digital Camera: Yes,"
 							+ " Email Access: Yes,"
 							+ " Battery Capacity: 2550 mAh,"
-							+ " Display Technology:	Quad HD Super AMOLED");
+							+ " Display Technology:	Quad HD Super AMOLED", 3);
 
 			Product produ = Product.find(3);
 			Image img5 = new Image();
@@ -120,7 +121,10 @@ public class Global extends GlobalSettings {
 					880000,
 					1,
 					User.find(3),
-					"Imported Italian marble floors in the foyer, in the 2 1/2 baths and the 1st floor laundry room,Designed in the atmosphere of a Las Vegas Suite. Very ornate.  Three bedrooms upstairs. Ssiral staircase. ");
+					"Imported Italian marble floors in the foyer, in the 2 1/2 "
+					+ "baths and the 1st floor laundry room,Designed in the atmosphere "
+					+ "of a Las Vegas Suite. Very ornate.  "
+					+ "Three bedrooms upstairs. Ssiral staircase. ", 5);
 
 			Product produc = Product.find(4);
 			Image img6 = new Image();
@@ -137,7 +141,7 @@ public class Global extends GlobalSettings {
 			
 			Product.create("Mercedes 270", 45750, 2, User.find(4),
 					"year: 2015, " + "make: Mercedes, " + "condition:	used, "
-							+ "mileage: 21,841, " + "transmission: manual");
+							+ "mileage: 21,841, " + "transmission: manual", 1);
 
 			Product product = Product.find(5);
 			Image img7 = new Image();
@@ -153,7 +157,7 @@ public class Global extends GlobalSettings {
 			
 			
 			Product.create("Dog", 120, 3, User.find(6),
-					"Young dog, 3 monts, only money!!!");
+					"Young dog, 3 monts, only money!!!", 8);
 
 			Product product1 = Product.find(6);
 			Image img8 = new Image();
@@ -170,7 +174,7 @@ public class Global extends GlobalSettings {
 			
 			Product.create("BMW 320", 15000, 1, User.find(4), "year: 2003, "
 					+ "mileage: 129,274, " + "transmission: automatic"
-					+ "make: Bmw, ");
+					+ "make: Bmw, ", 1);
 
 			Product product2 = Product.find(7);
 			Image img9 = new Image();
@@ -189,7 +193,7 @@ public class Global extends GlobalSettings {
 					+ "Storage Capacity: 64 GB, " + " Camera:	8.0MP,"
 					+ " Model: iPhone 6 Plus," + "Digital Camera: Yes,"
 					+ " Email Access: Yes," + " Battery Capacity: 2000 mAh,"
-					+ " Operating System:iOS");
+					+ " Operating System:iOS", 3);
 
 			Product product3 = Product.find(8);
 			Image img10 = new Image();
@@ -205,7 +209,7 @@ public class Global extends GlobalSettings {
 			
 			
 			Product.create("Cat", 120, 1, User.find(6),
-					"Young cat, 2 monts, if you want good pet this is the best choice!!!");
+					"Young cat, 2 monts, if you want good pet this is the best choice!!!", 8);
 
 			Product product4 = Product.find(9);
 			Image img11 = new Image();
@@ -221,7 +225,7 @@ public class Global extends GlobalSettings {
 			
 			
 			Product.create("House", 100000, 3, User.find(2),
-					"This house has got four bedrooms, a living-room, a dining-room, a kitchen");
+					"This house has got four bedrooms, a living-room, a dining-room, a kitchen", 5);
 
 			Product product5 = Product.find(10);
 			Image img12 = new Image();

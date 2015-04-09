@@ -280,6 +280,17 @@ public class Product extends Model {
 		this.owner = owner;
 		this.description = description;
 	}
+	
+	public Product(String name, double price, int quantity, User owner,
+			String description, int id) {
+		this.name = name;
+		this.price = price;
+		this.quantity=quantity;
+		this.owner = owner;
+		this.description = description;
+		this.category_id = id;
+
+	}
 
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
 		
@@ -322,8 +333,8 @@ public class Product extends Model {
 		new Product(name,  price, owner, description).save();
 		
 	}
-	public static void create(String name, double price, int quantity, User owner, String description) {
-		new Product(name,  price, quantity, owner, description).save();
+	public static void create(String name, double price, int quantity, User owner, String description, int id) {
+		new Product(name,  price, quantity, owner, description, id).save();
 		
 	}
 	

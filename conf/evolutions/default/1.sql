@@ -40,6 +40,14 @@ create table image (
   constraint pk_image primary key (id))
 ;
 
+create table message (
+  id                        integer not null,
+  content                   varchar(255),
+  sender_id                 integer,
+  receiver_id               integer,
+  constraint pk_message primary key (id))
+;
+
 create table orders (
   id                        integer not null,
   buyer_id                  integer,
@@ -105,6 +113,8 @@ create sequence faq_seq;
 
 create sequence image_seq;
 
+create sequence message_seq;
+
 create sequence orders_seq;
 
 create sequence product_seq;
@@ -117,14 +127,18 @@ alter table comment add constraint fk_comment_product_2 foreign key (product_id)
 create index ix_comment_product_2 on comment (product_id);
 alter table image add constraint fk_image_product_3 foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_image_product_3 on image (product_id);
-alter table orders add constraint fk_orders_buyer_4 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
-create index ix_orders_buyer_4 on orders (buyer_id);
-alter table orders add constraint fk_orders_seller_5 foreign key (seller_id) references user (id) on delete restrict on update restrict;
-create index ix_orders_seller_5 on orders (seller_id);
-alter table product add constraint fk_product_cart_6 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
-create index ix_product_cart_6 on product (cart_id);
-alter table product add constraint fk_product_owner_7 foreign key (owner_id) references user (id) on delete restrict on update restrict;
-create index ix_product_owner_7 on product (owner_id);
+alter table message add constraint fk_message_sender_4 foreign key (sender_id) references user (id) on delete restrict on update restrict;
+create index ix_message_sender_4 on message (sender_id);
+alter table message add constraint fk_message_receiver_5 foreign key (receiver_id) references user (id) on delete restrict on update restrict;
+create index ix_message_receiver_5 on message (receiver_id);
+alter table orders add constraint fk_orders_buyer_6 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_buyer_6 on orders (buyer_id);
+alter table orders add constraint fk_orders_seller_7 foreign key (seller_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_seller_7 on orders (seller_id);
+alter table product add constraint fk_product_cart_8 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
+create index ix_product_cart_8 on product (cart_id);
+alter table product add constraint fk_product_owner_9 foreign key (owner_id) references user (id) on delete restrict on update restrict;
+create index ix_product_owner_9 on product (owner_id);
 
 
 
@@ -146,6 +160,8 @@ drop table if exists faq;
 
 drop table if exists image;
 
+drop table if exists message;
+
 drop table if exists orders;
 
 drop table if exists productList_order;
@@ -165,6 +181,8 @@ drop sequence if exists comment_seq;
 drop sequence if exists faq_seq;
 
 drop sequence if exists image_seq;
+
+drop sequence if exists message_seq;
 
 drop sequence if exists orders_seq;
 

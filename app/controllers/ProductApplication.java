@@ -84,14 +84,13 @@ public class ProductApplication extends Controller {
 		
 		List<models.Image> image_urls = savePicture(id);
 		
-			
-		for (models.Image image_url : image_urls) {
+		
 
-			if (image_url == null) {
+			if (image_urls == null) {
 				flash("error", "Image not valid!");
 				return redirect("/addproductpage/" + id);
 			}
-		}
+		
 
 		Product.create(name, price, quantity,User.find(session().get("email")),
 				description, id, image_urls);
@@ -200,12 +199,7 @@ public class ProductApplication extends Controller {
 		updateProduct.quantity=Integer.parseInt(productForm.bindFromRequest().field("quantity").value());
 
 		Logger.info(image_urls.get(0) + "     " + image_urls.get(1) + "     " + image_urls.get(2));
-		for(models.Image image_url: image_urls) {
-		if(image_url == null){
-			flash("error", "Image not valid!");
-			return redirect("/updateproduct/" + id);
-		}
-		}
+		
 		
 		Logger.info("Product with id: " + id + " has been updated");
 		flash("success", "Product successfully updated!");
@@ -230,6 +224,10 @@ public class ProductApplication extends Controller {
 		for(FilePart filePart: fileParts) {
 		if (filePart == null) {
 			Logger.debug("File part is null");
+			return null;
+		}
+		if(fileParts.size() > 5){
+			Logger.debug("User tried to update more than 5 images");
 			return null;
 		}
 		Logger.debug("Content type: " + filePart.getContentType());
@@ -313,6 +311,10 @@ public class ProductApplication extends Controller {
 		//filePart = body.getFile("image_url");
 		if (filePart == null) {
 			Logger.debug("File part is null");
+			return null;
+		}
+		if(fileParts.size() > 5){
+			Logger.debug("User tried to save more than 5 images");
 			return null;
 		}
 		Logger.debug("Filepart: " + filePart.toString());
@@ -552,6 +554,87 @@ public class ProductApplication extends Controller {
 		
 	}
 	
+	public static Result deleteMessage(int id){
+		Message.delete(id);
+		Logger.warn("Message with id: " + id + " has been deleted");
+		flash("success", "Message deleted!");
+		return redirect("/profile");
+		
+	}
+	
+	
+	public static Result replyToMessagePage(int id) {
+		String email = session().get("email");
+		Logger.info("User with email: " + session().get("email") + " has opened reply contact page");
+		
+		return ok(reply.render(email, FAQ.all(), User.find(id)));
+	}
+	
+	public static Result openMessage(int id) {
+		String email = session().get("email");
+		Logger.info("User with email: " + session().get("email") + " has opened message from: " + Message.find(id).sender.email);
+		return ok(message.render(email,  FAQ.all(), Message.find(id)));
+	}
+	
+	public static Promise<Result> reply(final int id) {
+		 final String userEmail = session().get("email");
+			//need this to get the google recapctha value
+			 final DynamicForm temp = DynamicForm.form().bindFromRequest();
+			
+			/* send a request to google recaptcha api with the value of our secret code and the value
+			 * of the recaptcha submitted by the form */
+			Promise<Result> holder = WS
+					.url("https://www.google.com/recaptcha/api/siteverify")
+					.setContentType("application/x-www-form-urlencoded")
+					.post(String.format(
+							"secret=%s&response=%s",
+							// get the API key from the config file
+							Play.application().configuration()
+									.getString("recaptchaKey"),
+							temp.get("g-recaptcha-response")))
+					.map(new Function<WSResponse, Result>() {
+						// once we get the response this method is loaded
+						public Result apply(WSResponse response) {
+							// get the response as JSON
+							JsonNode json = response.asJson();
+							System.out.println(json);
+							System.out.println(temp.get("g-recaptcha-response"));
+							Form<Contact> submit = Form.form(Contact.class)
+									.bindFromRequest();
+
+							// check if value of success is true
+							if (json.findValue("success").asBoolean() == true
+									&& !submit.hasErrors()) {
+
+								final String message= temp.get("message");
+								
+									ContactHelper.send(userEmail, User.find(id).email, message);
+									ContactHelper.sendToPage(userEmail, User.find(id).email, message);
+								
+								flash("success", "Message sent!");
+								
+									Logger.info("User with email: " + session().get("email") + " replied to : " + Product.find(id).owner.email);
+								return redirect("/profile");
+							} else {
+								
+									Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
+								flash("error", "You have to confirm that you are not a robot!");
+								return ok(reply.render(userEmail, FAQ.all(), User.find(id)));
+
+
+							}
+						}
+					});
+			// return the promisse
+			return holder;
+	}
+	
+	/**
+	 * User can contact seller
+	 * He sends mail to his account and to his mail on the page
+	 * @param id int id of the product
+	 * @return result
+	 */
 	public static Result contactSellerPage(int id) {
 		String email = session().get("email");
 		Logger.info("User with email: " + session().get("email") + " has opened contact us page");
@@ -594,6 +677,7 @@ public class ProductApplication extends Controller {
 							final String message= temp.get("message");
 							
 								ContactHelper.send(email, Product.find(id).owner.email, message);
+								ContactHelper.sendToPage(email, Product.find(id).owner.email, message);
 							
 							flash("success", "Message sent!");
 							
@@ -612,6 +696,7 @@ public class ProductApplication extends Controller {
 		// return the promisse
 		return holder;
 	}
+	
 	public static Result renew(int id){
 		Product temp=find.byId(id);
 		temp.sold=false;
