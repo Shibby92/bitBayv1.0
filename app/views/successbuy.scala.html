@@ -1,5 +1,5 @@
-@(email: String, orders: List[Orders], faqs: List[FAQ])
-@main("Orders") {
+@(email: String,order:Orders, faqs: List[FAQ])
+@main("Success") {
 <body>
   <!-- Navigation -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -65,10 +65,10 @@
                         @flash.get("refund")
                   </div>
                   }
-   @if(orders.isEmpty){
-							<h3><center><strong>You have no orders!</strong></center></h3>
+   @if(order.productList.size()==0){
+							<h3><center><strong>You have no order!</strong></center></h3>
 							}else{
-      <legend>Your Orders: </legend>
+      <legend>Your Order: </legend>
       <div class="row">
         
          <table class="table table-bordered">	
@@ -80,7 +80,7 @@
         </tr>
       </thead>
       <tbody>
-       @for(order <- orders){
+   
         <tr>
          <td>@order.id</td>
           <td>
@@ -95,7 +95,7 @@
         </tr>
         </div>
         </tbody>
-         }
+         
       </table>
 }
       
