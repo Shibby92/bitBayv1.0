@@ -30,9 +30,9 @@ GET		/renewproduct/:id		controllers.ProductApplication.renew(id:Integer)
 GET 	/productpage			controllers.ProductApplication.productPage()
 GET 	/profile			controllers.UserController.profile()
 #POST    /pictureupload          controllers.ProductApplication.savePicture(id:Integer)
-GET      /itempage/logout             controllers.UserLoginApplication.logOut()
-GET      /itempage/:id             controllers.ProductApplication.itemPage(id:Integer)
-GET		/myproducts/:id			controllers.ProductApplication.myProducts(id: Integer)
+GET    /itempage/logout         controllers.UserLoginApplication.logOut()
+GET    /itempage/:id            controllers.ProductApplication.itemPage(id:Integer)
+GET    /myproducts/:id          controllers.ProductApplication.myProducts(id: Integer)
 
 
 GET    /category/:name          controllers.ProductApplication.category(name:String)
@@ -65,8 +65,9 @@ GET    /updatefaq/:id           controllers.FAQController.toUpdateFAQ(id: Intege
 GET    /deletefaq               controllers.FAQController.deleteFAQ(id: Integer)
 
 
-GET		/itempage/:idc/:idp		controllers.ProductApplication.deleteComment(idc: Integer, idp: Integer)
-POST	/itempage/:id			controllers.ProductApplication.addNewComment(id: Integer)
+GET    /itempage/:idc/:idp      controllers.ProductApplication.deleteComment(idc: Integer, idp: Integer)
+POST   /itempage/:id            controllers.ProductApplication.addNewComment(id: Integer)
+
 
 GET		/search					controllers.SearchController.search(q: String)
 GET		/searchusers					controllers.SearchController.searchUsers(q: String)
@@ -79,9 +80,9 @@ GET	/advancedsearchpage					controllers.SearchController.advancedSearchpage()
 GET    /contactpage             controllers.UserLoginApplication.contactPage()
 POST   /contact                 controllers.UserLoginApplication.contact()
 
-GET		/contactsellerpage/:id		controllers.ProductApplication.contactSellerPage(id: Integer)
-POST	/contactseller/:id				controllers.ProductApplication.contactSeller(id: Integer)
-GET		/contactseller/:id				controllers.ProductApplication.contactSeller(id: Integer)
+GET    /contactsellerpage/:id   controllers.ProductApplication.contactSellerPage(id: Integer)
+POST   /contactseller/:id       controllers.ProductApplication.contactSeller(id: Integer)
+GET    /contactseller/:id       controllers.ProductApplication.contactSeller(id: Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path
@@ -91,17 +92,18 @@ GET    /assets/*file            controllers.Assets.at(path="/public", file)
 #GET      /emptycart/:id			controllers.ProductApplication.emptyCart(id: Integer)
 GET		/cartpage/:id			controllers.ProductApplication.cartPage(id: Integer)
 POST    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
-
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcessing()
-GET    /ordersuccess    controllers.UserLoginApplication.orderSuccess(paymentID:String,payerID:String,token:String)
-GET    /orderfail              controllers.UserLoginApplication.orderFail()
-GET		/orderconfirm			controllers.UserLoginApplication.orderConfirm()
-GET		/refundorder/:id			controllers.UserLoginApplication.refundOrder(id: Integer)
+GET    /ordersuccess            controllers.UserLoginApplication.orderSuccess(paymentID:String,payerID:String,token:String)
+GET    /orderfail               controllers.UserLoginApplication.orderFail()
+GET    /orderconfirm            controllers.UserLoginApplication.orderConfirm()
+GET    /refundorder/:id         controllers.UserLoginApplication.refundOrder(id: Integer)
 #Order routes
 
-GET		/orderpage/:id			controllers.OrderController.orderPage(id: Integer)
+GET    /orderpage/:id           controllers.OrderController.orderPage(id: Integer)
+GET    /soldorder/:id           controllers.OrderController.soldOrderPage(id:Integer)
+GET    /soldorderchecked/:id    controllers.OrderController.soldOrderChecked(id:Integer)
 
 #POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
 

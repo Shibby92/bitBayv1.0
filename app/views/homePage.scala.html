@@ -51,7 +51,12 @@
          </li>
       
          <ul class='nav navbar-nav pull-right'>
-
+         @for(order<- User.find(email).soldOrders){
+         	@if(order.notification==true){<a href="/soldorder/@User.find(session().get("email")).id">
+         	    <button style="margin: 10px 5px" 	type="submit" class="btn btn-success glyphicon glyphicon-info-sign" value="new notification"></button>	
+         	</a>
+         	}
+         	}
                     <li class='dropdown'>
                <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>

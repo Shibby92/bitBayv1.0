@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,6 +42,10 @@ public class Cart extends Model {
 		//productList=new LinkedList<Product>();
 	}
 
+	public Cart() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static void addProduct(Product product, Cart cart) {
 		if (cart.productList == null) {
 			cart.productList = new LinkedList<Product>();
@@ -53,6 +58,18 @@ public class Cart extends Model {
 		cart.save();
 		cart.update();
 		product.update();
+	}
+	
+	public static void nullCart(Cart cart){
+		cart.checkout=0;
+		cart.size=0;
+		Iterator<Product> productIterator = cart.productList.iterator();
+		while (productIterator.hasNext()) {
+			Product p=productIterator.next();
+			productIterator.remove();
+			cart.productList.remove(p);
+			}
+		cart.update();
 	}
 	
 	public static void addQuantity(Product product, Cart cart,int newQuantity) {
@@ -97,7 +114,7 @@ public class Cart extends Model {
 		cart.productList.clear();
 		cart.checkout=0;
 		cart.size=0;
-		//cart.update();
+		cart.update();
 		
 	}
 

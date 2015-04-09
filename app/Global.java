@@ -62,7 +62,7 @@ public class Global extends GlobalSettings {
 
 
 		if (Product.find(1) == null) {
-	
+
 			Product.create("Eminin proizvod", 2000, User.find(3), "Neki opis");
 			Product pro = Product.find(1);
 			Image img3 = new Image();

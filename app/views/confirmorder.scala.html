@@ -1,4 +1,4 @@
-@(paymentID:String,payerID:String,token:String,email: String,orders: List[Orders], faqs: List[FAQ])
+@(paymentID:String,payerID:String,token:String,email: String,cart:Cart, faqs: List[FAQ])
 @main("Confirm") {
 	<head><h1>Confirm order:</h1></head>
 	<br><br>
@@ -69,7 +69,7 @@
 </nav>
    <!-- Page Content -->
    <div class="container">
-   @if(orders.isEmpty){
+   @if(cart.productList.size()==0){
 							<h3><center><strong>You have no orders!</strong></center></h3>
 							}else{
       
@@ -78,30 +78,32 @@
          <table class="table table-bordered">	
       <thead>
         <tr>
-          <th>Order number</th>
-                <th>Products</th>
-                <th><span class="nobr">Total</span></th>
+          <th>Cart id</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Amount</th>
         </tr>
       </thead>
       <tbody>
-       @for(order <- orders){
+     @for(product <- cart.productList){
         <tr>
-         <td>@order.id</td>
-          <td>
-                    @for(product <- order.productList){
-                    	<p>@product.name ($ @product.price)</p>
+         <td>@cart.id</td>
+                    	<td>@product.name ()</td>
+                    	<td>@product.orderedQuantity</td>
+                    	<td>$ @product.price</td>
+                  	   <td> @product.amount</td></tr>
                     }
-                    </td>
-                    <td><span class="price">$&nbsp;@order.price,-</span></td>
-                   
-        </tr>
-         }
+                       
       </tbody>
       </table>
-
-      </div>
+<br>
+                    <h3>Total: @cart.checkout</h3>
+                    
+                   
+     </div>
       }
-   </div>
+   </div><br><br>
    <div>
    <a href="@routes.UserLoginApplication.orderSuccess(paymentID,payerID,token)">
             	 <button type="button" class="btn btn-warning">Confirm</button>

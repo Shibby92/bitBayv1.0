@@ -93,13 +93,12 @@ public class ProductApplication extends Controller {
 			}
 		}
 
-		Product.create(name, price, User.find(session().get("email")),
+		Product.create(name, price, quantity,User.find(session().get("email")),
 				description, id, image_urls);
 
 		Logger.info("User with email: " + session().get("email")
 				+ "created product with name: " + name);
 		return redirect("/homepage");
-
 
 	}
 			
@@ -178,6 +177,7 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return
 	 */
+
 
 	public static Result updateP (int id){	
 		Logger.info("Opened page for updating producct");
@@ -390,9 +390,7 @@ public class ProductApplication extends Controller {
 			Logger.info("User with email: " + session().get("email") + " opened item with id: " + id);
 		
 		Product p = Product.find(id);
-		
 		return ok(itempage.render(session("email"), Product.find(id), FAQ.all(), models.Image.photosByProduct(p), Comment.all()));
-		
 	}
 	
 	public static Result myProducts(int id) {
@@ -442,6 +440,7 @@ public class ProductApplication extends Controller {
 		}
 		else{
 		p.setOrderedQuantity(orderedTotalQta);
+		p.amount=p.getPrice()*p.getOrderedQuantity();
 		Logger.info(String.valueOf("Naruceno: "+orderedQuantity));
 		p.update();
 		p.save();
@@ -458,7 +457,8 @@ public class ProductApplication extends Controller {
 		Cart.addProduct(p, cart);
 		//cart.save();
 		Logger.info(String.valueOf("Naruceno posle: "+p.orderedQuantity));
-		return ok(cartpage.render(email,cart, FAQ.all()));
+		return redirect("/cartpage/"+userid);
+		//return ok(cartpage.render(email,cart, FAQ.all()));
 		}
 		}
 			}

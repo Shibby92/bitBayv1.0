@@ -152,56 +152,56 @@ public class UserLoginApplication extends Controller {
 		
 		/* send a request to google recaptcha api with the value of our secret code and the value
 		 * of the recaptcha submitted by the form */
-		Promise<Result> holder = WS
-				.url("https://www.google.com/recaptcha/api/siteverify")
-				.setContentType("application/x-www-form-urlencoded")
-				.post(String.format(
-						"secret=%s&response=%s",
-						// get the API key from the config file
-						Play.application().configuration()
-								.getString("recaptchaKey"),
-						temp.get("g-recaptcha-response")))
-				.map(new Function<WSResponse, Result>() {
-					// once we get the response this method is loaded
-					public Result apply(WSResponse response) {
-						// get the response as JSON
-						JsonNode json = response.asJson();
-						System.out.println(json);
-						System.out.println(temp.get("g-recaptcha-response"));
-						Form<Contact> submit = Form.form(Contact.class)
-								.bindFromRequest();
+		 Promise<Result> holder = WS
+					.url("https://www.google.com/recaptcha/api/siteverify")
+					.setContentType("application/x-www-form-urlencoded")
+					.post(String.format(
+							"secret=%s&response=%s",
+							// get the API key from the config file
+							Play.application().configuration()
+									.getString("recaptchaKey"),
+							temp.get("g-recaptcha-response")))
+					.map(new Function<WSResponse, Result>() {
+						// once we get the response this method is loaded
+						public Result apply(WSResponse response) {
+							// get the response as JSON
+							JsonNode json = response.asJson();
+							System.out.println(json);
+							System.out.println(temp.get("g-recaptcha-response"));
+							Form<Contact> submit = Form.form(Contact.class)
+									.bindFromRequest();
 
-						// check if value of success is true
-						if (json.findValue("success").asBoolean() == true
-								&& !submit.hasErrors()) {
+							// check if value of success is true
+							if (json.findValue("success").asBoolean() == true
+									&& !submit.hasErrors()) {
 
-							final String email= temp.get("email");
-							final String message= temp.get("message");
-							List<User> admins=User.admins();
-							for(User admin : admins){
-								ContactHelper.send(email, admin.email, message);
+								final String email= temp.get("email");
+								final String message= temp.get("message");
+								List<User> admins=User.admins();
+								for(User admin : admins){
+									ContactHelper.send(email, admin.email, message);
+								}
+								flash("success", "Message sent!");
+								if(session().get("email") == null)
+									Logger.info("Guest has sent message to admin");
+								else
+									Logger.info("User with email: " + session().get("email") + " has sent message to admin");
+								return redirect("/contactpage");
+							} else {
+								if(session().get("email") == null)
+									Logger.info("Guest did not confirm its humanity");
+								else
+									Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
+								flash("error", "You have to confirm that you are not a robot!");
+								return ok(contact.render(userEmail, FAQ.all() ));
+
+
 							}
-							flash("success", "Message sent!");
-							if(session().get("email") == null)
-								Logger.info("Guest has sent message to admin");
-							else
-								Logger.info("User with email: " + session().get("email") + " has sent message to admin");
-							return redirect("/contactpage");
-						} else {
-							if(session().get("email") == null)
-								Logger.info("Guest did not confirm its humanity");
-							else
-								Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
-							flash("error", "You have to confirm that you are not a robot!");
-							return ok(contact.render(userEmail, FAQ.all() ));
-
-
 						}
-					}
-				});
-		// return the promisse
-		return holder;
-	}
+					});
+			// return the promisse
+			return holder;
+		}
 
 
 	public static Result toLogin() {
@@ -300,14 +300,15 @@ public class UserLoginApplication extends Controller {
 		}
 
 		return TODO;
+}
 
-	}
+	
 
-	private static String cartToString(Cart cart) {
+	public static String cartToString(Cart cart) {
 		StringBuilder sb= new StringBuilder();
 		sb.append("Your order via bitBay: ");
 		for(Product product: cart.productList){
-			sb.append(product.name+" ("+product.price+"0 $), ");
+			sb.append(product.name+" ("+product.price+"0 $) x "+product.orderedQuantity+", ");
 		}
 		sb.append("which is a total prize of: "+cart.checkout+"0 $");
 		return sb.toString();
@@ -319,7 +320,7 @@ public class UserLoginApplication extends Controller {
 		String paymentID = null;
 		String payerID = null;
 		String token=null;
-	
+		Cart cart=Cart.getCart(email);
 		try{
 			DynamicForm paypalReturn = Form.form().bindFromRequest();
 			//String paymentID = paypalReturn.get("paymentId");
@@ -343,17 +344,21 @@ public class UserLoginApplication extends Controller {
 			User user=User.find(session().get("email"));
 			Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
 			order.save();
+
+			Logger.debug(String.valueOf(order.id)+" VEDAD ZORNIC");
 			user.orderList.add(order);
 			user.update();
 			User temp=User.find(session().get("email"));
-			Logger.debug("PRED FOR PETLJOM!");
-			for (Product product: order.productList) {
-				Logger.debug(product.name+"NALAZIM SE U TESTU ZA PAYPAL CONFIRM");
-				product.order=order;
-				if(product.quantity==product.orderedQuantity){
-					product.sold=true;	
+			Logger.debug("PRED FOR PETLJOM! "+order.productList.get(0));
+			Iterator<Product> productIterator = order.productList.iterator();
+			while (productIterator.hasNext()) {
+				Product p=productIterator.next();
+				p.order.add(order);
+				Logger.debug(""+p.order.get(0));
+				if(p.quantity==p.orderedQuantity){
+					p.sold=true;	
 				}
-				product.update();
+				p.update();
 				
 			}
 			Cart.clear(temp.id);
@@ -364,8 +369,9 @@ public class UserLoginApplication extends Controller {
 			Logger.warn(e.getMessage());
 			}
 		
-		return ok(confirmorder.render(paymentID,payerID,token,email,User.find(session().get("email")).orderList,  FAQ.all()));	
+		return ok(confirmorder.render(paymentID,payerID,token,email,cart,  FAQ.all()));	
 		}
+	
 	
 	public static Result orderSuccess(String paymentId,String payerId,String token) {
 		String email = session().get("email");
@@ -390,24 +396,42 @@ public class UserLoginApplication extends Controller {
 		PaymentExecution paymentExecution=new PaymentExecution();
 		paymentExecution.setPayerId(payerID);
 		Payment newPayment=payment.execute(apiContext, paymentExecution);
+		User user=User.find(session().get("email"));
+		Orders order= new Orders(Cart.getCart(user.email),user,token);
+		order.save();
+		user.orderList.add(order);
+		user.update();
+		Cart.clear(user.id);
+		Iterator<Product> itr = order.productList.iterator();
+		while (itr.hasNext()) {
+			Product p=itr.next();
+			p.order.add(order);
+			p.update();
+			}
 		User currUser=User.find(session().get("email"));
-		List<Orders> userOrders=currUser.orderList;
-		for(Orders order:userOrders){
+		Orders userOrder=currUser.orderList.get(currUser.orderList.size()-1);
+		User seller= userOrder.productList.get(0).owner;
+				seller.soldOrders.add(userOrder);
+				seller.soldOrders.get(seller.soldOrders.size()-1).notification=true;
+				seller.soldOrders.get(seller.soldOrders.size()-1).seller=seller;
+				seller.soldOrders.get(seller.soldOrders.size()-1).save();
+				seller.save();
 			for(Product product:order.productList){
 				if(product.getOrderedQuantity()>=product.getQuantity())
 					product.sold=true;
 				int leftQuantity=product.getQuantity()-product.getOrderedQuantity();
+				product.orderQuantity=product.getOrderedQuantity();
 				product.setQuantity(leftQuantity);
 				product.setOrderedQuantity(0);
-				product.update();
+				product.save();
 			}
-		}
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}
 		
 		return ok(orderpage.render(email,User.find(session().get("email")).orderList,  FAQ.all()));
 	}
+
 
 	public static Result orderFail() {
 		//return ok(creditresult.render("nije proslo"));
