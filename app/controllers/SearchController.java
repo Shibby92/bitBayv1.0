@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
 import models.*;
 import play.data.DynamicForm;
@@ -86,7 +86,7 @@ public class SearchController extends Controller {
 			
 			List<Product>productList=new ArrayList<Product>();
 		    double priceMin=0;
-		    double priceMax=9999999;
+		    double priceMax=999999;
 			String descr;
 			Category category;
 		
@@ -101,7 +101,11 @@ public class SearchController extends Controller {
 				prod = "";
 			}
 			if(min == null){
-				priceMin = Double.MIN_VALUE;
+				
+			
+				priceMin =Double.MIN_VALUE;
+				min =String.valueOf(priceMin);
+				
 			}else{
 				priceMin=Double.valueOf(min);
 				Logger.debug("Min value " +priceMin);
@@ -109,6 +113,8 @@ public class SearchController extends Controller {
 			
 			if( max == null){
 				priceMax = Double.MAX_VALUE;
+				max = String.valueOf(priceMax);
+				
 			}else{
 				priceMax=Double.valueOf(max);
 				Logger.debug("Max value "+priceMax);

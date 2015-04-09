@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.paypal.api.payments.Links;
-import com.sun.media.jfxmedia.logging.Logger;
+
 
 import play.db.ebean.Model;
 
