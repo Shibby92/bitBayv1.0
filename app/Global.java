@@ -49,7 +49,7 @@ public class Global extends GlobalSettings {
 			Product p =  Product.find(1);
 			
 			Image img1 = new Image();
-			img1.image = "images/Productimages/bitbaySlika2.jpg";
+			img1.image = "images/Productimages/bitbaySlika1.jpg";
 			img1.product = p;
 	
 
@@ -67,7 +67,7 @@ public class Global extends GlobalSettings {
 			Product pr = Product.find(2);
 			
 			Image img2 = new Image();
-			img2.image = "images/Productimages/bitbaySlika2.jpg";
+			img2.image = "images/Productimages/bitbaySlika1.jpg";
 			img2.product = pr;
 		
 
@@ -81,7 +81,7 @@ public class Global extends GlobalSettings {
 			Product.create("Eminin proizvod", 2000, User.find(3), "Neki opis");
 			Product pro = Product.find(3);
 			Image img3 = new Image();
-			img3.image = "images/Productimages/bitbaySlika2.jpg";
+			img3.image = "images/Productimages/bitbaySlika1.jpg";
 			img3.product = pro;
 		
 

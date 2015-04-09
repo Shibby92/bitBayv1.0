@@ -270,7 +270,8 @@ public class UserLoginApplication extends Controller {
 			amount.setTotal(total+"0");
 			amount.setCurrency("USD");
 			Transaction transaction = new Transaction();
-			transaction.setDescription("Order via bitBay");
+			String stringCart=cartToString(Cart.getCart(session().get("email")));
+			transaction.setDescription(stringCart);
 			transaction.setAmount(amount);
 			List<Transaction> transactions = new ArrayList<Transaction>();
 			transactions.add(transaction);
@@ -300,6 +301,15 @@ public class UserLoginApplication extends Controller {
 
 		return TODO;
 }
+	public static String cartToString(Cart cart) {
+		StringBuilder sb= new StringBuilder();
+		sb.append("Your order via bitBay: ");
+		for(Product product: cart.productList){
+			sb.append(product.name+" ("+product.price+"0 $) x "+product.orderedQuantity+", ");
+		}
+		sb.append("which is a total prize of: "+cart.checkout+"0 $");
+		return sb.toString();
+	}
 
 	
 	public static Result orderConfirm(){
