@@ -82,13 +82,27 @@
    <!-- /.container -->
 </nav>
 	<div class="row" align="center">
-		@if(flash.get("success")) {
-			 <div class="alert alert-success" role="alert">
+		@if(flash.get("error")){
+        <div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
+         }
+         @if(flash.get("warning")){
+       <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("warning")
+                     </div>
+                  </div>
+         }
+          @if(flash.get("success")) {
+         	<div class="alert alert-success" role="alert">
                      <div class="container">
                         @flash.get("success")
                      </div>
-                     </div>
-			}
+                  </div>
+         	}
 			 <div class="col-md-6 column">
 			 <form action="@routes.FAQController.updateFAQ(faq.id)" method ="POST" >
 			

@@ -31,7 +31,8 @@ public class CategoryApplication extends Controller {
 	public static Result addNewCategory() {
 		Logger.info("Opened page for adding category");
 		String email = session().get("email");
-		return ok(addcategorypage.render(email, categoryForm, FAQ.all()));
+		return ok(addcategorypage.render(email, categoryForm, FAQ.all()));	
+		
 	}
 
 
@@ -41,6 +42,7 @@ public class CategoryApplication extends Controller {
 	 * @param id int id of the category
 	 * @return result
 	 */
+	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteCategory(int id) {
 		
 		Category.delete(id);
@@ -64,13 +66,19 @@ public class CategoryApplication extends Controller {
 	 * @param id int id of the category
 	 * @return result
 	 */
+	@Security.Authenticated(AdminFilter.class)
 	public static Result update(int id){
-		
+		try {
 		Category updateCategory= Category.find(id);
 		updateCategory.name=categoryForm.bindFromRequest().field("name").value();
 		Category.update(updateCategory);
 		Logger.info(updateCategory.name + " category is updated");
 		return redirect("/categorypage");
+		}catch(Exception e){
+			Logger.error("Error in update category");
+			flash("error", "There has been a mistake in updating category!");
+			return redirect("/homepage");
+		}
 	}
 	
 	/**
@@ -78,6 +86,7 @@ public class CategoryApplication extends Controller {
 	 * @param id int id of the category
 	 * @return results
 	 */
+	@Security.Authenticated(AdminFilter.class)
 	public static Result updateCategory(int id){
 	Logger.info("Update category page opened");
 		String email = session().get("email");

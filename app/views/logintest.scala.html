@@ -104,6 +104,21 @@
                        <h2 style="strong">@flash.get("guest")</h2> 
                   </div>
          }
+          @if(flash.get("error")){
+        <div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
+         }
+         @if(flash.get("warning")){
+       <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("warning")
+                     </div>
+                  </div>
+         }
+         <div 
 
          <div class="col-sm-3">
             <div style="margin: 126.5px -15px"  class="well login-box">

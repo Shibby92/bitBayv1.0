@@ -45,7 +45,10 @@ public class ProductApplication extends Controller {
 	static Form<Product> productForm= new Form <Product>(Product.class);
 	
 	
-	// user picks new category for his product
+	/**
+	 * user picks new category for his product
+	 * @return result
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result pickCategory() {
 		
@@ -70,15 +73,9 @@ public class ProductApplication extends Controller {
 	
 	@Security.Authenticated(UserFilter.class)
 	public static Result addAdditionalInfo(int id) {
-		//Form <Product> form=productForm.bindFromRequest();
+		
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.get("name");
-//		User owner = new User(session().get("username"), form.get("password"));
-		
-//		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
-//		Date created = new Date();
-//		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
-		//double price= 100;
 		double price = Double.valueOf(form.get("price"));
 		int quantity=Integer.valueOf(form.get("quantity"));
 

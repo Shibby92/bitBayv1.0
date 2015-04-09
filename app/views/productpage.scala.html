@@ -83,6 +83,27 @@
 </nav>
    <!-- Page Content -->
    <div class="container">
+ @if(flash.get("error")){
+        <div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
+         }
+         @if(flash.get("warning")){
+       <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("warning")
+                     </div>
+                  </div>
+         }
+          @if(flash.get("success")) {
+         	<div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("success")
+                     </div>
+                  </div>
+         	}
       <form action="/">
       <div class="form-group text-center">
          <a class="btn btn-success glyphicon glyphicon-plus" href="/addproductcategory" role="button"></a>
