@@ -138,16 +138,16 @@
 							<dt><label for="image_url">Select images:</label> </dt>
 							
   								<input type="file" name="image_url" multiple>
- 								 <input type="submit" class="btn btn-success" value="Update">
+ 								 <input type="submit" class="btn btn-success" value="Update" style="width: 300px; height: 40px; margin: 10px 5px">
 								
 							</dl>
                   <div class="form-group text-center">
 							<div class="form-group text-center">
 							<!--  <input type="submit"“ class="btn btn-success btn-login-submit" role="button" value="Update" /> 	-->						
 							@if(User.find(session().get("email")).admin) {
-								<a href="/profile" class="btn btn-danger"> Back </a>
+								<a href="/profile" class="btn btn-danger" style="width: 300px; height: 40px; margin: 10px 0px"> Back </a>
 								} else {
-								<a href="/homepage" class="btn btn-danger"> Back </a>
+								<a href="/homepage" class="btn btn-danger" style="width: 300px; height: 40px; margin: 10px 0px"> Back </a>
 								}
 							</div>
 

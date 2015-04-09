@@ -68,6 +68,10 @@
                    <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
 
 
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
+
+
                   }
                   <li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
@@ -145,8 +149,9 @@
       </table>
 }
       
+
    </div>
-      <div class="container" style="margin: 100px ">
+      <div class="container" >
       <hr>
       <a href="/contactpage">
          <h3>Contact Us</h3>

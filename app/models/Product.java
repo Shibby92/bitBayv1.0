@@ -442,5 +442,19 @@ public class Product extends Model {
 	public static List<String> allImages(int id) {
 		return find.byId(id).image_urls;
 	}
+	
+	public static String getIds(List<Product> products) {
+		if(products.size() < 1){
+			return null;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		for (Product product : products) {
+			sb.append(product.id).append(",");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
+	}
+
 
 }

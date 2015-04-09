@@ -37,7 +37,7 @@ public class Category extends Model {
 		return found.id;
 	}
 
-	public static List list() {
+	public static List<Category> list() {
 		return find.all();
 	}
 
@@ -58,6 +58,8 @@ public class Category extends Model {
 	public static Category find(int id) {
 		return findId.byId(id);
 	}
-
+	public static Category findByName(String name){
+		return find.where().eq("Name", name).findUnique();
+	}
 
 }
