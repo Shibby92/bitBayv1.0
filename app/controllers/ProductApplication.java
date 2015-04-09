@@ -180,9 +180,7 @@ public class ProductApplication extends Controller {
 	 * @return
 	 */
 	public static Result updateP (int id){	
-		String image1 = null;
-		String image2 = null;
-		String image3 = null;
+		
 		Logger.info("Opened page for updating producct");
 		Product updateProduct= Product.find(id);
 		if(updateProduct.sold==true){
@@ -196,37 +194,17 @@ public class ProductApplication extends Controller {
 		updateProduct.name=productForm.bindFromRequest().field("name").value();
 		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
-		List<String> image_urls = updatePicture(id);
+		List<models.Image> image_urls = updatePicture(id);
 		Logger.info(image_urls.get(0) + "     " + image_urls.get(1) + "     " + image_urls.get(2));
-		for(String image_url: image_urls) {
+		for(models.Image image_url: image_urls) {
 		if(image_url == null){
 			flash("error", "Image not valid!");
 			return redirect("/updateproduct/" + id);
 		}
 		}
-		updateProduct.image1 = image_urls.get(0);
-		List<String> list = new ArrayList<String>();
-		image1 = image_urls.get(0);
-		list.add(image1);
-		if(image_urls.size()>1){
-		if(image_urls.get(1) != null) {
-			updateProduct.image2 = image_urls.get(1);
-			image2 = image_urls.get(1);
-			list.add(image2);
-		}
-		if(image_urls.size()>2) {
-		if(image_urls.get(2) != null) {
-			updateProduct.image3 = image_urls.get(2);
-			image3 = image_urls.get(2);
-			list.add(image3);
-		}
-		}
-		}
-
-		updateProduct.image_urls = list;
 		
-		Product.update(updateProduct);
 		Logger.info("Product with id: " + id + " has been updated");
+		flash("success", "Product successfully updated!");
 		if(User.find(session().get("email")).admin)
 			return redirect("/profile");
 		return redirect("/myproducts/" + User.find(session().get("email")).id);	
@@ -239,10 +217,9 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return result 
 	 */
-	public static List<String> updatePicture(int id){
-//		MultipartFormData body = request().body().asMultipartFormData(); 
-//		FilePart filePart = body.getFile("image_url");
-		List<String> image_urls = new ArrayList<String>();
+	public static List<models.Image> updatePicture(int id){
+		
+		Product updateProduct = ProductApplication.find(id);
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
 		for(FilePart filePart: fileParts) {
@@ -278,6 +255,8 @@ public class ProductApplication extends Controller {
 		}
 
 		try {
+			models.Image img = new models.Image();
+			
 			File profile = new File("./public/images/Productimages/"
 					+ UUID.randomUUID().toString() + extension);
 			
@@ -286,19 +265,22 @@ public class ProductApplication extends Controller {
 					+ File.separator
 					+ profile.getName();
 			
+			img.image = image_url;
+			img.product = updateProduct;
+			models.Image.saveImg(img);
 			
 			Files.move(image, profile);
-			Product updateProduct = ProductApplication.find(id);
+			
 			Product.deleteImage(updateProduct);
-			updateProduct.image_url=image_url;
+			
+			
+			
 			ImageIcon tmp= new ImageIcon(image_url);
 			Image resize = tmp.getImage();
 			resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
-			flash("success","Your photo have been successfully updated");
-//			if(User.find(session().get("email")).admin)
-//				return redirect("/profile");
-//			return redirect("/myproducts");
-			image_urls.add(image_url);
+
+			updateProduct.images.add(img);
+			
 			
 		} catch (IOException e) {
 			Logger.error("Failed to move file");
@@ -311,7 +293,8 @@ public class ProductApplication extends Controller {
 		}
 		}
 		
-		return image_urls;
+		updateProduct.update();
+		return updateProduct.images;
 
 		
 	}
