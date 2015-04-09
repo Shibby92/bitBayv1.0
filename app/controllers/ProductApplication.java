@@ -1,6 +1,7 @@
 package controllers;
 
 import helpers.*;
+import java.util.Iterator;
 
 import java.awt.Image;
 import java.io.File;
@@ -79,7 +80,8 @@ public class ProductApplication extends Controller {
 //		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
 		//double price= 100;
 		double price = Double.valueOf(form.get("price"));
-		
+		int quantity=Integer.valueOf(form.get("quantity"));
+
 		String description = form.get("description");
 		//String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
@@ -93,12 +95,14 @@ public class ProductApplication extends Controller {
 				return redirect("/addproductpage/" + id);
 			}
 		}
+
 		Product.create(name, price, User.find(session().get("email")),
 				description, id, image_urls);
 
 		Logger.info("User with email: " + session().get("email")
 				+ "created product with name: " + name);
 		return redirect("/homepage");
+
 
 	}
 			
@@ -177,15 +181,27 @@ public class ProductApplication extends Controller {
 	 * @param id int id of the product
 	 * @return
 	 */
+
 	public static Result updateP (int id){	
+		Logger.info("Opened page for updating producct");
+
 		Product updateProduct= Product.find(id);
 		if(updateProduct.sold==true){
 			updateProduct.sold=false;
 		}
+		
+	     if ( productForm.hasErrors() ) {
+	        return TODO;
+	     } else {
+	        
 		updateProduct.name=productForm.bindFromRequest().field("name").value();
 		updateProduct.price=Double.parseDouble(productForm.bindFromRequest().field("price").value());
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
+
 		List<models.Image> image_urls = updatePicture(id);
+
+		updateProduct.quantity=Integer.parseInt(productForm.bindFromRequest().field("quantity").value());
+
 		Logger.info(image_urls.get(0) + "     " + image_urls.get(1) + "     " + image_urls.get(2));
 		for(models.Image image_url: image_urls) {
 		if(image_url == null){
@@ -199,6 +215,7 @@ public class ProductApplication extends Controller {
 		if(User.find(session().get("email")).admin)
 			return redirect("/profile");
 		return redirect("/myproducts/" + User.find(session().get("email")).id);	
+	     }
 	}
 	
 	
@@ -388,6 +405,11 @@ public class ProductApplication extends Controller {
 	
 		
 	}
+	
+	
+	
+	
+	
 	/********************************************************************
 	 ************************* CART SECTION ****************************/
 
@@ -401,38 +423,115 @@ public class ProductApplication extends Controller {
 	
 
 	public static Result productToCart(int id) {
+		int orderedTotalQta=0;
 		String email = session().get("email");
+		Product p=find.byId(id);
 		if(session().isEmpty()){
 			flash("guest","Please log in to buy stuff!");
 			return redirect("/login");
 		}
 		int userid = User.findUser.where().eq("email", session().get("email"))
 				.findUnique().id;
+		Cart cart = Cart.getCart(email);
+
 		Logger.info(String.valueOf(userid));
-		Cart temp = cartFinder.where().eq("userid", userid).findUnique();
-		if(temp.productList!=null){
-		if(temp.productList.contains(find.byId(id))){
-			flash("error","You have added that product already!");
-			return ok(cartpage.render(email,Cart.getCart(userid), FAQ.all()));
+		DynamicForm form = Form.form().bindFromRequest();
+		int orderedQuantity=Integer.valueOf(form.get("orderedQuantity"));
+		orderedTotalQta=orderedQuantity+p.getOrderedQuantity();
+		if(orderedTotalQta>p.getQuantity()){
+			flash("excess","You cannot order quantity that exceeds one available on stock!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+			return redirect("/itempage/"+id);
+		}
+		else{
+		p.setOrderedQuantity(orderedTotalQta);
+		Logger.info(String.valueOf("Naruceno: "+orderedQuantity));
+		p.update();
+		p.save();
+		//if(cart.productList!=null){
+		if(cart.productList.contains(p)){
+			//int orderedQtyTotal=p.getOrderedQuantity()+orderedQuantity;
+			//p.setOrderedQuantity(orderedQtyTotal);
+			//p.save();
+			Cart.addQuantity(p, cart,orderedQuantity);
+			//flash("error","You have added that product already!");
+			return ok(cartpage.render(email,cart, FAQ.all()));
+		}
+		else{
+		Cart.addProduct(p, cart);
+		//cart.save();
+		Logger.info(String.valueOf("Naruceno posle: "+p.orderedQuantity));
+		return ok(cartpage.render(email,cart, FAQ.all()));
 		}
 		}
-		Cart.addProduct(find.byId(id), temp);
-		return ok(cartpage.render(email,Cart.getCart(userid), FAQ.all()));
-	}
+			}
+
+	/*public static Result emptyCart(int id){
+		Cart cart=Cart.find(id);
+		String email = session().get("email");
+		cart.productList.clear();
+		cart.size=0;
+		cart.checkout=0;
+		//cart.clear(id);
+		for (Iterator<Product> iterator = cart.productList.iterator(); iterator.hasNext() ;){
+			Product p=iterator.next();
+			p.setOrderedQuantity(0);
+			p.update();
+			cart.productList.remove(p);
+			p.cart=null;
+		}
+		 
+		 cart.update();
+		cart.save();
+		
+		return ok(cartpage.render(email,cart, FAQ.all()));
+
+	}*/
 
 	public static Result deleteProductFromCart(int id) {
 		String email = session().get("email");
-		Product toDelete = find.byId(id);
-		Cart cart = toDelete.cart;
-		cart.productList.remove(toDelete);
-		cart.checkout-=toDelete.price;
-		toDelete.cart = null;
+		Product productDel = find.byId(id);
+		Cart cart = productDel.cart;
+
+		//if(productDel==null){
+		//	return ok(cartpage.render(email,cart, FAQ.all()));
+//		}
+		cart.productList.remove(productDel);
 		cart.update();
-		toDelete.update();
+		cart.save();
+		if(cart.productList.size()<1){
+			cart.checkout=0;
+			cart.size=0;
+		}
+		else{
+		cart.checkout=cart.checkout-productDel.price*productDel.getOrderedQuantity();
+		if(cart.checkout<0)
+			cart.checkout=0;
+		cart.size=cart.size-productDel.getOrderedQuantity();
+		}
+		cart.update();
+		cart.save();
+		productDel.cart = null;
+		productDel.setOrderedQuantity(0);
+		productDel.update();
+		productDel.save();
+
 		return ok(cartpage.render(email,cart, FAQ.all()));
 
 	}
+	
+	
+	
 	/***************************************************************/
+	/***************************************************************/
+	/***************************************************************/
+	
+	
+	
+	
+	
+	
+	
 	
 	public static Result addNewComment(int id) {
 		DynamicForm form = Form.form().bindFromRequest();
@@ -464,7 +563,7 @@ public class ProductApplication extends Controller {
 
 	}
 	
-	public static Promise<Result> contactSeller(int id) {
+	public static Promise<Result> contactSeller(final int id) {
 		 final String userEmail = session().get("email");
 		//need this to get the google recapctha value
 		 final DynamicForm temp = DynamicForm.form().bindFromRequest();
@@ -515,6 +614,14 @@ public class ProductApplication extends Controller {
 				});
 		// return the promisse
 		return holder;
+	}
+	public static Result renew(int id){
+		Product temp=find.byId(id);
+		temp.sold=false;
+		temp.order=null;
+		temp.update();
+		flash("renew","Product "+temp.name+" has been successfully renewed!");
+		return redirect("/myproducts/"+User.find(session().get("email")).id);
 	}
 
 

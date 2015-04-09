@@ -1,11 +1,11 @@
-@(email: String, categoryList:List[Category], products:List[Product], faqs: List[FAQ])
-@main("HomePage") {
-<!-- Navigation -->
+@(email: String, products:List[Product],  faqs: List[FAQ] )
+@main("ResultOfSearchs") {
+	<body>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header" style="margin: 0px -155px">
-         <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -81,81 +81,76 @@
    </div>
    <!-- /.container -->
 </nav>
-<!-- Page Content -->
-<div class="container">
-<div class="row">
-<div class="col-md-3">
-   <div class="list-group">
-      @for(category <- categoryList){
-      <a href="category/@category.name" class="list-group-item glyphicon glyphicon-shopping-cart"> @category.name </a>
-      }
-   </div>
-</div>
-<div class="col-md-9">
-   <div class="row carousel-holder">
-      <div class="col-md-12">
-         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-               <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
-               </li>
-               <li data-target="#carousel-example-generic" data-slide-to="1">
-               </li>
-               <li data-target="#carousel-example-generic" data-slide-to="2">
-               </li>
-            </ol>
-            <div class="carousel-inner">
-               <div class="item active">
-                  <a href="http://download.cnet.com/Magix-Movie-Edit-Pro-2015-Plus/3000-13631_4-10476357.html">
-                  <img class="slide-image" src="@routes.Assets.at("images/ExpoDisc-Webtile-800x300.jpg")"/ >
-                  </a>    
-               </div>
-               <div class="item">
-                  <a href="http://thewebsitecircle.com/social-media"/>
-                  <img class="slide-image" src="@routes.Assets.at("images/003-800x300.jpg")" >
-                  </a>    
-               </div>
-               <div class="item">
-                  <a href="http://bitcamp.ba">
-                  <img class="slide-image" src="@routes.Assets.at("images/Untitled.jpg")" />
-                  </a>    
-               </div>
+   <!-- Page Content -->
+   <div class="container">
+      <!-- Page Header -->
+      <div style="margin: 80px -15px" class="row">
+        @if(!products.isEmpty) {
+        	 <div class="col-lg-12">
+            <h3 class="page-header"> Product Page </h3>
+         </div>
+         @for(product <- products){           
+         <div class="col-md-4 portfolio-item">
+            <a href="#">
+            <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+            </a>
+            <h3 class="pull-right">@product.price</h3>
+            <h3>
+                <a href="/itempage/@product.id">@product.name</a>
+            </h3>
+            <p> @product.description </p>
+         </div>
+         }
+         } else {
+         	 <div class="col-lg-12">
+            <h3 class="page-header"> Product Page </h3>
+         </div>
+          <div class="row">
+          	<h4 style="margin: 180px 35px"> No search results... </h4>
             </div>
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
+         }
+      </div>
+    
+      <!-- Pagination -->
+      <div class="row text-center">
+         <div class="col-lg-12">
+            <ul class="pagination">
+               <li>
+                  <a href="#">&laquo;</a>
+               </li>
+               <li >
+                  <a href="#">1</a>
+               </li>
+               <li>
+                  <a href="#">2</a>
+               </li>
+               <li>
+                  <a href="#">3</a>
+               </li>
+               <li>
+                  <a href="#">4</a>
+               </li>
+               <li>
+                  <a href="#">5</a>
+               </li>
+               <li>
+                  <a href="#">&raquo;</a>
+               </li>
+            </ul>
          </div>
       </div>
+      </hr>
    </div>
-   <div class="row">
-      @for(product <- products){
-      <div class="col-sm-4 col-lg-4 col-md-4">
-         <div class="thumbnail">
+   <div class="container">
+      <hr>
+      <a href="/contactpage">
+         <h3>Contact Us</h3>
+      </a>
 
-            <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
-
-            <div class="caption">
-               <h4 class="pull-right"> @product.price $</h4>
-               <h4> <a href="itempage/@product.id">@product.name</a>
-               </h4>
-               <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
-            </div>
-         </div>
-      </div>
-      }
+      <a href="/faq">
+         <h3> FAQs</h3>
+      </a>
    </div>
-</div>
-<!-- /.container -->
-<div class="container">
-   <hr>
-   <a href="/contactpage">
-      <h3>Contact Us</h3>
-   </a>
-   <a href="/faq">
-      <h3> FAQs</h3>
-   </a>
-</div>
-<!-- /.container -->
+</body>
+
 }

@@ -32,7 +32,10 @@ public class Orders extends Model {
 		
 	}
 	public Orders(Cart cart, User buyer, String token) {
-		productList=cart.productList;
+		for(Product product: cart.productList){
+			productList.add(new Product(product));
+			product.delete();
+		}
 		price=cart.checkout;
 		this.token=token;
 		this.buyer=buyer;

@@ -26,6 +26,7 @@ POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer)
 POST 	/updateproduct/:id		controllers.ProductApplication.updateP(id:Integer)
+GET		/renewproduct/:id		controllers.ProductApplication.renew(id:Integer)
 GET 	/productpage			controllers.ProductApplication.productPage()
 GET 	/profile			controllers.UserController.profile()
 #POST    /pictureupload          controllers.ProductApplication.savePicture(id:Integer)
@@ -69,6 +70,8 @@ POST	/itempage/:id			controllers.ProductApplication.addNewComment(id: Integer)
 
 GET		/search					controllers.SearchController.search(q: String)
 GET		/searchusers					controllers.SearchController.searchUsers(q: String)
+GET		/advancedsearch					controllers.SearchController.advancedSearch()
+GET	/advancedsearchpage					controllers.SearchController.advancedSearchpage()
 
 
 # Routes for contact form
@@ -85,9 +88,10 @@ GET		/contactseller/:id				controllers.ProductApplication.contactSeller(id: Inte
 GET    /assets/*file            controllers.Assets.at(path="/public", file)
 
 #Paypal routes
-
+#GET      /emptycart/:id			controllers.ProductApplication.emptyCart(id: Integer)
 GET		/cartpage/:id			controllers.ProductApplication.cartPage(id: Integer)
-GET    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
+POST    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
+
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcessing()
