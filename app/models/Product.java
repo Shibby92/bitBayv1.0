@@ -5,15 +5,14 @@ import java.sql.Timestamp;
 //import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.*;
 
 import play.Logger;
-import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
 
 /**
  * Creates product/add
@@ -68,6 +67,9 @@ public class Product extends Model {
 
 	public String image3;
 	
+	@OneToMany
+	public List<Image> images;
+	
 	@ManyToOne
 	public Orders order;
 	
@@ -78,6 +80,8 @@ public class Product extends Model {
 	public int orderedQuantity;
 	
 	public double amount;
+	
+	public int orderQuantity;
 
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
@@ -185,6 +189,26 @@ public class Product extends Model {
 
 	}
 	
+	public Product(String name, double price,int quantity, User owner, String description, int id, List<Image> images) {
+		this.name = name;
+		this.price = price;
+		this.owner = owner;
+		this.description = description;
+		this.category_id=id;
+		this.images = images;
+		this.sold=false;
+		this.quantity=quantity;
+		this.orderedQuantity=0;
+	}
+	
+	public Product(String name, double price, User owner, String description) {
+		this.name = name;
+		this.price = price;
+		this.owner = owner;
+		this.description = description;
+		this.sold=false;
+		this.orderedQuantity=0;
+	}
 	public Product(String name, double price, int quantity, User owner, String description, int id, String image1,String image2,String image3) {
 		this.name = name;
 		this.price = price;
@@ -199,8 +223,8 @@ public class Product extends Model {
 		this.amount=0;
 
 	}
-
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
+		
 		new Product(name,  price, owner, description,id,image1).save();
 	}
 	
@@ -216,6 +240,20 @@ public class Product extends Model {
 		new Product(name, category_id, owner, created, quantity, price, description, image_url).save();
 	}
 	
+	public static void create(String name,  double price,int quantity, User owner, String description,int id, List<Image> images) {
+		
+		Product p = new Product(name,  price,quantity, owner, description,id, images);
+		p.save();
+		for(Image image: images) {
+			image.product = Product.find(p.getId());
+			image.save();
+		}
+	}
+	
+	public static void create(String name, int price, User owner, String description) {
+		new Product(name,  price, owner, description).save();
+		
+	}
 	public static void create(String name, double price, int quantity, User owner, String description, int id, String image1,String image2) {
 		new Product(name,  price,quantity, owner, description,id,image1,image2).save();
 		}
@@ -246,6 +284,10 @@ public class Product extends Model {
 
 	public String getName() {
 		return name;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 
 	public void setName(String name) {
@@ -280,8 +322,6 @@ public class Product extends Model {
 		}
 	}
 	public static void update(Product product) {
-		Logger.info(""+product.name);
-		Logger.debug(product.name);
 		product.update();
 	}
 	
@@ -332,16 +372,15 @@ public class Product extends Model {
 	}
 
 	public static void deleteImage(Product p) {
-		File f = new File("./public/" + p.image_url); 
-		boolean b = f.delete();
+		for(Image image: p.images) {
+		File f = new File("./public/" + image.image); 
+		f.delete();
+		}
 	}
 	
 	
 	public static List<String> allImages(int id) {
 		return find.byId(id).image_urls;
 	}
-
-	
-	
 
 }

@@ -72,11 +72,15 @@ public class ProductApplication extends Controller {
 		String name = form.get("name");
 //		User owner = new User(session().get("username"), form.get("password"));
 		
-//		
+//		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
+//		Date created = new Date();
+//		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
+		//double price= 100;
 		double price = Double.valueOf(form.get("price"));
 		int quantity=Integer.valueOf(form.get("quantity"));
 
 		String description = form.get("description");
+		//String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
 		List<String> image_urls = savePicture(id);
 			
@@ -84,7 +88,7 @@ public class ProductApplication extends Controller {
 			
 			if(image_url == null) {
 				flash("error", "Image not valid!");
-				return ok("/addproductpage/" + id);
+				return redirect("/addproductpage/" + id);
 			}
 			
 	}
@@ -92,9 +96,7 @@ public class ProductApplication extends Controller {
 			flash("pictureSelect", "You must select a picture for your product!");
 			return redirect("/addproductpage/"+id);
 		}
-		
 		String image1 = image_urls.get(0);
-		
 		if(image_urls.size()>1){
 		if(image_urls.get(1) != null)
 			image2 = image_urls.get(1);
@@ -485,7 +487,6 @@ public class ProductApplication extends Controller {
 		cart.save();
 		
 		return ok(cartpage.render(email,cart, FAQ.all()));
-
 	}*/
 
 	public static Result deleteProductFromCart(int id) {

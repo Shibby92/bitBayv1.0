@@ -1,4 +1,5 @@
-@(email: String, orders: List[Orders], faqs: List[FAQ])
+
+@(email: String,orders: List[Orders], faqs: List[FAQ])
 @main("Orders") {
 <body>
   <!-- Navigation -->
@@ -68,7 +69,7 @@
    @if(orders.isEmpty){
 							<h3><center><strong>You have no orders!</strong></center></h3>
 							}else{
-      <legend>Your Orders: </legend>
+      <legend>Your Sold Orders: </legend>
       <div class="row">
         
          <table class="table table-bordered">	
@@ -76,6 +77,7 @@
         <tr>
           <th>Order number</th>
                 <th>Products</th>
+                <th>Buyer</th>
                 <th><span class="nobr">Total</span></th>
         </tr>
       </thead>
@@ -83,20 +85,26 @@
        @for(order <- orders){
         <tr>
          <td>@order.id</td>
+        
           <td>
                     @for(product <- order.productList){
-                    	<p>@product.name ($ @product.price) x @product.orderQuantity</p>
+                    	<p>@product.name ($ @product.price)</p>
                     }
                     </td>
-                    <td><span class="price">$ @order.price,-</span>
-                    <a href ="/refundorder/@order.id">
-                    	<button type="button" class="btn btn-warning">Refund</button></td>
-                   </a>
+                   <td>@order.buyer.email</td>
+                    <td><span class="price">$ @order.price,-</span></td>
+                    
         </tr>
+         <a href ="/soldorderchecked/@order.id">
+                    	<button type="button" class="btn btn-warning">Ok, got it!</button></td>
+                   </a>
         </div>
         </tbody>
+      
          }
       </table>
+       
+      
 }
       
       }

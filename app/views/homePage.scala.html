@@ -36,7 +36,12 @@
          </ul>
          } else {
          <ul class='nav navbar-nav pull-right'>
-
+         @for(order<- User.find(email).soldOrders){
+         	@if(order.notification==true){<a href="/soldorder/@User.find(session().get("email")).id">
+         	    <button style="margin: 10px 5px" 	type="submit" class="btn btn-success glyphicon glyphicon-info-sign" value="new notification"></button>	
+         	</a>
+         	}
+         	}
                     <li class='dropdown'>
                <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
@@ -118,7 +123,7 @@
       @for(product <- products){
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
-            <img src="@routes.Assets.at(product.image_url)" alt="">
+            <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="">
             <div class="caption">
                <h4 class="pull-right">US @product.price $</h4>
                <h4> <a href="itempage/@product.id">@product.name</a>
