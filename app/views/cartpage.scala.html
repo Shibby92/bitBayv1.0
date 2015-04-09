@@ -1,4 +1,5 @@
 @(email: String, cart:Cart, faqs: List[FAQ])
+@import helper._ 
 @main("Cart") {
 <body>
  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -82,46 +83,67 @@
    <!-- /.container -->
 </nav>
    <!-- Page Content -->
-   <div class="container">
+  <div class="container">
+   <div class="row" >
+		<div class="col-lg-12">	
    @if(flash.get("error")){
-							    <div class="container">
-                        @flash.get("error")
-                     </div>
-                  </div>
+							<h2><center><strong>@flash.get("error")</strong></center></h2>
 							}
+                  
+					@if(cart.productList.size()>0){	
+					
       <legend>Your Cart: </legend>
-      <div class="row">
-         @for(product <- cart.productList){           
-         <div class="col-md-4 portfolio-item">
-            <a href="#">
-            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" width="700" height="400" alt="">
-            </a>
-            <h3 class="pull-right">@product.price</h3>
-            <h3>
-               <a href="itempage/@product.id">@product.name</a>
-            </h3>
-            <p> @product.description </p>
-            <div>
-               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Remove from Cart</a> 
+     <div class="row">
+      @for(product <- cart.productList){
+      <div class="col-sm-4 col-lg-4 col-md-4">
+         <div class="thumbnail">
+           <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
+            <div class="caption">
+               <h4 class="pull-right"> @product.price $</h4>
+               <h4><a href="/itempage/@product.id">@product.name </a>
+               </h4>
+                
+               <p> @product.description </p>
+               <div>
+                <h4 class="pull-down">Quantity: @product.orderedQuantity</h4>
             </div>
+            </div>
+             <div style="margin: 10px 80px">
+              
+               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Remove from Cart</a> 
+          </div>
          </div>
-         }
-      
       </div>
-       @if(cart.checkout>0){
-      <p>--------------------------------------------------------------------------------------------</p>
-        <p>Total price @cart.checkout</p>
+      }
+   </div>
+       </div>
+        </div>
+          
+        <hr>
         
+          <div class="container">
+    	<h3>Number of items:  @cart.size </h3>
+        <h3>Total price: @cart.checkout $</h3>
+        <div class=container>
         <form action="/creditpurchase" method="POST">
 	<a href="/creditpurchase" data-paypal-button="true">
   <button class="submit" ><img src="//www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Check out with PayPal" />
   </button>
 </a>
 </form>
+</div>
 }else{
-<p> Your cart is empty</p>
+<p> <h4>Your cart is empty</h4></p>
 }
    </div>
+  
+   <div class="container">
+    <div>
+               <a class="btn btn-info" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 15px">Back to home</a> 
+            </div>
+   
+                
+            </div>
       <div class="container">
       <hr>
       <a href="/contactpage">

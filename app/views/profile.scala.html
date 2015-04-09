@@ -91,7 +91,7 @@
       <h5>Email:  @User.find(session().get("email")).email</h5> 
       <h5>Address:  @User.find(session().get("email")).user_address</h5> 
       <div class="col-md-5">
-      <a href="/editinfo"><button class="btn btn-md btn-info " >Edit additional info</button></a>
+      <a href="/editinfo"><button class="btn btn-md btn-info " style="width: 280px; height: 40px; margin: 1px -20px" >Edit additional info</button></a>
        </div>
       </div>
       
@@ -99,15 +99,17 @@
         <ul class="nav nav-tabs">
         @if(User.find(session().get("email")).admin) {
         	<!-- Nav tabs -->
-          <li ><a href="#listofusers" data-toggle="tab">List Of Users</a></li>
+        	
+          <li><a href="#listofusers"  data-toggle="tab">List Of Users</a></li>
           <li><a href="#categories" data-toggle="tab">Categories</a></li>
-          <li><a href="#products" data-toggle="tab">Products</a></li> 
+          <li class="active"><a href="#products" data-toggle="tab">Products</a></li> 
           } else {
              <li ><a href="#myproducts" data-toggle="tab">My products</a></li> 
              }
         </ul>
         
           <!-- Tab panes -->
+          
         <div class="tab-content">
          <div class="tab-pane" class="tab-pane active" id="listofusers" style="margin: 0px 35px">
          			<div class="container">
@@ -118,12 +120,8 @@
                </div>
               
             </form>
-      <table class='table'>
-         <thead>
-            <tr>
-               <th style="float: left"> Email: </th>
-            </tr>
-         </thead>
+      <table class='table' style="margin: 60px 50px">
+       
          
          <tbody>
             @for(user <- users){
@@ -155,17 +153,13 @@
         <div style="margin:0 auto; width:100px">
      
       
-         <a class="btn btn-success glyphicon glyphicon-plus" href="/addnewcategory" role="button"></a>
+         <a class="btn btn-success " href="/addnewcategory" role="button">Add new category</a>
           
       </div>
      
       
-         <table class='table'>
-            <thead>
-               <tr>
-                  <th style="float: left"> Category: </th>
-               </tr>
-            </thead>
+         <table class='table' style="margin: 60px 60px">
+         
             <tbody>
                @for(category <- categoryList){
                <tr>
@@ -179,78 +173,86 @@
                </tr>
                }
             </tbody>
-      </div>
+    
       </table>
    
         
          </div><!--  end of categories -->
+         
          <div class="tab-pane" class="tab-pane active" id="products"> 
           <form action="/">
     
      	 <div style="margin:0 auto;width:100px">
    
-         <a style="margin: 16.5px -2px" class="btn btn-success glyphicon glyphicon-plus" href="/addproductcategory" role="button"></a>
+         <a style="margin: 16.5px -2px" class="btn btn-success" href="/addproductcategory" role="button">Add new product</a>
         
          
      
       </div>
-      <div class="row">
-        <hr>
+
+        <div class="row" >
       @for(product <- products){
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
-            <img src="@routes.Assets.at(product.image_url)" alt="">
+            <img src="@routes.Assets.at(product.image_url)" alt="" style="width:500px;height:228px">
+            <div class="caption">
+               <h4 class="pull-right"> @product.price $</h4>
+               <h4> <a href="itempage/@product.id">@product.name</a>
+               </h4>
+               <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
+            </div>
+             <div style="margin: 10px 70px">
+              
+               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a> 
+            </div>
+         </div>
+         
+
+      </div>
+      }
+   </div>
+      
+   </div>  
+ 
+    <div class="tab-pane"  id="myproducts"> 
+   <div class="container">
+      <form action="/">
+      <div class="form-group text-center" style="margin: 50px 20px">
+         <a style="margin: 16.5px -5px" class="btn btn-success" href="/addproductcategory" role="button">Add new product</a>
+      </div>
+     
+
+      <div class="row">
+      @for(product <- myproducts){
+      <div class="col-sm-4 col-lg-4 col-md-4">
+         <div class="thumbnail">
+             <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
             <div class="caption">
                <h4 class="pull-right">US @product.price $</h4>
                <h4> <a href="itempage/@product.id">@product.name</a>
                </h4>
-              
-               <p> @product.description </p>                                                                
+               <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
+            </div>
+             <div style="margin: 10px 70px">
+               <a class="btn btn-info glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button" style="width: 300px; height: 40px; margin: 10px -40px">Update</a>
+               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?')" style="width: 300px; height: 40px; margin: 10px -40px">Delete</a> 
             </div>
          </div>
-           <a style="margin: 10.5px 0px" class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
-                
+         
       </div>
-      } 
-      
-   </div>  
-    </div>  
-    <div class="tab-pane" class="tab-pane active" id="myproducts"> 
-   <div class="container">
-      <form action="/">
-      <div class="form-group text-center">
-         <a style="margin: 16.5px -5px" class="btn btn-success glyphicon glyphicon-plus" href="/addproductcategory" role="button"></a>
-      </div>
-      <h4>Products: </h4>
-       <hr>
-      <div class="row">
-         @for(product <- myproducts){           
-         <div class="col-md-4 portfolio-item">
-            <a href="#">
-            <img class="img-responsive" src="@routes.Assets.at(product.image_url)" width="700" height="400" alt="">
-            </a>
-            <h3 class="pull-right">@product.price</h3>
-            <h3>
-               <a href="itempage/@product.id">@product.name</a>
-            </h3>
-            <p> @product.description </p>
-            <div>
-               <a class="btn btn-warning glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button");">Update</a>
-               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a> 
-            </div>
-         </div>
-         }
-      </div>
+      }
+   </div>
       
        </div>
       </div>
+      </div>
       
-        </div>
-      </div>
-   </div>
-      </div>
-    </div>
-    <div class="container">
+       
+     
+  
+     
+  
+    <div class="container" style="margin: 80px -255px">
    <hr>
      <a href="/contactpage">
                                   <h3>Contact Us</h3>

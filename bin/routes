@@ -26,6 +26,7 @@ POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer)
 POST 	/updateproduct/:id		controllers.ProductApplication.updateP(id:Integer)
+GET		/renewproduct/:id		controllers.ProductApplication.renew(id:Integer)
 GET 	/productpage			controllers.ProductApplication.productPage()
 GET 	/profile			controllers.UserController.profile()
 #POST    /pictureupload          controllers.ProductApplication.savePicture(id:Integer)
@@ -80,14 +81,17 @@ POST   /contact                 controllers.UserLoginApplication.contact()
 
 GET		/contactsellerpage/:id		controllers.ProductApplication.contactSellerPage(id: Integer)
 POST	/contactseller/:id				controllers.ProductApplication.contactSeller(id: Integer)
+GET		/contactseller/:id				controllers.ProductApplication.contactSeller(id: Integer)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file            controllers.Assets.at(path="/public", file)
 
 #Paypal routes
-
+#GET      /emptycart/:id			controllers.ProductApplication.emptyCart(id: Integer)
 GET		/cartpage/:id			controllers.ProductApplication.cartPage(id: Integer)
-GET    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
+POST    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
+
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcessing()

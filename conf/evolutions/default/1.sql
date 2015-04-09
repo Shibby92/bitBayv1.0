@@ -8,6 +8,7 @@ create table cart (
   userid                    integer,
   user_mail                 varchar(255),
   checkout                  double,
+  size                      integer,
   constraint pk_cart primary key (id))
 ;
 
@@ -34,8 +35,7 @@ create table faq (
 
 create table image (
   id                        integer not null,
-  path                      varchar(255),
-  save_path                 varchar(255),
+  image                     varchar(255),
   product_id                integer,
   constraint pk_image primary key (id))
 ;
@@ -63,6 +63,7 @@ create table product (
   image3                    varchar(255),
   order_id                  integer,
   sold                      boolean,
+  ordered_quantity          integer,
   created                   timestamp not null,
   constraint pk_product primary key (id))
 ;

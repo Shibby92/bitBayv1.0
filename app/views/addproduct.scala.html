@@ -81,6 +81,7 @@
    </div>
    <!-- /.container -->
 </nav>
+<div class="container">
    <div  style="margin: 80.5px -15px" class="row">
       <div class="col-md-12">
        @if(flash.get("error")) {
@@ -102,6 +103,11 @@
                      <dt><label for="price">Price:</label> </dt>
                      <dd><input name="price" id="price" value='' placeholder="Enter price of your product" type="number" step="0.01" min="0"  max="999999" class="form-control" required/> </dd>
                   </dl>
+                  
+                  <dl class=" " id="quantity_field">
+                     <dt><label for="quantity">Quantity:</label> </dt>
+                     <dd><input name="quantity" id="quantity" value='' placeholder="Enter quantity " type="number" step="1" min="0"  max="999999" class="form-control" required/> </dd>
+                  </dl>
                   <dl class=" " id="description_field">
                      <dt><label for="description">Description:</label> </dt>
                      <dd>	<textarea rows="4" cols="60"  name="description" id="description" placeholder="Description of your product"
@@ -111,18 +117,19 @@
 							<dt><label for="image_url">Select images:</label> </dt>
 							<form action="demo_form.asp">
   								<input type="file" name="image_url" multiple>
- 								 <input type="submit" class="btn btn-success" value="Add">
+ 								 <input type="submit" class="btn btn-success" value="Add" style="width: 300px; height: 40px; margin: 10px 5px">
 								</form>
 							</dl>
                   <div class="form-group text-center">
                     
-                     <a href="/addproductcategory" class="btn btn-danger"> Back </a>
+                     <a href="/addproductcategory" class="btn btn-danger" style="width: 300px; height: 40px; margin: 10px 0px"> Back </a>
                   </div>
                </form>
             </div>
          </div>
       </div>
    </div>
+      </div>
     <div class="container">
    <hr>
    <a href="/contactpage">

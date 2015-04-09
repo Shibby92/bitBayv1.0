@@ -36,6 +36,7 @@
             </li>
          </ul>
 
+
          } else {
           <ul class="nav navbar-nav">
                  <li  style="margin: 0px 235px">
@@ -56,6 +57,7 @@
                <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
               
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+
                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   } else {
@@ -65,8 +67,10 @@
 
                    <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
 
+
                    <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
                  
+
 
                   }
                   <li class="divider"></li>
@@ -121,9 +125,9 @@
       </table>
 }
       
-      
+
    </div>
-      <div class="container">
+      <div class="container" style="margin: 100px ">
       <hr>
       <a href="/contactpage">
          <h3>Contact Us</h3>
