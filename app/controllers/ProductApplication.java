@@ -92,7 +92,10 @@ public class ProductApplication extends Controller {
 			}
 			
 	}
-		
+		if(image_urls.size()==0){
+			flash("pictureSelect", "You must select a picture for your product!");
+			return redirect("/addproductpage/"+id);
+		}
 		String image1 = image_urls.get(0);
 		if(image_urls.size()>1){
 		if(image_urls.get(1) != null)
