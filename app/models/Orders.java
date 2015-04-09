@@ -32,6 +32,7 @@ public class Orders extends Model {
 	
 	public boolean notification;
 
+	public static Finder<Integer,Orders> find=new Finder<Integer,Orders>(Integer.class,Orders.class);
 	public Orders(List<Product> productList){
 		this.productList=productList;
 		

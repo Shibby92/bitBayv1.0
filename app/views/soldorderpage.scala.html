@@ -77,6 +77,7 @@
         <tr>
           <th>Order number</th>
                 <th>Products</th>
+                <th>Buyer</th>
                 <th><span class="nobr">Total</span></th>
         </tr>
       </thead>
@@ -90,7 +91,8 @@
                     	<p>@product.name ($ @product.price)</p>
                     }
                     </td>
-                    <td><span class="price">$ @order.price,-</span>
+                   <td>@order.buyer.email</td>
+                    <td><span class="price">$ @order.price,-</span></td>
                     
         </tr>
          <a href ="/soldorderchecked/@order.id">

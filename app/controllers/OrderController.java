@@ -1,6 +1,7 @@
 package controllers;
 
 import models.FAQ;
+import models.Orders;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -18,6 +19,9 @@ public class OrderController extends Controller {
 	}
 
 	public static Result soldOrderChecked(int id){
-	return TODO;
+		Orders order=Orders.find.byId(id);
+		order.notification=false;
+		order.update();
+	return redirect("/homepage");
 	}
 }
