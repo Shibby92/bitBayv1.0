@@ -66,6 +66,8 @@ create table product (
   order_id                  integer,
   sold                      boolean,
   ordered_quantity          integer,
+  amount                    double,
+  order_quantity            integer,
   created                   timestamp not null,
   constraint pk_product primary key (id))
 ;

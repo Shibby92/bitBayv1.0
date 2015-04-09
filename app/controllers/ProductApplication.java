@@ -451,6 +451,7 @@ public class ProductApplication extends Controller {
 		}
 		else{
 		p.setOrderedQuantity(orderedTotalQta);
+		p.amount=p.getPrice()*p.getOrderedQuantity();
 		Logger.info(String.valueOf("Naruceno: "+orderedQuantity));
 		p.update();
 		p.save();
@@ -467,7 +468,8 @@ public class ProductApplication extends Controller {
 		Cart.addProduct(p, cart);
 		//cart.save();
 		Logger.info(String.valueOf("Naruceno posle: "+p.orderedQuantity));
-		return ok(cartpage.render(email,cart, FAQ.all()));
+		return redirect("/cartpage/"+userid);
+		//return ok(cartpage.render(email,cart, FAQ.all()));
 		}
 		}
 			}

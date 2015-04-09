@@ -45,6 +45,10 @@ public class Orders extends Model {
 		this.buyer=buyer;
 	}
 
+	public Orders() {
+		// TODO Auto-generated constructor stub
+	}
+
 	static Finder<Integer,Orders> findOrder=new Finder<Integer,Orders>(Integer.class,Orders.class);
 	public static Orders find(int id) {
 		
