@@ -413,7 +413,12 @@ public class UserLoginApplication extends Controller {
 
 
 	public static Result orderFail() {
-		//return ok(creditresult.render("nije proslo"));
+		String email = session().get("email");
+		User user=User.find(email);
+		int userid=user.id;
+		Cart cart=Cart.getCart(email);
+		//List<Product> copyCartList=cart.productList;
+		cart.clear(userid);
 		flash("failBuy", "Transaction canceled!");
 		return ok(orderresult.render());
 
