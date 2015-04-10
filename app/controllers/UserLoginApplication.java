@@ -32,6 +32,8 @@ import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 
+import controllers.WebService.JsonRegistrationLoginController;
+
 /**
  * Controls the login application Redirects on the pages when needed When the
  * user registers, he gets redirected to page with ads If the user is already
@@ -132,6 +134,9 @@ public class UserLoginApplication extends Controller {
 
 	// goes to page where the user can be registered
 	public static Result toRegister() {
+		if (!request().accepts("text/html")) {
+			return JsonRegistrationLoginController.registration();
+		}
 		String email = session().get("email");
 		Logger.info("Page for registration has been opened");
 
@@ -205,7 +210,9 @@ public class UserLoginApplication extends Controller {
 
 
 	public static Result toLogin() {
-
+		if (!request().accepts("text/html")) {
+			return JsonRegistrationLoginController.login();
+		}
 		String email = session().get("email");
 		Logger.info("Opened page for login");
 		
