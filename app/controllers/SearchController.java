@@ -71,6 +71,11 @@ public class SearchController extends Controller {
 
 	public static Result advancedSearch(String ids) {
 
+		if(ids.length() < 1){
+			flash("error", "List is empty.");
+			return redirect("/advancedsearch");
+		}
+		
 		DynamicForm df = Form.form().bindFromRequest();
 		String email = session().get("email");
 			
@@ -100,9 +105,8 @@ public class SearchController extends Controller {
 			if(prod == null){
 				prod = "";
 			}
-			if(min == null){
-				
 			
+			if(min.isEmpty()){			
 				priceMin =Double.MIN_VALUE;
 				min =String.valueOf(priceMin);
 				
@@ -111,7 +115,7 @@ public class SearchController extends Controller {
 				Logger.debug("Min value " +priceMin);
 			}
 			
-			if( max == null){
+			if( max.isEmpty()){
 				priceMax = Double.MAX_VALUE;
 				max = String.valueOf(priceMax);
 				
@@ -131,7 +135,7 @@ public class SearchController extends Controller {
 					filteredProducts.add(product);
 				}
 			}
-			Logger.debug("Siye of list" +productList.size());
+			Logger.debug("Size of list" +productList.size());
 
 			
 		return ok(advancedsearch.render(email, filteredProducts, Category.list(), FAQ.all()));

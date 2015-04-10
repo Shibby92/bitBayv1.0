@@ -40,9 +40,10 @@ public class Message extends Model{
 		this.receiver = null;
 	}
 	
-	public static void create(String content, User sender, User reciever) {
+	public static Message create(String content, User sender, User reciever) {
 		Message msg = new Message(content, sender, reciever);
 		msg.save();
+		return msg;
 	}
 	
 	public static void delete(int id) {

@@ -88,7 +88,7 @@ GET    /contactseller/:id       controllers.ProductApplication.contactSeller(id:
 
 GET		/replyToMessagePage/:id	controllers.ProductApplication.replyToMessagePage(id: Integer)
 POST	/reply/:id				controllers.ProductApplication.reply(id: Integer)
-GET		/reply/:id				controllers.ProductApplication.reply(id: Integer)
+#GET		/reply/:id				controllers.ProductApplication.replyToMessagePage(id: Integer)
 
 GET		/open/:id				controllers.ProductApplication.openMessage(id: Integer)
 

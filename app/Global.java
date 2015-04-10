@@ -12,6 +12,8 @@ public class Global extends GlobalSettings {
 	public void onStart(Application app) {
 
 		if (User.find("admin@gmail.com") == null) {
+			
+			
 			User u = new User("admin@gmail.com",
 					HashHelper.createPassword("admin"), true, true);
 			User.create(u);
@@ -48,6 +50,51 @@ public class Global extends GlobalSettings {
 					HashHelper.createPassword("nermin"), false, true);
 			User.create(u6);
 
+		}
+		
+		if(Message.find(1) == null) {
+			
+			Message.create("Dragi svi "
+					+ "u ime predavaca Arifa je na Google Classroom "
+					+ "(Predavanja) postavljen kod. "
+					+ "Molim da ovo primite k znanju. "
+					+ "Lijep pozdrav", User.find(2), User.find(1));
+			Message.create("Dragi svi "
+					+ "u ime predavaca Arifa je na Google Classroom "
+					+ "(Predavanja) postavljen kod. "
+					+ "Molim da ovo primite k znanju. "
+					+ "Lijep pozdrav", User.find(3), User.find(1));
+			Message.create("Dragi svi "
+					+ "u ime predavaca Arifa je na Google Classroom "
+					+ "(Predavanja) postavljen kod. "
+					+ "Molim da ovo primite k znanju. "
+					+ "Lijep pozdrav", User.find(4), User.find(1));
+			Message.create("Dragi svi "
+					+ "u ime predavaca Arifa je na Google Classroom "
+					+ "(Predavanja) postavljen kod. "
+					+ "Molim da ovo primite k znanju. "
+					+ "Lijep pozdrav", User.find(5), User.find(1));
+			Message.create("Dragi svi "
+					+ "u ime predavaca Arifa je na Google Classroom "
+					+ "(Predavanja) postavljen kod. "
+					+ "Molim da ovo primite k znanju. "
+					+ "Lijep pozdrav", User.find(3), User.find(2));
+			Message.create("Dragi svi "
+					+ "u ime predavaca Arifa je na Google Classroom "
+					+ "(Predavanja) postavljen kod. "
+					+ "Molim da ovo primite k znanju. "
+					+ "Lijep pozdrav", User.find(4), User.find(2));
+			Message.create("Dragi svi "
+					+ "u ime predavaca Arifa je na Google Classroom "
+					+ "(Predavanja) postavljen kod. "
+					+ "Molim da ovo primite k znanju. "
+					+ "Lijep pozdrav", User.find(1), User.find(3));
+			Message.create("Dragi svi "
+					+ "u ime predavaca Arifa je na Google Classroom "
+					+ "(Predavanja) postavljen kod. "
+					+ "Molim da ovo primite k znanju. "
+					+ "Lijep pozdrav", User.find(2), User.find(3));
+			
 		}
 
 		if (Category.find(1) == null) {

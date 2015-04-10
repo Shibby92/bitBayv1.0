@@ -27,7 +27,7 @@ body {
 }
 
 .caption h4 {
-    white-space: nowrap;
+    white-space: wrap;
 }
 
 .thumbnail img {

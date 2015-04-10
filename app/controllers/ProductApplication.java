@@ -87,7 +87,7 @@ public class ProductApplication extends Controller {
 		
 
 			if (image_urls == null) {
-				flash("error", "Image not valid!");
+				//flash("error", "Image not valid!");
 				return redirect("/addproductpage/" + id);
 			}
 		
@@ -310,10 +310,12 @@ public class ProductApplication extends Controller {
 		for(FilePart filePart: fileParts) {
 		//filePart = body.getFile("image_url");
 		if (filePart == null) {
+			flash("error", "You need to upload image!");
 			Logger.debug("File part is null");
 			return null;
 		}
 		if(fileParts.size() > 5){
+			flash("error","Use less than 5 images!");
 			Logger.debug("User tried to save more than 5 images");
 			return null;
 		}
@@ -628,6 +630,8 @@ public class ProductApplication extends Controller {
 			// return the promisse
 			return holder;
 	}
+	
+
 	
 	/**
 	 * User can contact seller

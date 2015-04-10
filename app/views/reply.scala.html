@@ -65,8 +65,9 @@
       </div>
       <!-- /.container -->
    </nav>
+   
    <div style="margin: 80.5px -15px" class="row">
-      <div class="col-md-12">
+      <div class="col-md-15">
          <center>
              @if(flash.get("error")){
         <div class="alert alert-danger" role="alert">
@@ -90,14 +91,14 @@
                   </div>
          	}
          <div 
-            <div class="col-sm-offset-4 col-sm-3">
+            <div class="col-sm-offset-4 col-sm-4">
                <div  class="well login-box" >
                   <legend>Reply to: @sendTo.email</legend>
                   <form action="/reply/@sendTo.id" method="post">
                      <div class="form-horizontal">
                         <div class="form-group">
                            <label class=" control-label required" for="yourEmail">From:</label>              
-                              <label type="email" id="email" name="email" value=@email placeholder="Enter email" class="form-control" required></label>
+                              <h3 type="email" id="email" name="email" value=@email class="form-control" required>@email</h3>
                               
                            </div>
                         </div>
@@ -109,12 +110,14 @@
                         <div class="form-group text-center">
                            <button type="submit" class="btn btn-large btn-primary ">Send</button><img class="ajax-loader" src="http://www.YOURSITE.com/wp-content/plugins/contact-form-7/images/ajax-loader.gif" alt="Sending ..." style="visibility: hidden; opacity: 1;"/>
                         </div>
+                        </div>
                      </div>
                </div>
                </form>
             </div>
       </div>
-   </div>
+  
+    </div>
    </center>
    </div>
    <div class="container">

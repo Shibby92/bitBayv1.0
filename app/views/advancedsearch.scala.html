@@ -74,6 +74,27 @@
    <div class="container">
       <hr>
       <div class="row">
+       @if(flash.get("error")){
+        <div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("error")
+                     </div>
+                  </div>
+         }
+         @if(flash.get("warning")){
+       <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("warning")
+                     </div>
+                  </div>
+         }
+          @if(flash.get("success")) {
+         	<div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("success")
+                     </div>
+                  </div>
+         	}
        
            <form action="@routes.SearchController.advancedSearch(Product.getIds(products))" method="POST"">
               <div class="col-sm-3" style="margin: -6.5px 0px">
@@ -111,8 +132,8 @@
                <dl  >
                   <dt><label >Price</label></dt>
                   <dd>
-                      <input type="number" min="1" max="9999999" step="any" value="" id="minValue" name="minValue" class="form-control" name="q" id="q" size="5" placeholder="From.." >
-                      <input type="number" min="1" max="9999999" step="any" value="" id="maxValue" name="maxValue" style="margin: -33.5px 290px" class="form-control" name="q" id="q" size="5" placeholder="To..." >
+                      <input type="number" min="1" max="9999999" step="any" id="minValue" name="minValue" class="form-control" name="q" id="q" size="5" placeholder="From.." >
+                      <input type="number" min="1" max="9999999" step="any"  id="maxValue" name="maxValue" style="margin: -33.5px 290px" class="form-control" name="q" id="q" size="5" placeholder="To..." >
                 </dd>
                
                </dl>
