@@ -83,7 +83,7 @@
       </thead>
       <tbody>
        @for(order <- orders){
-        <tr>
+       	@if(order.notification==true){        <tr>
          <td>@order.id</td>
         
           <td>
@@ -92,17 +92,22 @@
                     }
                     </td>
                    <td>@order.buyer.email</td>
-                    <td><span class="price">$ @order.price,-</span></td>
+                    <td><span class="price">$ @order.price,-</span>
+                     <a href ="/soldorderchecked/@order.id">
+                    	<button type="button" class="btn btn-warning">Ok, got it!</button></td>
+                   </a></td>
                     
         </tr>
-         <a href ="/soldorderchecked/@order.id">
-                    	<button type="button" class="btn btn-warning">Ok, got it!</button></td>
-                   </a>
+         
         </div>
         </tbody>
       
-         }
-      </table>
+        
+      
+     
+       }
+       }
+       </table>
        
       
 }

@@ -301,9 +301,6 @@ public class UserLoginApplication extends Controller {
 
 		return TODO;
 }
-
-	
-
 	public static String cartToString(Cart cart) {
 		StringBuilder sb= new StringBuilder();
 		sb.append("Your order via bitBay: ");
@@ -313,6 +310,7 @@ public class UserLoginApplication extends Controller {
 		sb.append("which is a total prize of: "+cart.checkout+"0 $");
 		return sb.toString();
 	}
+
 
 	public static Result orderConfirm(){
 		Logger.debug("NALAZIM SE U ORDER CONFIRM!");

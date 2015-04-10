@@ -112,7 +112,7 @@ public class Global extends GlobalSettings {
 			Product.create("Eminin proizvod", 2000, 1, User.find(3), "Neki opis", 3);
 			Product pro = Product.find(1);
 			Image img3 = new Image();
-			img3.image = "images/Productimages/bitbaySlika2.jpg";
+			img3.image = "images/Productimages/bitbaySlika1.jpg";
 			img3.product = pro;
 			
 
@@ -175,7 +175,7 @@ public class Global extends GlobalSettings {
 
 			Product produc = Product.find(4);
 			Image img6 = new Image();
-			img6.image = "images/Productimages/bitbaySlika2.jpg";
+			img6.image = "images/Productimages/bitbaySlika1.jpg";
 			img6.product = produc;
 
 			List<Image> imgggggg = new ArrayList<Image>();
