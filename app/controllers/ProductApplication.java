@@ -72,10 +72,6 @@ public class ProductApplication extends Controller {
 		String name = form.get("name");
 //		User owner = new User(session().get("username"), form.get("password"));
 		
-//		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
-//		Date created = new Date();
-//		int quantity = 0;// Integer.parseInt(form.data().get("quantity"));
-		//double price= 100;
 		double price = Double.valueOf(form.get("price"));
 		int quantity=Integer.valueOf(form.get("quantity"));
 
@@ -92,12 +88,12 @@ public class ProductApplication extends Controller {
 			}
 			
 	}
-		
 		if(image_urls.size()==0){
 			flash("pictureSelect", "You must select a picture for your product!");
 			return redirect("/addproductpage/"+id);
 		}
-		
+
+
 		String image1 = image_urls.get(0);
 		if(image_urls.size()>1){
 		if(image_urls.get(1) != null)
@@ -470,27 +466,7 @@ public class ProductApplication extends Controller {
 		}
 			}
 
-	/*public static Result emptyCart(int id){
-		Cart cart=Cart.find(id);
-		String email = session().get("email");
-		cart.productList.clear();
-		cart.size=0;
-		cart.checkout=0;
-		//cart.clear(id);
-		for (Iterator<Product> iterator = cart.productList.iterator(); iterator.hasNext() ;){
-			Product p=iterator.next();
-			p.setOrderedQuantity(0);
-			p.update();
-			cart.productList.remove(p);
-			p.cart=null;
-		}
-		 
-		 cart.update();
-		cart.save();
-		
-		return ok(cartpage.render(email,cart, FAQ.all()));
-
-	}*/
+	
 
 	public static Result deleteProductFromCart(int id) {
 		String email = session().get("email");
