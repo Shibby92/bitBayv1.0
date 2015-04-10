@@ -1,7 +1,6 @@
 @(paymentID:String,payerID:String,token:String,email: String,cart:Cart, faqs: List[FAQ])
 @main("Confirm") {
-	<head><h1>Confirm order:</h1></head>
-	<br><br>
+	
 <body>
   <!-- Navigation -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -72,6 +71,10 @@
    @if(cart.productList.size()==0){
 							<h3><center><strong>You have no orders!</strong></center></h3>
 							}else{
+							<h3>Confirm order:</h3>
+							<hr>
+							
+	<br><br>
       
       <div class="row">
         
@@ -101,20 +104,20 @@
       </tbody>
       </table>
 <br>
-                    <h3>Total: @cart.checkout</h3>
-                    
+                    <h3>Total: @cart.checkout $</h3>
+                     <div>
+   <a href="@routes.UserLoginApplication.orderSuccess(paymentID,payerID,token)">
+            	 <button type="button" class="btn btn-success">Confirm</button>
+            	</a>
+            	<a href="/orderfail"
+            	<button type="button" class="btn btn-danger">Cancel</button>
+            	</a>
+   </div>
                    
      </div>
       }
    </div><br><br>
-   <div>
-   <a href="@routes.UserLoginApplication.orderSuccess(paymentID,payerID,token)">
-            	 <button type="button" class="btn btn-warning">Confirm</button>
-            	</a>
-            	<a href="/orderfail"
-            	<button type="button" class="btn btn-warning">Cancel</button>
-            	</a>
-   </div>
+  
       <div class="container">
       <hr>
       <a href="/contactpage">
