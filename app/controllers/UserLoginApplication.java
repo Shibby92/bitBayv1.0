@@ -407,7 +407,7 @@ public class UserLoginApplication extends Controller {
 	} catch (PayPalRESTException e) {
 		// TODO Auto-generated catch block
 		Logger.warn(e.getMessage());}
-		
+		flash("orderSuccess", "You have succesfully bought this products!");
 		return ok(orderpage.render(email,User.find(session().get("email")).orderList,  FAQ.all()));
 	}
 
@@ -418,7 +418,7 @@ public class UserLoginApplication extends Controller {
 		int userid=user.id;
 		Cart cart=Cart.getCart(email);
 		//List<Product> copyCartList=cart.productList;
-		cart.clear(userid);
+		Cart.clear(userid);
 		flash("failBuy", "Transaction canceled!");
 		return ok(orderresult.render());
 

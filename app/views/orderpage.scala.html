@@ -58,6 +58,14 @@
    </div>
    <!-- /.container -->
 </nav>
+
+@if(flash.get("orderSuccess")) {
+         	<div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("orderSuccess")
+                     </div>
+                  </div>
+         	}
    <!-- Page Content -->
    <div class="container">
     @if(flash.get("refund")){

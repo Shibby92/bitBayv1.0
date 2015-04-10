@@ -1,9 +1,17 @@
-@main("Buy Result") {
-<div class="container">
-<div class="navbar-header">
-       
-         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-      </div><br><br><br><br>
+@import models.User;
+@main("Order Success") {
+<body>
+  
+              
+
+@if(flash.get("orderSuccess")) {
+         	<div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("orderSuccess")
+                     </div>
+                  </div>
+         	}
+   
 	
          @if(flash.get("failBuy")){
         <div class="alert alert-success" role="alert">
@@ -15,6 +23,9 @@
 	
 	
 </div>
-
+<div class="container">
+    <div>
+               <a class="btn btn-danger" href="/" role="button" onclick="">Go back</a> 
+            </div>
+</body>
 }
-

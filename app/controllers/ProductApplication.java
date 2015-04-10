@@ -466,7 +466,7 @@ public class ProductApplication extends Controller {
 		}
 			}
 
-	
+
 
 	public static Result deleteProductFromCart(int id) {
 		String email = session().get("email");

@@ -110,7 +110,7 @@ public class Cart extends Model {
 		cart.productList.clear();
 		cart.checkout=0;
 		cart.size=0;
-		//cart.update();
+		cart.update();
 		
 	}
 	
