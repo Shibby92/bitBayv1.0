@@ -286,6 +286,10 @@ public class User extends Model {
 		u.update();
 		return true;
 	}
+
+	public static List<User> findAll() {
+		return find.all();
+	}
 	
 
 

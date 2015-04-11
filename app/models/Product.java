@@ -331,6 +331,10 @@ public class Product extends Model {
 		return find.byId(id).image_urls;
 	}
 
+	public static List<Product> findAll() {
+		return find.all();
+	}
+
 	
 	
 
