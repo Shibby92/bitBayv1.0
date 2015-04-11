@@ -341,15 +341,15 @@ public class UserLoginApplication extends Controller {
 			Payment payment= Payment.get(accessToken, paymentID);
 			User user=User.find(session().get("email"));
 			Orders order= new Orders(Cart.getCart(session().get("email")),user,token);
-			order.save();
+		//	order.save();
 
-			Logger.debug(String.valueOf(order.id)+" VEDAD ZORNIC");
+		//	Logger.debug(String.valueOf(order.id)+" VEDAD ZORNIC");
 			user.orderList.add(order);
 			user.update();
-			User temp=User.find(session().get("email"));
-			Logger.debug("PRED FOR PETLJOM! "+order.productList.get(0));
-			Iterator<Product> productIterator = order.productList.iterator();
-			while (productIterator.hasNext()) {
+		//	User temp=User.find(session().get("email"));
+		//	Logger.debug("PRED FOR PETLJOM! "+order.productList.get(0));
+		//	Iterator<Product> productIterator = order.productList.iterator();
+		/*	while (productIterator.hasNext()) {
 				Product p=productIterator.next();
 				p.order.add(order);
 				Logger.debug(""+p.order.get(0));
@@ -358,20 +358,22 @@ public class UserLoginApplication extends Controller {
 				}
 				p.update();
 				
-			}
-			Cart.clear(temp.id);
+			}*/
+		
 			Logger.debug("POSLIJE FOR PETLJE");
 			//Cart.clear(temp.id);
 		} catch (PayPalRESTException e) {
 			// TODO Auto-generated catch block
 			Logger.warn(e.getMessage());
 			}
-		
+		Logger.info("Iznad returna");
 		return ok(confirmorder.render(paymentID,payerID,token,email,cart,  FAQ.all()));	
 		}
 	
 	
 	public static Result orderSuccess(String paymentId,String payerId,String token) {
+		Logger.info("Order success");
+		
 		String email = session().get("email");
 		try{
 		DynamicForm paypalReturn = Form.form().bindFromRequest();

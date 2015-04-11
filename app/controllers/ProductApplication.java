@@ -221,6 +221,10 @@ public class ProductApplication extends Controller {
 		Product.deleteImage(updateProduct);
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
+		if(fileParts == null || fileParts.size() == 0) {
+			Logger.debug("File part is null");
+			return null;
+		}
 		for(FilePart filePart: fileParts) {
 		if (filePart == null) {
 			Logger.debug("File part is null");
@@ -270,7 +274,7 @@ public class ProductApplication extends Controller {
 			
 			img.image = image_url;
 			img.product = updateProduct;
-			models.Image.saveImg(img);
+		//	models.Image.saveImg(img);
 			
 			Files.move(image, profile);
 
@@ -307,6 +311,11 @@ public class ProductApplication extends Controller {
 		List<models.Image> image_urls = new ArrayList<models.Image>();
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
+		if(fileParts == null || fileParts.size() == 0) {
+			flash("error", "You need to upload image!");
+			Logger.debug("File part is null");
+			return null;
+		}
 		for(FilePart filePart: fileParts) {
 		//filePart = body.getFile("image_url");
 		if (filePart == null) {

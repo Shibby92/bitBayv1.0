@@ -9,6 +9,7 @@ import play.db.ebean.Model;
 @Embeddable
 public class productList_order extends Model{
 
+	
 	public int order_id;
 	
 	public int product_id;

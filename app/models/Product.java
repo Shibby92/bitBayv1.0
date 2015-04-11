@@ -41,7 +41,7 @@ public class Product extends Model {
 	@ManyToOne
 	public User owner;
 
-	@Version
+	//@Version
 	public Date created;
 
 	@Required

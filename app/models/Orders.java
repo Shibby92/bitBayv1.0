@@ -33,7 +33,7 @@ public class Orders extends Model {
 	public User buyer;
 
 	public double price;
-
+	
 	public String token;
 	
 	@ManyToOne
