@@ -9,7 +9,7 @@ public class ContactHelper {
 
 	public static void send(String emailFrom, String emailTo, String message) {
 		Email mail = new Email();
-		mail.setSubject("New message from bitBay user!");
+		mail.setSubject("New message from bitBay.com!");
 		mail.setFrom("Bitbay.ba <bit.play.test@gmail.com>");
 		mail.addTo(emailFrom);
 		mail.addTo(emailTo);
