@@ -94,3 +94,12 @@ GET		/orderpage/:id			controllers.OrderController.orderPage(id: Integer)
 
 #POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
 
+#Web Service routes
+GET			/registerpage.json		ws.controllers.JsonController.registerPage()
+POST		/registered.json			ws.controllers.JsonController.registration()
+GET			/loginpage.json			ws.controllers.JsonController.loginPage()
+POST		/login.json				ws.controllers.JsonController.login()
+GET			/addproductpage.json	ws.controllers.JsonController.addProductPage()
+POST      	/addproduct.json				ws.controllers.JsonController.
+GET			/showproduct.json/:id			ws.controllers.JsonController.viewProduct(id: Integer)
+GET			/showuserproducts.json/:id			ws.controllers.JsonController.userProducts(id: Integer)

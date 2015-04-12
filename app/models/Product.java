@@ -200,6 +200,14 @@ public class Product extends Model {
 
 	}
 
+	public Product(String name, double price, int quantity,	String description, String image,User owner) {
+		this.name = name;
+		this.price = price;
+		this.quantity=quantity;
+		this.owner = owner;
+		this.description = description;
+	}
+
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
 		new Product(name,  price, owner, description,id,image1).save();
 	}
@@ -227,6 +235,12 @@ public class Product extends Model {
 	public static void create(String name, double price, int quantity, User owner, String description, int id, String image1,String image2,String image3) {
 		new Product(name,  price,quantity, owner, description,id,image1,image2,image3).save();
 		}
+	
+	public static Product create(String name, double price, int quantity, String description, String image,User owner) {
+		Product newProduct=new Product(name,price,quantity,description,image,owner);
+		return newProduct;
+	}
+	
 	/**
 	 * finds a product by his id
 	 * @param id int id of the product
@@ -291,6 +305,11 @@ public class Product extends Model {
 		return pp;
 	}
 	
+	public static List<Product> userProducts(User user) {
+			List<Product> userProductList = find.where().eq("owner",user).findList();
+		return userProductList;
+	}
+	
 	public String getFirstPic() {
 		return this.image1;
 	}
@@ -340,6 +359,8 @@ public class Product extends Model {
 	public static List<String> allImages(int id) {
 		return find.byId(id).image_urls;
 	}
+
+	
 
 	
 	

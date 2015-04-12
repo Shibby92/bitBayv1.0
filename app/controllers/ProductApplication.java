@@ -66,35 +66,24 @@ public class ProductApplication extends Controller {
 	public static Result addAdditionalInfo(int id) {
 		String image2 = null;
 		String image3 = null;
-		
-		//Form <Product> form=productForm.bindFromRequest();
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.get("name");
 //		User owner = new User(session().get("username"), form.get("password"));
-		
-//		
 		double price = Double.valueOf(form.get("price"));
 		int quantity=Integer.valueOf(form.get("quantity"));
-
 		String description = form.get("description");
-		
 		List<String> image_urls = savePicture(id);
-			
 		for(String image_url: image_urls) {
-			
-			if(image_url == null) {
+					if(image_url == null) {
 				flash("error", "Image not valid!");
 				return ok("/addproductpage/" + id);
 			}
-			
-	}
+			}
 		if(image_urls.size()==0){
 			flash("pictureSelect", "You must select a picture for your product!");
 			return redirect("/addproductpage/"+id);
 		}
-		
 		String image1 = image_urls.get(0);
-		
 		if(image_urls.size()>1){
 		if(image_urls.get(1) != null)
 			image2 = image_urls.get(1);
@@ -119,6 +108,7 @@ public class ProductApplication extends Controller {
 			
 	}
 			
+	
 
 	/**
 	 * opens a page with all products
@@ -152,6 +142,7 @@ public class ProductApplication extends Controller {
 		return ok(addproductcategory.render(email, Category.list(), FAQ.all()));
 
 	}
+	
 
 	/**
 	 * opens a page where user adds info for his product
@@ -163,6 +154,7 @@ public class ProductApplication extends Controller {
 		String email = session().get("email");
 		return ok(addproduct.render(email,id,productForm, FAQ.all()));
 	}
+	
 
 	/**
 	 * method that delete product and redirect to other products
@@ -177,6 +169,7 @@ public class ProductApplication extends Controller {
 
 	}
 	
+	
 	/**
 	 * opens a page where user can update his product
 	 * @param id int id of the product
@@ -187,6 +180,7 @@ public class ProductApplication extends Controller {
 		Logger.info("Opened page for updating product");
 		return ok(updateproduct.render(email,Product.find(id), FAQ.all()));
 	}
+	
 	
 	/**
 	 * gets the data from the updated product
@@ -223,6 +217,7 @@ public class ProductApplication extends Controller {
 		return redirect("/myproducts/" + User.find(session().get("email")).id);	
 	     }
 	}
+	
 	
 	
 	/**
@@ -276,9 +271,7 @@ public class ProductApplication extends Controller {
 			String image_url = "images" + File.separator + "Productimages"
 					+ File.separator
 					+ profile.getName();
-			
-			
-			Files.move(image, profile);
+				Files.move(image, profile);
 			Product updateProduct = ProductApplication.find(id);
 			Product.deleteImage(updateProduct);
 			updateProduct.image_url=image_url;
@@ -301,9 +294,9 @@ public class ProductApplication extends Controller {
 //			return redirect("/myproducts");
 			return null;
 		}
-
-		
-	}
+}
+	
+	
 	
 	/**
 	 * saves picture on given product

@@ -26,13 +26,12 @@ import play.libs.ws.WS;
 import play.libs.ws.WSResponse;
 import play.mvc.*;
 import views.html.*;
+import ws.controllers.JsonRegistrationLoginController;
 
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
-
-import controllers.WebService.JsonRegistrationLoginController;
 
 /**
  * Controls the login application Redirects on the pages when needed When the
