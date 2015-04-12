@@ -48,6 +48,7 @@ public class UserController extends Controller {
 		return redirect("/profile");
 	}
 
+	
 	// deletes user and redirect to list of all users
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteUser(int id){

@@ -121,6 +121,21 @@ public class JsonController extends Controller {
 		return ok(JsonHelper.productToJson(newProduct));
 	}
 	
+	
+	public static Result allProducts() {
+	//	String email = session().get("email");
+		Logger.info("Products page opened");
+		return ok(JsonHelper.productListToJson(Product.productList()));
+	}
+	
+	
+	public static Result allUsers() {
+		//	String email = session().get("email");
+			Logger.info("Users page opened");
+			return ok(JsonHelper.usersListToJson(User.all()));
+		}
+	
+	
 	public static Result viewProduct(int id) {
 		Product currProduct = Product.find(id);
 		return ok(JsonHelper.productToJson(currProduct));

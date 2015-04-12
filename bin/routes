@@ -103,3 +103,5 @@ GET			/addproductpage.json/:id	ws.controllers.JsonController.addProductPage(id:I
 POST      	/addproduct.json				ws.controllers.JsonController.addProduct()
 GET			/showproduct.json/:id			ws.controllers.JsonController.viewProduct(id: Integer)
 GET			/showuserproducts.json/:id			ws.controllers.JsonController.userProducts(id: Integer)
+GET        /allproducts.json					ws.controllers.JsonController.allProducts()
+GET        /allusers.json					ws.controllers.JsonController.allUsers()
