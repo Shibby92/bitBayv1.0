@@ -26,7 +26,6 @@ import play.libs.ws.WS;
 import play.libs.ws.WSResponse;
 import play.mvc.*;
 import views.html.*;
-import ws.controllers.JsonRegistrationLoginController;
 
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
@@ -133,9 +132,7 @@ public class UserLoginApplication extends Controller {
 
 	// goes to page where the user can be registered
 	public static Result toRegister() {
-		if (!request().accepts("text/html")) {
-			return JsonRegistrationLoginController.registration();
-		}
+
 		String email = session().get("email");
 		Logger.info("Page for registration has been opened");
 
@@ -209,9 +206,7 @@ public class UserLoginApplication extends Controller {
 
 
 	public static Result toLogin() {
-		if (!request().accepts("text/html")) {
-			return JsonRegistrationLoginController.login();
-		}
+		/**/
 		String email = session().get("email");
 		Logger.info("Opened page for login");
 		

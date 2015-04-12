@@ -1,11 +1,13 @@
 package ws.controllers;
 
 import java.util.Date;
+
 import javax.mail.internet.ParseException;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import helpers.Session;
-import helpers.ServiceAuth;
+
+import play.mvc.Http.Context;
 import helpers.*;
 import models.*;
 import play.Logger;
@@ -19,17 +21,20 @@ import views.html.*;
 
 public class JsonController extends Controller {
 
-	
+	static Form<Product> productForm= new Form <Product>(Product.class);
+	static Form<User> userForm = new Form<User>(User.class);
+
 	
 	@BodyParser.Of(play.mvc.BodyParser.Json.class)
 	public static Result registerPage() {
-		return ok(toregister.render());
+		String email = session().get("email");
+		return ok(toregister.render(userForm, email, FAQ.all()));
 	}
 	
 	@BodyParser.Of(play.mvc.BodyParser.Json.class)
 	public static Result loginPage() {
-		return ok(logintest.render(null));
-	}
+		String email = session().get("email");
+		return ok(logintest.render(email, FAQ.all()));	}
 	
 	/**
 	 * TODO comments
@@ -91,8 +96,11 @@ public class JsonController extends Controller {
 	
 	
 	@BodyParser.Of(play.mvc.BodyParser.Json.class)
-	public static Result addProductPage() {
-		return ok(addproduct.render());
+	public static Result addProductPage(int id) {
+		String email = session().get("email");
+		//User user=User.find(email);
+		
+		return ok(addproduct.render(email,id,productForm, FAQ.all()));
 	}
 	
 	@Security.Authenticated(ServiceAuth.class)
