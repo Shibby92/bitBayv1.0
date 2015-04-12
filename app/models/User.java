@@ -143,6 +143,13 @@ public class User extends Model {
 		return true;
 	}
 	
+	public static User createUser(String email, String password) {
+		if (existsEmail(email))
+			return null;
+	User user=	new User(email, HashHelper.createPassword(password));
+	user.save();
+		return user;
+	}
 	public static boolean create(String email, String password, String confirmation) {
 		if (existsEmail(email))
 			return false;
@@ -289,6 +296,8 @@ public class User extends Model {
 		u.update();
 		return true;
 	}
+
+	
 	
 
 

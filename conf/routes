@@ -17,8 +17,9 @@ GET    /confirm/:confirmation   controllers.Verification.verificateEmail(confirm
 
 # Routes for CRUD product and category
 
-GET    /deleteproduct/:id       controllers.ProductApplication.deleteProduct(id: Integer)
+GET    /deleteproduct/:id            controllers.ProductApplication.deleteProduct(id: Integer)
 #POST     /deleteproductpage         controllers.ProductApplication.toDeleteProduct()
+
 GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
 POST 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
 GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
@@ -33,6 +34,20 @@ GET 	/profile			controllers.UserController.profile()
 GET    /itempage/logout         controllers.UserLoginApplication.logOut()
 GET    /itempage/:id            controllers.ProductApplication.itemPage(id:Integer)
 GET    /myproducts/:id          controllers.ProductApplication.myProducts(id: Integer)
+
+GET 	/addproduct/:id			          controllers.ProductApplication.addAdditionalInfo(id:Integer)
+POST 	/addproduct/:id			          controllers.ProductApplication.addAdditionalInfo(id:Integer)
+GET		/addproductpage/:id	        	controllers.ProductApplication.toInfo(id:Integer)
+POST	/addproduct/homepage        	controllers.UserLoginApplication.homePage()
+GET		/addproductcategory	        	controllers.ProductApplication.toPickCategory()
+GET 	/updateproduct/:id	        	controllers.ProductApplication.updateProduct(id:Integer)
+POST 	/updateproduct/:id	        	controllers.ProductApplication.updateP(id:Integer)
+GET 	/productpage			            controllers.ProductApplication.productPage()
+GET 	/profile			                controllers.UserController.profile()
+#POST  /pictureupload                 controllers.ProductApplication.savePicture(id:Integer)
+GET      /itempage/logout             controllers.UserLoginApplication.logOut()
+GET      /itempage/:id             controllers.ProductApplication.itemPage(id:Integer)
+GET		/myproducts/:id		          	controllers.ProductApplication.myProducts(id: Integer)
 
 
 GET    /category/:name          controllers.ProductApplication.category(name:String)
@@ -115,5 +130,34 @@ GET    /orderpage/:id           controllers.OrderController.orderPage(id: Intege
 GET    /soldorder/:id           controllers.OrderController.soldOrderPage(id:Integer)
 GET    /soldorderchecked/:id    controllers.OrderController.soldOrderChecked(id:Integer)
 
-#POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
+#Paypal routes
+#GET      /emptycart/:id	          		controllers.ProductApplication.emptyCart(id: Integer)
+GET		/cartpage/:id		                 	controllers.ProductApplication.cartPage(id: Integer)
+POST    /producttocart/:id              controllers.ProductApplication.productToCart(id: Integer)
+#GET    /producttocart/:id             controllers.ProductApplication.productToCart(id: Integer)
+GET    /deleteproductcart/:id            controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
+POST   /creditpurchase                     controllers.UserLoginApplication.purchaseProcessing()
+GET    /ordersuccess                      controllers.UserLoginApplication.orderSuccess(paymentID:String,payerID:String,token:String)
+GET    /orderfail                         controllers.UserLoginApplication.orderFail()
+GET		/orderconfirm		                  	controllers.UserLoginApplication.orderConfirm()
+GET		/refundorder/:id	              		controllers.UserLoginApplication.refundOrder(id: Integer)
+#Order routes
+
+
+#POST   /itempage/expresscheckout.java      controllers.expresscheckout.doGet()
+
+#Web Service routes
+GET			/registerpagejson		          ws.controllers.JsonController.registerPage()
+POST		/registeredjson               ws.controllers.JsonController.registration()
+GET			/loginpagejson			          ws.controllers.JsonController.loginPage()
+POST		/loginjson			            	ws.controllers.JsonController.login()
+GET			/addproductpagejson/:id     	ws.controllers.JsonController.addProductPage(id:Integer)
+POST    /addproductjson			        	ws.controllers.JsonController.addProduct()
+GET			/showproductjson/:id	      		ws.controllers.JsonController.viewProduct(id: Integer)
+GET			/showuserproductsjson/:id			ws.controllers.JsonController.userProducts(id: Integer)
+GET     /allproductsjson				    	ws.controllers.JsonController.allProducts()
+GET     /allusersjson				        	ws.controllers.JsonController.allUsers()
+
+# Map static resources from the /public folder to the /assets URL path
+GET    /assets/*file            controllers.Assets.at(path="/public", file)

@@ -118,9 +118,10 @@ public class Product extends Model {
 		this.price = price;
 		this.description = description;
 		this.image_url = image_url;
-		this.sold = false;
-		this.orderedQuantity = 0;
 		this.saveManyToManyAssociations("order");
+		this.sold=false;
+		this.orderedQuantity=0;
+		this.amount=0;
 	}
 
 	public Product(String name, double price, User owner, String description,
@@ -134,9 +135,10 @@ public class Product extends Model {
 		this.image1 = image1;
 		this.image_urls.add(image1);
 		this.image_url = this.image_urls.get(0);
-		this.sold = false;
-		this.orderedQuantity = 0;
 		this.saveManyToManyAssociations("order");
+		this.sold=false;
+		this.orderedQuantity=0;
+		this.amount=0;
 	}
 
 	public Product(String name, double price, User owner, String description,
@@ -151,9 +153,11 @@ public class Product extends Model {
 		this.image2 = image2;
 		this.image_urls.add(image2);
 		this.image_url = this.image_urls.get(0);
-		this.sold = false;
-		this.orderedQuantity = 0;
 		this.saveManyToManyAssociations("order");
+		this.sold=false;
+		this.orderedQuantity=0;
+		this.amount=0;
+
 	}
 
 	public Product(String name, double price, User owner, String description,
@@ -170,9 +174,10 @@ public class Product extends Model {
 		this.image3 = image3;
 		this.image_urls.add(image3);
 		this.image_url = this.image_urls.get(0);
-		this.sold = false;
-		this.orderedQuantity = 0;
 		this.saveManyToManyAssociations("order");
+		this.sold=false;
+		this.orderedQuantity=0;
+		this.amount=0;
 
 	}
 
@@ -190,6 +195,7 @@ public class Product extends Model {
 		this.image_url = image1;
 		this.orderedQuantity = 0;
 		this.saveManyToManyAssociations("order");
+		this.amount=0;
 
 	}
 
@@ -203,7 +209,8 @@ public class Product extends Model {
 		this.category_id = id;
 		this.image1 = image1;
 		this.orderedQuantity=0;
-		
+		this.amount=0;
+
 	}
 
 	public Product(String name, double price, User owner, String description, int id, List<Image> images) {
@@ -283,12 +290,24 @@ public class Product extends Model {
 	
 	public Product(String name, double price, int quantity, User owner,
 			String description, int id) {
+		this.saveManyToManyAssociations("order");
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+		this.owner = owner;
+		this.description = description;
+		this.category_id = id;
+		this.orderedQuantity=0;
+		this.amount=0;
+
+	}
+
+	public Product(String name, double price, int quantity,	String description, String image,User owner) {
 		this.name = name;
 		this.price = price;
 		this.quantity=quantity;
 		this.owner = owner;
 		this.description = description;
-		this.category_id = id;
 
 	}
 
@@ -350,8 +369,12 @@ public class Product extends Model {
 	public static void create(String name, double price, int quantity, User owner, String description, int id, String image1,String image2,String image3) {
 		new Product(name,  price,quantity, owner, description,id,image1,image2,image3).save();
 		}
-
-
+	
+	public static Product create(String name, double price, int quantity, String description, String image,User owner) {
+		Product newProduct=new Product(name,price,quantity,description,image,owner);
+		return newProduct;
+	}
+	
 	/**
 	 * finds a product by his id
 	 * 
@@ -422,6 +445,16 @@ public class Product extends Model {
 		return pp;
 	}
 
+	
+	public static List<Product> userProducts(User user) {
+			List<Product> userProductList = find.where().eq("owner",user).findList();
+		return userProductList;
+	}
+	
+	public String getFirstPic() {
+		return this.image1;
+	}
+	
 	public int getQuantity() {
 		return quantity;
 	}

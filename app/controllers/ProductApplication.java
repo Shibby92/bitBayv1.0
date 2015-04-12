@@ -76,9 +76,9 @@ public class ProductApplication extends Controller {
 		
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.get("name");
+//		User owner = new User(session().get("username"), form.get("password"));
 		double price = Double.valueOf(form.get("price"));
 		int quantity=Integer.valueOf(form.get("quantity"));
-
 		String description = form.get("description");
 		//String image_url = "images/bitbaySlika2.jpg";// form.data().get("image url");
 		
@@ -98,9 +98,9 @@ public class ProductApplication extends Controller {
 		Logger.info("User with email: " + session().get("email")
 				+ "created product with name: " + name);
 		return redirect("/homepage");
-
 	}
 			
+	
 
 	/**
 	 * opens a page with all products
@@ -134,6 +134,7 @@ public class ProductApplication extends Controller {
 		return ok(addproductcategory.render(email, Category.list(), FAQ.all()));
 
 	}
+	
 
 	/**
 	 * opens a page where user adds info for his product
@@ -145,6 +146,7 @@ public class ProductApplication extends Controller {
 		String email = session().get("email");
 		return ok(addproduct.render(email,id,productForm, FAQ.all()));
 	}
+	
 
 	/**
 	 * method that delete product and redirect to other products
@@ -159,6 +161,7 @@ public class ProductApplication extends Controller {
 
 	}
 	
+	
 	/**
 	 * opens a page where user can update his product
 	 * @param id int id of the product
@@ -169,6 +172,7 @@ public class ProductApplication extends Controller {
 		Logger.info("Opened page for updating product");
 		return ok(updateproduct.render(email,Product.find(id), FAQ.all()));
 	}
+	
 	
 	/**
 	 * gets the data from the updated product
@@ -208,6 +212,7 @@ public class ProductApplication extends Controller {
 		return redirect("/myproducts/" + User.find(session().get("email")).id);	
 	     }
 	}
+	
 	
 	
 	/**
@@ -271,13 +276,11 @@ public class ProductApplication extends Controller {
 			String image_url = "images" + File.separator + "Productimages"
 					+ File.separator
 					+ profile.getName();
-			
 			img.image = image_url;
 			img.product = updateProduct;
 		//	models.Image.saveImg(img);
 			
 			Files.move(image, profile);
-
 			ImageIcon tmp= new ImageIcon(image_url);
 			Image resize = tmp.getImage();
 			resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);

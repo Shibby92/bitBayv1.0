@@ -105,6 +105,13 @@
                      </div>
                   </div>
          	}
+         	 @if(flash.get("pictureSelect")) {
+         	<div class="alert alert-danger" role="alert">
+                     <div class="container">
+                        @flash.get("pictureSelect")
+                     </div>
+                  </div>
+         	}
          <div 
          <div class="col-sm-4">
             <div class="well login-box">
