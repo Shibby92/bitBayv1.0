@@ -81,6 +81,10 @@ public class User extends Model {
 	public boolean hasAdditionalInfo;
 	
 	public Cart userCart;
+
+	public static double rating;
+	
+	public static int numberOfRatings;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
 	public List<Orders> orderList;
@@ -103,6 +107,7 @@ public class User extends Model {
 		this.password = password;
 		this.admin = false;
 		this.hasAdditionalInfo = false;
+		this.numberOfRatings = 0;
 		//this.userCart=new Cart(this.id,email);
 	}
 	
@@ -122,6 +127,7 @@ public class User extends Model {
 		this.admin = admin;
 		this.verification = verification;
 		this.hasAdditionalInfo = false;
+		this.numberOfRatings = 0;
 	//	this.userCart=new Cart(this.id,email);
 
 		
@@ -296,6 +302,12 @@ public class User extends Model {
 		u.update();
 		return true;
 	}
+	
+	public static double rating() {
+		return rating/numberOfRatings;
+	}
+
+	
 
 	
 	

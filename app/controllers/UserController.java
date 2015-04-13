@@ -180,6 +180,27 @@ public class UserController extends Controller {
 		return ok(profile.render(email,User.all(), Category.list(), Product.productList(), Product.myProducts(User.find(session().get("email")).id), FAQ.all(), Message.all(User.find(session().get("email")))));		
 	}
 	
+	@Security.Authenticated(UserFilter.class)
+	public static Result resultpage(int id) {
+		String email = session().get("email");
+		User u = User.find(id);
+		Logger.info("User with email: " + session().get("email") + " has opened rate page");
+		return ok(rating.render(email, u));
+		
+	}
+	
+	public static Result rating(int id){
+		final String userEmail = session().get("email");
+		final DynamicForm temp = DynamicForm.form().bindFromRequest();
+		User u = User.find(id);
+		int rate = Integer.parseInt(temp.get("rate"));
+		u.numberOfRatings++;
+		u.rating =(double)(u.rating/u.numberOfRatings);
+		Logger.info("User with email: " + session().get("email") + " has rated user with id: " + id);
+		flash("success","You have successfuly rated user!");
+		return redirect("/profile");
+	}
+	
 
 
 
