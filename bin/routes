@@ -93,18 +93,15 @@ GET		/orderpage/:id			controllers.OrderController.orderPage(id: Integer)
 #POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
 
 #Web Service routes
-#GET			/api/registerpage		ws.controllers.JsonController.registerPage()
 POST		/api/registere			ws.controllers.JsonController.registration()
-#GET			/api/loginpage			ws.controllers.JsonController.loginPage()
 POST		/api/login			ws.controllers.JsonController.login()
-#GET			/api/addproductpage/:id	ws.controllers.JsonController.addProductPage(id:Integer)
 POST      	/api/addproduct				ws.controllers.JsonController.addProduct()
 GET			/api/showproduct/:id			ws.controllers.JsonController.viewProduct(id: Integer)
 GET			/api/showuserproducts/:id			ws.controllers.JsonController.userProducts(id: Integer)
 GET        /api/allproducts					ws.controllers.JsonController.allProducts()
-GET        /api/searchproducts/:name					ws.controllers.JsonController.searchProducts(name:String)
-GET        /api/searchusers/:name					ws.controllers.JsonController.searchUsers(name:String)
-GET        /api/searchcategories/:name					ws.controllers.JsonController.searchCategories(name:String)
+#GET        /api/searchproducts/:name					ws.controllers.JsonController.searchProducts(name:String)
+#GET        /api/searchusers/:name					ws.controllers.JsonController.searchUsers(name:String)
+#GET        /api/searchcategories/:name					ws.controllers.JsonController.searchCategories(name:String)
 
 
 # Map static resources from the /public folder to the /assets URL path
