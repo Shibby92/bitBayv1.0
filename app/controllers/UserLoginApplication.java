@@ -132,6 +132,7 @@ public class UserLoginApplication extends Controller {
 
 	// goes to page where the user can be registered
 	public static Result toRegister() {
+
 		String email = session().get("email");
 		Logger.info("Page for registration has been opened");
 
@@ -205,7 +206,7 @@ public class UserLoginApplication extends Controller {
 
 
 	public static Result toLogin() {
-
+		/**/
 		String email = session().get("email");
 		Logger.info("Opened page for login");
 		
@@ -251,6 +252,7 @@ public class UserLoginApplication extends Controller {
 	/*********************** PAYPAL SECTION ******************************/
 
 	public static Result purchaseProcessing() {
+		String email = session().get("email");
 
 		try {
 			String total=String.valueOf(Cart.getCart(session().get("email")).checkout);
@@ -280,6 +282,8 @@ public class UserLoginApplication extends Controller {
 			payment.setIntent("sale");
 			payment.setPayer(payer);
 			payment.setTransactions(transactions);
+			Cart cart=Cart.getCart(email);
+			int cartId=cart.id;
 			RedirectUrls redirectUrls = new RedirectUrls();
 			redirectUrls.setCancelUrl("http://localhost:9000/orderfail");
 			redirectUrls.setReturnUrl("http://localhost:9000/orderconfirm");
@@ -418,11 +422,16 @@ public class UserLoginApplication extends Controller {
 		int userid=user.id;
 		Cart cart=Cart.getCart(email);
 		//List<Product> copyCartList=cart.productList;
+<<<<<<< HEAD
 		Cart.clear(userid);
+=======
+		cart.clear(userid);
+>>>>>>> 76dc681580314790d2d3e5d1983a65be987d0caa
 		flash("failBuy", "Transaction canceled!");
 		return ok(orderresult.render());
-
-	}
+}
+	
+	
 	public static Result refundOrder(int id){
 		RefundHelper.send(Orders.find(id).buyer.email, Orders.find(id).token);
 		

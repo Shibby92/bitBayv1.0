@@ -15,7 +15,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class JsonHelper {
 	
-	public static ObjectNode UserJson(User u){
+	public static ObjectNode messageToJSon(String tag, String value) {
+		ObjectNode jsnNode = Json.newObject();
+		jsnNode.put(tag, value);
+		return jsnNode;
+	}
+	
+	public static ObjectNode userToJson(User u){
 		ObjectNode userNode = Json.newObject();
 		userNode.put("id", u.id);
 		userNode.put("email", u.email);
@@ -24,18 +30,18 @@ public class JsonHelper {
 		userNode.put("admin", u.admin);
 		userNode.put("verified", u.verification);
 		userNode.put("confirmation", u.confirmation);
-		ArrayNode products = productListJson(u.products);
+		ArrayNode products = productListToJson(u.products);
 		userNode.put("products", products);
 		return userNode;
 	}
 	
-	public static ObjectNode ProductJson(Product p){
+	public static ObjectNode productToJson(Product p){
 		ObjectNode productNode = Json.newObject();
 		productNode.put("name", p.name);
 		productNode.put("description", p.description);
 		productNode.put("categoryID", p.category_id);
 		productNode.put("price", p.price);
-		ObjectNode owner = UserJson(p.owner);
+		ObjectNode owner = userToJson(p.owner);
 		productNode.put("owner", owner);
 		productNode.put("isSold", p.sold);
 		productNode.put("id", p.id);
@@ -48,7 +54,7 @@ public class JsonHelper {
 	}
 	
 	
-	public static ObjectNode CategoryJson(Category c){
+	public static ObjectNode categoryToJson(Category c){
 		ObjectNode categoryNode = Json.newObject();
 		categoryNode.put("id", c.id);
 		categoryNode.put("name", c.name);
@@ -56,7 +62,7 @@ public class JsonHelper {
 	}
 	
 	
-	public static ObjectNode FAQjson(FAQ f){
+	public static ObjectNode faqToJson(FAQ f){
 		ObjectNode faqNode = Json.newObject();
 		faqNode.put("id", f.id);
 		faqNode.put("question", f.question);
@@ -66,10 +72,10 @@ public class JsonHelper {
 	
 	
 	
-	public static ArrayNode usersListJson(List<User> users){
+	public static ArrayNode usersListToJson(List<User> users){
 		ArrayNode arrayUsersNode = new ArrayNode(JsonNodeFactory.instance);
 		for(User u: users){
-			ObjectNode user = UserJson(u);
+			ObjectNode user = userToJson(u);
 			arrayUsersNode.add(user);
 		}
 		return arrayUsersNode;
@@ -77,19 +83,19 @@ public class JsonHelper {
 	
 	
 	
-	public static ArrayNode categoryListJson(List<Category> categories){
+	public static ArrayNode categoryListToJson(List<Category> categories){
 		ArrayNode categoriesArrayNode = new ArrayNode(JsonNodeFactory.instance);
 		for(Category c: categories){
-			ObjectNode category = CategoryJson(c);
+			ObjectNode category = categoryToJson(c);
 			categoriesArrayNode.add(category);
 		}
 		return categoriesArrayNode;
 	}
 	
-	public static ArrayNode productListJson(List<Product> products){
+	public static ArrayNode productListToJson(List<Product> products){
 		ArrayNode productsArrayNode = new ArrayNode(JsonNodeFactory.instance);
 		for(Product p: products){
-			ObjectNode product = ProductJson(p);
+			ObjectNode product = productToJson(p);
 			productsArrayNode.add(product);
 		}
 		return productsArrayNode;

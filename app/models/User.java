@@ -85,7 +85,7 @@ public class User extends Model {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
 	public List<Orders> orderList;
 
-	 static Finder<Integer, User> find = new Finder<Integer, User>(
+	 public static Finder<Integer, User> find = new Finder<Integer, User>(
 			Integer.class, User.class);
 	public static Finder<Integer, User> findUser = new Finder<Integer, User>(
 			Integer.class, User.class);
@@ -140,6 +140,13 @@ public class User extends Model {
 		return true;
 	}
 	
+	public static User createUser(String email, String password) {
+		if (existsEmail(email))
+			return null;
+	User user=	new User(email, HashHelper.createPassword(password));
+	user.save();
+		return user;
+	}
 	public static boolean create(String email, String password, String confirmation) {
 		if (existsEmail(email))
 			return false;
@@ -287,10 +294,11 @@ public class User extends Model {
 		return true;
 	}
 
+
 	public static List<User> findAll() {
 		return find.all();
 	}
-	
+
 
 
 }
