@@ -655,15 +655,17 @@ public class ProductApplication extends Controller {
 		String email = session().get("email");
 		Logger.info("User with email: " + session().get("email") + " has opened contact us page");
 	
-		return ok(contactseller.render(email, FAQ.all(), Product.find(id)));
+		return ok(contactseller.render(email, FAQ.all(), Product.find(id), ""));
 
 	}
 	
 	public static Promise<Result> contactSeller(final int id) {
 		 final String userEmail = session().get("email");
+		
 		//need this to get the google recapctha value
 		 final DynamicForm temp = DynamicForm.form().bindFromRequest();
-		
+		 final String message= temp.get("message");
+		 
 		/* send a request to google recaptcha api with the value of our secret code and the value
 		 * of the recaptcha submitted by the form */
 		Promise<Result> holder = WS
@@ -690,7 +692,7 @@ public class ProductApplication extends Controller {
 								&& !submit.hasErrors()) {
 
 							final String email= temp.get("email");
-							final String message= temp.get("message");
+							
 							
 								ContactHelper.send(email, Product.find(id).owner.email, message);
 								ContactHelper.sendToPage(email, Product.find(id).owner.email, message);
@@ -703,7 +705,7 @@ public class ProductApplication extends Controller {
 							
 								Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
 							flash("error", "You have to confirm that you are not a robot!");
-							return ok(contactseller.render(userEmail, FAQ.all(), Product.find(id) ));
+							return ok(contactseller.render(userEmail, FAQ.all(), Product.find(id), message));
 
 
 						}

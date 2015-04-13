@@ -1,4 +1,4 @@
-@(email: String,faqs: List[FAQ])
+@(email: String,faqs: List[FAQ], message: String)
 @main("Contact us"){
 <body>
  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -113,16 +113,16 @@
                      <div class="form-horizontal">
                         <div class="form-group">
                            <label class=" control-label required" for="yourEmail">Your Email</label>
-                           <div >@if(email==null){
-                              <input type="email" id="email" name="email" value="" placeholder="Enter email" class="form-control" required
-                              } else {
-                              <input type="email" id="email" name="email" value=@email placeholder="Enter email" class="form-control" required>
-                              }
+                           <div >
+                              <input type="email" id="email" name="email" value=@email placeholder="Enter email" class="form-control" required></input>
+                              
                            </div>
                         </div>
                         <div class="form-group">
                            <label class=" control-label required" for="yourMessage" >Your Message</label>
-                           <textarea rows="4" cols="40" id="message" name="message" value="" placeholder="Enter your message" class="form-control" required></textarea>
+                          
+                           <textarea rows="4" cols="40" id="message" name="message" value="" placeholder="Enter your message" class="form-control" required>@message</textarea>
+                        
                         </div>
                         <div class="g-recaptcha form-group" data-sitekey="6LcQrwMTAAAAAGQWadA5axJJ0LESg0CUYWQtJ9SK"></div>
                         <div class="form-group text-center">

@@ -150,6 +150,7 @@ public class UserLoginApplication extends Controller {
 		 final String userEmail = session().get("email");
 		//need this to get the google recapctha value
 		 final DynamicForm temp = DynamicForm.form().bindFromRequest();
+		 final String message= temp.get("message");
 		
 		/* send a request to google recaptcha api with the value of our secret code and the value
 		 * of the recaptcha submitted by the form */
@@ -177,7 +178,7 @@ public class UserLoginApplication extends Controller {
 									&& !submit.hasErrors()) {
 
 								final String email= temp.get("email");
-								final String message= temp.get("message");
+								
 								List<User> admins=User.admins();
 								for(User admin : admins){
 									ContactHelper.send(email, admin.email, message);
@@ -194,7 +195,7 @@ public class UserLoginApplication extends Controller {
 								else
 									Logger.info("User with email: " + session().get("email") + " did not confirm its humanity");
 								flash("error", "You have to confirm that you are not a robot!");
-								return ok(contact.render(userEmail, FAQ.all() ));
+								return ok(contact.render(userEmail, FAQ.all(), message));
 
 
 							}
@@ -227,7 +228,7 @@ public class UserLoginApplication extends Controller {
 			Logger.info("Guest has opened contact us page");
 		else
 			Logger.info("User with email: " + session().get("email") + " has opened contact us page");
-		return ok(contact.render(email, FAQ.all()));
+		return ok(contact.render(email, FAQ.all(), ""));
 
 	}
 
@@ -240,6 +241,7 @@ public class UserLoginApplication extends Controller {
 		public String message;
 
 		public Contact() {
+			this.message = "";
 		}
 
 		public Contact(String email, String message) {
