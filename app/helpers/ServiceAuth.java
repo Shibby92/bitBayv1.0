@@ -9,8 +9,20 @@ import play.mvc.Security;
 import play.mvc.Http.Context;
 import sun.misc.BASE64Decoder;
 
+
+/**
+ * class for security purposes. It uses class BASE64Decoder for decoding request.
+ * It is also used for getting user from passed context object
+ * @author nerminvucinic
+ *
+ */
 public class ServiceAuth extends Security.Authenticator {
 
+	
+	/**
+	 * first gets authorization string from the request headers, then decodes it using class BASE64Decoder and assign it to the new string,
+	 * gets the parameters from that string, compares them with appropriate values from database, and if matched, returns email of the user
+	 */
 	@Override
 	public String getUsername(Context ctx) {
 		
@@ -48,11 +60,21 @@ public class ServiceAuth extends Security.Authenticator {
 		return email;
 	}
 
+	
+	/**
+	 * returns user that is currently in session based on passed context object
+	 * @param ctx http context object
+	 * @return current user
+	 */
 	public User getCurrentUser(Context ctx) {
 		String email = getUsername(ctx);
 		return User.find(email);
 	}
 
+	
+	/**
+	 * returns badRequest result object in case of unauthorized user access attempt
+	 */
 	@Override
 	public Result onUnauthorized(Context ctx) {
 		return badRequest("Permission denied!");
