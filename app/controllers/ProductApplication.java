@@ -69,10 +69,7 @@ public class ProductApplication extends Controller {
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.get("name");
 //		User owner = new User(session().get("username"), form.get("password"));
-<<<<<<< HEAD
 		
-=======
->>>>>>> 76dc681580314790d2d3e5d1983a65be987d0caa
 		double price = Double.valueOf(form.get("price"));
 		int quantity=Integer.valueOf(form.get("quantity"));
 		String description = form.get("description");
@@ -82,21 +79,14 @@ public class ProductApplication extends Controller {
 				flash("error", "Image not valid!");
 				return ok("/addproductpage/" + id);
 			}
-<<<<<<< HEAD
 			
 	}
-=======
-			}
->>>>>>> 76dc681580314790d2d3e5d1983a65be987d0caa
+			
 		if(image_urls.size()==0){
 			flash("pictureSelect", "You must select a picture for your product!");
 			return redirect("/addproductpage/"+id);
 		}
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 76dc681580314790d2d3e5d1983a65be987d0caa
 		String image1 = image_urls.get(0);
 		if(image_urls.size()>1){
 		if(image_urls.get(1) != null)
