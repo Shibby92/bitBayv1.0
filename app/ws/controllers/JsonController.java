@@ -1,6 +1,7 @@
 package ws.controllers;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.mail.internet.ParseException;
 
@@ -145,5 +146,31 @@ public class JsonController extends Controller {
 		 User u = User.find(id);
 		  return ok(JsonHelper.productListToJson(Product.userProducts(u)));
 	 }
+	 
+	 public static Result searchProducts(String name) {
+			List<Product> searchProducts = Product.find.where().ilike("name", "%" + name + "%").findList();
+			if (searchProducts.isEmpty()) {
+				return badRequest(JsonHelper.messageToJSon("info","No search results"));
+			}
+			return ok(JsonHelper.productListToJson(searchProducts));
+
+		}
+	 
+	 public static Result searchUsers(String name) {
+			List<User> searchUsers = User.find.where().ilike("name", "%" + name + "%").findList();
+			if (searchUsers.isEmpty()) {
+				return badRequest(JsonHelper.messageToJSon("info","No search results"));
+			}
+			return ok(JsonHelper.usersListToJson(searchUsers));
+}
+
+	 public static Result searchCategories(String name) {
+			List<Category> searchCategories = Category.find.where().ilike("name", "%" + name + "%").findList();
+			if (searchCategories.isEmpty()) {
+				return badRequest(JsonHelper.messageToJSon("info","No search results"));
+			}
+			return ok(JsonHelper.categoryListToJson(searchCategories));
+}
+	 
 	
 }

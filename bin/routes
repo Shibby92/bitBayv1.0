@@ -73,8 +73,7 @@ GET		/searchusers					controllers.SearchController.searchUsers(q: String)
 GET    /contactpage             controllers.UserLoginApplication.contactPage()
 POST   /contact                 controllers.UserLoginApplication.contact()
 
-# Map static resources from the /public folder to the /assets URL path
-GET    /assets/*file            controllers.Assets.at(path="/public", file)
+
 
 #Paypal routes
 #GET      /emptycart/:id			controllers.ProductApplication.emptyCart(id: Integer)
@@ -88,20 +87,25 @@ GET    /ordersuccess       controllers.UserLoginApplication.orderSuccess(payment
 GET    /orderfail              controllers.UserLoginApplication.orderFail()
 GET		/orderconfirm			controllers.UserLoginApplication.orderConfirm()
 GET		/refundorder/:id			controllers.UserLoginApplication.refundOrder(id: Integer)
+
 #Order routes
-
 GET		/orderpage/:id			controllers.OrderController.orderPage(id: Integer)
-
 #POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
 
 #Web Service routes
-GET			/registerpagejson		ws.controllers.JsonController.registerPage()
-POST		/registeredjson			ws.controllers.JsonController.registration()
-GET			/loginpagejson			ws.controllers.JsonController.loginPage()
-POST		/loginjson				ws.controllers.JsonController.login()
-GET			/addproductpagejson/:id	ws.controllers.JsonController.addProductPage(id:Integer)
-POST      	/addproductjson				ws.controllers.JsonController.addProduct()
-GET			/showproductjson/:id			ws.controllers.JsonController.viewProduct(id: Integer)
-GET			/showuserproductsjson/:id			ws.controllers.JsonController.userProducts(id: Integer)
-GET        /allproductsjson					ws.controllers.JsonController.allProducts()
-GET        /allusersjson					ws.controllers.JsonController.allUsers()
+#GET			/api/registerpage		ws.controllers.JsonController.registerPage()
+POST		/api/registere			ws.controllers.JsonController.registration()
+#GET			/api/loginpage			ws.controllers.JsonController.loginPage()
+POST		/api/login			ws.controllers.JsonController.login()
+#GET			/api/addproductpage/:id	ws.controllers.JsonController.addProductPage(id:Integer)
+POST      	/api/addproduct				ws.controllers.JsonController.addProduct()
+GET			/api/showproduct/:id			ws.controllers.JsonController.viewProduct(id: Integer)
+GET			/api/showuserproducts/:id			ws.controllers.JsonController.userProducts(id: Integer)
+GET        /api/allproducts					ws.controllers.JsonController.allProducts()
+GET        /api/searchproducts/:name					ws.controllers.JsonController.searchProducts(name:String)
+GET        /api/searchusers/:name					ws.controllers.JsonController.searchUsers(name:String)
+GET        /api/searchcategories/:name					ws.controllers.JsonController.searchCategories(name:String)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET    /assets/*file            controllers.Assets.at(path="/public", file)

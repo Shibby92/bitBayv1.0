@@ -27,7 +27,7 @@ public class Category extends Model {
 
 	}
 
-	static Finder<String, Category> find = new Finder<String, Category>(
+	public static Finder<String, Category> find = new Finder<String, Category>(
 			String.class, Category.class);
 
 	public static int categoryId(String name) {

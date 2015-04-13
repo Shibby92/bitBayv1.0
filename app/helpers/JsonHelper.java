@@ -15,6 +15,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class JsonHelper {
 	
+	public static ObjectNode messageToJSon(String tag, String value) {
+		ObjectNode jsnNode = Json.newObject();
+		jsnNode.put(tag, value);
+		return jsnNode;
+	}
+	
 	public static ObjectNode userToJson(User u){
 		ObjectNode userNode = Json.newObject();
 		userNode.put("id", u.id);
@@ -77,7 +83,7 @@ public class JsonHelper {
 	
 	
 	
-	public static ArrayNode categoryListJson(List<Category> categories){
+	public static ArrayNode categoryListToJson(List<Category> categories){
 		ArrayNode categoriesArrayNode = new ArrayNode(JsonNodeFactory.instance);
 		for(Category c: categories){
 			ObjectNode category = categoryToJson(c);
