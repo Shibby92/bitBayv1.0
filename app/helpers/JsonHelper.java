@@ -45,7 +45,10 @@ public class JsonHelper {
 		userNode.put("id", u.id);
 		userNode.put("email", u.email);
 		userNode.put("password", u.password);
+		if(u.username!=null){
 		userNode.put("username", u.username);
+		}
+		//userNode.put("username", u.username);
 		userNode.put("admin", u.admin);
 		userNode.put("verified", u.verification);
 		userNode.put("confirmation", u.confirmation);
@@ -66,8 +69,12 @@ public class JsonHelper {
 		productNode.put("description", p.description);
 		productNode.put("categoryID", p.category_id);
 		productNode.put("price", p.price);
-		ObjectNode owner = userToJson(p.owner);
-		productNode.put("owner", owner);
+		if(p.owner.username==null){
+		productNode.put("owner", p.owner.email);
+		}
+		else{
+		productNode.put("owner", p.owner.username);
+		}
 		productNode.put("isSold", p.sold);
 		productNode.put("id", p.id);
 		productNode.put("quantity", p.quantity);
