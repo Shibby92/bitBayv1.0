@@ -20,22 +20,6 @@ public class ProductTest extends WithApplication {
 		fakeApplication(inMemoryDatabase());
 	}
 	
-	//check if the product is saved in database
-	/*@Test
-	public void testCreate() {
-		Product.create("test",100,"lijepo pravo godi",2);
-		Product p = Product.find(2);
-		assertNotNull(p);
-		assertEquals(p.name, "test");
-		assertEquals(p.price, 100,Math.abs(100- p.price));
-		assertEquals(p.description, "lijepo pravo godi");
-		
-		Product.create("name", 1, "owner", null, 1, 2.1, "description", "url");
-		Product p = Product.find(1);
-		
-		assertNotNull(p);
-		assertEquals(p.name, "name");
-	}*/
 	
 	@Test
 	public void testDelete(){
