@@ -167,14 +167,20 @@
                <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Contact seller</button>
                </a>
                }
-               
-                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
-               <a href="/ratingpage/@product.owner.id"
+               @for(Order list: User.find(session().get("email").orderList) {
+               	 @for(Product p = list.productList){
+               	 	@if(p == product) { 
+               	 		<a href="/ratingpage/@product.owner.id"
                <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Rate Seller</button>
                </a>
+               	 	}
+               
                }
-              
                }
+               }
+               
+               
+               
             </div>
       
        

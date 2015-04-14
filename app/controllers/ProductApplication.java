@@ -87,7 +87,6 @@ public class ProductApplication extends Controller {
 		
 
 			if (image_urls == null) {
-				//flash("error", "Image not valid!");
 				return redirect("/addproductpage/" + id);
 			}
 		
@@ -97,6 +96,7 @@ public class ProductApplication extends Controller {
 
 		Logger.info("User with email: " + session().get("email")
 				+ "created product with name: " + name);
+		flash("success","You have successfuly added product!");
 		return redirect("/homepage");
 	}
 			
@@ -199,11 +199,13 @@ public class ProductApplication extends Controller {
 		updateProduct.description=productForm.bindFromRequest().field("description").value();
 
 		List<models.Image> image_urls = updatePicture(id);
+		
+		if (image_urls != null) {
+			updateProduct.images = image_urls;
+		}
 
 		updateProduct.quantity=Integer.parseInt(productForm.bindFromRequest().field("quantity").value());
-
-		Logger.info(image_urls.get(0) + "     " + image_urls.get(1) + "     " + image_urls.get(2));
-		
+		updateProduct.update();
 		
 		Logger.info("Product with id: " + id + " has been updated");
 		flash("success", "Product successfully updated!");
@@ -226,6 +228,7 @@ public class ProductApplication extends Controller {
 		Product.deleteImage(updateProduct);
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
+		List<models.Image> imgs = new ArrayList<models.Image>();
 		if(fileParts == null || fileParts.size() == 0) {
 			Logger.debug("File part is null");
 			return null;
@@ -285,7 +288,7 @@ public class ProductApplication extends Controller {
 			Image resize = tmp.getImage();
 			resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
 
-			updateProduct.images.add(img);
+			imgs.add(img);
 			
 			
 		} catch (IOException e) {
@@ -299,8 +302,8 @@ public class ProductApplication extends Controller {
 		}
 		}
 		
-		updateProduct.update();
-		return updateProduct.images;
+		//updateProduct.update();
+		return imgs;
 
 		
 	}
