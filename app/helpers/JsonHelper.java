@@ -49,9 +49,9 @@ public class JsonHelper {
 		userNode.put("username", u.username);
 		}
 		//userNode.put("username", u.username);
-		userNode.put("admin", u.admin);
-		userNode.put("verified", u.verification);
-		userNode.put("confirmation", u.confirmation);
+		//userNode.put("admin", u.admin);
+		//userNode.put("verified", u.verification);
+		//userNode.put("confirmation", u.confirmation);
 		ArrayNode products = productListToJson(u.products);
 		userNode.put("products", products);
 		return userNode;
@@ -79,8 +79,8 @@ public class JsonHelper {
 		productNode.put("id", p.id);
 		productNode.put("quantity", p.quantity);
 		productNode.put("productImagePath1", p.image1);
-		productNode.put("productImagePath1", p.image2);
-		productNode.put("productImagePath1", p.image3);
+		//productNode.put("productImagePath1", p.image2);
+		//productNode.put("productImagePath1", p.image3);
 
 		return productNode;
 	}
