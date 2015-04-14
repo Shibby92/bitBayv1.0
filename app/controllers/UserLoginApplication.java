@@ -422,11 +422,8 @@ public class UserLoginApplication extends Controller {
 		int userid=user.id;
 		Cart cart=Cart.getCart(email);
 		//List<Product> copyCartList=cart.productList;
-<<<<<<< HEAD
 		Cart.clear(userid);
-=======
 		cart.clear(userid);
->>>>>>> 76dc681580314790d2d3e5d1983a65be987d0caa
 		flash("failBuy", "Transaction canceled!");
 		return ok(orderresult.render());
 }

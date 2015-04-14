@@ -99,6 +99,8 @@ POST      	/api/addproduct				ws.controllers.JsonController.addProduct()
 GET			/api/showproduct/:id			ws.controllers.JsonController.viewProduct(id: Integer)
 GET			/api/showuserproducts/:id			ws.controllers.JsonController.userProducts(id: Integer)
 GET        /api/allproducts					ws.controllers.JsonController.allProducts()
+GET        /api/allusers					ws.controllers.JsonController.allUsers()
+
 #GET        /api/searchproducts/:name					ws.controllers.JsonController.searchProducts(name:String)
 #GET        /api/searchusers/:name					ws.controllers.JsonController.searchUsers(name:String)
 #GET        /api/searchcategories/:name					ws.controllers.JsonController.searchCategories(name:String)

@@ -10,6 +10,10 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import play.Logger;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
@@ -25,7 +29,7 @@ import play.db.ebean.Model;
  *
  */
 @Entity
-//@EntityConcurrencyMode(ConcurrencyMode.NONE)
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@productId")
 public class Product extends Model {
 
 	@Id
@@ -42,6 +46,7 @@ public class Product extends Model {
 	public Cart cart;
 	
 	@ManyToOne
+   // @JsonBackReference
 	public User owner;
 	
 	@Version
