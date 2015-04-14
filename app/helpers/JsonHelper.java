@@ -49,9 +49,11 @@ public class JsonHelper {
 		userNode.put("username", u.username);
 		}
 		//userNode.put("username", u.username);
+
 		//userNode.put("admin", u.admin);
 		//userNode.put("verified", u.verification);
 		//userNode.put("confirmation", u.confirmation);
+	
 		ArrayNode products = productListToJson(u.products);
 		userNode.put("products", products);
 		return userNode;
