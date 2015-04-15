@@ -10,7 +10,6 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-       
         
                @if(email == null) {
                	  <ul class="nav navbar-nav">
@@ -111,10 +110,14 @@
       <h5>Username: @User.find(session().get("email")).username</h5> 
       <h5>Email:  @User.find(session().get("email")).email</h5> 
       <h5>Address:  @User.find(session().get("email")).user_address</h5> 
+      <h3><strong>Rate:</strong> @User.find(session().get("email")).rating</h3> 
       <div class="col-md-5">
       <a href="/editinfo"><button class="btn btn-md btn-info " style="width: 280px; height: 40px; margin: 1px -20px" >Edit additional info</button></a>
+       
        </div>
       </div>
+      
+       
       
     <div class="col-md-9">
         <ul class="nav nav-tabs">

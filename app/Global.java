@@ -7,6 +7,15 @@ import play.Application;
 import play.GlobalSettings;
 import play.db.ebean.Model.Finder;
 
+/**
+ * At the opening of the website there is already created:
+ * 6 users
+ * 8 categories
+ * 10 products(connected to their parent category)
+ * 3 FAQs
+ * @author eminamuratovic
+ *
+ */
 public class Global extends GlobalSettings {
 
 	public void onStart(Application app) {

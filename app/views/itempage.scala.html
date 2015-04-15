@@ -167,12 +167,17 @@
                <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Contact seller</button>
                </a>
                }
-              
+               @for(order <- User.find(session().get("email")).orderList) {
+               	 @for(p <- order.productList){
+               	 	@if(p == product) { 
+               	 		<a href="/ratingpage/@product.owner.id"
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Rate Seller</button>
+               </a>
+               	 	}
+               
                }
-            </div>
-      
-       
-      </div>
+               }
+               }      
        <div class="col-md-5" style="margin: 0px 35px">
        <h3>Description: </34>
        	    <h4> @product.description </h4>
@@ -208,6 +213,8 @@
                   }
                   }
                   }
+                  
+                 
                </tbody>
          </div>
          </table>

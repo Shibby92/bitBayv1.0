@@ -39,11 +39,9 @@ public class Cart extends Model {
 		this.userMail=userMail;
 		this.checkout = 0;
 		this.size=0;
-		//productList=new LinkedList<Product>();
 	}
 
 	public Cart() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void addProduct(Product product, Cart cart) {
@@ -77,7 +75,6 @@ public class Cart extends Model {
 			cart.productList = new LinkedList<Product>();
 		}
 		Logger.info("nalazim se u add quantity to cart");
-		//product.cart = cart;
 		cart.checkout+= product.price*newQuantity	;
 		cart.size=cart.size+newQuantity;
 		cart.save();
@@ -127,13 +124,5 @@ public class Cart extends Model {
 		toDelete.update();
 		return cart;
 	}
-	
-	/*public static int getSize(Cart cart){
-		int cartSize=0;
-		for (Iterator<Product> iterator = cart.productList.iterator(); iterator.hasNext() ;){
-			Product p=iterator.next();
-			cartSize=cartSize+p.getOrderedQuantity();
-		}
-		return cartSize;
-	}*/
+
 }
