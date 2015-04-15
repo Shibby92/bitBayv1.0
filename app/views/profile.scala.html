@@ -110,12 +110,14 @@
       <h5>Username: @User.find(session().get("email")).username</h5> 
       <h5>Email:  @User.find(session().get("email")).email</h5> 
       <h5>Address:  @User.find(session().get("email")).user_address</h5> 
+      <h3><strong>Rate:</strong> @User.find(session().get("email")).rating</h3> 
       <div class="col-md-5">
       <a href="/editinfo"><button class="btn btn-md btn-info " style="width: 280px; height: 40px; margin: 1px -20px" >Edit additional info</button></a>
+       
        </div>
       </div>
       
-       <h5>Rate: @User.find(session().get("email")).rating</h5> 
+       
       
     <div class="col-md-9">
         <ul class="nav nav-tabs">

@@ -93,6 +93,8 @@ create table user (
   verification              boolean,
   confirmation              varchar(255),
   has_additional_info       boolean,
+  rating                    double,
+  number_of_ratings         integer,
   constraint uq_user_email unique (email),
   constraint pk_user primary key (id))
 ;

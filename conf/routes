@@ -130,6 +130,9 @@ GET    /orderpage/:id           controllers.OrderController.orderPage(id: Intege
 GET    /soldorder/:id           controllers.OrderController.soldOrderPage(id:Integer)
 GET    /soldorderchecked/:id    controllers.OrderController.soldOrderChecked(id:Integer)
 
+GET		/ratingpage/:id			controllers.UserController.ratingpage(id: Integer)
+POST	/rating/:id				controllers.UserController.rating(id: Integer)
+
 #Paypal routes
 #GET      /emptycart/:id	          		controllers.ProductApplication.emptyCart(id: Integer)
 GET		/cartpage/:id		                 	controllers.ProductApplication.cartPage(id: Integer)

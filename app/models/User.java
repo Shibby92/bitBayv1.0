@@ -82,9 +82,9 @@ public class User extends Model {
 	
 	public Cart userCart;
 
-	public static double rating;
+	public double rating;
 	
-	public static int numberOfRatings;
+	public int numberOfRatings;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
 	public List<Orders> orderList;
@@ -303,9 +303,6 @@ public class User extends Model {
 		return true;
 	}
 	
-	public static double rating() {
-		return rating/numberOfRatings;
-	}
 
 	
 
