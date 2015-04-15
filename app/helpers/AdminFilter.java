@@ -6,8 +6,6 @@ import play.mvc.Security;
 import play.mvc.Http.Context;
 
 public class AdminFilter extends Security.Authenticator {
-	
-
 
 	@Override
 	public String getUsername(Context ctx) {
