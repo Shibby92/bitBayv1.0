@@ -106,10 +106,6 @@ public class Cart extends Model {
 
 	public static void clear(int id) {
 		Cart cart=getCart(id);
-		for(Product product:cart.productList){
-			product.cart=null;
-			product.update();
-		}
 		cart.productList.clear();
 		cart.checkout=0;
 		cart.size=0;

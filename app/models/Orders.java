@@ -1,8 +1,10 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,7 +17,6 @@ import javax.persistence.OneToMany;
 
 import com.paypal.api.payments.Links;
 
-
 import play.db.ebean.Model;
 
 @Entity
@@ -25,8 +26,8 @@ public class Orders extends Model {
 	public int id;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "productList_order", joinColumns = { @JoinColumn(name = "order_id", referencedColumnName = "id") },
-	inverseJoinColumns = { @JoinColumn(name = "product_id", referencedColumnName = "id") })
+	@JoinTable(name = "OrderDetails", joinColumns = { @JoinColumn(name = "orderId", referencedColumnName = "id") },
+	inverseJoinColumns = { @JoinColumn(name = "productId", referencedColumnName = "id") })
 	public List<Product> productList= new ArrayList<Product>();
 
 	@ManyToOne
@@ -40,6 +41,9 @@ public class Orders extends Model {
 	public User seller;
 	
 	public boolean notification;
+	
+	@OneToMany (cascade = CascadeType.ALL, mappedBy = "order")
+	public List<ProductQuantity> pQ;
 
 	public static Finder<Integer,Orders> find=new Finder<Integer,Orders>(Integer.class,Orders.class);
 	public Orders(List<Product> productList){

@@ -79,6 +79,14 @@ create table product (
   constraint pk_product primary key (id))
 ;
 
+create table product_quantity (
+  id                        integer not null,
+  product_id                integer,
+  quantity                  integer,
+  order_id                  integer,
+  constraint pk_product_quantity primary key (id))
+;
+
 create table user (
   id                        integer not null,
   email                     varchar(255),
@@ -98,10 +106,10 @@ create table user (
 ;
 
 
-create table productList_order (
-  order_id                       integer not null,
-  product_id                     integer not null,
-  constraint pk_productList_order primary key (order_id, product_id))
+create table OrderDetails (
+  orderId                        integer not null,
+  productId                      integer not null,
+  constraint pk_OrderDetails primary key (orderId, productId))
 ;
 create sequence cart_seq;
 
@@ -118,6 +126,8 @@ create sequence message_seq;
 create sequence orders_seq;
 
 create sequence product_seq;
+
+create sequence product_quantity_seq;
 
 create sequence user_seq;
 
@@ -139,12 +149,14 @@ alter table product add constraint fk_product_cart_8 foreign key (cart_id) refer
 create index ix_product_cart_8 on product (cart_id);
 alter table product add constraint fk_product_owner_9 foreign key (owner_id) references user (id) on delete restrict on update restrict;
 create index ix_product_owner_9 on product (owner_id);
+alter table product_quantity add constraint fk_product_quantity_order_10 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_product_quantity_order_10 on product_quantity (order_id);
 
 
 
-alter table productList_order add constraint fk_productList_order_orders_01 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+alter table OrderDetails add constraint fk_OrderDetails_orders_01 foreign key (orderId) references orders (id) on delete restrict on update restrict;
 
-alter table productList_order add constraint fk_productList_order_product_02 foreign key (product_id) references product (id) on delete restrict on update restrict;
+alter table OrderDetails add constraint fk_OrderDetails_product_02 foreign key (productId) references product (id) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -164,9 +176,11 @@ drop table if exists message;
 
 drop table if exists orders;
 
-drop table if exists productList_order;
+drop table if exists OrderDetails;
 
 drop table if exists product;
+
+drop table if exists product_quantity;
 
 drop table if exists user;
 
@@ -187,6 +201,8 @@ drop sequence if exists message_seq;
 drop sequence if exists orders_seq;
 
 drop sequence if exists product_seq;
+
+drop sequence if exists product_quantity_seq;
 
 drop sequence if exists user_seq;
 
