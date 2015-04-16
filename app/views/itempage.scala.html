@@ -108,7 +108,6 @@
    <!-- /.container -->
 </nav>
 <body>
-
 <div class="container">
  @if(flash.get("excess")){
          <div class="alert alert-warning" role="alert">
@@ -120,9 +119,9 @@
  
 	<div style="margin: 80px -15px" class="row">
    <div class="col-md-5">
-   <centar>
+   
       <div class="row carousel-holder">
-         <div class="col-md-12">
+        
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                <ol class="carousel-indicators">
                   <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
@@ -157,10 +156,10 @@
                         <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
                         <span class="glyphicon glyphicon-chevron-right"></span>
                         </a>
-            </centar>
-            </div>
-            </div>
-            </div>
+              </div> 
+           
+           
+            
             <div class="col-md-11">
                <h3 class="pull-right"> @product.price $</h3>
                <h3 style="color: #4AB55A">@product.name
@@ -207,8 +206,14 @@
                
                }
                }
-               }      
-       <div class="col-md-5" style="margin: 0px 35px">
+               }     
+                </div>
+              
+               </div>
+       
+   
+  
+   <div class="col-md-10" style="margin: -650px 635px">
        <h3>Description: </34>
        	    <h4> @product.description <br> </h4>
        	   
@@ -249,11 +254,10 @@
          </div>
          </table>
    </div>
+    </div>
    
-   
    </div>
-   </div>
-   </div>
+
    <div class="container">
       <hr>
       <a href="/contactpage">
