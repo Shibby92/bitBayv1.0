@@ -135,7 +135,7 @@
          <td>@order.id</td>
           <td>
                     @for(product <- order.productList){
-                    	<p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id)</p>
+                    	<p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id)</p>
                     }
                     </td>
                     <td><span class="price">$ @order.price,-</span>

@@ -38,6 +38,7 @@
             </li>
          </ul>
          } else {
+        
 
           <ul class="nav navbar-nav">
                  <li  style="margin: 0px 235px">
@@ -87,6 +88,13 @@
 <body>
 
 <div class="container">
+ @if(flash.get("excess")){
+         <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("excess")
+                     </div>
+                  </div>
+         }
  
 	<div style="margin: 80px -15px" class="row">
    <div class="col-md-5">

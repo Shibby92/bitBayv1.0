@@ -34,8 +34,8 @@ public class Cart extends Model {
 	
 	public int size;
 
-	public Cart(int id,String userMail) {
-		this.userid = id;
+	public Cart(int userId,String userMail) {
+		this.userid = userId;
 		this.userMail=userMail;
 		this.checkout = 0;
 		this.size=0;
@@ -103,6 +103,9 @@ public class Cart extends Model {
 
 	public static void clear(int id) {
 		Cart cart=getCart(id);
+		for(Product p: cart.productList){
+			p.cart=null;
+		}
 		cart.productList.clear();
 		cart.checkout=0;
 		cart.size=0;

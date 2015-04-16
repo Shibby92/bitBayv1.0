@@ -81,8 +81,6 @@ public class Product extends Model {
 	
 	public double amount;
 	
-	public int orderQuantity;
-
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
 	static Finder<String, Category> findCategory = new Finder<String, Category>(
@@ -309,6 +307,13 @@ public class Product extends Model {
 		this.owner = owner;
 		this.description = description;
 
+	}
+//Constructor for easier testing
+	public Product(String string, double d, String string2, int i) {
+		this.name=string;
+		this.price=d;
+		this.description=string2;
+		this.quantity=i;
 	}
 
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {

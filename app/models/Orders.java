@@ -77,5 +77,9 @@ public class Orders extends Model {
 		orders.save();
 
 	}
+	// Constructor made for easier testing
+	public Orders (Product product){
+		this.productList.add(product);
+	}
 
 }

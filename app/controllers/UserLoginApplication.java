@@ -428,17 +428,19 @@ public class UserLoginApplication extends Controller {
 			
 			Orders userOrder = user.orderList
 					.get(user.orderList.size() - 1);
-			User seller = userOrder.productList.get(0).owner;
-			seller.soldOrders.add(userOrder);
-			seller.soldOrders.get(seller.soldOrders.size() - 1).notification = true;
-			seller.soldOrders.get(seller.soldOrders.size() - 1).seller = seller;
+			for(Product p: userOrder.productList){
+				User seller = p.owner;
+				seller.soldOrders.add(userOrder);
+				seller.soldOrders.get(seller.soldOrders.size() - 1).notification = true;
+				seller.soldOrders.get(seller.soldOrders.size() - 1).seller = seller;
+			}
+			
 
 			for (Product product : order.productList) {
 				if (product.getOrderedQuantity() >= product.getQuantity())
 					product.sold = true;
 				int leftQuantity = product.getQuantity()
 						- product.getOrderedQuantity();
-				product.orderQuantity = product.getOrderedQuantity();
 				ProductQuantity temp=new ProductQuantity(product.id,product.getOrderedQuantity());
 				order.pQ.add(temp);
 				product.setQuantity(leftQuantity);

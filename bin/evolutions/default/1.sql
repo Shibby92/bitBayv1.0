@@ -75,7 +75,6 @@ create table product (
   sold                      boolean,
   ordered_quantity          integer,
   amount                    double,
-  order_quantity            integer,
   constraint pk_product primary key (id))
 ;
 

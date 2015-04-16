@@ -456,7 +456,12 @@ public class ProductApplication extends Controller {
 					"You cannot order quantity that exceeds one available on stock!");
 			p.setOrderedQuantity(p.getOrderedQuantity());
 			return redirect("/itempage/" + id);
-		} else {
+		} else if(orderedQuantity==0){
+			flash("excess",
+					"You cannot order zero quantity!");
+			return redirect("/itempage/" + id);
+			
+		}else{
 			p.setOrderedQuantity(orderedTotalQta);
 			p.amount = p.getPrice() * p.getOrderedQuantity();
 			Logger.info(String.valueOf("Naruceno: " + orderedQuantity));
@@ -753,6 +758,7 @@ public class ProductApplication extends Controller {
 		Product temp = find.byId(id);
 		temp.sold = false;
 		temp.order = null;
+		temp.quantity=1;
 		temp.update();
 		flash("renew", "Product " + temp.name
 				+ " has been successfully renewed!");
