@@ -476,7 +476,10 @@ public class ProductApplication extends Controller {
 			p.save();
 			if (cart.productList.contains(p)) {
 				Cart.addQuantity(p, cart, orderedQuantity);
-				return ok(cartpage.render(email, cart, FAQ.all()));
+				return redirect("/cartpage/" + userid);
+
+				//return ok(cartpage.render(email, cart, FAQ.all()));
+				
 			} else {
 				Cart.addProduct(p, cart);
 				Logger.info(String.valueOf("Naruceno posle: "
