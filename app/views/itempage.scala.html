@@ -1,5 +1,4 @@
-@(email: String, product: Product, faqs: List[FAQ], images: List[Image], comments: List[Comment])
-
+@(email: String, product: Product, faqs: List[FAQ], images: List[Image], comments: List[Comment], categoryList:List[Category])
 @import java.math.BigInteger; var i=0
 @main("ItemPage") {
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -16,7 +15,6 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-       
         
                @if(email == null) {
                	  <ul class="nav navbar-nav">
@@ -54,7 +52,6 @@
             </li>
          </ul>
          } else {
-
           <ul class="nav navbar-nav">
                  <li  style="margin: 0px 180px">
              <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
@@ -89,9 +86,7 @@
                   } else {
                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
-                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
-
-                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
                    <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
                  
 
@@ -108,45 +103,46 @@
    <!-- /.container -->
 </nav>
 <body>
-
-<div class="container">
- @if(flash.get("excess")){
+   <div class="container">
+   @if(flash.get("excess")){
          <div class="alert alert-warning" role="alert">
                      <div class="container">
                         @flash.get("excess")
                      </div>
                   </div>
          }
- 
-	<div style="margin: 80px -15px" class="row">
-   <div class="col-md-5">
-   <centar>
-      <div class="row carousel-holder">
-         <div class="col-md-12">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-               <ol class="carousel-indicators">
-                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
-                  </li>
-                      @for(img <- images) {
-                      	@if(images.indexOf(img) != 0) {    
-                      	@{i=i+1}                  	
-                  <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
-              	 }
-                }
-              
-               </ol>
-              
-               <div class="carousel-inner" style="max-width: 800px;	height: 250px;">
-                  <div class="item active">       
-                     <img class="slide-image" src="@routes.Assets.at(images.get(0).image)" />  
-                  </div>
-                 
-                   @for(img <- images) {
-                   	@if(images.indexOf(img) == 0) {
-                   		} else {
-                  <div class="item">       
-                     <img class="slide-image" src="@routes.Assets.at(img.image)" />  
-
+      <div style="margin: 80px -15px" class="row">
+      <div class="col-md-3" style="margin: -3px -235px">
+   <div class="list-group">
+      @for(category <- categoryList){
+      <a href="category/@category.name" class="list-group-item glyphicon glyphicon-shopping-cart"> @category.name </a>
+      }
+   </div>
+</div>
+         <div class="col-md-5" style="margin: 0px 55px">
+            <centar>
+               <div class="row carousel-holder">
+                  <div class="col-md-12">
+                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                           <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
+                           </li>
+                           @for(img <- images) {
+                           @if(images.indexOf(img) != 0) {    
+                           @{i=i+1}                  
+                           <li data-target="#carousel-example-generic" data-slide-to="@i"></li>
+                           }
+                           }
+                        </ol>
+                        <div class="carousel-inner" style="max-width: 800px;	height: 250px;">
+                           <div class="item active">       
+                              <img class="slide-image" src="@routes.Assets.at(images.get(0).image)" />  
+                           </div>
+                           @for(img <- images) {
+                           @if(images.indexOf(img) == 0) {
+                           } else {
+                           <div class="item">       
+                              <img class="slide-image" src="@routes.Assets.at(img.image)" />  
                            </div>
                            }
                            }
@@ -166,10 +162,7 @@
                <h3 style="color: #4AB55A">@product.name
                </h3>
                <br>
-               
-               
-                  <h4> On Stock: @product.quantity </h4>
-                  
+               <h4> On Stock: @product.quantity </h4>
                @if((email==null)||(User.find(email).admin == false)) {
                @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
                <form action="@routes.ProductApplication.productToCart(product.id)"  method="POST" enctype="multipart/form-data">
@@ -178,13 +171,11 @@
                         <dt><label for="orderedQuantity">Quantity:</label> </dt>
                         <dd><input maxlength="6" size="6" name="orderedQuantity" id="orderedQuantity" value='1'  placeholder="Enter quantity " type="number" step="1" min="0"  max="999999" class="form-control" required/> </dd>
                      </dl>
-
                   </div>
                   }
                   }
-                 
-              	<h4>In Cart(this item): @product.getOrderedQuantity</a>
-               </h4>
+                  <h4>In Cart(this item): @product.getOrderedQuantity</a>
+                  </h4>
                   @if((email==null)||(User.find(email).admin == false)) {
                   @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
                <form action="demo_form.asp">
@@ -192,7 +183,7 @@
                </form>
                </form>
                }
-                 @if(session().get("email")!=product.owner.email && session().get("email")!=null){
+               @if(session().get("email")!=product.owner.email && session().get("email")!=null){
                <a href="/contactsellerpage/@product.id"
                <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Contact seller</button>
                </a>
@@ -206,16 +197,17 @@
                <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Rate Seller</button>
                </a>
                	 	}
-               
                }
                }
-               }
-                     
-       <div class="col-md-5" style="margin: 0px 35px">
-       <h3>Description: </34>
-       	    <h4> @product.description <br> </h4>
-       	   
-       	      <table class='table'>
+
+               }     
+            </div>
+         </div>
+         <div class="col-md-5" style="margin: 0px 35px">
+            <h3>
+            Description: </3>
+            <h4> @product.description <br> </h4>
+            <table class='table'>
                <thead>
                   <tr>
                      <th style="float: left"> Comments: </th>
@@ -246,14 +238,10 @@
                   }
                   }
                   }
-                  
-                 
                </tbody>
          </div>
          </table>
-   </div>
-   
-   
+      </div>
    </div>
    </div>
    </div>

@@ -396,7 +396,7 @@ public class ProductApplication extends Controller {
 
 		Product p = Product.find(id);
 		return ok(itempage.render(session("email"), Product.find(id),
-				FAQ.all(), models.Image.photosByProduct(p), Comment.all()));
+				FAQ.all(), models.Image.photosByProduct(p), Comment.all(), Category.list()));
 	}
 	
 	/**
@@ -544,7 +544,7 @@ public class ProductApplication extends Controller {
 
 		flash("success", "New comment added");
 		return ok(itempage.render(session("email"), Product.find(id),
-				FAQ.all(), models.Image.photosByProduct(p), list2));
+				FAQ.all(), models.Image.photosByProduct(p), list2, Category.list()));
 
 	}
 	

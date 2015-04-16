@@ -1,27 +1,44 @@
 @(email: String, user: User)
 
 @main("Rate") {
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<body>
+	  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header" style="margin: 0px -155px">
-         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      <div class="navbar-header" style="margin: 0px 20px" >
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+         <a href="/homepage" ><img src="@routes.Assets.at("images/Logo.png")" style="height:50 px; width: 130px"/></a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-         @if(email == null) {
-         <ul class="nav navbar-nav">
-            <li  style="margin: 0px 155px">
-               <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
-               <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-                  <div class="form-group">
-                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
-                  </div>
-                  <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
-               </form>
-            </li>
-
+       
+        
+               @if(email == null) {
+               	  <ul class="nav navbar-nav">
+                 <li  style="margin: 0px 155px">
+                    <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                    <div class="form-group">
+                  		<input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                  		</div>
+                  		<div class="btn-group">
+  							<button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+  							<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    						<span class="caret"></span>
+    						<span class="sr-only">Toggle Dropdown</span>
+  							</button>
+  								<ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+    							<li>
+    								<a href="/advancedsearch">Advanced Search</a>
+    							</li>
+    							</ul>
+						</div>
+            </form>
+         </li>
             <li>
                <h4>
                   <p style="color: #000">Hello   
@@ -37,21 +54,26 @@
             </li>
          </ul>
          } else {
-
           <ul class="nav navbar-nav">
-                 <li  style="margin: 0px 235px">
-              <button  class="btn btn-default " style="margin: 9px 0px"><a href="/advancedsearch">Advanced Search</a></button>
-            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-            
-               <div class="form-group">
-                  <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
-                  
-
-               </div>
-               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+                 <li  style="margin: 0px 180px">
+             <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                    <div class="form-group">
+                  		<input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                  		</div>
+                  		<div class="btn-group">
+  							<button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+  							<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    						<span class="caret"></span>
+    						<span class="sr-only">Toggle Dropdown</span>
+  							</button>
+  								<ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+    							<li>
+    								<a href="/advancedsearch">Advanced Search</a>
+    							</li>
+    							</ul>
+						</div>
             </form>
          </li>
-
       
          <ul class='nav navbar-nav pull-right'>
 
@@ -61,15 +83,14 @@
               
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
-
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  
                   } else {
-
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                 
 
                   }
                   <li class="divider"></li>
@@ -83,7 +104,7 @@
    </div>
    <!-- /.container -->
 </nav>
-<body>
+
 
 <div class="container">
 <div class="row">
