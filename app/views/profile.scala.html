@@ -274,7 +274,7 @@
       <div class="row">
         <div class="col-md-9">
       @for(product <- myproducts){
-      <div class="col-sm-4 col-lg-4 col-md-4">
+      <div class="col-sm-5 col-lg-5 col-md-5">
          <div class="thumbnail">
              <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
             <div class="caption">
@@ -284,8 +284,8 @@
                <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
             </div>
              <div style="margin: 10px 70px">
-               <a class="btn btn-success glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button" style="width: 220px; height: 40px; margin: 10px -50px">Update</a>
-               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?')" style="width: 220px; height: 40px; margin: 10px -50px">Delete</a> 
+               <a class="btn btn-success glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button" style="width: 220px; height: 40px; margin: 10px -35px">Update</a>
+               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?')" style="width: 220px; height: 40px; margin: 10px -35px">Delete</a> 
             </div>
          </div>
          

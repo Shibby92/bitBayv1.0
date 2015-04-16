@@ -464,7 +464,7 @@ public class UserLoginApplication extends Controller {
 		Cart cart = Cart.getCart(email);
 		Cart.clear(userid);
 		flash("failBuy", "Transaction canceled!");
-		return ok(orderresult.render());
+		return ok(orderresult.render(email, FAQ.all()));
 	}
 
 	@Security.Authenticated(UserFilter.class)
