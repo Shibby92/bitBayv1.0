@@ -81,5 +81,13 @@ public class Orders extends Model {
 	public Orders (Product product){
 		this.productList.add(product);
 	}
+	public static int notificationCounter(List<Orders>ol){
+		int counter=0;
+		for(Orders o : ol){
+			if(o.notification)
+				counter++;
+		}
+		return counter;
+	}
 
 }

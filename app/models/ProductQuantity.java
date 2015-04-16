@@ -27,7 +27,6 @@ public class ProductQuantity extends Model{
 	public static int getProductQuantity(int productId,int orderId){
 		ProductQuantity temp= find.where().eq("productId", productId).eq("ORDER_ID",orderId).findUnique();
 		return temp.quantity;
-		
 	}
 	
 	
