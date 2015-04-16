@@ -42,7 +42,6 @@ import com.paypal.base.rest.PayPalRESTException;
 public class UserLoginApplication extends Controller {
 	static Form<User> loginUser = new Form<User>(User.class);
 	static Form<Contact> contactForm = new Form<Contact>(Contact.class);
-	
 
 	/**
 	 *  main page
@@ -152,12 +151,12 @@ public class UserLoginApplication extends Controller {
 		return ok(toregister.render(loginUser, email, FAQ.all()));
 	}
 
-
-
-
 	/**
-	 * We return whatever the promise returns, so the return value is changed from Result to Promise<Result>
-	 * @return the contact page with a message indicating if the email has been sent.
+	 * We return whatever the promise returns, so the return value is changed
+	 * from Result to Promise<Result>
+	 * 
+	 * @return the contact page with a message indicating if the email has been
+	 *         sent.
 	 */
 	public static Promise<Result> contact() {
 		final String userEmail = session().get("email");
@@ -384,14 +383,8 @@ public class UserLoginApplication extends Controller {
 			sdkConfig.put("mode", "sandbox");
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(sdkConfig);
-			//
 			Payment payment = Payment.get(accessToken, paymentID);
-			User user = User.find(session().get("email"));
-			Orders order = new Orders(Cart.getCart(session().get("email")),
-					user, token);
-			user.orderList.add(order);
-			user.update();
-
+			
 			Logger.debug("POSLIJE FOR PETLJE");
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());
@@ -405,13 +398,11 @@ public class UserLoginApplication extends Controller {
 	public static Result orderSuccess(String paymentId, String payerId,
 			String token) {
 		Logger.info("Order success");
-
 		String email = session().get("email");
 		try {
 			DynamicForm paypalReturn = Form.form().bindFromRequest();
 			String paymentID = paymentId;
 			String payerID = payerId;
-			String ttoken = token;
 			String accessToken = new OAuthTokenCredential(
 					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
 					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai")
@@ -426,35 +417,35 @@ public class UserLoginApplication extends Controller {
 			Payment newPayment = payment.execute(apiContext, paymentExecution);
 			User user = User.find(session().get("email"));
 			Orders order = new Orders(Cart.getCart(user.email), user, token);
-			order.save();
 			user.orderList.add(order);
-			user.update();
 			Cart.clear(user.id);
 			Iterator<Product> itr = order.productList.iterator();
 			while (itr.hasNext()) {
 				Product p = itr.next();
 				p.order.add(order);
-				p.update();
+				p.cart=null;
 			}
-			User currUser = User.find(session().get("email"));
-			Orders userOrder = currUser.orderList
-					.get(currUser.orderList.size() - 1);
+			
+			Orders userOrder = user.orderList
+					.get(user.orderList.size() - 1);
 			User seller = userOrder.productList.get(0).owner;
 			seller.soldOrders.add(userOrder);
 			seller.soldOrders.get(seller.soldOrders.size() - 1).notification = true;
 			seller.soldOrders.get(seller.soldOrders.size() - 1).seller = seller;
-			seller.soldOrders.get(seller.soldOrders.size() - 1).save();
-			seller.save();
+
 			for (Product product : order.productList) {
 				if (product.getOrderedQuantity() >= product.getQuantity())
 					product.sold = true;
 				int leftQuantity = product.getQuantity()
 						- product.getOrderedQuantity();
 				product.orderQuantity = product.getOrderedQuantity();
+				ProductQuantity temp=new ProductQuantity(product.id,product.getOrderedQuantity());
+				order.pQ.add(temp);
 				product.setQuantity(leftQuantity);
 				product.setOrderedQuantity(0);
-				product.save();
+				order.update();
 			}
+			user.save();
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());
 		}
@@ -469,7 +460,7 @@ public class UserLoginApplication extends Controller {
 		User user = User.find(email);
 		int userid = user.id;
 		Cart cart = Cart.getCart(email);
-		cart.clear(userid);
+		Cart.clear(userid);
 		flash("failBuy", "Transaction canceled!");
 		return ok(orderresult.render());
 	}
@@ -483,6 +474,6 @@ public class UserLoginApplication extends Controller {
 		return redirect(href);
 
 	}
-	
+
 	/*******************************************************************/
 }

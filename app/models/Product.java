@@ -392,6 +392,7 @@ public class Product extends Model {
 
 	public void setOrderedQuantity(int orderedQuantity) {
 		this.orderedQuantity = orderedQuantity;
+		this.update();
 	}
 
 	public String getName() {
