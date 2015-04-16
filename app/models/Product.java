@@ -9,6 +9,10 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import play.Logger;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
@@ -24,6 +28,7 @@ import play.db.ebean.Model.Finder;
  *
  */
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@productId")
 public class Product extends Model {
 
 	@Id
@@ -39,6 +44,7 @@ public class Product extends Model {
 	public Cart cart;
 
 	@ManyToOne
+   // @JsonBackReference
 	public User owner;
 
 	//@Version
@@ -99,8 +105,7 @@ public class Product extends Model {
 	 *            Date date added
 	 * @param quantity
 	 *            int quantity of the product
-	 * @param price
-	 *            double price of the product
+	 * @param price double price of the product
 	 * @param description
 	 *            String description of the product
 	 * @param image_url
@@ -491,6 +496,9 @@ public class Product extends Model {
 
 	public static List<String> allImages(int id) {
 		return find.byId(id).image_urls;
+	}
+	public static List<Product> findAll() {
+		return find.all();
 	}
 	
 	public static String getIds(List<Product> products) {

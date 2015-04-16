@@ -83,12 +83,18 @@ public class ProductApplication extends Controller {
 		double price = Double.valueOf(form.get("price"));
 		int quantity = Integer.valueOf(form.get("quantity"));
 		String description = form.get("description");
-
 		List<models.Image> image_urls = savePicture(id);
 
 		if (image_urls == null) {
 			return redirect("/addproductpage/" + id);
+	
 		}
+		
+		if(image_urls.size()==0){
+			flash("pictureSelect", "You must select a picture for your product!");
+			return redirect("/addproductpage/"+id);
+		}
+		
 
 		Product.create(name, price, quantity,
 				User.find(session().get("email")), description, id, image_urls);
@@ -455,6 +461,7 @@ public class ProductApplication extends Controller {
 			flash("excess",
 					"You cannot order quantity that exceeds one available on stock!");
 			p.setOrderedQuantity(p.getOrderedQuantity());
+
 			return redirect("/itempage/" + id);
 		} else if(orderedQuantity==0){
 			flash("excess",

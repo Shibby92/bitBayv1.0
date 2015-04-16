@@ -10,6 +10,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.avaje.ebean.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 import play.data.DynamicForm;
@@ -17,6 +22,9 @@ import play.data.Form;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
+import play.db.ebean.*;
+
 
 
 /**
@@ -27,9 +35,11 @@ import play.db.ebean.Model;
  *
  */
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@userId")
 public class User extends Model {
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
+	//@JsonManagedReference
 	public List<Product> products;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="receiver")
@@ -91,11 +101,10 @@ public class User extends Model {
 	
 	@OneToMany(cascade= CascadeType.ALL, mappedBy = "seller")
 	public List<Orders> soldOrders;
-	
-	static Finder<Integer, User> find = new Finder<Integer, User>(
-			Integer.class, User.class);
-	public static Finder<Integer, User> findUser = new Finder<Integer, User>(
-			Integer.class, User.class);
+
+	public static Finder<Integer, User> find = new Finder<Integer, User>(Integer.class, User.class);
+	public static Finder<Integer, User> findUser = new Finder<Integer, User>(Integer.class, User.class);
+
 
 	/**
 	 * creates a user
@@ -306,8 +315,11 @@ public class User extends Model {
 
 	
 
-	
-	
+
+	public static List<User> findAll() {
+		return find.all();
+	}
+
 
 
 }
