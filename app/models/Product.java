@@ -44,11 +44,11 @@ public class Product extends Model {
 	public Cart cart;
 
 	@ManyToOne
-   // @JsonBackReference
 	public User owner;
 
-	//@Version
-	public Date created;
+	 @Version
+	   @Column(columnDefinition = "timestamp default '2015-16-04 20:17:06'")
+	    public Timestamp updated;
 
 	@Required
 	public int quantity;
@@ -111,12 +111,12 @@ public class Product extends Model {
 	 * @param image_url
 	 *            String url of the image of the product
 	 */
-	public Product(String name, int category_id, User owner, Date created,
+	public Product(String name, int category_id, User owner, Timestamp updated,
 			int quantity, double price, String description, String image_url) {
 		this.name = name;
 		this.category_id = category_id;
 		this.owner = owner;
-		this.created = created;
+		this.updated = updated;
 		this.quantity = quantity;
 		this.price = price;
 		this.description = description;
@@ -339,7 +339,7 @@ public class Product extends Model {
 	}
 
 	public static void create(String name, int category_id, User owner,
-			Date created, int quantity, double price, String description,
+			Timestamp created, int quantity, double price, String description,
 			String image_url) {
 		new Product(name, category_id, owner, created, quantity, price,
 				description, image_url).save();
@@ -399,6 +399,16 @@ public class Product extends Model {
 	public int getOrderedQuantity() {
 		return orderedQuantity;
 	}
+
+	/*public static void emptyOrderedQta(Product p){
+		p.orderedQuantity=0;
+		p.update();
+	}*/
+	/*
+	public void setOrderedQuantity(int orderedQuantity) {
+		this.orderedQuantity = orderedQuantity;
+		this.update();
+	}*/
 
 	public void setOrderedQuantity(int orderedQuantity) {
 		this.orderedQuantity = orderedQuantity;

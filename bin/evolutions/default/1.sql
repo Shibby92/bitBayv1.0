@@ -64,7 +64,6 @@ create table product (
   category_id               integer,
   cart_id                   integer,
   owner_id                  integer,
-  created                   timestamp,
   quantity                  integer,
   price                     double,
   description               varchar(255),
@@ -75,6 +74,7 @@ create table product (
   sold                      boolean,
   ordered_quantity          integer,
   amount                    double,
+  updated                   timestamp default '2015-16-04 20:17:06' not null,
   constraint pk_product primary key (id))
 ;
 

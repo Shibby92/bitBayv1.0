@@ -418,7 +418,7 @@ public class UserLoginApplication extends Controller {
 			User user = User.find(session().get("email"));
 			Orders order = new Orders(Cart.getCart(user.email), user, token);
 			user.orderList.add(order);
-			Cart.clear(user.id);
+			//Cart.clear(user.id);
 			Iterator<Product> itr = order.productList.iterator();
 			while (itr.hasNext()) {
 				Product p = itr.next();
@@ -444,9 +444,13 @@ public class UserLoginApplication extends Controller {
 				ProductQuantity temp=new ProductQuantity(product.id,product.getOrderedQuantity());
 				order.pQ.add(temp);
 				product.setQuantity(leftQuantity);
+				product.cart=null;
 				product.setOrderedQuantity(0);
+				
 				order.update();
 			}
+			Cart.clear(user.id);
+			//Cart cart=Cart.find(user.id);
 			user.save();
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());

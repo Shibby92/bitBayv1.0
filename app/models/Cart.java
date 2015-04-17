@@ -105,10 +105,13 @@ public class Cart extends Model {
 		Cart cart=getCart(id);
 		for(Product p: cart.productList){
 			p.cart=null;
+			p.setOrderedQuantity(0);
+			//p.update();
 		}
 		cart.productList.clear();
 		cart.checkout=0;
 		cart.size=0;
+		
 		cart.update();
 		
 	}
