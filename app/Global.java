@@ -311,6 +311,28 @@ public class Global extends GlobalSettings {
 					"Additional free listing this month (new listings only) Why didn't I receive this?",
 					"Promo offers are by invitation only; no party crashing allowed.  Unless there is an einstein among us, no one can figure out the criteria used by EBay to get these promos.");
 		}
+		if(Comment.find(1)==null){
+			Comment.createComment("Hope to deal with you again. Thank you.",User.find(2),Product.find(1));
+			Comment.createComment("Quick response and fast delivery. Perfect! THANKS!!",User.find(4),Product.find(1));
+			Comment.createComment("Thank you for an easy, pleasant transaction. Excellent product. A++++++.",User.find(4),Product.find(2));
+			Comment.createComment("Welcome your next purchase!Nice product!",User.find(3),Product.find(2));
+			Comment.createComment("Good product, prompt delivery, valued seller, highly recommended.",User.find(6),Product.find(3));
+			Comment.createComment("SUPER GREAT PRODUCT A+++ ANY ISSUE LET ME KNOW EMERGENT SOLUTION FOR YOU :).",User.find(2),Product.find(3));
+			Comment.createComment("Thank you for an easy, pleasant transaction. Excellent product. A++++++.",User.find(4),Product.find(4));
+			Comment.createComment("Good product, prompt delivery, valued seller, highly recommended.",User.find(6),Product.find(4));
+			Comment.createComment("Quick response and fast delivery. Perfect! THANKS!!",User.find(3),Product.find(5));
+			Comment.createComment("Good product, prompt delivery, valued seller, highly recommended.",User.find(2),Product.find(5));
+			Comment.createComment("Great communication. A pleasure to do business with.",User.find(3),Product.find(6));
+			Comment.createComment("Thank you for an easy, pleasant transaction. Excellent product A++++++",User.find(4),Product.find(6));
+			Comment.createComment("Good product, prompt delivery, valued seller, highly recommended.",User.find(2),Product.find(7));
+			Comment.createComment("Thank you a great product Call back anytime A+++++++",User.find(3),Product.find(7));
+			Comment.createComment("Thank you a great product Call back anytime A+++++++",User.find(4),Product.find(8));
+			Comment.createComment("Hope to deal with you again. Thank you.",User.find(3),Product.find(8));
+			Comment.createComment("Thank you a great product Call back anytime A+++++++",User.find(2),Product.find(9));
+			Comment.createComment("Hope to deal with you again. Thank you.",User.find(3),Product.find(9));
+			Comment.createComment("Thank you a great product Call back anytime A+++++++",User.find(4),Product.find(10));
+			Comment.createComment("Hope to deal with you again. Thank you.",User.find(6),Product.find(10));
+		}
 
 	}
 }
