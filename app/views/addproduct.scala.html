@@ -142,20 +142,20 @@
                <form action="@routes.ProductApplication.addAdditionalInfo(id)"  method="POST" enctype="multipart/form-data">
                   <legend>Add product </legend>
                   <dl class=" " id="name_field">
-                     <dt><label for="name">Name:</label> </dt>
+                     <dt><label for="name">Name:*</label> </dt>
                      <dd><input value='' name="name" id="name" placeholder="Name of your product" type="text" class="form-control" required/></dd>
                   </dl>
                   <dl class=" " id="price_field">
-                     <dt><label for="price">Price:</label> </dt>
+                     <dt><label for="price">Price:*</label> </dt>
                      <dd><input name="price" id="price" value='' placeholder="Enter price of your product" type="number" step="0.01" min="0"  max="999999" class="form-control" required/> </dd>
                   </dl>
                   
                   <dl class=" " id="quantity_field">
-                     <dt><label for="quantity">Quantity:</label> </dt>
+                     <dt><label for="quantity">Quantity:*</label> </dt>
                      <dd><input name="quantity" id="quantity" value='' placeholder="Enter quantity " type="number" step="1" min="0"  max="999999" class="form-control" required/> </dd>
                   </dl>
                   <dl class=" " id="description_field">
-                     <dt><label for="description">Description:</label> </dt>
+                     <dt><label for="description">Description:*</label> </dt>
                      <dd>	<textarea rows="4" cols="60"  name="description" id="description" placeholder="Description of your product"
 							 class="form-control" required></textarea> </dd>
                   </dl>

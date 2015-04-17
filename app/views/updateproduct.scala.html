@@ -132,25 +132,25 @@
 					<form action="/updateproduct/@product.id" method="POST" enctype="multipart/form-data">
 						<legend>Update product </legend>
 						<dl class=" " id="name_field">
-							<dt><label for="name">Name:</label> </dt>
+							<dt><label for="name">Name:*</label> </dt>
 							<dd>
 							<input value=@product.name name="name"id="name" placeholder="Name of your product" type="text" class="form-control" required/>
 						
 						</dl>
 						<dl class=" " id="price_field">
-							<dt><label for="price">Price:</label> </dt>
+							<dt><label for="price">Price:*</label> </dt>
 							<dd>
 							<input value=@product.price name="price"id="price" placeholder="Price of your product" type="text" class="form-control" required/>
 						
 						</dl>
 						<dl class=" " id="quantity_field">
-							<dt><label for="quantity">Quantity:</label> </dt>
+							<dt><label for="quantity">Quantity:*</label> </dt>
 							<dd>
 							<input value=@product.quantity name="quantity"id="quantity" placeholder="Quantity for your product" type="text" class="form-control" required/>
 						
 						</dl>
 						<dl class=" " id="description_field">
-							<dt><label for="description">Description:</label> </dt>
+							<dt><label for="description">Description:*</label> </dt>
 							<dd>
 
 							<textarea rows="4" cols="50"  name="description" id="description" placeholder="Description of your product"
