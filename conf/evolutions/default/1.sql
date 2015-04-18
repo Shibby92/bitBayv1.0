@@ -3,6 +3,14 @@
 
 # --- !Ups
 
+create table blog (
+  id                        integer not null,
+  title                     varchar(255),
+  content                   varchar(255),
+  blog_image_path           varchar(255),
+  constraint pk_blog primary key (id))
+;
+
 create table cart (
   id                        integer not null,
   userid                    integer,
@@ -112,6 +120,8 @@ create table OrderDetails (
   productId                      integer not null,
   constraint pk_OrderDetails primary key (orderId, productId))
 ;
+create sequence blog_seq;
+
 create sequence cart_seq;
 
 create sequence category_seq;
@@ -163,6 +173,8 @@ alter table OrderDetails add constraint fk_OrderDetails_product_02 foreign key (
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists blog;
+
 drop table if exists cart;
 
 drop table if exists category;
@@ -186,6 +198,8 @@ drop table if exists product_quantity;
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists blog_seq;
 
 drop sequence if exists cart_seq;
 

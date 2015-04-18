@@ -1,6 +1,5 @@
-@(email: String, categoryList:List[Category], products:List[Product], faqs: List[FAQ])
-@main("HomePage") {
-<!-- Navigation -->
+@(email: String, blogs: List[Blog])
+@main("Blog") {
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -75,36 +74,21 @@
          </li>
       
          <ul class='nav navbar-nav pull-right'>
-					<li>
-         	
-         	
-         	
-}
-         	</li>
-         	 @if(email != null) {
+
                     <li class='dropdown'>
                <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+               <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
               
-                @if( Orders.notificationCounter(User.find(email).soldOrders)>0){
-                	<button class="btn btn-success glyphicon glyphicon-info-sign">  @User.find(email).username <span class="caret"></span> </button></a>
-                }else{<button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-              }
-              
-                
-               
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   
                   } else {
                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
-                  <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li> 
+                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
                    <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
-                 @if(email != null && Orders.notificationCounter(User.find(email).soldOrders)>0){
-                 	<li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign"> Notifications </i></a>
-                 	</li>
-         		
+                 
 
                   }
                   <li class="divider"></li>
@@ -113,16 +97,14 @@
             </li>
          </ul>
          }
-         }
       </div>
       <!-- /.navbar-collapse -->
    </div>
    <!-- /.container -->
 </nav>
-<!-- Page Content -->
-<div class="container">
-<div class="row">
- @if(flash.get("error")){
+     <div class="container">
+     <div style="margin: 80.5px -15px"class="row">
+      @if(flash.get("error")){
         <div class="alert alert-danger" role="alert">
                      <div class="container">
                         @flash.get("error")
@@ -144,81 +126,63 @@
                   </div>
          	}
          <div 
-<div class="col-md-3">
-   <div class="list-group">
-      @for(category <- categoryList){
-      <a href="category/@category.name" class="list-group-item glyphicon glyphicon-shopping-cart"> @category.name </a>
-      }
-   </div>
-</div>
-<div class="col-md-9">
-   <div class="row carousel-holder">
-      <div class="col-md-12">
-         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-               <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
-               </li>
-               <li data-target="#carousel-example-generic" data-slide-to="1">
-               </li>
-               <li data-target="#carousel-example-generic" data-slide-to="2">
-               </li>
-            </ol>
-            <div class="carousel-inner">
-               <div class="item active">
-                  <a href="http://download.cnet.com/Magix-Movie-Edit-Pro-2015-Plus/3000-13631_4-10476357.html">
-                  <img class="slide-image" src="@routes.Assets.at("images/ExpoDisc-Webtile-800x300.jpg")"/ >
-                  </a>    
+
+     @if(session().get("email") != null) {
+
+		@if(User.find(session().get("email")).admin) { 
+
+      <div class="form-group text-center">
+              <a class="btn btn-success" href="/addfaq" role="button">Add new FAQ</a>
                </div>
-               <div class="item">
-                  <a href="http://thewebsitecircle.com/social-media"/>
-                  <img class="slide-image" src="@routes.Assets.at("images/003-800x300.jpg")" >
-                  </a>    
-               </div>
-               <div class="item">
-                  <a href="http://bitcamp.ba">
-                  <img class="slide-image" src="@routes.Assets.at("images/Untitled.jpg")" />
-                  </a>    
-               </div>
-            </div>
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
-         </div>
-      </div>
-   </div>
-   <div class="row">
-      @for(product <- products){
-      <div class="col-sm-4 col-lg-4 col-md-4">
-         <div class="thumbnail">
-<a href="itempage/@product.id">
-            <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
-</a>
-            <div class="caption">
-               <h4 class="pull-right"> @product.price $</h4>
-               <h4> <a href="itempage/@product.id">@product.name</a>
-               </h4>
-               <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
-            </div>
-         </div>
-      </div>
-      }
-   </div>
-</div>
-<!-- /.container -->
-<div class="container">
+               }
+               }
+               <div>
+	<table class='table'>
+		<thead> <tr> <th style="float: left"> </th>  </tr>  </thead>
+		<tbody>
+
+				@for(currentBlog <- blogs){
+												
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+									
+									<tr> 
+									<td>
+									
+									<li>
+										<h4> <strong>Title:</strong> @currentBlog.title </h4>
+										<p> <strong>Content:</strong> @currentBlog.content </p>
+										
+										@if(session().get("email") != null) {
+										@if(User.find(session().get("email")).admin) { 
+										<a href="@routes.BlogController.toUpdateBlog(currentBlog.id)" class="btn btn-default">Edit</a>
+										
+										<a href="@routes.BlogController.deleteBlog(currentBlog.id)" onclick="return confirm('Are you sure you want to delete this blog?');"class="btn btn-danger">Delete</a>
+								
+										
+										
+										}  
+										}
+										</li>
+										
+										</td>
+										</tr>
+										
+										
+									</div>					
+								</div>
+							</div>
+							}
+		</tbody>
+		</div>
+	</table>
+	
+	</div>
+	</div>
+	 <div class="container">
    <hr>
    <a href="/contactpage">
       <h3>Contact Us</h3>
    </a>
-   <a href="/faq">
-      <h3> FAQs</h3>
-   </a>
-   <a href="/blog">
-      <h3> Blog </h3>
-   </a>
-</div>
-<!-- /.container -->
 }
