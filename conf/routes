@@ -152,8 +152,8 @@ GET        /api/allusers					ws.controllers.JsonController.allUsers()
 
 #Blog routes
 GET		/blog					controllers.BlogController.blogsPage()
-POST   	/addBlog                controllers.BlogController.addNewBlog()
 GET    	/addBlog                controllers.BlogController.toAddNewBlog()
+POST   	/addBlog                controllers.BlogController.addNewBlog()
 POST   	/updateBlog             controllers.BlogController.updateBlog(id: Integer)
 GET    	/updateBlog/:id         controllers.BlogController.toUpdateBlog(id: Integer)
 GET   	/deleteBlog             controllers.BlogController.deleteBlog(id: Integer)
