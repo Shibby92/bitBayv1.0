@@ -151,18 +151,22 @@
 									<td>
 									
 									<li>
+										@if(currentBlog.blogImagePath != null){
+											<img class="img-responsive" src="@routes.Assets.at(currentBlog.blogImagePath)" width="700" height="400" alt="">
+										}
+										
 										<h4> <strong>Title:</strong> @currentBlog.title </h4>
 										<p> <strong>Content:</strong> @currentBlog.content </p>
 										
 										@if(session().get("email") != null) {
-										@if(User.find(session().get("email")).admin) { 
-										<a href="@routes.BlogController.toUpdateBlog(currentBlog.id)" class="btn btn-default">Edit</a>
-										
-										<a href="@routes.BlogController.deleteBlog(currentBlog.id)" onclick="return confirm('Are you sure you want to delete this blog?');"class="btn btn-danger">Delete</a>
-								
-										
-										
-										}  
+											@if(User.find(session().get("email")).admin) { 
+											
+											
+											<a href="@routes.BlogController.toUpdateBlog(currentBlog.id)" class="btn btn-default">Edit</a>
+											
+											<a href="@routes.BlogController.deleteBlog(currentBlog.id)" onclick="return confirm('Are you sure you want to delete this blog?');"class="btn btn-danger">Delete</a>
+									
+											}  
 										}
 										</li>
 										

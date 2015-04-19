@@ -41,6 +41,17 @@ public class Blog extends Model {
 	}
 	
 	/**
+	 * Constructor of object Blog with two parameters
+	 * @param title
+	 * @param content
+	 */
+	public Blog(String title, String content) {
+		
+		this.title = title;
+		this.content = content;
+	}
+	
+	/**
 	 * Method createBlog creates new object of Blog and saves it into the database
 	 * @param title
 	 * @param content
@@ -48,6 +59,15 @@ public class Blog extends Model {
 	 */
 	public static void createBlog(String title, String content, String blogImagePath) {
 		new Blog(title, content, blogImagePath).save();
+	}
+	
+	/**
+	 * Method createBlog creates new object of Blog and saves it into the database
+	 * @param title
+	 * @param content
+	 */
+	public static void createBlog(String title, String content) {
+		new Blog(title, content).save();
 	}
 	
 	//Finder
