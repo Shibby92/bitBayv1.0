@@ -33,12 +33,17 @@ public class Cart extends Model {
 	public double checkout;
 	
 	public int size;
+	
+	public String shippingAddress;
 
 	public Cart(int userId,String userMail) {
 		this.userid = userId;
 		this.userMail=userMail;
 		this.checkout = 0;
 		this.size=0;
+		User u=User.find(userId);
+		String shipAd= u.user_address;
+		this.shippingAddress=shipAd;
 	}
 
 	public Cart() {

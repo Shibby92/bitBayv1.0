@@ -9,6 +9,7 @@ create table cart (
   user_mail                 varchar(255),
   checkout                  double,
   size                      integer,
+  shipping_address          varchar(255),
   constraint pk_cart primary key (id))
 ;
 
@@ -53,6 +54,7 @@ create table orders (
   buyer_id                  integer,
   price                     double,
   token                     varchar(255),
+  shipping_address          varchar(255),
   seller_id                 integer,
   notification              boolean,
   constraint pk_orders primary key (id))
