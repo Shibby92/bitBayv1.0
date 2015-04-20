@@ -126,7 +126,7 @@ public class SearchController extends Controller {
 		descr = filteredSearch.bindFromRequest().get().description;
 		String categoryName = df.data().get("category");
 		category = Category.findByName(categoryName);
-
+		
 		if (prod == null) {
 			prod = "";
 		}
@@ -151,11 +151,13 @@ public class SearchController extends Controller {
 		if (descr == null) {
 			descr = "";
 		}
-
-		productList = Product.find.where()
-				.ilike("category_id", "" + category.id)
-				.ilike("name", "%" + prod + "%")
-				.ilike("description", "%" + descr + "%").findList();
+		
+		if(category == null){
+			productList = Product.find.where().ilike("name", "%" + prod + "%").ilike("description", "%" + descr + "%").findList();
+		} else {
+		
+		productList = Product.find.where().ilike("category_id", "" + category.id).ilike("name", "%" + prod + "%").ilike("description", "%" + descr + "%").findList();
+		}
 		List<Product> filteredProducts = new ArrayList<Product>();
 
 		for (Product product : productList) {

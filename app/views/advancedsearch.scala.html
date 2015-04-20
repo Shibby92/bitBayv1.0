@@ -131,7 +131,7 @@
                   </div>
          	}
          	
-        <div class="col-md-9" style="margin: 5px -310px; position:fixed">
+        <div class="col-md-7" style="margin: 5px -310px; position:fixed">
            <form action="@routes.SearchController.advancedSearch(Product.getIds(products))" method="POST"">
               <div class="col-sm-3" style="margin: -6.5px 0px">
                <dl >
@@ -139,7 +139,8 @@
                   <dd>
 
                    <fieldset>
-                     <select  name ="category" id="category" for="category" width: 100px class="form-control">                     
+                     <select  name ="category" id="category" for="category" width: 100px class="form-control">    
+                       <option>All</option>
                         @for(category <- categoryList){
                         <option>@category.name</option>
                         }

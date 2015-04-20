@@ -137,7 +137,14 @@
                   
 	<div class="col-md-3" style="margin: 20px 0px ">
     <div class="well box">
+    @if(cart.productList.size() == 0) {
     	<h4>Number of items:  @cart.size </h4>
+    	<hr>
+        <h4>Total price: @cart.checkout $</h4>
+        <hr>
+         <a class="btn btn-info" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 15px">Back to home</a> 
+       } else {
+       <h4>Number of items:  @cart.size </h4>
     	<hr>
         <h4>Total price: @cart.checkout $</h4>
         <hr>
@@ -149,7 +156,11 @@
 </a>
 </form>
  <hr>
-   <a class="btn btn-info" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 15px">Back to home</a> 
+ <a class="btn btn-info" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 15px">Back to home</a> 
+       
+}
+
+  
 
 </div>
     </div>
