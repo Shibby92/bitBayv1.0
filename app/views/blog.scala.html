@@ -149,14 +149,14 @@
 									
 									<tr> 
 									<td>
+										<h4> <strong>Title:</strong> @currentBlog.title </h4>
 									
-									<li>
 										@if(currentBlog.blogImagePath != null){
 											<img class="img-responsive" src="@routes.Assets.at(currentBlog.blogImagePath)" width="700" height="400" alt="">
 										}
 										
-										<h4> <strong>Title:</strong> @currentBlog.title </h4>
-										<p> <strong>Content:</strong> @currentBlog.content </p>
+										
+										<p> <strong>Content:</strong> @Html(currentBlog.content) </p>
 										
 										@if(session().get("email") != null) {
 											@if(User.find(session().get("email")).admin) { 
@@ -168,7 +168,7 @@
 									
 											}  
 										}
-										</li>
+										
 										
 										</td>
 										</tr>

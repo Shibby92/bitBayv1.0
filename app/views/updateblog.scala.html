@@ -138,6 +138,9 @@
                   </dl>
                      <dt><label for="content">Content:</label> </dt>
                      <dd><textarea name="content" id="content" rows="5" cols="50" placeholder="Content" required>@blog.content</textarea></dd>
+                    <script>			
+						CKEDITOR.replace('content');
+					</script>
                   </dl>
                    <dl class=" " id="image_url">
 							<dt><label for="image_url">Select image:</label>
