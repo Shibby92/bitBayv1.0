@@ -3,19 +3,14 @@ package controllers;
 import helpers.AdminFilter;
 import helpers.UserFilter;
 
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import javax.swing.ImageIcon;
 
 import com.google.common.io.Files;
 
 import models.Blog;
-import models.FAQ;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -73,14 +68,14 @@ public class BlogController extends Controller {
 	}
 	
 	public static Result updateBlog(int id) {
-		String email = session().get("email");
 		DynamicForm form = Form.form().bindFromRequest();
 		Blog currentBlog = Blog.findBlogById(id);
-		Blog oldBlog = currentBlog;
 		
 		try {
 			currentBlog.title = form.get("title");
 			currentBlog.content = form.get("content");
+			String imgPath = savePicture();
+			currentBlog.blogImagePath = imgPath;
 			currentBlog.update();
 			flash("success", "Successful update!");
 			
@@ -93,6 +88,7 @@ public class BlogController extends Controller {
 
 	}
 	
+	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateBlog(int id) {
 		String email = session().get("email");
 		Blog currentBlog = Blog.findBlogById(id);
@@ -157,7 +153,6 @@ public class BlogController extends Controller {
 		}
 
 		try {
-
 				File profile = new File("./public/images/Productimages/"
 						+ UUID.randomUUID().toString() + extension);
 
@@ -171,8 +166,7 @@ public class BlogController extends Controller {
 				Logger.error("Failed to move file");
 				Logger.debug(e.getMessage());
 				return null;
-			}
-		
+			}		
 		return image_url;
 
 	}

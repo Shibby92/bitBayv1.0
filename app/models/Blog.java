@@ -1,5 +1,10 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -26,6 +31,8 @@ public class Blog extends Model {
 	
 	@Required
 	public String blogImagePath;
+	
+	public String date;
 
 	/**
 	 * Constructor of object Blog with three parameters
@@ -38,17 +45,7 @@ public class Blog extends Model {
 		this.title = title;
 		this.content = content;
 		this.blogImagePath = blogImagePath;
-	}
-	
-	/**
-	 * Constructor of object Blog with two parameters
-	 * @param title
-	 * @param content
-	 */
-	public Blog(String title, String content) {
-		
-		this.title = title;
-		this.content = content;
+		this.date = date();
 	}
 	
 	/**
@@ -61,15 +58,6 @@ public class Blog extends Model {
 		new Blog(title, content, blogImagePath).save();
 	}
 	
-	/**
-	 * Method createBlog creates new object of Blog and saves it into the database
-	 * @param title
-	 * @param content
-	 */
-	public static void createBlog(String title, String content) {
-		new Blog(title, content).save();
-	}
-	
 	//Finder
 	public static Finder<Integer, Blog> find = new Finder<Integer, Blog>(Integer.class, Blog.class);
 	
@@ -79,6 +67,7 @@ public class Blog extends Model {
 	 */
 	public static List<Blog> allBlogs() {
 		List<Blog> blogs = find.all();
+		Collections.reverse(blogs);
 		return blogs;
 	}
 	
@@ -97,6 +86,16 @@ public class Blog extends Model {
 	 */
 	public static void deleteBlog(int id) {
 		find.byId(id).delete();
+	}
+	
+	/**
+	 * Method returns current date in String value
+	 * @return
+	 */
+	public static String date() {
+		Date date = Calendar.getInstance().getTime();
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(date);
 	}
 
 }

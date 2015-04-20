@@ -7,8 +7,10 @@ import static play.test.Helpers.inMemoryDatabase;
 import org.junit.Before;
 import org.junit.Test;
 
+import play.test.WithApplication;
 
-public class OrderTest {
+
+public class OrderTest extends WithApplication {
 	@Before
 	public void setUp() {
 		fakeApplication(inMemoryDatabase());

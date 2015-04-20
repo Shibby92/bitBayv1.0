@@ -8,6 +8,7 @@ create table blog (
   title                     varchar(255),
   content                   varchar(255),
   blog_image_path           varchar(255),
+  date                      varchar(255),
   constraint pk_blog primary key (id))
 ;
 
