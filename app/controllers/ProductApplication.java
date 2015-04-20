@@ -189,7 +189,7 @@ public class ProductApplication extends Controller {
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result updateP(int id) {
-		Logger.info("Opened page for updating producct");
+		Logger.info("Opened page for updating product");
 
 		Product updateProduct = Product.find(id);
 		if (updateProduct.sold == true) {
@@ -220,7 +220,7 @@ public class ProductApplication extends Controller {
 			Logger.info("Product with id: " + id + " has been updated");
 			flash("success", "Product successfully updated!");
 			if (User.find(session().get("email")).admin)
-				return redirect("/profile");
+				return redirect("/profile/" + User.find(session().get("email")).id);
 			return redirect("/myproducts/"
 					+ User.find(session().get("email")).id);
 		}
@@ -477,8 +477,6 @@ public class ProductApplication extends Controller {
 			if (cart.productList.contains(p)) {
 				Cart.addQuantity(p, cart, orderedQuantity);
 				return redirect("/cartpage/" + userid);
-
-				//return ok(cartpage.render(email, cart, FAQ.all()));
 				
 			} else {
 				Cart.addProduct(p, cart);
@@ -657,7 +655,7 @@ public class ProductApplication extends Controller {
 							Logger.info("User with email: "
 									+ session().get("email") + " replied to : "
 									+ Product.find(id).owner.email);
-							return redirect("/profile");
+							return redirect("/profile/" + User.find(session().get("email")).id);
 						} else {
 
 							Logger.info("User with email: "
@@ -687,6 +685,7 @@ public class ProductApplication extends Controller {
 		String email = session().get("email");
 		Logger.info("User with email: " + session().get("email")
 				+ " has opened contact us page");
+		
 
 		return ok(contactseller.render(email, FAQ.all(), Product.find(id), ""));
 

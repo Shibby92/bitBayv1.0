@@ -222,6 +222,22 @@ public class UserController extends Controller {
 	}
 	
 	/**
+	 * opens page to other users profile
+	 * @return result
+	 */
+	public static Result userProfile(int id) {
+		User user = User.find(id);
+		Logger.info("User " + session().get("email")
+				+ " has opened " + User.find(id).email + " profile page");
+		String email = session().get("email");
+		return ok(userprofile.render(user, email,
+				Product.myProducts(user.id),
+				FAQ.all()));
+	}
+	
+	
+	
+	/**
 	 * opens page for rating user
 	 * @param id int id of the user
 	 * @return result
