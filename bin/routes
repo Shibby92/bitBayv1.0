@@ -17,21 +17,34 @@ GET    /confirm/:confirmation   controllers.Verification.verificateEmail(confirm
 
 # Routes for CRUD product and category
 
-GET    /deleteproduct/:id       controllers.ProductApplication.deleteProduct(id: Integer)
-#POST     /deleteproductpage         controllers.ProductApplication.toDeleteProduct()
+GET    /deleteproduct/:id            controllers.ProductApplication.deleteProduct(id: Integer)
+
 GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
 POST 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
 GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
 POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
 GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
 GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer)
-POST 	/updateproduct/:id		controllers.ProductApplication.update(id:Integer)
+POST 	/updateproduct/:id		controllers.ProductApplication.updateP(id:Integer)
+GET		/renewproduct/:id		controllers.ProductApplication.renew(id:Integer)
 GET 	/productpage			controllers.ProductApplication.productPage()
 GET 	/profile			controllers.UserController.profile()
-#POST    /pictureupload          controllers.ProductApplication.savePicture(id:Integer)
+GET    /itempage/logout         controllers.UserLoginApplication.logOut()
+GET    /itempage/:id            controllers.ProductApplication.itemPage(id:Integer)
+GET    /myproducts/:id          controllers.ProductApplication.myProducts(id: Integer)
+
+GET 	/addproduct/:id			          controllers.ProductApplication.addAdditionalInfo(id:Integer)
+POST 	/addproduct/:id			          controllers.ProductApplication.addAdditionalInfo(id:Integer)
+GET		/addproductpage/:id	        	controllers.ProductApplication.toInfo(id:Integer)
+POST	/addproduct/homepage        	controllers.UserLoginApplication.homePage()
+GET		/addproductcategory	        	controllers.ProductApplication.toPickCategory()
+GET 	/updateproduct/:id	        	controllers.ProductApplication.updateProduct(id:Integer)
+POST 	/updateproduct/:id	        	controllers.ProductApplication.updateP(id:Integer)
+GET 	/productpage			            controllers.ProductApplication.productPage()
+GET 	/profile			                controllers.UserController.profile()
 GET      /itempage/logout             controllers.UserLoginApplication.logOut()
 GET      /itempage/:id             controllers.ProductApplication.itemPage(id:Integer)
-GET		/myproducts/:id			controllers.ProductApplication.myProducts(id: Integer)
+GET		/myproducts/:id		          	controllers.ProductApplication.myProducts(id: Integer)
 
 
 GET    /category/:name          controllers.ProductApplication.category(name:String)
@@ -64,8 +77,16 @@ GET    /updatefaq/:id           controllers.FAQController.toUpdateFAQ(id: Intege
 GET    /deletefaq               controllers.FAQController.deleteFAQ(id: Integer)
 
 
+GET    /itempage/:idc/:idp      controllers.ProductApplication.deleteComment(idc: Integer, idp: Integer)
+POST   /itempage/:id            controllers.ProductApplication.addNewComment(id: Integer)
+
+
 GET		/search					controllers.SearchController.search(q: String)
 GET		/searchusers					controllers.SearchController.searchUsers(q: String)
+
+GET		/advancedsearch					controllers.SearchController.advancedSearchPage()
+POST	/advancedsearch					controllers.SearchController.advancedSearch(ids: String)
+
 
 
 # Routes for contact form
@@ -73,22 +94,62 @@ GET		/searchusers					controllers.SearchController.searchUsers(q: String)
 GET    /contactpage             controllers.UserLoginApplication.contactPage()
 POST   /contact                 controllers.UserLoginApplication.contact()
 
+GET    /contactsellerpage/:id   controllers.ProductApplication.contactSellerPage(id: Integer)
+POST   /contactseller/:id       controllers.ProductApplication.contactSeller(id: Integer)
+GET    /contactseller/:id       controllers.ProductApplication.contactSeller(id: Integer)
+
+GET		/replyToMessagePage/:id	controllers.ProductApplication.replyToMessagePage(id: Integer)
+POST	/reply/:id				controllers.ProductApplication.reply(id: Integer)
+
+GET		/open/:id				controllers.ProductApplication.openMessage(id: Integer)
+
+GET		/deletemessage/:id				controllers.ProductApplication.deleteMessage(id: Integer)
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file            controllers.Assets.at(path="/public", file)
 
 #Paypal routes
-
 GET		/cartpage/:id			controllers.ProductApplication.cartPage(id: Integer)
-GET    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
+POST    /producttocart/:id       controllers.ProductApplication.productToCart(id: Integer)
 GET    /deleteproductcart/:id   controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase          controllers.UserLoginApplication.purchaseProcessing()
-GET    /creditsuccess           controllers.UserLoginApplication.creditSuccess()
-GET    /creditfail              controllers.UserLoginApplication.creditFail()
-
+GET    /ordersuccess            controllers.UserLoginApplication.orderSuccess(paymentID:String,payerID:String,token:String)
+GET    /orderfail               controllers.UserLoginApplication.orderFail()
+GET    /orderconfirm            controllers.UserLoginApplication.orderConfirm()
+GET    /refundorder/:id         controllers.UserLoginApplication.refundOrder(id: Integer)
 #Order routes
 
+GET    /orderpage/:id           controllers.OrderController.orderPage(id: Integer)
+GET    /soldorder/:id           controllers.OrderController.soldOrderPage(id:Integer)
+GET    /soldorderchecked/:id    controllers.OrderController.soldOrderChecked(id:Integer)
+
+GET		/ratingpage/:id			controllers.UserController.ratingpage(id: Integer)
+POST	/rating/:id				controllers.UserController.rating(id: Integer)
+
+#Paypal routes
+GET		/cartpage/:id		                 	controllers.ProductApplication.cartPage(id: Integer)
+POST    /producttocart/:id              controllers.ProductApplication.productToCart(id: Integer)
+GET    /deleteproductcart/:id            controllers.ProductApplication.deleteProductFromCart(id:Integer)
+
+POST   /creditpurchase                     controllers.UserLoginApplication.purchaseProcessing()
+GET    /ordersuccess                      controllers.UserLoginApplication.orderSuccess(paymentID:String,payerID:String,token:String)
+GET    /orderfail                         controllers.UserLoginApplication.orderFail()
+GET		/orderconfirm		                  	controllers.UserLoginApplication.orderConfirm()
+GET		/refundorder/:id	              		controllers.UserLoginApplication.refundOrder(id: Integer)
+
+#Order routes
 GET		/orderpage/:id			controllers.OrderController.orderPage(id: Integer)
+#Web Service routes
+POST		/api/register			ws.controllers.JsonController.registration()
+POST		/api/login			ws.controllers.JsonController.login()
+POST      	/api/addproduct				ws.controllers.JsonController.addProduct()
+GET			/api/showproduct/:id			ws.controllers.JsonController.viewProduct(id: Integer)
+GET			/api/showuserproducts/:id			ws.controllers.JsonController.userProducts(id: Integer)
+GET        /api/allproducts					ws.controllers.JsonController.allProducts()
+GET        /api/allusers					ws.controllers.JsonController.allUsers()
 
-#POST   /itempage/expresscheckout.java   controllers.expresscheckout.doGet()
 
+# Map static resources from the /public folder to the /assets URL path
+GET    /assets/*file            controllers.Assets.at(path="/public", file)

@@ -17,9 +17,10 @@ public class CategoryApplication extends Controller {
 
 	/**
 	 * Adding a new category in the db
+	 * @return result
 	 */
 	@Security.Authenticated(AdminFilter.class)
-	public static Result addCategory() {	
+	public static Result addCategory() {
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.data().get("name");
 		Category.create(name);
@@ -27,11 +28,16 @@ public class CategoryApplication extends Controller {
 		return redirect("/");
 	}
 
+	/**
+	 * opens page for adding new category to database
+	 * @return
+	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewCategory() {
 		Logger.info("Opened page for adding category");
 		String email = session().get("email");
 		return ok(addcategorypage.render(email, categoryForm, FAQ.all()));
+
 	}
 
 
@@ -41,8 +47,9 @@ public class CategoryApplication extends Controller {
 	 * @param id int id of the category
 	 * @return result
 	 */
+	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteCategory(int id) {
-		
+
 		Category.delete(id);
 		Logger.warn(Category.find(id).name + " category is deleted");
 		return redirect("/categorypage");
@@ -53,7 +60,7 @@ public class CategoryApplication extends Controller {
 	 * opens the page where categories are listed
 	 * @return result
 	 */
-	public static Result categoryPage(){
+	public static Result categoryPage() {
 		Logger.info("Category page opened");
 		String email = session().get("email");
 		return ok(categorypage.render(email, Category.list(), FAQ.all()));
@@ -64,13 +71,20 @@ public class CategoryApplication extends Controller {
 	 * @param id int id of the category
 	 * @return result
 	 */
-	public static Result update(int id){
-		
-		Category updateCategory= Category.find(id);
-		updateCategory.name=categoryForm.bindFromRequest().field("name").value();
-		Category.update(updateCategory);
-		Logger.info(updateCategory.name + " category is updated");
-		return redirect("/categorypage");
+	@Security.Authenticated(AdminFilter.class)
+	public static Result update(int id) {
+		try {
+			Category updateCategory = Category.find(id);
+			updateCategory.name = categoryForm.bindFromRequest().field("name")
+					.value();
+			Category.update(updateCategory);
+			Logger.info(updateCategory.name + " category is updated");
+			return redirect("/categorypage");
+		} catch (Exception e) {
+			Logger.error("Error in update category");
+			flash("error", "There has been a mistake in updating category!");
+			return redirect("/homepage");
+		}
 	}
 	
 	/**
@@ -78,11 +92,11 @@ public class CategoryApplication extends Controller {
 	 * @param id int id of the category
 	 * @return results
 	 */
-	public static Result updateCategory(int id){
-	Logger.info("Update category page opened");
+	@Security.Authenticated(AdminFilter.class)
+	public static Result updateCategory(int id) {
+		Logger.info("Update category page opened");
 		String email = session().get("email");
 		return ok(updatecategory.render(email, Category.find(id), FAQ.all()));
 	}
-	
 
 }

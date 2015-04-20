@@ -1,29 +1,46 @@
 @(email: String, product: Product, faqs: List[FAQ])
 @main("Update Product"){
 	<body>
-
-	 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
+      <div class="navbar-header" style="margin: 0px 20px" >
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+         <a href="/homepage" ><img src="@routes.Assets.at("images/Logo.png")" style="height:50 px; width: 130px"/></a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-         <ul class="nav navbar-nav">
-            <li>
-              
-            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-               <div class="form-group">
-                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
-               </div>
-               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
+       
+        
+               @if(email == null) {
+               	  <ul class="nav navbar-nav">
+                 <li  style="margin: 0px 155px">
+                    <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                    <div class="form-group">
+                  		<input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                  		</div>
+                  		<div class="btn-group">
+  							<button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+  							<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    						<span class="caret"></span>
+    						<span class="sr-only">Toggle Dropdown</span>
+  							</button>
+  								<ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+    							<li>
+    								<a href="/advancedsearch">Advanced Search</a>
+    							</li>
+    							</ul>
+						</div>
             </form>
          </li>
-               @if(email == null) {
             <li>
                <h4>
-                  <p style="color: #000">Hello, please  
+                  <p style="color: #000">Hello   
                      <a href="/login">
                      <button class="btn btn-success btn-login"> Log in</button> 
                      </a>
@@ -36,29 +53,49 @@
             </li>
          </ul>
          } else {
-     
-         <li>
-            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-              @if(User.find(email).admin == true) {
+          <ul class="nav navbar-nav">
+                 <li  style="margin: 0px 180px">
+             <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                    <div class="form-group">
+                  		<input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                  		</div>
+                  		<div class="btn-group">
+  							<button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+  							<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    						<span class="caret"></span>
+    						<span class="sr-only">Toggle Dropdown</span>
+  							</button>
+  								<ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+    							<li>
+    								<a href="/advancedsearch">Advanced Search</a>
+    							</li>
+    							</ul>
+						</div>
+            </form>
+         </li>
+      
+         <ul class='nav navbar-nav pull-right'>
+
+                    <li class='dropdown'>
+               <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+               <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
+              
+               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                 @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   
                   } else {
                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
-                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
                    <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
                    <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
                  
 
-
                   }
                   <li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
-                  </li>
                </ul>
-         </li>
+            </li>
          </ul>
          }
       </div>
@@ -70,11 +107,26 @@
 	<div class="row">
 		<div class="col-md-12">
 			@if(flash.get("error")){
-			 <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" role="alert">
                      <div class="container">
                         @flash.get("error")
                      </div>
-		}		
+                  </div>
+         }
+         @if(flash.get("warning")){
+       <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("warning")
+                     </div>
+                  </div>
+         }
+          @if(flash.get("success")) {
+         	<div class="alert alert-success" role="alert">
+                     <div class="container">
+                        @flash.get("success")
+                     </div>
+                  </div>
+         	}
 			<div class="col-sm-4">
 				<div class="well login-box">
 					<form action="/updateproduct/@product.id" method="POST" enctype="multipart/form-data">
@@ -91,6 +143,12 @@
 							<input value=@product.price name="price"id="price" placeholder="Price of your product" type="text" class="form-control" required/>
 						
 						</dl>
+						<dl class=" " id="quantity_field">
+							<dt><label for="quantity">Quantity:</label> </dt>
+							<dd>
+							<input value=@product.quantity name="quantity"id="quantity" placeholder="Quantity for your product" type="text" class="form-control" required/>
+						
+						</dl>
 						<dl class=" " id="description_field">
 							<dt><label for="description">Description:</label> </dt>
 							<dd>
@@ -98,19 +156,20 @@
 							<textarea rows="4" cols="50"  name="description" id="description" placeholder="Description of your product"
 						 class="form-control" required>@product.description </textarea>
 						
-						</dl>
-							<dl class=" " id="image_url">
-							<dt><label for="image_url">Image:</label> </dt>
-							<div class="form-group text-center">
-							<input type="file" name="image_url" id="image_url" value="@product.image_url"/> 
-							</div>
+						  <dl class=" " id="image_url">
+							<dt><label for="image_url">Select images:</label> </dt>
+							
+  								<input type="file" name="image_url" multiple>
+ 								 <input type="submit" class="btn btn-success" value="Update" style="width: 300px; height: 40px; margin: 10px 5px">
+								
 							</dl>
+                  <div class="form-group text-center">
 							<div class="form-group text-center">
-							<input type="submit"“ class="btn btn-success btn-login-submit" role="button" value="Update" /> 							
+							<!--  <input type="submit"“ class="btn btn-success btn-login-submit" role="button" value="Update" /> 	-->						
 							@if(User.find(session().get("email")).admin) {
-								<a href="/profile" class="btn btn-danger"> Back </a>
+								<a href="/profile" class="btn btn-danger" style="width: 300px; height: 40px; margin: 10px 0px"> Back </a>
 								} else {
-								<a href="/homepage" class="btn btn-danger"> Back </a>
+								<a href="/homepage" class="btn btn-danger" style="width: 300px; height: 40px; margin: 10px 0px"> Back </a>
 								}
 							</div>
 

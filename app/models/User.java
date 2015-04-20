@@ -6,20 +6,25 @@ import helpers.MailHelper;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.*;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.avaje.ebean.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
-import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
-import play.mvc.Result;
+import play.db.ebean.Model.Finder;
+import play.db.ebean.*;
+
 
 
 /**
@@ -30,10 +35,15 @@ import play.mvc.Result;
  *
  */
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@userId")
 public class User extends Model {
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
+	//@JsonManagedReference
 	public List<Product> products;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="receiver")
+	public List<Message> msgs;
 
 	@Id
 	public int id;
@@ -81,14 +91,20 @@ public class User extends Model {
 	public boolean hasAdditionalInfo;
 	
 	public Cart userCart;
+
+	public double rating;
+	
+	public int numberOfRatings;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
 	public List<Orders> orderList;
+	
+	@OneToMany(cascade= CascadeType.ALL, mappedBy = "seller")
+	public List<Orders> soldOrders;
 
-	 static Finder<Integer, User> find = new Finder<Integer, User>(
-			Integer.class, User.class);
-	public static Finder<Integer, User> findUser = new Finder<Integer, User>(
-			Integer.class, User.class);
+	public static Finder<Integer, User> find = new Finder<Integer, User>(Integer.class, User.class);
+	public static Finder<Integer, User> findUser = new Finder<Integer, User>(Integer.class, User.class);
+
 
 	/**
 	 * creates a user
@@ -100,6 +116,8 @@ public class User extends Model {
 		this.password = password;
 		this.admin = false;
 		this.hasAdditionalInfo = false;
+		this.numberOfRatings = 0;
+		//this.userCart=new Cart(this.id,email);
 	}
 	
 	public User(String email, String password, String confirmation) {
@@ -108,6 +126,8 @@ public class User extends Model {
 		this.admin = false;
 		this.confirmation = confirmation;
 		this.hasAdditionalInfo = false;
+		//this.userCart=new Cart(this.id,email);
+
 	}
 	
 	public User(String email, String password, boolean admin, boolean verification) {
@@ -116,6 +136,9 @@ public class User extends Model {
 		this.admin = admin;
 		this.verification = verification;
 		this.hasAdditionalInfo = false;
+		this.numberOfRatings = 0;
+	//	this.userCart=new Cart(this.id,email);
+
 		
 	}
 
@@ -135,6 +158,13 @@ public class User extends Model {
 		return true;
 	}
 	
+	public static User createUser(String email, String password) {
+		if (existsEmail(email))
+			return null;
+	User user=	new User(email, HashHelper.createPassword(password));
+	user.save();
+		return user;
+	}
 	public static boolean create(String email, String password, String confirmation) {
 		if (existsEmail(email))
 			return false;
@@ -282,6 +312,14 @@ public class User extends Model {
 		return true;
 	}
 	
+
+	
+
+
+	public static List<User> findAll() {
+		return find.all();
+	}
+
 
 
 }

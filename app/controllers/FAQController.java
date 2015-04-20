@@ -44,13 +44,19 @@ public class FAQController extends Controller {
 	public static Result addNewFAQ() {
 		String email = session().get("email");
 		DynamicForm form = Form.form().bindFromRequest();
-		
-		String question = form.get("question");
-		String answer = form.get("answer");
-		FAQ.createFAQ(question, answer);	
-		Logger.info("New FAQ added with question: " + question);
-		flash("success","New question added!");
-		return ok(newfaq.render(email));
+
+		try {
+			String question = form.get("question");
+			String answer = form.get("answer");
+			FAQ.createFAQ(question, answer);
+			Logger.info("New FAQ added with question: " + question);
+			flash("success", "New question added!");
+			return ok(newfaq.render(email));
+		} catch (Exception e) {
+			Logger.error("Error in addNewFAQ");
+			flash("error", "There has been an error in adding FAQ!");
+			return redirect("/homepage");
+		}
 	}
 	
 	/**
@@ -63,9 +69,9 @@ public class FAQController extends Controller {
 		String email = session().get("email");
 		FAQ q = FAQ.find(id);
 		Logger.info("Opened page for FAQ update");
-		return ok(updatefaq.render(email,q,FAQ.all() ));
+		return ok(updatefaq.render(email, q, FAQ.all()));
 	}
-	
+
 	/**
 	 * gets the data from update from FAQ
 	 * saves it in database
@@ -78,36 +84,53 @@ public class FAQController extends Controller {
 		DynamicForm form = Form.form().bindFromRequest();
 		FAQ f = FAQ.find(id);
 		FAQ oldFAQ = f;
-		f.answer = form.get("answer");
-		f.question = form.get("question");
-		f.update();
-		flash("success","Successful update!");
-		if(!oldFAQ.question.equals(f.question) && oldFAQ.answer.equals(f.answer))
-			Logger.info("FAQ with id: " + id + " updated with question: " + f.question);
-		else if(!oldFAQ.question.equals(f.question) && !oldFAQ.answer.equals(f.answer))
-			Logger.info("FAQ with id: " + id + " updated with question: " + f.question + " and answer: " + f.answer);
-		else if(oldFAQ.question.equals(f.question) && !oldFAQ.answer.equals(f.answer))
-			Logger.info("FAQ with id: " + id + " updated with answer: " + f.answer);
-		else
-			Logger.info("FAQ with id: " + id + " hasn't been changed");
-		return ok(updatefaq.render(email,f ,FAQ.all()));
+		try {
+			f.answer = form.get("answer");
+			f.question = form.get("question");
+			f.update();
+			flash("success", "Successful update!");
+			if (!oldFAQ.question.equals(f.question)
+					&& oldFAQ.answer.equals(f.answer))
+				Logger.info("FAQ with id: " + id + " updated with question: "
+						+ f.question);
+			else if (!oldFAQ.question.equals(f.question)
+					&& !oldFAQ.answer.equals(f.answer))
+				Logger.info("FAQ with id: " + id + " updated with question: "
+						+ f.question + " and answer: " + f.answer);
+			else if (oldFAQ.question.equals(f.question)
+					&& !oldFAQ.answer.equals(f.answer))
+				Logger.info("FAQ with id: " + id + " updated with answer: "
+						+ f.answer);
+			else
+				Logger.info("FAQ with id: " + id + " hasn't been changed");
+			return ok(updatefaq.render(email, f, FAQ.all()));
+		} catch (Exception e) {
+			Logger.error("Error in updating FAQs");
+			flash("error", "There has been an error in updating FAQ!");
+			return redirect("/homepage");
+		}
 	}
 	
 	/**
-	 * deletes FAQ
-	 * returns to all FAQs
+	 * deletes FAQ returns to all FAQs
+	 * 
 	 * @param id
 	 * @return result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteFAQ(int id) {
 		String email = session().get("email");
-		FAQ.delete(id);
-		Logger.warn("FAQ with id: " + id + " has been deleted");
-		flash("success", "Question deleted!");
-		return ok(faq.render(email, FAQ.all()));
+		try {
+			FAQ.delete(id);
+			Logger.warn("FAQ with id: " + id + " has been deleted");
+			flash("success", "Question deleted!");
+			return ok(faq.render(email, FAQ.all()));
+		} catch (Exception e) {
+			Logger.error("Error in delete FAQ");
+			flash("error", "There has been an error in deleting FAQ!");
+			return redirect("/homepage");
+		}
 	}
-	
 	
 
 }
