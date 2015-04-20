@@ -162,12 +162,19 @@
 
       }
    </div>
-       </div>
+       </div><form method="POST" action="/changeshipping/@cart.id"">
+          	<div class="form-group">
+          <label>Shipping address: </label>
+          <input name ="shippingAddress" id="shippingAddress" value='@cart.shippingAddress' placeholder="Type the shipping address" class="form-control"/>
+          <input type="submit" value="Change" class="btn btn-success btn-login-submit" />
+          </div>
+          </form>
         </div>
           
         <hr>
 
           <div class="row">
+          
     	<h3>Number of items:  @cart.size </h3>
         <h3>Total price: @cart.checkout $</h3>
         <div class=container>

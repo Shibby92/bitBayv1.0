@@ -25,9 +25,9 @@ public class Global extends GlobalSettings {
 			
 			User u = new User("admin@gmail.com",
 					HashHelper.createPassword("admin"), true, true);
+			u.user_address = "Admin Street 229 ";
 			User.create(u);
 			u.username = "Admin";
-			u.user_address = "Admin Street 229 ";
 			u.hasAdditionalInfo = true;
 			u.update();
 
@@ -49,9 +49,9 @@ public class Global extends GlobalSettings {
 
 			User u4 = new User("haris.arifovic@bitcamp.ba",
 					HashHelper.createPassword("haris"), false, true);
+			u4.user_address="Lozionicka 2";
 			User.create(u4);
 			u4.username="Haris";
-			u4.user_address="Lozionicka 2";
 			u4.hasAdditionalInfo=true;
 			u4.update();
 
