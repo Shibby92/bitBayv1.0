@@ -1,4 +1,4 @@
-@(email: String, users: List[User], categoryList: List[Category], products: List[Product], myproducts:List[Product] ,  faqs: List[FAQ], mails: List[Message])
+@(email: String, users: List[User], categoryList: List[Category], products: List[Product], myproducts:List[Product] ,  faqs: List[FAQ], mails: List[Message], sold: List[Product])
 
 @main("Profile") {
 <body>
@@ -152,7 +152,8 @@
         
           } else {
              <li ><a href="#myproducts" data-toggle="tab">My products</a></li> 
-               <li><a href="#messages" data-toggle="tab">Messages</a></li>       
+               <li><a href="#messages" data-toggle="tab">Messages</a></li>
+               <li><a href="#soldproducts" data-toggle="tab">My sold products</a></li>       
              }
              
         </ul>
@@ -327,7 +328,35 @@
       </table>
    </div>
 </div>
+         </div> <!-- end of messages -->
+         
+         <div class="tab-pane"  id="soldproducts" style="margin: 0px 35px"> 
+   <div class="container">
+      <form action="/">
+     
+      <div class="row">
+        <div class="col-md-9">
+       
+      @for(product <- sold){
+      <div class="col-sm-5 col-lg-5 col-md-5">
+         <div class="thumbnail">
+             <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
+            <div class="caption">
+               <h4 class="pull-right"> @product.price $</h4>
+               <h4> <a href="itempage/@product.id">@product.name</a>
+               </h4>
+               <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
+            </div>
          </div>
+         
+      </div>
+      
+      }
+   </div>
+   </div>
+      
+       </div>
+      </div>
       
       </div>
       

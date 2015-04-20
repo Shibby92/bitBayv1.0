@@ -6,23 +6,20 @@ import helpers.MailHelper;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.avaje.ebean.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
+import play.db.ebean.Model.Finder;
 import javax.persistence.*;
 
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
-import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 import play.db.ebean.*;
 
 
@@ -311,13 +308,24 @@ public class User extends Model {
 		u.update();
 		return true;
 	}
-	
-
-	
-
 
 	public static List<User> findAll() {
 		return find.all();
+	}
+	
+	/**
+	 * gets all product that one user had sold
+	 * @param id int id of the user
+	 * @return list of products
+	 */
+	public static List<Product> mySoldProducts(int id) {
+		List<Product> pr = new ArrayList<Product>();
+		for(Product p: User.find(id).products) {
+			if(p.sold == true) {
+				pr.add(p);
+			}	
+		}
+		return pr;
 	}
 
 
