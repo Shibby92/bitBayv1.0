@@ -37,6 +37,8 @@ public class Orders extends Model {
 	
 	public String token;
 	
+	public String shippingAddress;
+	
 	@ManyToOne
 	public User seller;
 	
@@ -58,6 +60,7 @@ public class Orders extends Model {
 				this.productList.add(cart.productList.get(i));
 			}
 			price = cart.checkout;
+			this.shippingAddress=cart.shippingAddress;
 			this.token = token;
 			this.buyer = buyer;
 		}

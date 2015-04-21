@@ -110,7 +110,7 @@
    <!-- Page Content -->
    <div class="container">
    
-							<h3>Confirm order:</h3>
+							<h4>Confirm order:</h4>
 							<hr>
 							
 	<br><br>
@@ -139,22 +139,37 @@
                        
       </tbody>
       </table>
-<br>
-                    <h3>Total: @cart.checkout $</h3>
-                     <div>
-   <a href="@routes.UserLoginApplication.orderSuccess(paymentID,payerID,token)">
-            	 <button type="button" class="btn btn-success">Confirm</button>
-            	</a>
+<br>	
+					<div >
+                    <h4>Total: @cart.checkout $</h4>
+                     
+   				<a href="@routes.UserLoginApplication.orderSuccess(paymentID,payerID,token)">
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">
+	  			Confirm
+				</button></a>
             	<a href="/orderfail"
             	<button type="button" class="btn btn-danger">Cancel</button>
             	</a>
-   </div>
-                   
-     </div>
-      
-   </div><br><br>
+            	 <p>
   
-      <div class="container">
+   </p>
+
+ 		</div>
+ 		
+ 		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content" style="margin: 100px 2px">
+      				Stranic se ucitava polakoooo
+    			</div>
+ 			</div>
+		</div>
+			
+			
+ 		</div>
+			</div>
+  
+  	
+      <div class="container" >
       <hr>
       <a href="/contactpage">
          <h3>Contact Us</h3>
@@ -163,5 +178,6 @@
          <h3> FAQs</h3>
       </a>
    </div>
+  
 </body>
 }

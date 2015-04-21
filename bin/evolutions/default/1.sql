@@ -3,12 +3,22 @@
 
 # --- !Ups
 
+create table blog (
+  id                        integer not null,
+  title                     varchar(255),
+  content                   TEXT,
+  blog_image_path           varchar(255),
+  date                      varchar(255),
+  constraint pk_blog primary key (id))
+;
+
 create table cart (
   id                        integer not null,
   userid                    integer,
   user_mail                 varchar(255),
   checkout                  double,
   size                      integer,
+  shipping_address          varchar(255),
   constraint pk_cart primary key (id))
 ;
 
@@ -53,6 +63,7 @@ create table orders (
   buyer_id                  integer,
   price                     double,
   token                     varchar(255),
+  shipping_address          varchar(255),
   seller_id                 integer,
   notification              boolean,
   constraint pk_orders primary key (id))
@@ -86,6 +97,12 @@ create table product_quantity (
   constraint pk_product_quantity primary key (id))
 ;
 
+create table report (
+  id                        integer not null,
+  message                   varchar(255),
+  constraint pk_report primary key (id))
+;
+
 create table user (
   id                        integer not null,
   email                     varchar(255),
@@ -112,6 +129,8 @@ create table OrderDetails (
   productId                      integer not null,
   constraint pk_OrderDetails primary key (orderId, productId))
 ;
+create sequence blog_seq;
+
 create sequence cart_seq;
 
 create sequence category_seq;
@@ -129,6 +148,8 @@ create sequence orders_seq;
 create sequence product_seq;
 
 create sequence product_quantity_seq;
+
+create sequence report_seq;
 
 create sequence user_seq;
 
@@ -163,6 +184,8 @@ alter table OrderDetails add constraint fk_OrderDetails_product_02 foreign key (
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists blog;
+
 drop table if exists cart;
 
 drop table if exists category;
@@ -183,9 +206,13 @@ drop table if exists product;
 
 drop table if exists product_quantity;
 
+drop table if exists report;
+
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists blog_seq;
 
 drop sequence if exists cart_seq;
 
@@ -204,6 +231,8 @@ drop sequence if exists orders_seq;
 drop sequence if exists product_seq;
 
 drop sequence if exists product_quantity_seq;
+
+drop sequence if exists report_seq;
 
 drop sequence if exists user_seq;
 

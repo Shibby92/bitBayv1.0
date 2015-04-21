@@ -25,33 +25,33 @@ public class Global extends GlobalSettings {
 			
 			User u = new User("admin@gmail.com",
 					HashHelper.createPassword("admin"), true, true);
+			u.user_address = "Admin Street 229 ";
 			User.create(u);
 			u.username = "Admin";
-			u.user_address = "Admin Street 229 ";
 			u.hasAdditionalInfo = true;
 			u.update();
 
 			User u2 = new User("mustafa.ademovic93@gmail.com",
 					HashHelper.createPassword("123456"), false, true);
+			u2.user_address = "Admin Street 229 ";
 			User.create(u2);
 			u2.username = "Mustafa";
-			u2.user_address = "Admin Street 229 ";
 			u2.hasAdditionalInfo = true;
 			u2.update();
 
 			User u3 = new User("emina.muratovic@bitcamp.ba",
 					HashHelper.createPassword("emina"), false, true);
+			u3.user_address = "Admin Street 229 ";
 			User.create(u3);
 			u3.username = "Emina";
-			u3.user_address = "Admin Street 229 ";
 			u3.hasAdditionalInfo = true;
 			u3.update();
 
 			User u4 = new User("haris.arifovic@bitcamp.ba",
 					HashHelper.createPassword("haris"), false, true);
+			u4.user_address="Lozionicka 2";
 			User.create(u4);
 			u4.username="Haris";
-			u4.user_address="Lozionicka 2";
 			u4.hasAdditionalInfo=true;
 			u4.update();
 
@@ -332,6 +332,16 @@ public class Global extends GlobalSettings {
 			Comment.createComment("Hope to deal with you again. Thank you.",User.find(3),Product.find(9));
 			Comment.createComment("Thank you a great product Call back anytime A+++++++",User.find(4),Product.find(10));
 			Comment.createComment("Hope to deal with you again. Thank you.",User.find(6),Product.find(10));
+		}
+		
+		if(Blog.findBlogById(1) == null) {
+			Blog.createBlog("BitBay started", 
+					"A new website for online shopping has started to work today. We will be at your service 24/7 and provide top service"
+					+ "to all our users. Our primary conceirn is safety for our users so they can buy, sell and trade with out any worry"
+					+ "for security."
+					+ "We really hope you will find our website fun and intuitive to use."
+					+ "Kind Regards BitBay team.", 
+					"images/logo.png");
 		}
 
 	}

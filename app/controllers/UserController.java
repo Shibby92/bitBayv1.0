@@ -1,5 +1,7 @@
 package controllers;
 
+
+import java.util.List;
 import java.net.MalformedURLException;
 import java.text.*;
 import java.util.Date;
@@ -215,11 +217,29 @@ public class UserController extends Controller {
 		Logger.info("User " + session().get("email")
 				+ " has opened his profile page");
 		String email = session().get("email");
+		User u = User.find(email);
+		List<Product> products = User.mySoldProducts(u.id);
 		return ok(profile.render(email, User.all(), Category.list(),
 				Product.productList(),
 				Product.myProducts(User.find(session().get("email")).id),
-				FAQ.all(), Message.all(User.find(session().get("email")))));
+				FAQ.all(), Message.all(User.find(session().get("email"))), products));
 	}
+	
+	/**
+	 * opens page to other users profile
+	 * @return result
+	 */
+	public static Result userProfile(int id) {
+		User user = User.find(id);
+		Logger.info("User " + session().get("email")
+				+ " has opened " + User.find(id).email + " profile page");
+		String email = session().get("email");
+		return ok(userprofile.render(user, email,
+				Product.myProducts(user.id),
+				FAQ.all()));
+	}
+	
+	
 	
 	/**
 	 * opens page for rating user
@@ -258,7 +278,6 @@ public class UserController extends Controller {
 		flash("success", "You have successfuly rated user!");
 		return redirect("/profile");
 	}
-	
 
 
 
