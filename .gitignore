@@ -13,5 +13,6 @@ dist
 /.project
 /RUNNING_PID
 /.settings
-/bin/
+/bin
 .cache
+.DS_Store

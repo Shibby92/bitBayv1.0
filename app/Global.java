@@ -333,6 +333,16 @@ public class Global extends GlobalSettings {
 			Comment.createComment("Thank you a great product Call back anytime A+++++++",User.find(4),Product.find(10));
 			Comment.createComment("Hope to deal with you again. Thank you.",User.find(6),Product.find(10));
 		}
+		
+		if(Blog.findBlogById(1) == null) {
+			Blog.createBlog("BitBay started", 
+					"A new website for online shopping has started to work today. We will be at your service 24/7 and provide top service"
+					+ "to all our users. Our primary conceirn is safety for our users so they can buy, sell and trade with out any worry"
+					+ "for security."
+					+ "We really hope you will find our website fun and intuitive to use."
+					+ "Kind Regards BitBay team.", 
+					"images/logo.png");
+		}
 
 	}
 }
