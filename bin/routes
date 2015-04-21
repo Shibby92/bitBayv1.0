@@ -147,10 +147,5 @@ GET   	/deleteBlog             controllers.BlogController.deleteBlog(id: Integer
 
 
 # Map static resources from the /public folder to the /assets URL path
-<<<<<<< HEAD
-GET    /assets/*file               controllers.Assets.at(path="/public", file)
-=======
 GET    /assets/*file            controllers.Assets.at(path="/public", file)
 
-
->>>>>>> 9ea58b684ec1a4595b6083d35608d0a1de094725
