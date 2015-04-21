@@ -6,7 +6,7 @@
 create table blog (
   id                        integer not null,
   title                     varchar(255),
-  content                   varchar(255),
+  content                   TEXT,
   blog_image_path           varchar(255),
   date                      varchar(255),
   constraint pk_blog primary key (id))

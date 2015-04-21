@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -27,6 +28,7 @@ public class Blog extends Model {
 	public String title;
 	
 	@Required
+	@Column(columnDefinition = "TEXT")
 	public String content;
 	
 	@Required
@@ -94,7 +96,7 @@ public class Blog extends Model {
 	 */
 	public static String date() {
 		Date date = Calendar.getInstance().getTime();
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd hh:mm");
 		return formatter.format(date);
 	}
 
