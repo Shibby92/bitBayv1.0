@@ -265,19 +265,18 @@
    </div>  
  
     <div class="tab-pane"  id="myproducts"> 
-   <div class="container">
+ 
       <form action="/">
       <div class="form-group text-center" style="margin: 50px 20px">
          <a style="margin: 16.5px -5px" class="btn btn-success" href="/addproductcategory" role="button">Add new product</a>
       </div>
      
 
-      <div class="row">
-        <div class="col-md-9">
+        <div class="row" >
       @for(product <- myproducts){
-      <div class="col-sm-5 col-lg-5 col-md-5">
+      <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
-             <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
+            <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
             <div class="caption">
                <h4 class="pull-right"> @product.price $</h4>
                <h4> <a href="itempage/@product.id">@product.name</a>
@@ -285,6 +284,7 @@
                <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
             </div>
              <div style="margin: 10px 70px">
+              
                <a class="btn btn-success glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button" style="width: 220px; height: 40px; margin: 10px -35px">Update</a>
                <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?')" style="width: 220px; height: 40px; margin: 10px -35px">Delete</a> 
             </div>
@@ -292,10 +292,10 @@
          
       </div>
       }
-   </div>
+  
    </div>
       
-       </div>
+      
       </div> <!-- end of my products -->
       
      <div class="tab-pane" class="tab-pane active" id="messages" style="margin: 0px 35px">

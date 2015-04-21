@@ -97,6 +97,12 @@ create table product_quantity (
   constraint pk_product_quantity primary key (id))
 ;
 
+create table report (
+  id                        integer not null,
+  message                   varchar(255),
+  constraint pk_report primary key (id))
+;
+
 create table user (
   id                        integer not null,
   email                     varchar(255),
@@ -142,6 +148,8 @@ create sequence orders_seq;
 create sequence product_seq;
 
 create sequence product_quantity_seq;
+
+create sequence report_seq;
 
 create sequence user_seq;
 
@@ -198,6 +206,8 @@ drop table if exists product;
 
 drop table if exists product_quantity;
 
+drop table if exists report;
+
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
@@ -221,6 +231,8 @@ drop sequence if exists orders_seq;
 drop sequence if exists product_seq;
 
 drop sequence if exists product_quantity_seq;
+
+drop sequence if exists report_seq;
 
 drop sequence if exists user_seq;
 
