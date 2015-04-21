@@ -112,6 +112,13 @@
                      </div>
                   </div>
          }
+          @if(flash.get("minQty")){
+         <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("minQty")
+                     </div>
+                  </div>
+         }
       <div style="margin: 80px -15px" class="row">
       <div class="col-md-3" style="margin: -3px -235px">
    <div class="list-group">
@@ -170,7 +177,7 @@
                   <div>
                      <dl class=" " id="orderedQuantity_field">
                         <dt><label for="orderedQuantity">Quantity:</label> </dt>
-                        <dd><input maxlength="6" size="6" name="orderedQuantity" id="orderedQuantity" value='1'  placeholder="Enter quantity " type="number" step="1" min="0"  max="999999" class="form-control" required/> </dd>
+                        <dd><input maxlength="6" size="6" name="orderedQuantity" id="orderedQuantity" value='1'  placeholder="Enter quantity " type="number" step="1" min="1"  max="999999" class="form-control" required/> </dd>
                      </dl>
                   </div>
                   }

@@ -433,6 +433,7 @@ public class ProductApplication extends Controller {
 		String email = session().get("email");
 		return ok(cartpage.render(email, Cart.getCart(id), FAQ.all()));
 	}
+	
 
 	/**
 	 * gets info from one product
@@ -456,6 +457,13 @@ public class ProductApplication extends Controller {
 		Logger.info(String.valueOf(userid));
 		DynamicForm form = Form.form().bindFromRequest();
 		int orderedQuantity = Integer.valueOf(form.get("orderedQuantity"));
+		if(orderedQuantity<1){
+			flash("minQty",
+					"Ordered quantity must be at least 1!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+
+			return redirect("/itempage/" + id);
+		}
 		orderedTotalQta = orderedQuantity + p.getOrderedQuantity();
 		if (orderedTotalQta > p.getQuantity()) {
 			flash("excess",
@@ -463,12 +471,12 @@ public class ProductApplication extends Controller {
 			p.setOrderedQuantity(p.getOrderedQuantity());
 
 			return redirect("/itempage/" + id);
-		} else if(orderedQuantity==0){
+		} /*else if(orderedQuantity==0){
 			flash("excess",
 					"You cannot order zero quantity!");
 			return redirect("/itempage/" + id);
 			
-		}else{
+		}*/else{
 			p.setOrderedQuantity(orderedTotalQta);
 			p.amount = p.getPrice() * p.getOrderedQuantity();
 			Logger.info(String.valueOf("Naruceno: " + orderedQuantity));
@@ -488,6 +496,35 @@ public class ProductApplication extends Controller {
 			}
 		}
 	}
+	
+	public static Result changeOrderedQty(int id){
+		String email = session().get("email");
+		Product p = find.byId(id);
+		if (session().isEmpty()) {
+			flash("guest", "Please log in to buy stuff!");
+			return redirect("/login");
+		}
+		int userid = User.findUser.where().eq("email", session().get("email"))
+				.findUnique().id;
+		Cart cart = Cart.getCart(email);
+		DynamicForm form = Form.form().bindFromRequest();
+		int orderedQuantity = Integer.valueOf(form.get("changeOrderedQuantity"));
+		if(orderedQuantity<1){
+			flash("minQty",
+					"Ordered quantity must be at least 1!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+			return redirect("/cartpage/" + userid);
+		}
+		p.setOrderedQuantity(orderedQuantity);
+		p.amount = p.getPrice() * p.getOrderedQuantity();
+		Logger.info(String.valueOf("Naruceno: " + orderedQuantity));
+		p.update();
+		p.save();
+		return redirect("/cartpage/" + userid);
+		
+	}
+	
+	
 	public static Result changeShippingAddress (int id){
 		DynamicForm form= Form.form().bindFromRequest();
 		String shipA=form.get("shippingAddress");

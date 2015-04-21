@@ -113,6 +113,8 @@ GET    /assets/*file               controllers.Assets.at(path="/public", file)
 #Paypal routes
 GET    /cartpage/:id               controllers.ProductApplication.cartPage(id: Integer)
 POST   /producttocart/:id          controllers.ProductApplication.productToCart(id: Integer)
+POST   /changeorderedqty/:id          controllers.ProductApplication.changeOrderedQty(id: Integer)
+
 GET    /deleteproductcart/:id      controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase             controllers.UserLoginApplication.purchaseProcessing()
