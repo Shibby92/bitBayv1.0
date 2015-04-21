@@ -160,7 +160,7 @@ public class ProductApplication extends Controller {
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result deleteProduct(int id) {
-
+		Product p = Product.find(id);
 		Product.delete(id);
 		Logger.warn("product with id: " + id + " has been deleted");
 		return redirect("/profile");
