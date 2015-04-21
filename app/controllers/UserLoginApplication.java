@@ -36,6 +36,7 @@ import com.paypal.base.rest.PayPalRESTException;
  * Controls the login application Redirects on the pages when needed When the
  * user registers, he gets redirected to page with ads If the user is already
  * registered, then he gets redirected to LOG IN page
+ * 
  * @author eminamuratovic
  *
  */
@@ -44,8 +45,8 @@ public class UserLoginApplication extends Controller {
 	static Form<Contact> contactForm = new Form<Contact>(Contact.class);
 
 	/**
-	 *  main page
-	 * login page
+	 * main page login page
+	 * 
 	 * @return result
 	 */
 	public static Result homePage() {
@@ -63,9 +64,10 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 *  tries to log user to page
-	 *  if the user can log, he gets redirected to index page
-	 *  if the user is not in database, he gets redirected to register page
+	 * tries to log user to page if the user can log, he gets redirected to
+	 * index page if the user is not in database, he gets redirected to register
+	 * page
+	 * 
 	 * @return result
 	 */
 	public static Result login() {
@@ -101,10 +103,10 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 * tries to register user
-	 * if there is already user with the same username he gets redirected to
-	 *  login page
-	 *  if the user gets registered, he gets a verification email on his email address
+	 * tries to register user if there is already user with the same username he
+	 * gets redirected to login page if the user gets registered, he gets a
+	 * verification email on his email address
+	 * 
 	 * @return result
 	 * @throws MalformedURLException
 	 */
@@ -141,6 +143,7 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * goes to page where the user can be registered
+	 * 
 	 * @return result
 	 */
 	public static Result toRegister() {
@@ -226,6 +229,7 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * goes to page where user can login
+	 * 
 	 * @return result
 	 */
 	public static Result toLogin() {
@@ -235,11 +239,10 @@ public class UserLoginApplication extends Controller {
 
 		return ok(logintest.render(email, FAQ.all()));
 	}
-	
+
 	/**
-	 * redirect to homepage
-	 * user gets logged out
-	 * clear from session
+	 * redirect to homepage user gets logged out clear from session
+	 * 
 	 * @return result
 	 */
 	public static Result logOut() {
@@ -252,6 +255,7 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * opens page for contact us
+	 * 
 	 * @return result
 	 */
 	public static Result contactPage() {
@@ -267,6 +271,7 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * avoiding model creation for contact form
+	 * 
 	 * @author eminamuratovic
 	 */
 	public static class Contact {
@@ -286,12 +291,13 @@ public class UserLoginApplication extends Controller {
 		}
 
 	}
-	
+
 	/*********************************************************************/
 	/*********************** PAYPAL SECTION ******************************/
 
 	/**
 	 * tries to buy product with paypall
+	 * 
 	 * @return result
 	 */
 	@Security.Authenticated(UserFilter.class)
@@ -351,14 +357,48 @@ public class UserLoginApplication extends Controller {
 
 	@Security.Authenticated(UserFilter.class)
 	public static String cartToString(Cart cart) {
+
 		StringBuilder sb = new StringBuilder();
+
 		sb.append("Your order via bitBay: ");
+
 		for (Product product : cart.productList) {
+
 			sb.append(product.name + " (" + product.price + "0 $) x "
-					+ product.orderedQuantity + ", ");
+
+			+ product.orderedQuantity + ", ");
+
 		}
+
 		sb.append("which is a total prize of: " + cart.checkout + "0 $");
+
+		if (sb.length() > 127) {
+
+			sb.delete(0, sb.length());
+
+			sb.append("Your order via bitBay: ");
+
+			for (Product product : cart.productList) {
+
+				sb.append(product.name + " x " + product.orderedQuantity + ", ");
+
+			}
+
+			sb.append("TOTAL: " + cart.checkout + "0 $");
+
+		}
+
+		if (sb.length() > 127) {
+
+			sb.delete(0, sb.length());
+
+			sb.append("Your order via bitBay: ");
+
+			sb.append("TOTAL: " + cart.checkout + "0 $");
+
+		}
 		return sb.toString();
+
 	}
 
 	@Security.Authenticated(UserFilter.class)
@@ -384,7 +424,7 @@ public class UserLoginApplication extends Controller {
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(sdkConfig);
 			Payment payment = Payment.get(accessToken, paymentID);
-			
+
 			Logger.debug("POSLIJE FOR PETLJE");
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());
@@ -422,30 +462,29 @@ public class UserLoginApplication extends Controller {
 			while (itr.hasNext()) {
 				Product p = itr.next();
 				p.order.add(order);
-				p.cart=null;
+				p.cart = null;
 			}
-			
-			Orders userOrder = user.orderList
-					.get(user.orderList.size() - 1);
-			for(Product p: userOrder.productList){
+
+			Orders userOrder = user.orderList.get(user.orderList.size() - 1);
+			for (Product p : userOrder.productList) {
 				User seller = p.owner;
 				seller.soldOrders.add(userOrder);
 				seller.soldOrders.get(seller.soldOrders.size() - 1).notification = true;
 				seller.soldOrders.get(seller.soldOrders.size() - 1).seller = seller;
 			}
-			
 
 			for (Product product : order.productList) {
 				if (product.getOrderedQuantity() >= product.getQuantity())
 					product.sold = true;
 				int leftQuantity = product.getQuantity()
 						- product.getOrderedQuantity();
-				ProductQuantity temp=new ProductQuantity(product.id,product.getOrderedQuantity());
+				ProductQuantity temp = new ProductQuantity(product.id,
+						product.getOrderedQuantity());
 				order.pQ.add(temp);
 				product.setQuantity(leftQuantity);
-				product.cart=null;
+				product.cart = null;
 				product.setOrderedQuantity(0);
-				
+
 				order.update();
 			}
 			Cart.clear(user.id);

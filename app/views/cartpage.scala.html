@@ -146,19 +146,7 @@
                <h4 class="pull-right"> @product.price $</h4>
                <h4><a href="/itempage/@product.id">@product.name </a>
                </h4>
-               @if((email==null)||(User.find(email).admin == false)) {
-               @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
-               <form method="POST" enctype="multipart/form-data">
-                 <div>
-                     <dl class=" " id="changeOrderedQuantity_field">
-                        <dt><label for="changeOrderedQuantity">Quantity:</label> </dt>
-                        <dd><input maxlength="6" size="6" onChange="@routes.ProductApplication.changeOrderedQty(product.id)" name="changeOrderedQuantity" id="changeOrderedQuantity" value='@product.getOrderedQuantity'  placeholder="Enter quantity " type="number" step="1" min="1"  max="999999" class="form-control" required/> </dd>
-                     </dl>
-                  </div>
-                  }
-                  
-                  }
-                  </form>
+             
                <p> @product.description </p>
                <div>
                 <h4 class="pull-down">Quantity: @product.orderedQuantity</h4>

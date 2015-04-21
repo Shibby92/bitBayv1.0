@@ -626,6 +626,7 @@ public class ProductApplication extends Controller {
 
 	}
 	
+	
 	/**
 	 * opens page where user replies to another user
 	 * @param id int id of the sender
