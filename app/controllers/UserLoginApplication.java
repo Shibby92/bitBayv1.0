@@ -453,7 +453,7 @@ public class UserLoginApplication extends Controller {
 				p.order.add(order);
 				p.cart=null;
 			}
-			
+			List <User> sellers= new ArrayList<User>();
 			Orders userOrder = user.orderList
 					.get(user.orderList.size() - 1);
 			for(Product p: userOrder.productList){
@@ -461,7 +461,9 @@ public class UserLoginApplication extends Controller {
 				seller.soldOrders.add(userOrder);
 				seller.soldOrders.get(seller.soldOrders.size() - 1).notification = true;
 				seller.soldOrders.get(seller.soldOrders.size() - 1).seller = seller;
+				
 			}
+		
 			
 
 			for (Product product : order.productList) {
@@ -474,7 +476,6 @@ public class UserLoginApplication extends Controller {
 				product.setQuantity(leftQuantity);
 				product.cart=null;
 				product.setOrderedQuantity(0);
-				
 				order.update();
 			}
 			Cart.clear(user.id);
