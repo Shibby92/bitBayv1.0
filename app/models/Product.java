@@ -400,16 +400,6 @@ public class Product extends Model {
 		return orderedQuantity;
 	}
 
-	/*public static void emptyOrderedQta(Product p){
-		p.orderedQuantity=0;
-		p.update();
-	}*/
-	/*
-	public void setOrderedQuantity(int orderedQuantity) {
-		this.orderedQuantity = orderedQuantity;
-		this.update();
-	}*/
-
 	public void setOrderedQuantity(int orderedQuantity) {
 		this.orderedQuantity = orderedQuantity;
 		this.update();

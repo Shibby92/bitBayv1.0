@@ -2,14 +2,20 @@ package controllers;
 
 import helpers.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -36,6 +42,7 @@ import com.paypal.base.rest.PayPalRESTException;
  * Controls the login application Redirects on the pages when needed When the
  * user registers, he gets redirected to page with ads If the user is already
  * registered, then he gets redirected to LOG IN page
+ * 
  * @author eminamuratovic
  *
  */
@@ -44,16 +51,18 @@ public class UserLoginApplication extends Controller {
 	static Form<Contact> contactForm = new Form<Contact>(Contact.class);
 
 	/**
-	 *  main page
-	 * login page
+	 * main page login page
+	 * 
 	 * @return result
 	 */
 	public static Result homePage() {
 		String email = session().get("email");
+		
 
 		if (session().get("email") == null)
 			Logger.info("Homepage has been opened by guest");
 		else
+		//	Logger.debug(Boolean.toString(User.find(email).soldOrders.get(User.find(email).soldOrders.size()-1).notification));
 			Logger.info("Homepage has been opened by user with email: "
 					+ session().get("email"));
 
@@ -63,9 +72,10 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 *  tries to log user to page
-	 *  if the user can log, he gets redirected to index page
-	 *  if the user is not in database, he gets redirected to register page
+	 * tries to log user to page if the user can log, he gets redirected to
+	 * index page if the user is not in database, he gets redirected to register
+	 * page
+	 * 
 	 * @return result
 	 */
 	public static Result login() {
@@ -101,10 +111,10 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 * tries to register user
-	 * if there is already user with the same username he gets redirected to
-	 *  login page
-	 *  if the user gets registered, he gets a verification email on his email address
+	 * tries to register user if there is already user with the same username he
+	 * gets redirected to login page if the user gets registered, he gets a
+	 * verification email on his email address
+	 * 
 	 * @return result
 	 * @throws MalformedURLException
 	 */
@@ -141,6 +151,7 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * goes to page where the user can be registered
+	 * 
 	 * @return result
 	 */
 	public static Result toRegister() {
@@ -226,6 +237,7 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * goes to page where user can login
+	 * 
 	 * @return result
 	 */
 	public static Result toLogin() {
@@ -235,11 +247,10 @@ public class UserLoginApplication extends Controller {
 
 		return ok(logintest.render(email, FAQ.all()));
 	}
-	
+
 	/**
-	 * redirect to homepage
-	 * user gets logged out
-	 * clear from session
+	 * redirect to homepage user gets logged out clear from session
+	 * 
 	 * @return result
 	 */
 	public static Result logOut() {
@@ -252,6 +263,7 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * opens page for contact us
+	 * 
 	 * @return result
 	 */
 	public static Result contactPage() {
@@ -267,6 +279,7 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * avoiding model creation for contact form
+	 * 
 	 * @author eminamuratovic
 	 */
 	public static class Contact {
@@ -286,12 +299,13 @@ public class UserLoginApplication extends Controller {
 		}
 
 	}
-	
+
 	/*********************************************************************/
 	/*********************** PAYPAL SECTION ******************************/
 
 	/**
 	 * tries to buy product with paypall
+	 * 
 	 * @return result
 	 */
 	@Security.Authenticated(UserFilter.class)
@@ -358,6 +372,20 @@ public class UserLoginApplication extends Controller {
 					+ product.orderedQuantity + ", ");
 		}
 		sb.append("which is a total prize of: " + cart.checkout + "0 $");
+		if (sb.length() > 127) {
+			sb.delete(0, sb.length());
+			sb.append("Your order via bitBay: ");
+			for (Product product : cart.productList) {
+				sb.append(product.name + " x " + product.orderedQuantity + ", ");
+			}
+			sb.append("TOTAL: " + cart.checkout + "0 $");
+		}
+		if (sb.length() > 127) {
+			sb.delete(0, sb.length());
+			sb.append("Your order via bitBay: ");
+			sb.append("TOTAL: " + cart.checkout + "0 $");
+		}
+
 		return sb.toString();
 	}
 
@@ -384,7 +412,7 @@ public class UserLoginApplication extends Controller {
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(sdkConfig);
 			Payment payment = Payment.get(accessToken, paymentID);
-			
+
 			Logger.debug("POSLIJE FOR PETLJE");
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());
@@ -417,6 +445,7 @@ public class UserLoginApplication extends Controller {
 			Payment newPayment = payment.execute(apiContext, paymentExecution);
 			User user = User.find(session().get("email"));
 			Orders order = new Orders(Cart.getCart(user.email), user, token);
+			order.orderDate=getDate();
 			user.orderList.add(order);
 			Iterator<Product> itr = order.productList.iterator();
 			while (itr.hasNext()) {
@@ -456,6 +485,16 @@ public class UserLoginApplication extends Controller {
 
 		return ok(orderpage.render(email,
 				User.find(session().get("email")).orderList, FAQ.all()));
+	}
+
+	public static String getDate() {
+
+		Date date = Calendar.getInstance().getTime();
+
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+		return formatter.format(date);
+
 	}
 
 	@Security.Authenticated(UserFilter.class)

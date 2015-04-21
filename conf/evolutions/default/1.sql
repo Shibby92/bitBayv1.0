@@ -57,6 +57,7 @@ create table orders (
   shipping_address          varchar(255),
   seller_id                 integer,
   notification              boolean,
+  order_date                varchar(255),
   constraint pk_orders primary key (id))
 ;
 

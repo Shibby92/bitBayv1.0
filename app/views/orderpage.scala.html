@@ -151,8 +151,10 @@
          <table class="table table-bordered">	
       <thead>
         <tr>
-          <th>Order number</th>
+          		<th>Order number</th>
                 <th>Products</th>
+                <th>Order date</th>
+                <th>Shipping address</th>
                 <th><span class="nobr">Total</span></th>
         </tr>
       </thead>
@@ -162,15 +164,17 @@
          <td>@order.id</td>
           <td>
                     @for(product <- order.productList){
-                    	<p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id)</p>
+                    	<p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id) <a class='pull-right' href="/ratingpage/@product.owner.id"
+						<button type="button" class="btn btn-warning">Rate seller</button></a></p>
                     }
                     </td>
+                    <td>@order.orderDate</td>
+                    <td>@order.shippingAddress</td>
                     <td><span class="price">$ @order.price,-</span>
-                    <a href ="/refundorder/@order.id">
+                    <td> 
+						<a href ="/refundorder/@order.id">
                     	<button type="button" class="btn btn-warning">Refund</button></td>
                    </a>
-                    <td> <a href="/ratingpage/@order.seller.id"
-						<button type="button" class="btn btn-warning">Rate seller</button>
 						</td>
                    
                   
