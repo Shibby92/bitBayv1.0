@@ -89,6 +89,13 @@ create table product_quantity (
   constraint pk_product_quantity primary key (id))
 ;
 
+create table tag (
+  id                        integer not null,
+  product_id                integer,
+  tag                       varchar(255),
+  constraint pk_tag primary key (id))
+;
+
 create table user (
   id                        integer not null,
   email                     varchar(255),
@@ -133,6 +140,8 @@ create sequence product_seq;
 
 create sequence product_quantity_seq;
 
+create sequence tag_seq;
+
 create sequence user_seq;
 
 alter table comment add constraint fk_comment_owner_1 foreign key (owner_id) references user (id) on delete restrict on update restrict;
@@ -155,6 +164,8 @@ alter table product add constraint fk_product_owner_9 foreign key (owner_id) ref
 create index ix_product_owner_9 on product (owner_id);
 alter table product_quantity add constraint fk_product_quantity_order_10 foreign key (order_id) references orders (id) on delete restrict on update restrict;
 create index ix_product_quantity_order_10 on product_quantity (order_id);
+alter table tag add constraint fk_tag_product_11 foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_tag_product_11 on tag (product_id);
 
 
 
@@ -186,6 +197,8 @@ drop table if exists product;
 
 drop table if exists product_quantity;
 
+drop table if exists tag;
+
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
@@ -207,6 +220,8 @@ drop sequence if exists orders_seq;
 drop sequence if exists product_seq;
 
 drop sequence if exists product_quantity_seq;
+
+drop sequence if exists tag_seq;
 
 drop sequence if exists user_seq;
 

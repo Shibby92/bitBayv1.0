@@ -165,7 +165,6 @@
             </div>
             </div>
              <div style="margin: 10px 80px">
-              
                <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Remove from Cart</a> 
           </div>
 
@@ -188,20 +187,20 @@
         </div>
 <h2>You may also like:</h2>
       
-      <div class="col-sm-4 col-lg-4 col-md-4">
+      
+      	@for(product<-Product.findRecommendation(cart.productList,Product.findAll())){
+      		<div class="col-lg-3">
          <div class="thumbnail">
-<a href="itempage/1">
-            <img src="/assets/images/bitbaySlika1.jpg" alt="" style="width:500px;height:228px">
-</a>
+         <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:300px;height:150px">
             <div class="caption">
-               <h4 class="pull-right"> 2000.0 $</h4>
-               <h4> <a href="itempage/1">Eminin proizvod</a>
+               <h4 class="pull-right"> @product.price $</h4>
+               <h4><a href="/itempage/@product.id">@product.name </a>
                </h4>
-               <p> Neki opis  </p>
             </div>
          </div>
-      </div>   
-
+      </div>
+      	}
+     
 }else{
 <p> <h4>Your cart is empty</h4></p>
 }
