@@ -140,6 +140,7 @@
       </div>
       <div class="row">
       @for(product <- products){
+      	@if(product.deleted == false){
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
             <img src="@routes.Assets.at(product.images.get(0).image)" alt="" style="width:500px;height:228px">
@@ -151,6 +152,7 @@
             </div>
          </div>
       </div>
+      }
       }
    </div>
      

@@ -161,8 +161,10 @@ public class ProductApplication extends Controller {
 	@Security.Authenticated(UserFilter.class)
 	public static Result deleteProduct(int id) {
 		Product p = Product.find(id);
-		Product.delete(id);
+		p.deleted = true;
+		p.update();
 		Logger.warn("product with id: " + id + " has been deleted");
+		flash("success","Youy have successfuly deleted product");
 		return redirect("/profile");
 
 	}
@@ -374,6 +376,7 @@ public class ProductApplication extends Controller {
 				image_urls.add(img);
 
 			} catch (IOException e) {
+				flash("error", "Failed to move file");
 				Logger.error("Failed to move file");
 				Logger.debug(e.getMessage());
 				return null;
@@ -781,6 +784,13 @@ public class ProductApplication extends Controller {
 		flash("renew", "Product " + temp.name
 				+ " has been successfully renewed!");
 		return redirect("/myproducts/" + User.find(session().get("email")).id);
+	}
+	
+	@Security.Authenticated(UserFilter.class)
+	public static Result reportProductPage(int id){
+		Logger.info("User " + session().get("email") + " has open reporting product page");
+		return TODO;
+	//return ok(report.render());
 	}
 
 	
