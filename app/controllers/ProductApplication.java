@@ -374,6 +374,7 @@ public class ProductApplication extends Controller {
 				image_urls.add(img);
 
 			} catch (IOException e) {
+				flash("error", "Failed to move file");
 				Logger.error("Failed to move file");
 				Logger.debug(e.getMessage());
 				return null;
