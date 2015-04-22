@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -46,6 +47,8 @@ public class Orders extends Model {
 	
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "order")
 	public List<ProductQuantity> pQ;
+	
+	public String orderDate;
 
 	public static Finder<Integer,Orders> find=new Finder<Integer,Orders>(Integer.class,Orders.class);
 	public Orders(List<Product> productList){
@@ -84,6 +87,18 @@ public class Orders extends Model {
 	public Orders (Product product){
 		this.productList.add(product);
 	}
+	public Orders(Orders userOrder) {
+		this.buyer=userOrder.buyer;
+		this.notification=userOrder.notification;
+		this.orderDate=userOrder.orderDate;
+		this.pQ=userOrder.pQ;
+		this.price=userOrder.price;
+		this.productList=userOrder.productList;
+		this.seller=userOrder.seller;
+		this.shippingAddress=userOrder.shippingAddress;
+		this.token=userOrder.token;
+	}
+
 	public static int notificationCounter(List<Orders>ol){
 		int counter=0;
 		for(Orders o : ol){
@@ -91,6 +106,15 @@ public class Orders extends Model {
 				counter++;
 		}
 		return counter;
+	}
+	public static double priceFromSeller(Orders order, User user){
+		double sum=0;
+		for(Product p: order.productList){
+			if(p.owner.email.equals(user.email)){
+				sum+=p.price;
+			}
+		}
+		return sum;
 	}
 
 }

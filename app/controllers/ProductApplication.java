@@ -492,7 +492,6 @@ public class ProductApplication extends Controller {
 	public static Result changeShippingAddress (int id){
 		DynamicForm form= Form.form().bindFromRequest();
 		String shipA=form.get("shippingAddress");
-		Logger.info(shipA);
 		Cart c=Cart.find(id);
 		c.shippingAddress=shipA;
 		c.update();

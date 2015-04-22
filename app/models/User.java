@@ -139,6 +139,10 @@ public class User extends Model {
 		
 	}
 
+	public User() {
+		
+	}
+
 	/**
 	 * Creates a user with email and password
 	 * Checks if the email already exists
@@ -304,10 +308,10 @@ public class User extends Model {
 		u.user_address = user_address;
 		u.gender = gender;
 		u.city = city;
-		
 		u.update();
 		return true;
 	}
+
 
 	public static List<User> findAll() {
 		return find.all();
@@ -326,6 +330,11 @@ public class User extends Model {
 			}	
 		}
 		return pr;
+	}
+
+	public static void addSoldOrder(User seller,Orders temp) {
+		seller.soldOrders.add(temp);
+		seller.update();
 	}
 
 

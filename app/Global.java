@@ -122,13 +122,13 @@ public class Global extends GlobalSettings {
 
 		if (Product.find(1) == null) {
 
-			Product.create("Eminin proizvod", 2000, 1, User.find(3), "Neki opis", 3);
+			Product.create("Eminin proizvod", 2000, 1, User.find(3), "Neki opis", 5);
 			Product pro = Product.find(1);
 			Image img3 = new Image();
 			img3.image = "images/bitbaySlika1.jpg";
 			img3.product = pro;
-			
-
+			Tag.create(pro, Category.find(pro.category_id).name);
+			Tag.create(pro, pro.name);
 			List<Image> imggg = new ArrayList<Image>();
 			imggg.add(img3);
 			Image.saveImg(img3);
@@ -145,7 +145,8 @@ public class Global extends GlobalSettings {
 			Image img4 = new Image();
 			img4.image = "images/6800.jpg";
 			img4.product = prod;
-
+			Tag.create(prod, Category.find(prod.category_id).name);
+			Tag.create(prod, prod.name);
 			List<Image> imgggg = new ArrayList<Image>();
 			imgggg.add(img3);
 			Image.saveImg(img4);
@@ -167,7 +168,8 @@ public class Global extends GlobalSettings {
 			Image img5 = new Image();
 			img5.image = "images/samsung.jpg";
 			img5.product = produ;
-
+			Tag.create(produ, Category.find(produ.category_id).name);
+			Tag.create(produ, produ.name);
 			List<Image> imggggg = new ArrayList<Image>();
 			imggggg.add(img5);
 			Image.saveImg(img5);
@@ -190,7 +192,8 @@ public class Global extends GlobalSettings {
 			Image img6 = new Image();
 			img6.image = "images/bitbaySlika1.jpg";
 			img6.product = produc;
-
+			Tag.create(produc, Category.find(produc.category_id).name);
+			Tag.create(produc, produc.name);
 			List<Image> imgggggg = new ArrayList<Image>();
 			imgggggg.add(img6);
 			Image.saveImg(img6);
@@ -207,7 +210,8 @@ public class Global extends GlobalSettings {
 			Image img7 = new Image();
 			img7.image = "images/mercedes.jpg";
 			img7.product = product;
-
+			Tag.create(product, Category.find(product.category_id).name);
+			Tag.create(product, product.name);
 			List<Image> imggggggg = new ArrayList<Image>();
 			imggggggg.add(img7);
 			Image.saveImg(img7);
@@ -223,7 +227,8 @@ public class Global extends GlobalSettings {
 			Image img8 = new Image();
 			img8.image = "images/dog.jpg";
 			img8.product = product1;
-
+			Tag.create(product1, Category.find(product1.category_id).name);
+			Tag.create(product1, product1.name);
 			List<Image> imgggggggg = new ArrayList<Image>();
 			imgggggggg.add(img8);
 			Image.saveImg(img8);
@@ -240,7 +245,8 @@ public class Global extends GlobalSettings {
 			Image img9 = new Image();
 			img9.image = "images/bmw.jpg";
 			img9.product = product2;
-
+			Tag.create(product2, Category.find(product2.category_id).name);
+			Tag.create(product2, product2.name);
 			List<Image> imggggggggg = new ArrayList<Image>();
 			imggggggggg.add(img9);
 			Image.saveImg(img9);
@@ -259,7 +265,8 @@ public class Global extends GlobalSettings {
 			Image img10 = new Image();
 			img10.image = "images/iphone.jpg";
 			img10.product = product3;
-
+			Tag.create(product3, Category.find(product3.category_id).name);
+			Tag.create(product3, product3.name);
 			List<Image> imgggggggggg = new ArrayList<Image>();
 			imgggggggggg.add(img10);
 			Image.saveImg(img10);
@@ -275,7 +282,8 @@ public class Global extends GlobalSettings {
 			Image img11 = new Image();
 			img11.image = "images/cat.jpg";
 			img11.product = product4;
-
+			Tag.create(product4, Category.find(product4.category_id).name);
+			Tag.create(product4, product4.name);
 			List<Image> imggggggggggg = new ArrayList<Image>();
 			imggggggggggg.add(img11);
 			Image.saveImg(img11);
@@ -291,7 +299,8 @@ public class Global extends GlobalSettings {
 			Image img12 = new Image();
 			img12.image = "images/bitbaySlika1.jpg";
 			img12.product = product5;
-
+			Tag.create(product5, Category.find(product5.category_id).name);
+			Tag.create(product5, product5.name);
 			List<Image> imgggggggggggg = new ArrayList<Image>();
 			imgggggggggggg.add(img12);
 			Image.saveImg(img12);

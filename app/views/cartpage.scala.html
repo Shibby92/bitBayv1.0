@@ -185,7 +185,8 @@
       
      @if(cart.productList.size()>0){	
       <legend>Your Cart: </legend>
-  
+
+     <div class="row">
       @for(product <- cart.productList){
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
@@ -195,33 +196,58 @@
                <h4><a href="/itempage/@product.id">@product.name </a>
                </h4>
                 
-               <p> @product.description </p>
+               <div style="margin: 20px 0px ">
+                <h5 class="pull-down" style="margin: 20px 20px ">Quantity: @product.orderedQuantity</h5>
+            </div>
+             <div style="margin: 0px 80px">
+               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');" style="margin: -10px -30px ">Remove from Cart</a> 
+             
+          </div>
                
             </div>
-            <div>
-                <h5 class="pull-down" style="margin: 10px 20px ">Quantity: @product.orderedQuantity</h5>
-            </div>
-             <div style="margin: 10px 80px">
-              
-               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');" style="margin: 0px -30px ">Remove from Cart</a> 
-          </div>
 
          </div>
       </div>
 
       }
    </div>
-       
-    
+
+   
 }else{
 <p> <h4 style="margin: 150px 100px ">Your cart is empty...</h4></p>
 
 }
 </div>
-  </div>
+	
+	<div>
+       
+<legend>You may also like:</legend>
+       
+   
+     
+      	@for(product<-Product.findRecommendation(cart.productList,Product.findAll())){
+      		 
+      		 <div class="col-lg-3 ">
+      		 
+         <div class="thumbnail">
+         <a href="/itempage/@product.id">
+         <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:300px;height:150px">
+         </a>
+            <div class="caption" style="height: 60px;">
+               <h4 class="pull-right"> @product.price $</h4>
+               <h4><a href="/itempage/@product.id">@product.name </a>
+               </h4>
+            </div>
+         </div>
+      </div>
+       
+      	}
+ 
+  
+  
 
             
-      <div class="container" style="margin: 200px 200px">
+      <div class="container" style="margin: 330px 0px">
       <hr>
       <a href="/contactpage">
          <h3>Contact Us</h3>

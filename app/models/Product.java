@@ -82,6 +82,9 @@ public class Product extends Model {
 	
 	public double amount;
 	
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="product")
+	public List <Tag> tags;
+	
 	public static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
 	static Finder<String, Category> findCategory = new Finder<String, Category>(
@@ -365,6 +368,8 @@ public class Product extends Model {
 		for(Image image: images) {
 			image.product = Product.find(p.getId());
 			image.save();
+			Tag.create(p,Category.find(p.category_id).name);
+			Tag.create(p, p.name);
 		}
 	}
 	
@@ -522,6 +527,50 @@ public class Product extends Model {
 		}
 		sb.deleteCharAt(sb.length() - 1);
 		return sb.toString();
+	}
+	
+	public static List<Product> findRecommendation(List<Product> cartProducts,List<Product> allProducts){
+		for(Product cartProduct:cartProducts){
+		allProducts.remove(cartProduct);
+		}
+		List<Product> similarProducts= new ArrayList<Product>();
+//		for(Product recommend: products){
+//			if(similarity(product,recommend)>2){
+//				similarProducts.add(recommend);
+//			}
+//		}
+//		if(similarProducts.size()==0){
+//			for(Product recommend: products){
+//				if(similarity(product,recommend)>1){
+//					similarProducts.add(recommend);
+//				}
+//			}
+//		}
+		for(Product cartProduct: cartProducts){
+			for(Product recommend: allProducts){
+				if(similarity(cartProduct,recommend)>=1){
+					similarProducts.add(recommend);
+					if(similarProducts.size()==4){
+						break;
+					}
+				}
+			}
+		
+		}
+		return similarProducts;
+	}
+
+	private static int similarity(Product product, Product recommend) {
+		int similarityLevel=0;
+		for(Tag tag1: product.tags){
+			for(Tag tag2: recommend.tags){
+				if(tag1.tag.equals(tag2.tag)){
+					similarityLevel++;
+				}
+			}
+		}
+		Logger.debug(String.valueOf(similarityLevel));
+		return similarityLevel;
 	}
 
 

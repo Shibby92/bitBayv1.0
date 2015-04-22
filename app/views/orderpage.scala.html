@@ -152,30 +152,34 @@
       <legend style="margin:10px 0px">Your Orders: </legend>
       <div class="row" style="margin:30px 0px">
         
-         <table class="table table-bordered" style="background-color: #4AB55A; color: #fff;">	
-      <thead>
+         <table class="table table-bordered" >	
+      <thead style="background-color: #4AB55A; color: #fff;">
         <tr>
-          <th>Order number</th>
+          		<th>Order number</th>
                 <th>Products</th>
+                <th>Order date</th>
+                <th>Shipping address</th>
                 <th><span class="nobr">Total</span></th>
-                <th>Rate</th>
+                <th>Refund</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody >
        @for(order <- orders){
         <tr>
          <td>@order.id</td>
           <td>
                     @for(product <- order.productList){
-                    	<p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id)</p>
+                    	<p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id) <a class='pull-right' href="/ratingpage/@product.owner.id"
+						<button type="button" class="btn btn-warning">Rate seller</button></a></p>
                     }
                     </td>
+                    <td>@order.orderDate</td>
+                    <td>@order.shippingAddress</td>
                     <td><span class="price">$ @order.price,-</span>
-                    <a href ="/refundorder/@order.id">
+                   
+                    <td>  <a href ="/refundorder/@order.id">
                     	<button type="button" class="btn btn-warning" style="margin:0px 15px">Refund</button></td>
                    </a>
-                    <td> <a href="/ratingpage/@order.seller.id"
-						<button type="button" class="btn btn-warning" style="margin: 0px 15px">Rate seller</button>
 						</td>
                    
                   
