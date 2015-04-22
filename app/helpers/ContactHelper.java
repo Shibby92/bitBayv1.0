@@ -20,8 +20,8 @@ public class ContactHelper {
 		MailerPlugin.send(mail);
 	}
 	
-	public static void sendToPage(String emailFrom, String emailTo, String message) {
-		Message.create(message, User.find(emailFrom), User.find(emailTo));
+	public static void sendToPage(String emailFrom, String emailTo, String message, String subject) {
+		Message.create(message, User.find(emailFrom), User.find(emailTo), subject);
 	}
 	
 	public static void send(String emailFrom, String emailTo, String message, Product p) {
@@ -36,7 +36,7 @@ public class ContactHelper {
 		MailerPlugin.send(mail);
 	}
 	
-	public static void sendToPage(String emailFrom, String emailTo, String message, Product p) {
-		Message.createReport(message, User.find(emailFrom), User.find(emailTo), p);
+	public static void sendToPage(String emailFrom, String emailTo, String message, Product p, String subject) {
+		Message.createReport(message, User.find(emailFrom), User.find(emailTo), p, subject);
 	}
 }

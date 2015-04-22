@@ -112,27 +112,27 @@
    <!-- Page Content -->
    <div class="container">
    
-							<h4>Confirm order:</h4>
-							<hr>
+							 <legend>Confirm Order: </legend>
+							
 							
 	<br><br>
       
-      <div class="row">
+      <div class="row" style="margin: 10px 0px">
         
-         <table class="table table-bordered">	
-      <thead>
+         <table class="table table-bordered" >	
+      <thead style="background-color: #4AB55A; color: #fff;">
         <tr>
-          <th>Cart id</th>
+          
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Total</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody >
      @for(product <- cart.productList){
         <tr>
-         <td>@cart.id</td>
+         
                     	<td>@product.name</td>
                     	<td>@product.orderedQuantity</td>
                     	<td>$ @product.price</td>

@@ -492,7 +492,6 @@ public class ProductApplication extends Controller {
 	public static Result changeShippingAddress (int id){
 		DynamicForm form= Form.form().bindFromRequest();
 		String shipA=form.get("shippingAddress");
-		Logger.info(shipA);
 		Cart c=Cart.find(id);
 		c.shippingAddress=shipA;
 		c.update();
@@ -660,7 +659,7 @@ public class ProductApplication extends Controller {
 							ContactHelper.send(userEmail, User.find(id).email,
 									message);
 							ContactHelper.sendToPage(userEmail,
-									User.find(id).email, message);
+									User.find(id).email, message, "Contact US message");
 
 							flash("success", "Message sent!");
 
@@ -748,7 +747,7 @@ public class ProductApplication extends Controller {
 							ContactHelper.send(email,
 									Product.find(id).owner.email, message);
 							ContactHelper.sendToPage(email,
-									Product.find(id).owner.email, message);
+									Product.find(id).owner.email, message, "Message from buyer");
 
 							flash("success", "Message sent!");
 
@@ -831,7 +830,7 @@ public class ProductApplication extends Controller {
 							ContactHelper.send(session().get("email"),
 									u.email, report, Product.find(id));
 							ContactHelper.sendToPage(session().get("email"),
-									u.email, report, Product.find(id));
+									u.email, report, Product.find(id), "Report product id: " + id);
 							}
 							
 							flash("success", "You have successfuly reported product!");

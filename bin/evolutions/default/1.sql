@@ -67,6 +67,7 @@ create table orders (
   shipping_address          varchar(255),
   seller_id                 integer,
   notification              boolean,
+  order_date                varchar(255),
   constraint pk_orders primary key (id))
 ;
 
@@ -103,6 +104,13 @@ create table report (
   id                        integer not null,
   message                   varchar(255),
   constraint pk_report primary key (id))
+;
+
+create table tag (
+  id                        integer not null,
+  product_id                integer,
+  tag                       varchar(255),
+  constraint pk_tag primary key (id))
 ;
 
 create table user (
@@ -153,6 +161,8 @@ create sequence product_quantity_seq;
 
 create sequence report_seq;
 
+create sequence tag_seq;
+
 create sequence user_seq;
 
 alter table comment add constraint fk_comment_owner_1 foreign key (owner_id) references user (id) on delete restrict on update restrict;
@@ -165,6 +175,7 @@ alter table message add constraint fk_message_sender_4 foreign key (sender_id) r
 create index ix_message_sender_4 on message (sender_id);
 alter table message add constraint fk_message_receiver_5 foreign key (receiver_id) references user (id) on delete restrict on update restrict;
 create index ix_message_receiver_5 on message (receiver_id);
+<<<<<<< HEAD
 alter table message add constraint fk_message_product_6 foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_message_product_6 on message (product_id);
 alter table orders add constraint fk_orders_buyer_7 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
@@ -177,6 +188,20 @@ alter table product add constraint fk_product_owner_10 foreign key (owner_id) re
 create index ix_product_owner_10 on product (owner_id);
 alter table product_quantity add constraint fk_product_quantity_order_11 foreign key (order_id) references orders (id) on delete restrict on update restrict;
 create index ix_product_quantity_order_11 on product_quantity (order_id);
+=======
+alter table orders add constraint fk_orders_buyer_6 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_buyer_6 on orders (buyer_id);
+alter table orders add constraint fk_orders_seller_7 foreign key (seller_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_seller_7 on orders (seller_id);
+alter table product add constraint fk_product_cart_8 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
+create index ix_product_cart_8 on product (cart_id);
+alter table product add constraint fk_product_owner_9 foreign key (owner_id) references user (id) on delete restrict on update restrict;
+create index ix_product_owner_9 on product (owner_id);
+alter table product_quantity add constraint fk_product_quantity_order_10 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_product_quantity_order_10 on product_quantity (order_id);
+alter table tag add constraint fk_tag_product_11 foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_tag_product_11 on tag (product_id);
+>>>>>>> 8b78db38d2dd45e9a0eadcae5703b59552738b93
 
 
 
@@ -212,6 +237,8 @@ drop table if exists product_quantity;
 
 drop table if exists report;
 
+drop table if exists tag;
+
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
@@ -237,6 +264,8 @@ drop sequence if exists product_seq;
 drop sequence if exists product_quantity_seq;
 
 drop sequence if exists report_seq;
+
+drop sequence if exists tag_seq;
 
 drop sequence if exists user_seq;
 

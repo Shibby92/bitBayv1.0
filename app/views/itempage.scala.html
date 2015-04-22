@@ -81,7 +81,8 @@
                <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                @if( Orders.notificationCounter(User.find(email).soldOrders)>0){
                <button class="btn btn-success "><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;">  </i>  @User.find(email).username   <span class="caret"></span> </button></a>
-               }else{<button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
+               }else{
+               <button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
                }
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                   @if(User.find(email).admin == true) {
@@ -98,12 +99,12 @@
                   </li>
                   }
                   <li class="divider"></li>
-                  
+                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                </ul>
             </li>
          </ul>
          }
-         <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+        
          }
       </div>
       <!-- /.navbar-collapse -->
@@ -163,15 +164,15 @@
                            }
                            }
                         </ol>
-                        <div class="carousel-inner" style="max-width: 800px;	height: 250px;">
+                        <div class="carousel-inner" >
                            <div class="item active">       
-                              <img class="slide-image" src="@routes.Assets.at(images.get(0).image)" />  
+                              <img class="slide-image" src="@routes.Assets.at(images.get(0).image)" style="width:600px;height:278px"/>  
                            </div>
                            @for(img <- images) {
                            @if(images.indexOf(img) == 0) {
                            } else {
                            <div class="item">       
-                              <img class="slide-image" src="@routes.Assets.at(img.image)" />  
+                              <img class="slide-image" src="@routes.Assets.at(img.image)" style="width:600px;height:278px"/>  
                            </div>
                            }
                            }

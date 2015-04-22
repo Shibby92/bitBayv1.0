@@ -138,11 +138,13 @@
         
           <td>
                     @for(product <- order.productList){
+                    	@if(product.owner==User.find(session().get("email"))){
                     	<p>@product.name ($ @product.price)</p>
+                    	}
                     }
                     </td>
                    <td>@order.buyer.email</td>
-                    <td><span class="price">$ @order.price,-</span>
+                    <td><span class="price">$ @Orders.priceFromSeller(order,User.find(session().get("email"))),-</span>
                      <a href ="/soldorderchecked/@order.id">
                     	<button type="button" class="btn btn-warning" style="margin: 0px 15px">Ok, got it!</button></td>
                   <td> <a href="/ratingpage/@order.buyer.id"

@@ -56,6 +56,7 @@ create table message (
   sender_id                 integer,
   receiver_id               integer,
   product_id                integer,
+  subject                   varchar(255),
   constraint pk_message primary key (id))
 ;
 
@@ -67,6 +68,7 @@ create table orders (
   shipping_address          varchar(255),
   seller_id                 integer,
   notification              boolean,
+  order_date                varchar(255),
   constraint pk_orders primary key (id))
 ;
 
@@ -103,6 +105,13 @@ create table report (
   id                        integer not null,
   message                   varchar(255),
   constraint pk_report primary key (id))
+;
+
+create table tag (
+  id                        integer not null,
+  product_id                integer,
+  tag                       varchar(255),
+  constraint pk_tag primary key (id))
 ;
 
 create table user (
@@ -153,6 +162,8 @@ create sequence product_quantity_seq;
 
 create sequence report_seq;
 
+create sequence tag_seq;
+
 create sequence user_seq;
 
 alter table comment add constraint fk_comment_owner_1 foreign key (owner_id) references user (id) on delete restrict on update restrict;
@@ -177,6 +188,8 @@ alter table product add constraint fk_product_owner_10 foreign key (owner_id) re
 create index ix_product_owner_10 on product (owner_id);
 alter table product_quantity add constraint fk_product_quantity_order_11 foreign key (order_id) references orders (id) on delete restrict on update restrict;
 create index ix_product_quantity_order_11 on product_quantity (order_id);
+alter table tag add constraint fk_tag_product_12 foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_tag_product_12 on tag (product_id);
 
 
 
@@ -212,6 +225,8 @@ drop table if exists product_quantity;
 
 drop table if exists report;
 
+drop table if exists tag;
+
 drop table if exists user;
 
 SET REFERENTIAL_INTEGRITY TRUE;
@@ -237,6 +252,8 @@ drop sequence if exists product_seq;
 drop sequence if exists product_quantity_seq;
 
 drop sequence if exists report_seq;
+
+drop sequence if exists tag_seq;
 
 drop sequence if exists user_seq;
 
