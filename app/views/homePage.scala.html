@@ -85,6 +85,8 @@
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                   @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                 <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
@@ -177,6 +179,7 @@
    </div>
    <div class="row">
       @for(product <- products){
+      	@if(product.deleted == false) {
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
 <a href="itempage/@product.id">
@@ -190,6 +193,7 @@
             </div>
          </div>
       </div>
+      }
       }
    </div>
 </div>

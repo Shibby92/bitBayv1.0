@@ -86,6 +86,8 @@
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                   @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
@@ -201,8 +203,10 @@
                   </div>
                   }
                   }
+                   @if(session().get("email")!=product.owner.email) {
                   <h4>In Cart(this item): @product.getOrderedQuantity</a>
                   </h4>
+                  }
                   @if((email==null)||(User.find(email).admin == false)) {
                   @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
                <form action="demo_form.asp">
@@ -210,9 +214,20 @@
                </form>
                </form>
                }
+               
+               @if(session().get("email")!=product.owner.email) {
+                <a href="/userprofile/@product.owner.id"
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Visit seller profile</button>
+               </a> 
+               }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
                <a href="/contactsellerpage/@product.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Contact seller</button>
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 5px 0px">Contact seller</button>
+               </a>
+               }
+               @if(session().get("email")!=product.owner.email && session().get("email")!=null){
+               <a href="/reportproductpage/@product.id"
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 5px 0px">Report product</button>
                </a>
                }
                } 
@@ -221,7 +236,7 @@
                @for(order <- User.find(session().get("email")).orderList) {
                	 @for(p <- order.productList){
                	 	@if(p.id == product.id && i == 0) { 
-               	 		<a href="/ratingpage/@product.owner.id"
+               	 		<a href="/ratingpage/@product.id"
                <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Rate Seller</button>
                </a>
                @{i=i+1}
@@ -235,7 +250,7 @@
          </div>
          <div class="col-md-5" style="margin: 0px 15px">
 
-      		<div class="well login-box" style="background-color: #4AB55A;color: #fff;">
+      		<div class="well login-box" style="background-color: #4AB55A;color: #fff; margin: 5px 0px">
             <h4>
             Description: </h4>
             <h5> @product.description <br> </h5>
@@ -243,9 +258,7 @@
              <h4>
             Seller rate: </h4>
             <h5> @product.owner.rating <br> </h5>
-            <a href="/userprofile/@product.owner.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Visit seller profile</button>
-               </a>  
+            
               
             <table class='table' style="margin: 50px 0px">
                <thead>

@@ -161,8 +161,10 @@ public class ProductApplication extends Controller {
 	@Security.Authenticated(UserFilter.class)
 	public static Result deleteProduct(int id) {
 		Product p = Product.find(id);
-		Product.delete(id);
+		p.deleted = true;
+		p.update();
 		Logger.warn("product with id: " + id + " has been deleted");
+		flash("success","Youy have successfuly deleted product");
 		return redirect("/profile");
 
 	}
@@ -782,6 +784,12 @@ public class ProductApplication extends Controller {
 		flash("renew", "Product " + temp.name
 				+ " has been successfully renewed!");
 		return redirect("/myproducts/" + User.find(session().get("email")).id);
+	}
+	
+	@Security.Authenticated(UserFilter.class)
+	public static Result reportProductPage(int id){
+		Logger.info("User " + session().get("email") + " has open reporting product page");
+		return ok(report.render());
 	}
 
 	

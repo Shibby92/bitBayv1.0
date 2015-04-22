@@ -84,6 +84,8 @@
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                   
                   } else {
                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
@@ -135,14 +137,14 @@
          	 
         
                   
-	<div class="col-md-3" style="margin: 20px 0px ">
-    <div class="well box">
+	<div class="col-md-3" style="margin: 25px 0px ">
+    <div class="well box" style="background-color: #4AB55A;color: #fff;">
     @if(cart.productList.size() == 0) {
     	<h4>Number of items:  @cart.size </h4>
     	<hr>
         <h4>Total price: @cart.checkout $</h4>
         <hr>
-         <a class="btn btn-info" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 15px">Back to home</a> 
+         <a class="btn btn-warning" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 20px">Back to home</a> 
        } else {
        <h4>Number of items:  @cart.size </h4>
     	<hr>
@@ -156,13 +158,26 @@
 </a>
 </form>
  <hr>
- <a class="btn btn-info" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 15px">Back to home</a> 
+ <a class="btn btn-warning" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 20px">Back to home</a> 
        
 }
 
   
 
 </div>
+ @if(cart.productList.size() > 0) {
+ 	
+ 	 <div class="well box" style="background-color: #4AB55A;color: #fff;">
+ 	 <form method="POST" action="/changeshipping/@cart.id"">
+          	<div class="form-group">
+          <label>Shipping address: </label>
+          <input name ="shippingAddress" id="shippingAddress" value='@cart.shippingAddress' placeholder="Type the shipping address" class="form-control"/>
+          <input type="submit" value="Change" class="btn btn-warning btn-login-submit" style=" margin: 10px 60px"/>
+          </div>
+          </form>
+           </div>
+ 	}
+ 	
     </div>
 					
 		
@@ -196,14 +211,7 @@
 
       }
    </div>
-       </div><form method="POST" action="/changeshipping/@cart.id"">
-          	<div class="form-group">
-          <label>Shipping address: </label>
-          <input name ="shippingAddress" id="shippingAddress" value='@cart.shippingAddress' placeholder="Type the shipping address" class="form-control"/>
-          <input type="submit" value="Change" class="btn btn-success btn-login-submit" />
-          </div>
-          </form>
-        </div>
+       
     
 }else{
 <p> <h4>Your cart is empty</h4></p>
@@ -211,7 +219,7 @@
 }
 </div>
   </div>
- </div>
+
             
       <div class="container" style="margin: 200px 200px">
       <hr>

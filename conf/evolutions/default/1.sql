@@ -82,6 +82,7 @@ create table product (
   image1                    varchar(255),
   image2                    varchar(255),
   image3                    varchar(255),
+  deleted                   boolean,
   sold                      boolean,
   ordered_quantity          integer,
   amount                    double,

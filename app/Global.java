@@ -33,17 +33,17 @@ public class Global extends GlobalSettings {
 
 			User u2 = new User("mustafa.ademovic93@gmail.com",
 					HashHelper.createPassword("123456"), false, true);
+			u2.user_address = "Admin Street 229 ";
 			User.create(u2);
 			u2.username = "Mustafa";
-			u2.user_address = "Admin Street 229 ";
 			u2.hasAdditionalInfo = true;
 			u2.update();
 
 			User u3 = new User("emina.muratovic@bitcamp.ba",
 					HashHelper.createPassword("emina"), false, true);
+			u3.user_address = "Admin Street 229 ";
 			User.create(u3);
 			u3.username = "Emina";
-			u3.user_address = "Admin Street 229 ";
 			u3.hasAdditionalInfo = true;
 			u3.update();
 

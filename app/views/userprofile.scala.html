@@ -83,6 +83,8 @@
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                   
                   } else {
                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
@@ -162,6 +164,7 @@
       <div class="row">
         <div class="col-md-9">
       @for(product <- myproducts){
+      	@if(product.deleted == false) {
       <div class="col-sm-5 col-lg-5 col-md-5">
          <div class="thumbnail">
              <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
@@ -174,6 +177,7 @@
          </div>
          
       </div>
+      }
       }
    </div>
    </div>

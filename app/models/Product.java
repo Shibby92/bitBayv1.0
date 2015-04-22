@@ -19,13 +19,8 @@ import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
 
 /**
- * Creates product/add
+ * Creates product
  * @author eminamuratovic
- *
- */
-/**
- * @author user
- *
  */
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@productId")
@@ -74,7 +69,7 @@ public class Product extends Model {
 	@OneToMany(cascade=CascadeType.ALL)
 	public List<Image> images;
 	
-
+	public boolean deleted;
 
 	@ManyToMany(mappedBy = "productList", cascade = CascadeType.ALL)
 	public List<Orders> order = new ArrayList<Orders>();
@@ -125,6 +120,7 @@ public class Product extends Model {
 		this.sold=false;
 		this.orderedQuantity=0;
 		this.amount=0;
+		this.deleted = false;
 	}
 
 	public Product(String name, double price, User owner, String description,
@@ -142,6 +138,7 @@ public class Product extends Model {
 		this.sold=false;
 		this.orderedQuantity=0;
 		this.amount=0;
+		this.deleted = false;
 	}
 
 	public Product(String name, double price, User owner, String description,
@@ -160,6 +157,7 @@ public class Product extends Model {
 		this.sold=false;
 		this.orderedQuantity=0;
 		this.amount=0;
+		this.deleted = false;
 
 	}
 
@@ -181,6 +179,7 @@ public class Product extends Model {
 		this.sold=false;
 		this.orderedQuantity=0;
 		this.amount=0;
+		this.deleted = false;
 
 	}
 
@@ -199,6 +198,7 @@ public class Product extends Model {
 		this.orderedQuantity = 0;
 		this.saveManyToManyAssociations("order");
 		this.amount=0;
+		this.deleted = false;
 
 	}
 
@@ -213,6 +213,7 @@ public class Product extends Model {
 		this.image1 = image1;
 		this.orderedQuantity=0;
 		this.amount=0;
+		this.deleted = false;
 
 	}
 
@@ -224,6 +225,7 @@ public class Product extends Model {
 		this.category_id=id;
 		this.images = images;
 		this.sold=false;
+		this.deleted = false;
 	}
 	
 	public Product(String name, double price,int quantity, User owner, String description, int id, List<Image> images) {
@@ -236,6 +238,7 @@ public class Product extends Model {
 		this.sold=false;
 		this.quantity=quantity;
 		this.orderedQuantity=0;
+		this.deleted = false;
 	}
 	public Product(String name, double price, User owner, String description) {
 		this.name = name;
@@ -244,6 +247,7 @@ public class Product extends Model {
 		this.description = description;
 		this.sold=false;
 		this.orderedQuantity=0;
+		this.deleted = false;
 	}
 
 
@@ -263,6 +267,7 @@ public class Product extends Model {
 		this.quantity = product.quantity - product.orderedQuantity;
 		this.sold = false;
 		this.saveManyToManyAssociations("order");
+		this.deleted = false;
 	}
 
 	public Product(String name, double price, int quantity, User owner,
@@ -280,6 +285,7 @@ public class Product extends Model {
 		this.image1 = image1;
 		this.image2 = image2;
 		this.image3 = image3;
+		this.deleted = false;
 	}
 
 	public Product(String name, double price, int quantity, User owner,
@@ -289,6 +295,7 @@ public class Product extends Model {
 		this.quantity=quantity;
 		this.owner = owner;
 		this.description = description;
+		this.deleted = false;
 	}
 	
 	public Product(String name, double price, int quantity, User owner,
@@ -302,6 +309,7 @@ public class Product extends Model {
 		this.category_id = id;
 		this.orderedQuantity=0;
 		this.amount=0;
+		this.deleted = false;
 
 	}
 
@@ -311,6 +319,7 @@ public class Product extends Model {
 		this.quantity=quantity;
 		this.owner = owner;
 		this.description = description;
+		this.deleted = false;
 
 	}
 //Constructor for easier testing
@@ -319,6 +328,7 @@ public class Product extends Model {
 		this.price=d;
 		this.description=string2;
 		this.quantity=i;
+		this.deleted = false;
 	}
 
 	public static void create(String name,  double price, User owner, String description,int id, String image1) {
@@ -399,16 +409,6 @@ public class Product extends Model {
 	public int getOrderedQuantity() {
 		return orderedQuantity;
 	}
-
-	/*public static void emptyOrderedQta(Product p){
-		p.orderedQuantity=0;
-		p.update();
-	}*/
-	/*
-	public void setOrderedQuantity(int orderedQuantity) {
-		this.orderedQuantity = orderedQuantity;
-		this.update();
-	}*/
 
 	public void setOrderedQuantity(int orderedQuantity) {
 		this.orderedQuantity = orderedQuantity;
