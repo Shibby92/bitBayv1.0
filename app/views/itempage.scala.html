@@ -86,6 +86,8 @@
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                   @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
@@ -248,11 +250,12 @@
                               <td>
                                  <li>
                                     <p> <strong>@comment.owner.email: </strong> @comment.comment </p>
-                                    }
+                                  
                                     @if(session().get("email") != null) {
                                     @if(User.find(session().get("email")).admin) { 
                                     <a href="@routes.ProductApplication.deleteComment(comment.id, product.id)" onclick="return confirm('Are you sure you want to delete this comment?');"class="btn btn-danger">Delete</a>
-                                    }  
+                                    } 
+                                      } 
                                  </li>
                               </td>
                            </tr>
