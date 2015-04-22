@@ -122,13 +122,13 @@ public class Cart extends Model {
 	}
 
 	public static Cart removeProductFromCart(int id) {
-		Product toDelete = Product.find.byId(id);
-		Cart cart = toDelete.cart;
-		cart.productList.remove(toDelete);
-		cart.checkout-=toDelete.price;
-		toDelete.cart = null;
+		Product productToDelete = Product.find.byId(id);
+		Cart cart = productToDelete.cart;
+		cart.productList.remove(productToDelete);
+		cart.checkout-=productToDelete.price;
+		productToDelete.cart = null;
 		cart.update();
-		toDelete.update();
+		productToDelete.update();
 		return cart;
 	}
 
