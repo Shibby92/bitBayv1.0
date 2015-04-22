@@ -562,6 +562,12 @@ public class ProductApplication extends Controller {
 		int userid = User.findUser.where().eq("email", session().get("email"))
 				.findUnique().id;
 		int totalOrderedQty=p.getOrderedQuantity()-1;
+		if (totalOrderedQty < 1) {
+			flash("minQty",
+					"Ordered quantity must be at least 1!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+			return redirect("/cartpage/" + userid);
+		}
 		p.setOrderedQuantity(totalOrderedQty);
 		return redirect("/cartpage/" + userid);
 	}

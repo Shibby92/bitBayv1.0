@@ -124,6 +124,13 @@
                      </div>
                   </div>
          }
+          @if(flash.get("minQty")){
+         <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("minQty")
+                     </div>
+                  </div>
+         }
          @if(flash.get("warning")){
        <div class="alert alert-warning" role="alert">
                      <div class="container">
