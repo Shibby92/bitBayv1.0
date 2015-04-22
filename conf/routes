@@ -36,7 +36,7 @@ GET    /myproducts/:id          controllers.ProductApplication.myProducts(id: In
 POST   /changeshipping/:id      controllers.ProductApplication.changeShippingAddress(id: Integer)
 
 GET		/reportproductpage/:id	controllers.ProductApplication.reportProductPage(id: Integer)
-#POST	/reportproduct/:id		controllers.ProductApplication.reportProduct(id: Integer)
+POST	/reportproduct/:id		controllers.ProductApplication.reportProduct(id: Integer)
 
 GET    /category/:name             controllers.ProductApplication.category(name:String)
 

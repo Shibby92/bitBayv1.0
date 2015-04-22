@@ -789,8 +789,72 @@ public class ProductApplication extends Controller {
 	@Security.Authenticated(UserFilter.class)
 	public static Result reportProductPage(int id){
 		Logger.info("User " + session().get("email") + " has open reporting product page");
-		return TODO;
-	//return ok(report.render());
+		String message = "";
+	return ok(reportpage.render(session().get("email"), id, message));
+	}
+	
+	@Security.Authenticated(UserFilter.class)
+	public static Promise<Result> reportProduct(int id) {
+		final DynamicForm temp = DynamicForm.form().bindFromRequest();
+		final String report = temp.get("report");
+
+		/*
+		 * send a request to google recaptcha api with the value of our secret
+		 * code and the value of the recaptcha submitted by the form
+		 */
+		Promise<Result> holder = WS
+				.url("https://www.google.com/recaptcha/api/siteverify")
+				.setContentType("application/x-www-form-urlencoded")
+				.post(String.format(
+						"secret=%s&response=%s",
+						// get the API key from the config file
+						Play.application().configuration()
+								.getString("recaptchaKey"),
+						temp.get("g-recaptcha-response")))
+				.map(new Function<WSResponse, Result>() {
+					// once we get the response this method is loaded
+					public Result apply(WSResponse response) {
+						// get the response as JSON
+						JsonNode json = response.asJson();
+						System.out.println(json);
+						System.out.println(temp.get("g-recaptcha-response"));
+						Form<Report> submit = Form.form(Report.class)
+								.bindFromRequest();
+
+						// check if value of success is true
+						if (json.findValue("success").asBoolean() == true
+								&& !submit.hasErrors()) {
+
+							
+							Report newReport = Report.report(Product.find(id), User.find(session().get("email")), report);
+							for(User u : User.admins()){
+							ContactHelper.send(session().get("email"),
+									u.email, report, Product.find(id));
+							ContactHelper.sendToPage(session().get("email"),
+									u.email, report, Product.find(id));
+							}
+							
+							flash("success", "You have successfuly reported product!");
+
+							Logger.info("User with email: "
+									+ session().get("email")
+									+ " has reported product with id: "
+									+ Product.find(id).id);
+							return redirect("/itempage/" + id);
+						} else {
+
+							Logger.info("User with email: "
+									+ session().get("email")
+									+ " did not confirm its humanity");
+							flash("error",
+									"You have to confirm that you are not a robot!");
+							return ok(reportpage.render(session().get("email"), id, report));
+
+						}
+					}
+				});
+		// return the promisse
+		return holder;
 	}
 
 	

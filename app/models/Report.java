@@ -26,8 +26,10 @@ public class Report extends Model {
 		this.message = message;
 	}
 	
-	public static void report(Product reportedProduct, User reporter, String message) {
-		new Report(reportedProduct, reporter, message).save();
+	public static Report report(Product reportedProduct, User reporter, String message) {
+		Report r = new Report(reportedProduct, reporter, message);
+		r.save();
+		return r;
 	}
 	
 	public static List<Report> all() {

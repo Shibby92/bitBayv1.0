@@ -55,6 +55,7 @@ create table message (
   content                   varchar(255),
   sender_id                 integer,
   receiver_id               integer,
+  product_id                integer,
   constraint pk_message primary key (id))
 ;
 
@@ -164,16 +165,18 @@ alter table message add constraint fk_message_sender_4 foreign key (sender_id) r
 create index ix_message_sender_4 on message (sender_id);
 alter table message add constraint fk_message_receiver_5 foreign key (receiver_id) references user (id) on delete restrict on update restrict;
 create index ix_message_receiver_5 on message (receiver_id);
-alter table orders add constraint fk_orders_buyer_6 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
-create index ix_orders_buyer_6 on orders (buyer_id);
-alter table orders add constraint fk_orders_seller_7 foreign key (seller_id) references user (id) on delete restrict on update restrict;
-create index ix_orders_seller_7 on orders (seller_id);
-alter table product add constraint fk_product_cart_8 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
-create index ix_product_cart_8 on product (cart_id);
-alter table product add constraint fk_product_owner_9 foreign key (owner_id) references user (id) on delete restrict on update restrict;
-create index ix_product_owner_9 on product (owner_id);
-alter table product_quantity add constraint fk_product_quantity_order_10 foreign key (order_id) references orders (id) on delete restrict on update restrict;
-create index ix_product_quantity_order_10 on product_quantity (order_id);
+alter table message add constraint fk_message_product_6 foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_message_product_6 on message (product_id);
+alter table orders add constraint fk_orders_buyer_7 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_buyer_7 on orders (buyer_id);
+alter table orders add constraint fk_orders_seller_8 foreign key (seller_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_seller_8 on orders (seller_id);
+alter table product add constraint fk_product_cart_9 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
+create index ix_product_cart_9 on product (cart_id);
+alter table product add constraint fk_product_owner_10 foreign key (owner_id) references user (id) on delete restrict on update restrict;
+create index ix_product_owner_10 on product (owner_id);
+alter table product_quantity add constraint fk_product_quantity_order_11 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_product_quantity_order_11 on product_quantity (order_id);
 
 
 

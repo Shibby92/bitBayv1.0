@@ -239,7 +239,7 @@ public class User extends Model {
 	 * 
 	 * @return all admins in our database
 	 */
-	public static List<User>admins(){
+	public static List<User> admins(){
 		return find.where().eq("admin", true).findList();
 	}
 	
