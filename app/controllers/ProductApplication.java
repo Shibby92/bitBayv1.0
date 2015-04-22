@@ -789,7 +789,8 @@ public class ProductApplication extends Controller {
 	@Security.Authenticated(UserFilter.class)
 	public static Result reportProductPage(int id){
 		Logger.info("User " + session().get("email") + " has open reporting product page");
-		return ok(report.render());
+		return TODO;
+	//return ok(report.render());
 	}
 
 	
