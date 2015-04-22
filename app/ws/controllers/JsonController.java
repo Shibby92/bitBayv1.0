@@ -152,6 +152,11 @@ public class JsonController extends Controller {
 		return ok(JsonHelper.productToJson(currProduct));
 	}
 
+	public static Result viewUser(int id) {
+		User currUser = User.find(id);
+		return ok(JsonHelper.userToJson(currUser));
+	}
+
 	
 	/**
 	 * first finds the user based in passed parameter, and then
