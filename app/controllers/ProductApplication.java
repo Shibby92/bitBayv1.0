@@ -552,8 +552,9 @@ public class ProductApplication extends Controller {
 	}
 	
 	
-	public static Result subtractQty(int pId, int cId){
+	public static Result subtractQty(int pId){
 		String email = session().get("email");
+		Cart cart = Cart.getCart(email);
 		Product p = find.byId(pId);
 		if (session().isEmpty()) {
 			flash("guest", "Please log in to buy stuff!");
@@ -568,7 +569,12 @@ public class ProductApplication extends Controller {
 			p.setOrderedQuantity(p.getOrderedQuantity());
 			return redirect("/cartpage/" + userid);
 		}
+		cart.checkout=cart.checkout-p.price*p.getOrderedQuantity();
+		cart.size=cart.size-p.orderedQuantity;
 		p.setOrderedQuantity(totalOrderedQty);
+		cart.size=cart.size+p.getOrderedQuantity();
+		cart.checkout=cart.checkout+p.price*p.getOrderedQuantity();
+		cart.update();
 		return redirect("/cartpage/" + userid);
 	}
 	

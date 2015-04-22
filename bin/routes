@@ -115,8 +115,8 @@ GET    /cartpage/:id               controllers.ProductApplication.cartPage(id: I
 POST   /producttocart/:id          controllers.ProductApplication.productToCart(id: Integer)
 POST   /changeorderedqty/:id          controllers.ProductApplication.changeOrderedQty(id: Integer)
 POST   /addqty/:id                        controllers.ProductApplication.addQty(id: Int)
-GET   /subtractqty                             controllers.ProductApplication.subtractQty(id: Int,cid:Int)
-POST   /cart/changeqty                              controllers.ProductApplication.changeQty(pId: Int, cId: Int) 
+POST   /subtractqty/:id                            controllers.ProductApplication.subtractQty(id: Int)
+
 
 
 
