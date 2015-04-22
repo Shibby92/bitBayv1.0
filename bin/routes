@@ -116,7 +116,7 @@ GET    /orderpage/:id              controllers.OrderController.orderPage(id: Int
 GET    /soldorder/:id              controllers.OrderController.soldOrderPage(id:Integer)
 GET    /soldorderchecked/:id       controllers.OrderController.soldOrderChecked(id:Integer)
 
-GET    /ratingpage/:id             controllers.UserController.ratingpage(id: Integer)
+GET    /rating/:id             controllers.UserController.ratingpage(id: Integer)
 POST   /rating/:id                 controllers.UserController.rating(id: Integer)
 
 #Paypal routes
