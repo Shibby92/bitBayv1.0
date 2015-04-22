@@ -120,11 +120,9 @@
                      <a href="addproductpage/@category.id" class="list-group-item glyphicon glyphicon-shopping-cart"> @category.name </a>
                      }						
                      <div class="form-group text-center">
-                     @if(User.find(session().get("email")).admin) {
+                   
                         <a style="margin: 8.5px -15px" class="btn btn-danger" href="/profil" role="button">Cancel</a>
-                        } else {
-                        <a style="margin: 8.5px -15px" class="btn btn-danger" href="/homepage" role="button">Cancel</a>
-                        }
+                       
                      </div>
                   </div>
                </div>

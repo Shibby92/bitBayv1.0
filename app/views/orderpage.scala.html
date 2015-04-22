@@ -149,15 +149,16 @@
    @if(orders.isEmpty){
 							<h3 style="margin: 180px -15px"><center><strong>You have no orders!</strong></center></h3>
 							}else{
-      <legend>Your Orders: </legend>
-      <div class="row" style="margin:150px 0px">
+      <legend style="margin:10px 0px">Your Orders: </legend>
+      <div class="row" style="margin:30px 0px">
         
-         <table class="table table-bordered">	
+         <table class="table table-bordered" style="background-color: #4AB55A; color: #fff;">	
       <thead>
         <tr>
           <th>Order number</th>
                 <th>Products</th>
                 <th><span class="nobr">Total</span></th>
+                <th>Rate</th>
         </tr>
       </thead>
       <tbody>

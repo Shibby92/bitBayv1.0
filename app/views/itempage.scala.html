@@ -141,15 +141,15 @@
                            }
                            }
                         </ol>
-                        <div class="carousel-inner" style="max-width: 800px;	height: 250px;">
+                        <div class="carousel-inner" >
                            <div class="item active">       
-                              <img class="slide-image" src="@routes.Assets.at(images.get(0).image)" />  
+                              <img class="slide-image" src="@routes.Assets.at(images.get(0).image)" style="width:600px;height:278px"/>  
                            </div>
                            @for(img <- images) {
                            @if(images.indexOf(img) == 0) {
                            } else {
                            <div class="item">       
-                              <img class="slide-image" src="@routes.Assets.at(img.image)" />  
+                              <img class="slide-image" src="@routes.Assets.at(img.image)" style="width:600px;height:278px"/>  
                            </div>
                            }
                            }
