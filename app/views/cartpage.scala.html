@@ -176,7 +176,7 @@
  
 									<form method="POST" action="@routes.ProductApplication.addQty(product.id)"> <input type="submit" value="+" /> 
 									</form> </a>
-									<input class="cart_quantity_input" method="POST" type="text" min="1" id="quantity" name="quantity" value="@product.getOrderedQuantity" autocomplete="off" size="2">
+									<input class="cart_quantity_input" method="POST" type="text" min="1" id="quantity" name="quantity" value="@product.getOrderedQuantity" autocomplete="off" size="2" DISABLED>
 									<a class="cart_quantity_up" style="background-color: transparent; border-color: none">
  
 									<form method="POST" action="@routes.ProductApplication.subtractQty(product.id)"> <input type="submit" value="-" /> 
