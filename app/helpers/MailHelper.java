@@ -15,7 +15,7 @@ public class MailHelper {
 		mail.addTo(email);
 		
 		mail.setBodyText(message);
-		mail.setBodyHtml(String.format("<html><body><strong> %s </strong>: <p> %s </p> </body></html>", email, message));
+		mail.setBodyHtml(String.format("<html><body><strong> %s </strong>: <a href=\"%s\"> Verify your mail here </a> </body></html>", email, message));
 		MailerPlugin.send(mail);
 	}
 }

@@ -139,7 +139,6 @@ public class UserLoginApplication extends Controller {
 			MailHelper.send(email, url.toString());
 			Logger.info("User with email: " + email + " has registered");
 			flash("validate", "Please check your email");
-
 			return redirect("/login");
 		} else {
 			Logger.error("User has entered existing email: " + email);
@@ -325,7 +324,7 @@ public class UserLoginApplication extends Controller {
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(sdkConfig);
 			Amount amount = new Amount();
-			amount.setTotal(total + "0");
+			amount.setTotal(total);
 			amount.setCurrency("USD");
 			Transaction transaction = new Transaction();
 			String stringCart = cartToString(Cart.getCart(session()
