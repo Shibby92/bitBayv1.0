@@ -2,6 +2,11 @@
 
 @import java.math.BigInteger; var i=0
 @main("ItemPage") {
+	<link href="@routes.Assets.at("stylesheets/star-rating.css")" rel="stylesheet"/>
+				<link href="@routes.Assets.at("stylesheets/star-rating.min.css")" rel="stylesheet"/>
+				<link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet"/>
+				<script type="text/javascript" src="@routes.Assets.at("javascripts/star-rating.js")"></script>
+				<script type="text/javascript" src="@routes.Assets.at("javascripts/star-rating.min.js")"></script>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -230,12 +235,12 @@
                }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
                <a href="/contactsellerpage/@product.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 5px 0px">Contact seller</button>
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 0px 0px">Contact seller</button>
                </a>
                }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
                <a href="/reportproductpage/@product.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 5px 0px">Report product</button>
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Report product</button>
                </a>
                }
                } 
@@ -245,7 +250,7 @@
                	 @for(p <- order.productList){
                	 	@if(p.id == product.id && i == 0) { 
                	 		<a href="/ratingpage/@product.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Rate Seller</button>
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 0px 0px">Rate Seller</button>
                </a>
                @{i=i+1}
                	 	}
@@ -263,9 +268,10 @@
             Description: </h4>
             <h5> @product.description <br> </h5>
          </div>
-             <h4>
-            Seller rate: </h4>
-            <h5> @product.owner.rating <br> </h5>
+             <h5>
+            Seller rate: </h5>
+            
+                  <input id="rate" value="@product.owner.rating" name="rate" type="number" class="rating" min=0 max=5 step=1 data-size="xs" disabled>   		 
             
               
             <table class='table' style="margin: 50px 0px">

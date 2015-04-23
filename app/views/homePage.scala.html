@@ -1,5 +1,7 @@
 @(email: String, categoryList:List[Category], products:List[Product], faqs: List[FAQ])
 @main("HomePage") {
+	
+
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
@@ -131,7 +133,7 @@
                      </div>
                   </div>
          	}
-         <div 
+         
 <div class="col-md-3">
    <div class="list-group">
       @for(category <- categoryList){
@@ -195,11 +197,16 @@
       </div>
       }
       }
+       
+      
+   </div>
    </div>
 </div>
-<!-- /.container -->
-<div class="container">
-   <hr>
+</div>
+
+<div id="footer" style="background-color: #e5e5e5">
+  <div class="container">
+  
    <a href="/contactpage">
       <h3>Contact Us</h3>
    </a>
@@ -209,6 +216,7 @@
    <a href="/blog">
       <h3> Blog </h3>
    </a>
+</div>
 </div>
 <!-- /.container -->
 }

@@ -82,8 +82,7 @@
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>                  
+                      
                   } else {
                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li> 
@@ -138,8 +137,8 @@
                }
                }
                <div>
-	<table class='table'>
-		<thead> <tr> <th style="float: left"> </th>  </tr>  </thead>
+	<table class='table' align="center">
+		<thead> </thead>
 		<tbody>
 			@if(blogs.size() > 0) {
 				@for(currentBlog <- blogs){
@@ -148,13 +147,13 @@
 								<div class="single-products">
 									<div class="productinfo text-center">
 									
-									<tr> 
+									<tr > 
 									<td>
 										<h4> <strong>Title:</strong> @currentBlog.title </h4>
 										<h5> <strong>Published:</strong> @currentBlog.date </h5>
 									
 										@if(currentBlog.blogImagePath != null){
-											<img class="img-responsive" src="@routes.Assets.at(currentBlog.blogImagePath)" width="700" height="400" alt="">
+											<img class="img-responsive" src="@routes.Assets.at(currentBlog.blogImagePath)" style="width:800px;height:300px" alt="">
 										}
 										
 										
