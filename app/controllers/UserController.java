@@ -218,11 +218,11 @@ public class UserController extends Controller {
 				+ " has opened his profile page");
 		String email = session().get("email");
 		User u = User.find(email);
-		List<Product> products = User.mySoldProducts(u.id);
+		List<Orders> soldProducts = Orders.find.where().eq("seller_id", u.id).findList();
 		return ok(profile.render(email, User.all(), Category.list(),
 				Product.productList(),
 				Product.myProducts(User.find(session().get("email")).id),
-				FAQ.all(), Message.all(User.find(session().get("email"))), products));
+				FAQ.all(), Message.all(User.find(session().get("email"))), soldProducts));
 	}
 	
 	/**
