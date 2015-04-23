@@ -1,6 +1,7 @@
 package controllers;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.net.MalformedURLException;
 import java.text.*;
@@ -219,10 +220,24 @@ public class UserController extends Controller {
 		String email = session().get("email");
 		User u = User.find(email);
 		List<Product> products = User.mySoldProducts(u.id);
+		List<Report> reports = Report.all();
+		List<Report> uniques = new ArrayList<Report>();
+		for(Report report: reports) {
+			boolean contains = false;
+			for(Report r: uniques){
+				if(report.reportedProduct.id == r.reportedProduct.id){
+					contains = true;
+				}
+			}
+			if(!contains)
+				uniques.add(report);
+						
+		}
+		Logger.debug(""+uniques.size());
 		return ok(profile.render(email, User.all(), Category.list(),
 				Product.productList(),
 				Product.myProducts(User.find(session().get("email")).id),
-				FAQ.all(), Message.all(User.find(session().get("email"))), products));
+				FAQ.all(), Message.all(User.find(session().get("email"))), products, uniques));
 	}
 	
 	/**

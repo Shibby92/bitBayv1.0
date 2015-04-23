@@ -119,6 +119,20 @@
                      </div>
                   </div>
          }
+          @if(flash.get("excess")){
+         <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("excess")
+                     </div>
+                  </div>
+         }
+          @if(flash.get("minQty")){
+         <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("minQty")
+                     </div>
+                  </div>
+         }
          @if(flash.get("warning")){
        <div class="alert alert-warning" role="alert">
                      <div class="container">
@@ -195,13 +209,36 @@
                <h4 class="pull-right"> @product.price $</h4>
                <h4><a href="/itempage/@product.id">@product.name </a>
                </h4>
-                
-               <div style="margin: 20px 0px ">
-                <h5 class="pull-down" style="margin: 20px 20px ">Quantity: @product.orderedQuantity</h5>
-            </div>
-             <div style="margin: 0px 80px">
-               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');" style="margin: -10px -30px ">Remove from Cart</a> 
-             
+              
+							
+							</div>
+               <p> @product.description </p>
+               <div class="pull-down">
+                 Quantity: 
+            
+             @if((email==null)||(User.find(email).admin == false)) {
+               @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
+              
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" style="background-color: transparent; border-color: none">
+ 
+									<form method="POST" action="@routes.ProductApplication.addQty(product.id)"> <input type="submit" value="+" /> 
+									</form> </a>
+									<input class="cart_quantity_input" method="POST" type="text" min="1" id="quantity" name="quantity" value="@product.getOrderedQuantity" autocomplete="off" size="2" DISABLED="true">
+									<a class="cart_quantity_up" style="background-color: transparent; border-color: none">
+ 
+									<form method="POST" action="@routes.ProductApplication.subtractQty(product.id)"> <input type="submit" value="-" /> 
+									</form> </a>
+								</div>
+											
+								}
+								}								
+							</td>
+							</div>
+             <div style="margin: 10px 80px">
+              
+               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Remove from Cart</a> 
           </div>
                
             </div>
@@ -212,14 +249,14 @@
       }
    </div>
 
-   
+       </div>
 }else{
 <p> <h4 style="margin: 150px 100px ">Your cart is empty...</h4></p>
 
 }
 </div>
 	
-	<div>
+	
        
 <legend>You may also like:</legend>
        

@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
 @Entity
@@ -12,10 +13,14 @@ public class Report extends Model {
 	@Id
 	public int id;
 
+	@ManyToOne
 	public Product reportedProduct;
 	
+	@ManyToOne
 	public User reporter;
 	
+	@ManyToOne
+	@Required
 	public String message;
 
 	public static Finder<Integer, Report> find = new Finder<Integer, Report>(Integer.class, Report.class);
@@ -45,6 +50,23 @@ public class Report extends Model {
 		if(reportsByProduct == null)
 			reportsByProduct = new ArrayList<Report>();
 		return reportsByProduct;
+	}
+	
+	public static int sizeReportsByProduct(Product product) {
+		List<Report> reportsByProduct = find.where().eq("reportedProduct",product).findList();
+		if(reportsByProduct == null)
+			reportsByProduct = new ArrayList<Report>();
+		return reportsByProduct.size();
+	}
+		
+	public static Report find(int id) {
+		return find.byId(id);
+	}
+	
+	public static void delete(int id){
+		List<Report> all = Report.findByProduct(Report.find(id).reportedProduct);
+		for(Report report: all)
+			report.delete();
 	}
 	
 

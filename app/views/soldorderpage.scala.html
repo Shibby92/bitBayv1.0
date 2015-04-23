@@ -132,25 +132,19 @@
         </tr>
       </thead>
       <tbody>
-       @for(order <- orders){
-       	@if(order.notification==true){        <tr>
-         <td>@order.id</td>
+       @for(not <- Notification.byOwner(email)){
+             <tr>
+         <td>@not.id</td>
         
-          <td>
-                    @for(product <- order.productList){
-                    	@if(product.owner==User.find(session().get("email"))){
-                    	<p>@product.name ($ @product.price)</p>
-                    	}
-                    }
-                    </td>
-                   <td>@order.buyer.email</td>
-                    <td><span class="price">$ @Orders.priceFromSeller(order,User.find(session().get("email"))),-</span>
-                     <a href ="/soldorderchecked/@order.id">
+          <td>@not.product.name </td>
+                   <td>@not.buyer.email</td>
+                    <td><span class="price">-</span>
+                     <a href ="/soldorderchecked/@not.id">
                     	<button type="button" class="btn btn-warning" style="margin: 0px 15px">Ok, got it!</button></td>
-                  <td> <a href="/ratingpage/@order.buyer.id"
+                  <td> <a href="/ratingpage/@not.buyer.id"
 						<button type="button" class="btn btn-warning" style="margin: 0px 15px">Rate buyer</button>
 						</td>
-					<td>	<a href="/userprofile/@order.buyer.id"
+					<td>	<a href="/userprofile/@not.buyer.id"
                <button type="button" class="btn btn-warning">Visit buyers profile</button>
                </td>
                     
@@ -160,14 +154,14 @@
         </tbody>
       
         
-      
+      }
      
-       }
-       }
+     
+    
        </table>
        
-      
-}
+       }
+
       
      
    </div>

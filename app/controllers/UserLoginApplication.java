@@ -21,6 +21,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.*;
+import models.Notification;
 import play.Logger;
 import play.Play;
 import play.data.*;
@@ -62,7 +63,6 @@ public class UserLoginApplication extends Controller {
 		if (session().get("email") == null)
 			Logger.info("Homepage has been opened by guest");
 		else
-		//	Logger.debug(Boolean.toString(User.find(email).soldOrders.get(User.find(email).soldOrders.size()-1).notification));
 			Logger.info("Homepage has been opened by user with email: "
 					+ session().get("email"));
 
@@ -365,13 +365,21 @@ public class UserLoginApplication extends Controller {
 
 	@Security.Authenticated(UserFilter.class)
 	public static String cartToString(Cart cart) {
+
 		StringBuilder sb = new StringBuilder();
+
 		sb.append("Your order via bitBay: ");
+
 		for (Product product : cart.productList) {
+
 			sb.append(product.name + " (" + product.price + "0 $) x "
-					+ product.orderedQuantity + ", ");
+
+			+ product.orderedQuantity + ", ");
+
 		}
+
 		sb.append("which is a total prize of: " + cart.checkout + "0 $");
+
 		if (sb.length() > 127) {
 			sb.delete(0, sb.length());
 			sb.append("Your order via bitBay: ");
@@ -385,8 +393,8 @@ public class UserLoginApplication extends Controller {
 			sb.append("Your order via bitBay: ");
 			sb.append("TOTAL: " + cart.checkout + "0 $");
 		}
-
 		return sb.toString();
+
 	}
 
 	@Security.Authenticated(UserFilter.class)
@@ -451,34 +459,36 @@ public class UserLoginApplication extends Controller {
 			while (itr.hasNext()) {
 				Product p = itr.next();
 				p.order.add(order);
-				p.cart=null;
+				p.cart = null;
 			}
-			List <User> sellers= new ArrayList<User>();
 			Orders userOrder = user.orderList
 					.get(user.orderList.size() - 1);
 			for(Product p: userOrder.productList){
+
 				User seller = p.owner;
 				seller.soldOrders.add(userOrder);
+				Logger.debug(p.name);
+				Notification.createNotification(seller, userOrder.buyer, p);
 				seller.soldOrders.get(seller.soldOrders.size() - 1).notification = true;
 				seller.soldOrders.get(seller.soldOrders.size() - 1).seller = seller;
 				
 			}
-		
-			
 
 			for (Product product : order.productList) {
 				if (product.getOrderedQuantity() >= product.getQuantity())
 					product.sold = true;
 				int leftQuantity = product.getQuantity()
 						- product.getOrderedQuantity();
-				ProductQuantity temp=new ProductQuantity(product.id,product.getOrderedQuantity());
+				ProductQuantity temp = new ProductQuantity(product.id,
+						product.getOrderedQuantity());
 				order.pQ.add(temp);
 				product.setQuantity(leftQuantity);
-				product.cart=null;
+				product.cart = null;
 				product.setOrderedQuantity(0);
+
 				order.update();
 			}
-			Cart.clear(user.id);
+			Cart.clear(user.id);			
 			user.save();
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());

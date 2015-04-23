@@ -420,6 +420,9 @@ public class Product extends Model {
 		this.update();
 	}
 
+	public static double total(Product p){
+		return p.price*p.getOrderedQuantity();
+	}
 	public String getName() {
 		return name;
 	}
