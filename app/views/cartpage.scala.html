@@ -192,14 +192,15 @@
          <div class="thumbnail">
            <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
             <div class="caption">
+            <div >
                <h4 class="pull-right"> @product.price $</h4>
                <h4><a href="/itempage/@product.id">@product.name </a>
                </h4>
-                
+                </div>
                <div style="margin: 20px 0px ">
                 <h5 class="pull-down" style="margin: 20px 20px ">Quantity: @product.orderedQuantity</h5>
             </div>
-             <div style="margin: 0px 80px">
+             <div  style="margin: 0px 80px">
                <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');" style="margin: -10px -30px ">Remove from Cart</a> 
              
           </div>

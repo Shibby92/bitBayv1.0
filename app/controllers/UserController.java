@@ -276,7 +276,7 @@ public class UserController extends Controller {
 		Logger.info("User with email: " + session().get("email")
 				+ " has rated user with id: " + id);
 		flash("success", "You have successfuly rated user!");
-		return redirect("/profile");
+		return redirect("/homepage");
 	}
 
 

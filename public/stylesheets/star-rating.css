@@ -135,6 +135,7 @@
 
 .rating-md {
     font-size: 3.13em;
+    margin: 0px 190px
 }
 
 .rating-sm {
@@ -143,6 +144,7 @@
 
 .rating-xs {
     font-size: 2em;
+    margin: -40px 10px
 }
 
 /**
@@ -180,6 +182,7 @@
 
 .star-rating .caption {
     padding-left: 5px;
+    margin: 0px -180px;
 }
 
 .star-rating-rtl .caption {
