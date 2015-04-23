@@ -495,6 +495,7 @@ public class ProductApplication extends Controller {
 		Cart c=Cart.find(id);
 		c.shippingAddress=shipA;
 		c.update();
+		flash("shipSuccess", "Shipping address successfully changed!");
 		return ok(cartpage.render(session().get("email"),Cart.find(id),FAQ.all()));
 	}
 
