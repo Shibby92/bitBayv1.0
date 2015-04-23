@@ -249,7 +249,7 @@
                @for(order <- User.find(session().get("email")).orderList) {
                	 @for(p <- order.productList){
                	 	@if(p.id == product.id && i == 0) { 
-               	 		<a href="/ratingpage/@product.id"
+               	 		<a href="/rating/@product.id"
                <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 0px 0px">Rate Seller</button>
                </a>
                @{i=i+1}

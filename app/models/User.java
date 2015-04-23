@@ -308,6 +308,9 @@ public class User extends Model {
 		u.user_address = user_address;
 		u.gender = gender;
 		u.city = city;
+		Cart c=Cart.find(u.id);
+		c.shippingAddress=shipping_address;
+		c.update();
 		u.update();
 		return true;
 	}

@@ -58,15 +58,17 @@ public class Global extends GlobalSettings {
 			User u5 = new User("hikmet.durgutovic@bitcamp.ba",
 					HashHelper.createPassword("hikmet"), false, true);
 			User.create(u5);
-			u4.username="Hikmet";
-			u4.hasAdditionalInfo=true;
-			u4.update();
+			u5.username="Hikmet";
+			u5.hasAdditionalInfo=true;
+			u5.update();
 
 			User u6 = new User("nermin.vucinic@bitcamp.ba",
 					HashHelper.createPassword("nermin"), false, true);
 			User.create(u6);
-			u4.username="Nermin";
-			u4.update();
+			u6.user_address="Trebinjska 113";
+			u6.username="Nermin";
+			u6.hasAdditionalInfo=true;
+			u6.update();
 
 		}
 		
@@ -137,7 +139,6 @@ public class Global extends GlobalSettings {
 			List<Image> imggg = new ArrayList<Image>();
 			imggg.add(img3);
 			Image.saveImg(img3);
-			pro.category_id = 3;
 			pro.images = imggg;
 			pro.update();
 
@@ -161,7 +162,7 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product.create("Galaxy S6", 2000, 15, User.find(3),
+			Product.create("Galaxy S6", 2000.00, 15, User.find(3),
 					"Detailed: item info, " + "Product: Identifiers, "
 							+ "Brand: Samsung, " + "Carrier: Unlocked,"
 							+ " Family Line: Samsung Galaxy S6,"
@@ -176,6 +177,7 @@ public class Global extends GlobalSettings {
 			img5.product = produ;
 			Tag.create(produ, Category.find(produ.category_id).name);
 			Tag.create(produ, produ.name);
+			Tag.create(produ,"Samsung");
 			List<Image> imggggg = new ArrayList<Image>();
 			imggggg.add(img5);
 			Image.saveImg(img5);
@@ -227,7 +229,7 @@ public class Global extends GlobalSettings {
 			
 			
 			Product.create("Dog", 120, 3, User.find(6),
-					"Young dog, 3 monts, only money!!!", 8);
+					"Young dog, 3 months, only money!!!", 8);
 
 			Product product1 = Product.find(6);
 			Image img8 = new Image();
@@ -312,6 +314,79 @@ public class Global extends GlobalSettings {
 			Image.saveImg(img12);
 			product5.category_id = 3;
 			product5.images = imgggggggggggg;
+			
+			Product.create("Samsung galaxy S6 cover",9.99,50,User.find(3),"Silicon cover for Samsung galaxy S6",3);
+			Product product6 =Product.find(11);
+			Image img13= new Image();
+			img13.image="images/samsungCover.jpg";
+			img13.product=product6;
+			Tag.create(product6, Category.find(product6.category_id).name);
+			Tag.create(product6, product6.name);
+			Tag.create(product6, "Samsung");
+			List<Image> image1= new ArrayList<Image>();
+			image1.add(img13);
+			Image.saveImg(img13);
+			
+			Product.create("Headphones for Samsung galaxy S6 ",19.99,100,User.find(3),"Very stylish headphones for Samsung galaxy S6",3);
+			Product product7 =Product.find(12);
+			Image img14= new Image();
+			img14.image="images/samsungHeadphones.jpg";
+			img14.product=product7;
+			Tag.create(product7, Category.find(product7.category_id).name);
+			Tag.create(product7, product7.name);
+			Tag.create(product7, "Samsung");
+			List<Image> image2= new ArrayList<Image>();
+			image2.add(img14);
+			Image.saveImg(img14);
+			
+			Product.create("Dock for Samsung galaxy S6 ",29.99,10,User.find(3),"Beatiful all-in-one dock for the new Samsung galaxy S6",3);
+			Product product8 =Product.find(13);
+			Image img15= new Image();
+			img15.image="images/samsungDock.jpg";
+			img15.product=product8;
+			Tag.create(product8, Category.find(product8.category_id).name);
+			Tag.create(product8, product8.name);
+			Tag.create(product8, "Samsung");
+			List<Image> image3= new ArrayList<Image>();
+			image3.add(img15);
+			Image.saveImg(img15);
+			
+			Product.create("Dog chew rope", 5.55, 15, User.find(6),"A toy for your best friend!", 8);
+			Product product9 = Product.find(14);
+			Image img16 = new Image();
+			img16.image = "images/dogChewRope.jpg";
+			img16.product = product9;
+			Tag.create(product9, Category.find(product9.category_id).name);
+			Tag.create(product9, product9.name);
+			Tag.create(product9,"Dog");
+			List<Image> image4 = new ArrayList<Image>();
+			image4.add(img16);
+			Image.saveImg(img16);
+			
+			Product.create("Dog collar", 9.69, 20, User.find(6),"New red plaid stylish dog collar.", 8);
+			Product product10 = Product.find(15);
+			Image img17 = new Image();
+			img17.image = "images/dogCollar.jpg";
+			img17.product = product10;
+			Tag.create(product10, Category.find(product10.category_id).name);
+			Tag.create(product10, product10.name);
+			Tag.create(product10,"Dog");
+			List<Image> image5 = new ArrayList<Image>();
+			image5.add(img17);
+			Image.saveImg(img17);
+			
+			Product.create("Treatball", 21.29, 5, User.find(6),"Mystery green rubber treatball for your dog!", 8);
+			Product product11 = Product.find(16);
+			Image img18 = new Image();
+			img18.image = "images/dogTreatball.jpg";
+			img18.product = product11;
+			Tag.create(product11, Category.find(product11.category_id).name);
+			Tag.create(product11, product11.name);
+			Tag.create(product11,"Dog");
+			List<Image> image6 = new ArrayList<Image>();
+			image6.add(img18);
+			Image.saveImg(img18);
+			
 
 		}
 
