@@ -1,6 +1,8 @@
 package controllers;
 
+import helpers.AdminAndBloggerFilter;
 import helpers.AdminFilter;
+import helpers.Session;
 import helpers.UserFilter;
 
 import java.io.File;
@@ -11,6 +13,7 @@ import java.util.UUID;
 import com.google.common.io.Files;
 
 import models.Blog;
+import models.User;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -45,7 +48,8 @@ public class BlogController extends Controller {
 			String title = form.get("title");
 			String content = form.get("content");
 			String imgPath = savePicture();
-			Blog.createBlog(title, content, imgPath);
+			User user = Session.getCurrentUser(ctx());
+			Blog.createBlog(title, content, imgPath, user.id);
 			Logger.info("New Blog added with title: " + title);
 			flash("success", "New blog added!");
 			return redirect("/blog");
@@ -60,7 +64,7 @@ public class BlogController extends Controller {
 	 * Method renders the page in which new blog is created
 	 * @return
 	 */
-	@Security.Authenticated(AdminFilter.class)
+	@Security.Authenticated(AdminAndBloggerFilter.class)
 	public static Result toAddNewBlog() {
 		Logger.info("Opened page for adding new Blog");
 		String email = session().get("email");
@@ -88,7 +92,7 @@ public class BlogController extends Controller {
 
 	}
 	
-	@Security.Authenticated(AdminFilter.class)
+	@Security.Authenticated(AdminAndBloggerFilter.class)
 	public static Result toUpdateBlog(int id) {
 		String email = session().get("email");
 		Blog currentBlog = Blog.findBlogById(id);
@@ -100,7 +104,7 @@ public class BlogController extends Controller {
 	 * @param id
 	 * @return
 	 */
-	@Security.Authenticated(AdminFilter.class)
+	@Security.Authenticated(AdminAndBloggerFilter.class)
 	public static Result deleteBlog(int id) {
 		String email = session().get("email");
 		Blog.deleteBlog(id);

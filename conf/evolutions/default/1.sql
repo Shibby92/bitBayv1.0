@@ -9,6 +9,7 @@ create table blog (
   content                   TEXT,
   blog_image_path           varchar(255),
   date                      varchar(255),
+  user_id                   integer,
   constraint pk_blog primary key (id))
 ;
 
@@ -133,6 +134,7 @@ create table user (
   city                      varchar(255),
   gender                    varchar(255),
   admin                     boolean,
+  blogger                   boolean,
   verification              boolean,
   confirmation              varchar(255),
   has_additional_info       boolean,

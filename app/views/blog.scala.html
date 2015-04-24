@@ -129,7 +129,7 @@
 
      @if(session().get("email") != null) {
 
-		@if(User.find(session().get("email")).admin) { 
+		@if(User.find(session().get("email")).admin || User.find(session().get("email")).blogger) { 
 
       <div class="form-group text-center">
               <a class="btn btn-success" href="/addBlog" role="button">Add new Blog</a>
@@ -160,7 +160,7 @@
 										<p> <strong>Content:</strong> @Html(currentBlog.content) </p>
 										
 										@if(session().get("email") != null) {
-											@if(User.find(session().get("email")).admin) { 
+											@if(User.find(session().get("email")).admin || User.find(session().get("email")).id == currentBlog.userId) { 
 											
 											
 											<a href="@routes.BlogController.toUpdateBlog(currentBlog.id)" class="btn btn-default">Edit</a>

@@ -35,6 +35,8 @@ public class Blog extends Model {
 	public String blogImagePath;
 	
 	public String date;
+	
+	public int userId;
 
 	/**
 	 * Constructor of object Blog with three parameters
@@ -42,12 +44,13 @@ public class Blog extends Model {
 	 * @param content
 	 * @param blogImagePath
 	 */
-	public Blog(String title, String content, String blogImagePath) {
+	public Blog(String title, String content, String blogImagePath, int userId) {
 		
 		this.title = title;
 		this.content = content;
 		this.blogImagePath = blogImagePath;
 		this.date = date();
+		this.userId = userId;
 	}
 	
 	/**
@@ -56,8 +59,8 @@ public class Blog extends Model {
 	 * @param content
 	 * @param blogImagePath
 	 */
-	public static void createBlog(String title, String content, String blogImagePath) {
-		new Blog(title, content, blogImagePath).save();
+	public static void createBlog(String title, String content, String blogImagePath, int userId) {
+		new Blog(title, content, blogImagePath, userId).save();
 	}
 	
 	//Finder

@@ -69,6 +69,15 @@ public class Global extends GlobalSettings {
 			u6.username="Nermin";
 			u6.hasAdditionalInfo=true;
 			u6.update();
+			
+			User u7 = new User("blogger@bitcamp.ba", 
+					HashHelper.createPassword("blogger"), false, true);
+			User.create(u7);
+			u7.user_address = "Bloggers St. 72";
+			u7.username = "Blogger";
+			u7.hasAdditionalInfo = true;
+			u7.blogger = true;
+			u7.update();
 
 		}
 		
@@ -432,7 +441,7 @@ public class Global extends GlobalSettings {
 					+ "for security."
 					+ "We really hope you will find our website fun and intuitive to use."
 					+ "Kind Regards BitBay team.", 
-					"images/logo.png");
+					"images/logo.png", 1);
 		}
 		
 		if(Report.find(1) == null) {
