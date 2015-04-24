@@ -3,12 +3,13 @@ package models;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import play.db.ebean.Model;
 
 @Entity
 public class Notification extends Model {
+	
+	public static Finder <Integer, Notification> finder= new Finder<Integer,Notification>(Integer.class,Notification.class);
 
 	@Id
 	public int id;
@@ -16,13 +17,13 @@ public class Notification extends Model {
 	@ManyToOne
 	public User seller;
 
-	public Orders order;
+	public int orderId;
 
 	public boolean isUnchecked;
 
 	public Notification(User seller, Orders order) {
 		this.seller = seller;
-		this.order = order;
+		this.orderId = order.id;
 		this.isUnchecked = true;
 	}
 

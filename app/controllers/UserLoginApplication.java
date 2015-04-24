@@ -466,10 +466,7 @@ public class UserLoginApplication extends Controller {
 					sellers.add(p.owner);
 				}
 			}
-			for(User seller:sellers){
-				new Notification(seller, userOrder).save();
-				seller.update();
-			}
+			
 			
 			for (Product product : order.productList) {
 				if (product.getOrderedQuantity() >= product.getQuantity())
@@ -485,6 +482,10 @@ public class UserLoginApplication extends Controller {
 			}
 			Cart.clear(user.id);
 			user.save();
+			for(User seller:sellers){
+				new Notification(seller, order).save();
+				seller.update();
+			}
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());
 		}

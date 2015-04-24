@@ -63,6 +63,7 @@ create table message (
 create table notification (
   id                        integer not null,
   seller_id                 integer,
+  order_id                  integer,
   is_unchecked              boolean,
   constraint pk_notification primary key (id))
 ;

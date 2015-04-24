@@ -349,7 +349,7 @@ public class User extends Model {
 		List<Orders> unchecked= new ArrayList<Orders>();
 		for(Notification notification: u.notification){
 			if(notification.isUnchecked){
-				unchecked.add(notification.order);
+				unchecked.add(Orders.find(notification.orderId));
 			}
 		}
 		return unchecked;
