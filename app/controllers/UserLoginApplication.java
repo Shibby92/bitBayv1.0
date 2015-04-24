@@ -206,6 +206,7 @@ public class UserLoginApplication extends Controller {
 							List<User> admins = User.admins();
 							for (User admin : admins) {
 								ContactHelper.send(email, admin.email, message);
+								ContactHelper.sendToPage(email,  admin.email, message, "Contact Us message!");
 							}
 							flash("success", "Message sent!");
 							if (session().get("email") == null)

@@ -21,6 +21,8 @@ public class Report extends Model {
 	
 	@ManyToOne
 	@Required
+	@MinLength(10)
+	@MaxLength(240)
 	public String message;
 
 	public static Finder<Integer, Report> find = new Finder<Integer, Report>(Integer.class, Report.class);
