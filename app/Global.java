@@ -441,7 +441,7 @@ public class Global extends GlobalSettings {
 					+ "for security."
 					+ "We really hope you will find our website fun and intuitive to use."
 					+ "Kind Regards BitBay team.", 
-					"images/logo.png", 1);
+					"images/logo.png", 1, "Admin");
 		}
 		
 		if(Report.find(1) == null) {

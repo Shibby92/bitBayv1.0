@@ -49,7 +49,7 @@ public class BlogController extends Controller {
 			String content = form.get("content");
 			String imgPath = savePicture();
 			User user = Session.getCurrentUser(ctx());
-			Blog.createBlog(title, content, imgPath, user.id);
+			Blog.createBlog(title, content, imgPath, user.id, user.username);
 			Logger.info("New Blog added with title: " + title);
 			flash("success", "New blog added!");
 			return redirect("/blog");

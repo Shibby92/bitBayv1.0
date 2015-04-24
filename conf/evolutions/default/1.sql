@@ -10,6 +10,7 @@ create table blog (
   blog_image_path           varchar(255),
   date                      varchar(255),
   user_id                   integer,
+  posted_by                 varchar(255),
   constraint pk_blog primary key (id))
 ;
 
