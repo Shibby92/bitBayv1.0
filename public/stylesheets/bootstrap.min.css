@@ -4683,7 +4683,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 }
 
 .navbar-fixed-bottom, .navbar-fixed-top {
-	position: fixed;
+	position: absolute;
 	right: 0;
 	left: 0;
 	z-index: 1030

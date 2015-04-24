@@ -900,7 +900,7 @@ public class ProductApplication extends Controller {
 	}
 	
 	@Security.Authenticated(UserFilter.class)
-	public static Promise<Result> reportProduct(int id) {
+	public static Promise<Result> reportProduct(final int id) {
 		final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		final String report = temp.get("report");
 
