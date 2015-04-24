@@ -195,52 +195,66 @@
                         <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
                         <span class="glyphicon glyphicon-chevron-right"></span>
                         </a>
+                        <div style="background-color:#fff; width:100%">  
+                        <h4 class="pull-right" style="color: #4AB55A;background-color:#fff;";> @product.price $</h4>
+               			<h4 style="color: #4AB55A;background-color:#fff;">@product.name</div>
             </centar>
             </div>
             </div>
             </div>
             <div class="col-md-11">
-               <h4 class="pull-right"> @product.price $</h4>
-               <h4 style="color: #4AB55A">@product.name
+              
                </h4>
                <br>
                <h4> On Stock: @product.quantity </h4>
                @if((email==null)||(User.find(email).admin == false)) {
                @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
+               	 
                <form action="@routes.ProductApplication.productToCart(product.id)"  method="POST" enctype="multipart/form-data">
                   <div>
                      <dl class=" " id="orderedQuantity_field">
                         <dt><label for="orderedQuantity">Quantity:</label> </dt>
-                        <dd><input maxlength="6" size="6" name="orderedQuantity" id="orderedQuantity" value='1'  placeholder="Enter quantity " type="number" step="1" min="1"  max="999999" class="form-control" required/> </dd>
+                        <dd>
+                        <div class='col-md-8'>
+                        <input maxlength="6" size="6" name="orderedQuantity" id="orderedQuantity" value='1'  placeholder="Enter quantity " type="number" step="1" min="1"  max="999999" class="form-control" required/> 
+                        </div>
+                        <div class='col-md-4'>
+                        <input type="submit" class="btn btn-success " value="Add to cart" style="  width: 200px;" />
+                        </div>
+                        </dd>
+                    	
                      </dl>
                   </div>
+                   
+                   </form>
                   }
                   }
                    @if(session().get("email")!=product.owner.email) {
+                   	<br />
                   <h4>In Cart(this item): @product.getOrderedQuantity</a>
                   </h4>
                   }
+                   
+                  
                   @if((email==null)||(User.find(email).admin == false)) {
                   @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
-               <form action="demo_form.asp">
-                  <input type="submit" class="btn btn-success " value="Add to cart" style="width: 350px; height: 40px">
-               </form>
-               </form>
+                  	 
+             
                }
-               
+            	 <div class="btn-group btn-group-justified" style="margin: 30px 0px">
                @if(session().get("email")!=product.owner.email) {
                 <a href="/userprofile/@product.owner.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Visit seller profile</button>
+               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Visit seller profile
                </a> 
                }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
                <a href="/contactsellerpage/@product.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 0px 0px">Contact seller</button>
+               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Contact seller
                </a>
                }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
                <a href="/reportproductpage/@product.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Report product</button>
+               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Report product
                </a>
                }
                } 
@@ -250,7 +264,7 @@
                	 @for(p <- order.productList){
                	 	@if(p.id == product.id && i == 0) { 
                	 		<a href="/rating/@product.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 0px 0px">Rate Seller</button>
+               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Rate Seller
                </a>
                @{i=i+1}
                	 	}
@@ -258,27 +272,44 @@
                }
 
                }
-                 
+                 </div>
             </div>
          </div>
          <div class="col-md-5" style="margin: 0px 15px">
-
-      		<div class="well login-box" style="margin: 5px 0px">
-            <h4>
-            Description: </h4>
-            <h5> @product.description <br> </h5>
-         </div>
-             <h5>
-            Seller rate: </h5>
+		
+		  <h5>
+            Seller rate:
+           
+             </h5>
             
                   <input id="rate" value="@product.owner.rating" name="rate" type="number" class="rating" min=0 max=5 step=1 data-size="xs" disabled>   		 
             
               
+			
+      		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin: 30px -10px;">
+  			<div class="panel panel-default">
+    			<div class="panel-heading" role="tab" id="headingOne"   style="background-color: #4AB55A;">
+      			<h4 class="panel-title">
+        			<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+         Description:
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+       	@product.description
+        </div>
+    </div>
+  </div>
+         
+          
+         </div>
+           
             <table class='table' style="margin: 50px 0px">
                <thead>
-                  <tr>
+                
                      <th style="float: left"> Comments: </th>
-                  </tr>
+                  
                </thead>
                <tbody>
                   @if(comments != null) {
@@ -316,7 +347,7 @@
    </div>
    </div>
    </div>
-   <div id="footer" style="background-color: #f5f5f5">
+   <div id="footer" style="background-color: #f5f5f5;   position: relative;">
   <div class="container">
 
    
