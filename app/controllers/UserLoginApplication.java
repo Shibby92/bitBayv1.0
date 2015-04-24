@@ -324,7 +324,12 @@ public class UserLoginApplication extends Controller {
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(sdkConfig);
 			Amount amount = new Amount();
+			if(Double.parseDouble(total)%10==0){
+				amount.setTotal(total+"0");
+			}
+			else{
 			amount.setTotal(total);
+			}
 			amount.setCurrency("USD");
 			Transaction transaction = new Transaction();
 			String stringCart = cartToString(Cart.getCart(session()
