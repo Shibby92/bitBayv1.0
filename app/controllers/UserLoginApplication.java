@@ -21,6 +21,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.*;
+import models.Notification;
 import play.Logger;
 import play.Play;
 import play.data.*;
@@ -461,15 +462,12 @@ public class UserLoginApplication extends Controller {
 			Orders userOrder = user.orderList
 					.get(user.orderList.size() - 1);
 			for(Product p: userOrder.productList){
-				User seller = p.owner;
-				seller.soldOrders.add(userOrder);
-				seller.soldOrders.get(seller.soldOrders.size() - 1).notification = true;
-				seller.soldOrders.get(seller.soldOrders.size() - 1).seller = seller;
-				
+				if(!sellers.contains(p.owner)){
+					sellers.add(p.owner);
+				}
 			}
-		
 			
-
+			
 			for (Product product : order.productList) {
 				if (product.getOrderedQuantity() >= product.getQuantity())
 					product.sold = true;
@@ -484,6 +482,10 @@ public class UserLoginApplication extends Controller {
 			}
 			Cart.clear(user.id);
 			user.save();
+			for(User seller:sellers){
+				new Notification(seller, order).save();
+				seller.update();
+			}
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());
 		}

@@ -13,7 +13,9 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import play.db.ebean.Model.Finder;
+
 import javax.persistence.*;
 
 import play.data.DynamicForm;
@@ -96,8 +98,10 @@ public class User extends Model {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
 	public List<Orders> orderList;
 	
-	@OneToMany(cascade= CascadeType.ALL, mappedBy = "seller")
 	public List<Orders> soldOrders;
+	
+	@OneToMany (cascade = CascadeType.ALL, mappedBy = "seller")
+	public List <Notification> notification; 
 
 	public static Finder<Integer, User> find = new Finder<Integer, User>(Integer.class, User.class);
 	public static Finder<Integer, User> findUser = new Finder<Integer, User>(Integer.class, User.class);
@@ -338,6 +342,17 @@ public class User extends Model {
 	public static void addSoldOrder(User seller,Orders temp) {
 		seller.soldOrders.add(temp);
 		seller.update();
+	}
+
+	public static List<Orders> getUncheckedNotifications(int id) {
+		User u = User.find(id);
+		List<Orders> unchecked= new ArrayList<Orders>();
+		for(Notification notification: u.notification){
+			if(notification.isUnchecked){
+				unchecked.add(Orders.find(notification.orderId));
+			}
+		}
+		return unchecked;
 	}
 
 

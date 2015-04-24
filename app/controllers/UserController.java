@@ -1,6 +1,7 @@
 package controllers;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.net.MalformedURLException;
 import java.text.*;
@@ -218,7 +219,10 @@ public class UserController extends Controller {
 				+ " has opened his profile page");
 		String email = session().get("email");
 		User u = User.find(email);
-		List<Orders> soldProducts = Orders.find.where().eq("seller_id", u.id).findList();
+		List<Orders> soldProducts= new ArrayList<Orders>();
+		for(Notification notification: u.notification){
+				soldProducts.add(Orders.find(notification.orderId));
+		}
 		return ok(profile.render(email, User.all(), Category.list(),
 				Product.productList(),
 				Product.myProducts(User.find(session().get("email")).id),
