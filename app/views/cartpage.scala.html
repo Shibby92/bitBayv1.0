@@ -231,8 +231,8 @@
 								
  								
 									<form method="POST" action="@routes.ProductApplication.addQty(product.id)" style="margin: -5px -40px"> 
-									 <button type="submit" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
-                					<span class="glyphicon glyphicon-minus"></span>
+									 <button type="submit" class="btn btn-success btn-number"  data-type="plus" data-field="quant[2]">
+                					<span class="glyphicon glyphicon-plus"></span>
              						 </button>
              						
 									
@@ -245,8 +245,8 @@
  									
 									<form method="POST" action="@routes.ProductApplication.subtractQty(product.id)" style="margin: -25px 55px"> 
 									<span class="input-group-btn">
-						              <button type="submit" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
-						                  <span class="glyphicon glyphicon-plus"></span>
+						              <button type="submit" class="btn btn-danger btn-number" data-type="minus" data-field="quant[2]">
+						                  <span class="glyphicon glyphicon-minus"></span>
 						              </button>
           							</span>
 									</form> 
@@ -312,7 +312,7 @@
   
 
             
-    <div id="footer" style="background-color: #f5f5f5">
+    <div id="footer" style="background-color: #f5f5f5;   position: relative;">
   <div class="container">
 
    
