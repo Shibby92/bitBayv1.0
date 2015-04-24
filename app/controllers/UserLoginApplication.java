@@ -21,6 +21,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import models.*;
+import models.Notification;
 import play.Logger;
 import play.Play;
 import play.data.*;
@@ -324,7 +325,12 @@ public class UserLoginApplication extends Controller {
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(sdkConfig);
 			Amount amount = new Amount();
+			if(Double.parseDouble(total)%10==0){
+				amount.setTotal(total+"0");
+			}
+			else{
 			amount.setTotal(total);
+			}
 			amount.setCurrency("USD");
 			Transaction transaction = new Transaction();
 			String stringCart = cartToString(Cart.getCart(session()
@@ -456,15 +462,15 @@ public class UserLoginApplication extends Controller {
 			Orders userOrder = user.orderList
 					.get(user.orderList.size() - 1);
 			for(Product p: userOrder.productList){
-				User seller = p.owner;
-				seller.soldOrders.add(userOrder);
-				seller.soldOrders.get(seller.soldOrders.size() - 1).notification = true;
-				seller.soldOrders.get(seller.soldOrders.size() - 1).seller = seller;
-				
+				if(!sellers.contains(p.owner)){
+					sellers.add(p.owner);
+				}
 			}
-		
+			for(User seller:sellers){
+				new Notification(seller, userOrder).save();
+				seller.update();
+			}
 			
-
 			for (Product product : order.productList) {
 				if (product.getOrderedQuantity() >= product.getQuantity())
 					product.sold = true;

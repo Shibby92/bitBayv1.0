@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.paypal.api.payments.Links;
 
@@ -39,11 +40,6 @@ public class Orders extends Model {
 	public String token;
 	
 	public String shippingAddress;
-	
-	@ManyToOne
-	public User seller;
-	
-	public boolean notification;
 	
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "order")
 	public List<ProductQuantity> pQ;
@@ -89,24 +85,24 @@ public class Orders extends Model {
 	}
 	public Orders(Orders userOrder) {
 		this.buyer=userOrder.buyer;
-		this.notification=userOrder.notification;
+		
 		this.orderDate=userOrder.orderDate;
 		this.pQ=userOrder.pQ;
 		this.price=userOrder.price;
 		this.productList=userOrder.productList;
-		this.seller=userOrder.seller;
+		
 		this.shippingAddress=userOrder.shippingAddress;
 		this.token=userOrder.token;
 	}
 
-	public static int notificationCounter(List<Orders>ol){
-		int counter=0;
-		for(Orders o : ol){
-			if(o.notification)
-				counter++;
-		}
-		return counter;
-	}
+//	public static int notificationCounter(List<Orders>ol){
+//		int counter=0;
+//		for(Orders o : ol){
+//			if(o.notification)
+//				counter++;
+//		}
+//		return counter;
+//	}
 	public static double priceFromSeller(Orders order, User user){
 		double sum=0;
 		for(Product p: order.productList){
