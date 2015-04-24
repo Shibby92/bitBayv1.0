@@ -223,8 +223,7 @@ public class ProductApplication extends Controller {
 			flash("success", "Product successfully updated!");
 			if (User.find(session().get("email")).admin)
 				return redirect("/profile/" + User.find(session().get("email")).id);
-			return redirect("/myproducts/"
-					+ User.find(session().get("email")).id);
+			return redirect("/profile");
 		}
 	}
 	
@@ -436,6 +435,7 @@ public class ProductApplication extends Controller {
 		String email = session().get("email");
 		return ok(cartpage.render(email, Cart.getCart(id), FAQ.all()));
 	}
+	
 
 	/**
 	 * gets info from one product
@@ -459,6 +459,13 @@ public class ProductApplication extends Controller {
 		Logger.info(String.valueOf(userid));
 		DynamicForm form = Form.form().bindFromRequest();
 		int orderedQuantity = Integer.valueOf(form.get("orderedQuantity"));
+		if(orderedQuantity<1){
+			flash("minQty",
+					"Ordered quantity must be at least 1!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+
+			return redirect("/itempage/" + id);
+		}
 		orderedTotalQta = orderedQuantity + p.getOrderedQuantity();
 		if (orderedTotalQta > p.getQuantity()) {
 			flash("excess",
@@ -466,12 +473,12 @@ public class ProductApplication extends Controller {
 			p.setOrderedQuantity(p.getOrderedQuantity());
 
 			return redirect("/itempage/" + id);
-		} else if(orderedQuantity==0){
+		} /*else if(orderedQuantity==0){
 			flash("excess",
 					"You cannot order zero quantity!");
 			return redirect("/itempage/" + id);
 			
-		}else{
+		}*/else{
 			p.setOrderedQuantity(orderedTotalQta);
 			p.amount = p.getPrice() * p.getOrderedQuantity();
 			Logger.info(String.valueOf("Naruceno: " + orderedQuantity));
@@ -489,6 +496,103 @@ public class ProductApplication extends Controller {
 			}
 		}
 	}
+	
+	public static Result changeOrderedQty(int id){
+		String email = session().get("email");
+		Product p = find.byId(id);
+		if (session().isEmpty()) {
+			flash("guest", "Please log in to buy stuff!");
+			return redirect("/login");
+		}
+		int userid = User.findUser.where().eq("email", session().get("email"))
+				.findUnique().id;
+		Cart cart = Cart.getCart(email);
+		DynamicForm form = Form.form().bindFromRequest();
+		int orderedQuantity = Integer.valueOf(form.get("changeOrderedQuantity"));
+		if(orderedQuantity<1){
+			flash("minQty",
+					"Ordered quantity must be at least 1!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+			return redirect("/cartpage/" + userid);
+		}
+		p.setOrderedQuantity(orderedQuantity);
+		p.amount = p.getPrice() * p.getOrderedQuantity();
+		Logger.info(String.valueOf("Naruceno: " + orderedQuantity));
+		p.update();
+		p.save();
+		return redirect("/cartpage/" + userid);
+		
+	}
+	
+	public static Result addQty(int pId){
+		String email = session().get("email");
+		Cart cart = Cart.getCart(email);
+		Product p = find.byId(pId);
+		if (session().isEmpty()) {
+			flash("guest", "Please log in to buy stuff!");
+			return redirect("/login");
+		}
+		int userid = User.findUser.where().eq("email", session().get("email"))
+				.findUnique().id;
+		int totalOrderedQty=p.getOrderedQuantity()+1;
+		if (totalOrderedQty > p.getQuantity()) {
+			flash("excess",
+					"You cannot order quantity that exceeds one available on stock!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+
+			return redirect("/cartpage/" + userid);
+		}
+		cart.checkout=cart.checkout-p.price*p.getOrderedQuantity();
+		cart.size=cart.size-p.orderedQuantity;
+		p.setOrderedQuantity(totalOrderedQty);
+		cart.size=cart.size+p.getOrderedQuantity();
+		cart.checkout=cart.checkout+p.price*p.getOrderedQuantity();
+		cart.update();
+		return redirect("/cartpage/" + userid);
+	}
+	
+	
+	public static Result subtractQty(int pId){
+		String email = session().get("email");
+		Cart cart = Cart.getCart(email);
+		Product p = find.byId(pId);
+		if (session().isEmpty()) {
+			flash("guest", "Please log in to buy stuff!");
+			return redirect("/login");
+		}
+		int userid = User.findUser.where().eq("email", session().get("email"))
+				.findUnique().id;
+		int totalOrderedQty=p.getOrderedQuantity()-1;
+		if (totalOrderedQty < 1) {
+			flash("minQty",
+					"Ordered quantity must be at least 1!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+			return redirect("/cartpage/" + userid);
+		}
+		cart.checkout=cart.checkout-p.price*p.getOrderedQuantity();
+		cart.size=cart.size-p.orderedQuantity;
+		p.setOrderedQuantity(totalOrderedQty);
+		cart.size=cart.size+p.getOrderedQuantity();
+		cart.checkout=cart.checkout+p.price*p.getOrderedQuantity();
+		cart.update();
+		return redirect("/cartpage/" + userid);
+	}
+	
+	
+	public static Result changeQty(int pId, int cId){
+		String email = session().get("email");
+		Product p = find.byId(pId);
+		if (session().isEmpty()) {
+			flash("guest", "Please log in to buy stuff!");
+			return redirect("/login");
+		}
+		int userid = User.findUser.where().eq("email", session().get("email"))
+				.findUnique().id;
+		int totalOrderedQty=p.getOrderedQuantity()+1;
+		p.setOrderedQuantity(totalOrderedQty);
+		return redirect("/cartpage/" + userid);
+	}
+	
 	public static Result changeShippingAddress (int id){
 		DynamicForm form= Form.form().bindFromRequest();
 		String shipA=form.get("shippingAddress");
@@ -589,6 +693,7 @@ public class ProductApplication extends Controller {
 		return redirect("/profile");
 
 	}
+	
 	
 	/**
 	 * opens page where user replies to another user
@@ -794,7 +899,7 @@ public class ProductApplication extends Controller {
 	}
 	
 	@Security.Authenticated(UserFilter.class)
-	public static Promise<Result> reportProduct(int id) {
+	public static Promise<Result> reportProduct(final int id) {
 		final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		final String report = temp.get("report");
 
@@ -823,7 +928,7 @@ public class ProductApplication extends Controller {
 
 						// check if value of success is true
 						if (json.findValue("success").asBoolean() == true
-								&& !submit.hasErrors()) {
+								&& !submit.hasGlobalErrors()) {
 
 							
 							Report newReport = Report.report(Product.find(id), User.find(session().get("email")), report);
@@ -855,6 +960,12 @@ public class ProductApplication extends Controller {
 				});
 		// return the promisse
 		return holder;
+	}
+	
+	@Security.Authenticated(AdminFilter.class)
+	public static Result openReport(int id) {
+		List<Report> all = Report.findByProduct(Product.find(id));
+		return ok(report.render(session("email"), all));
 	}
 
 	

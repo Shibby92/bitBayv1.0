@@ -78,42 +78,43 @@ public class Global extends GlobalSettings {
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(2), User.find(1), "Contact Us message");
+					+ "Lijep pozdrav", User.find(2), User.find(1), "Contact Us message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(3), User.find(1), "Contact Us message");
+					+ "Lijep pozdrav", User.find(3), User.find(1), "Contact Us message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(4), User.find(1), "Contact Us message");
+					+ "Lijep pozdrav", User.find(4), User.find(1), "Contact Us message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(5), User.find(1), "Contact Us message");
+					+ "Lijep pozdrav", User.find(5), User.find(1), "Contact Us message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(3), User.find(2), "Contact Us message");
+					+ "Lijep pozdrav", User.find(3), User.find(2), "Contact Us message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(4), User.find(2), "Contact Us message");
+					+ "Lijep pozdrav", User.find(4), User.find(2), "Contact Us message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(1), User.find(3), "Contact Us message");
+					+ "Lijep pozdrav", User.find(1), User.find(3), "Contact Us message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(2), User.find(3), "Contact Us message");
+					+ "Lijep pozdrav", User.find(2), User.find(3), "Contact Us message!");
+			
 			
 		}
 

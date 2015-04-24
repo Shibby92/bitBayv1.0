@@ -109,6 +109,8 @@ create table product_quantity (
 
 create table report (
   id                        integer not null,
+  reported_product_id       integer,
+  reporter_id               integer,
   message                   varchar(255),
   constraint pk_report primary key (id))
 ;
@@ -196,8 +198,12 @@ alter table product add constraint fk_product_owner_10 foreign key (owner_id) re
 create index ix_product_owner_10 on product (owner_id);
 alter table product_quantity add constraint fk_product_quantity_order_11 foreign key (order_id) references orders (id) on delete restrict on update restrict;
 create index ix_product_quantity_order_11 on product_quantity (order_id);
-alter table tag add constraint fk_tag_product_12 foreign key (product_id) references product (id) on delete restrict on update restrict;
-create index ix_tag_product_12 on tag (product_id);
+alter table report add constraint fk_report_reportedProduct_12 foreign key (reported_product_id) references product (id) on delete restrict on update restrict;
+create index ix_report_reportedProduct_12 on report (reported_product_id);
+alter table report add constraint fk_report_reporter_13 foreign key (reporter_id) references user (id) on delete restrict on update restrict;
+create index ix_report_reporter_13 on report (reporter_id);
+alter table tag add constraint fk_tag_product_14 foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_tag_product_14 on tag (product_id);
 
 
 

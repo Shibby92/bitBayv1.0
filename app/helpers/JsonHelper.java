@@ -77,6 +77,7 @@ public class JsonHelper {
 		else{
 		productNode.put("owner", p.owner.username);
 		}
+		productNode.put("ownerId", p.owner.id);
 		productNode.put("isSold", p.sold);
 		productNode.put("id", p.id);
 		productNode.put("quantity", p.quantity);

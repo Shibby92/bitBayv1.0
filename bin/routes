@@ -38,6 +38,9 @@ POST   /changeshipping/:id      controllers.ProductApplication.changeShippingAdd
 GET		/reportproductpage/:id	controllers.ProductApplication.reportProductPage(id: Integer)
 POST	/reportproduct/:id		controllers.ProductApplication.reportProduct(id: Integer)
 
+GET		/openreport/:id			controllers.ProductApplication.openReport(id: Integer)
+GET		/deletereport/:id		controllers.ReportController.deleteReport(id: Integer)
+
 GET    /category/:name             controllers.ProductApplication.category(name:String)
 
 GET    /categorypage               controllers.CategoryApplication.categoryPage()
@@ -103,6 +106,13 @@ GET    /assets/*file               controllers.Assets.at(path="/public", file)
 #Paypal routes
 GET    /cartpage/:id               controllers.ProductApplication.cartPage(id: Integer)
 POST   /producttocart/:id          controllers.ProductApplication.productToCart(id: Integer)
+POST   /changeorderedqty/:id          controllers.ProductApplication.changeOrderedQty(id: Integer)
+POST   /addqty/:id                        controllers.ProductApplication.addQty(id: Int)
+POST   /subtractqty/:id                            controllers.ProductApplication.subtractQty(id: Int)
+
+
+
+
 GET    /deleteproductcart/:id      controllers.ProductApplication.deleteProductFromCart(id:Integer)
 
 POST   /creditpurchase             controllers.UserLoginApplication.purchaseProcessing()
@@ -116,7 +126,7 @@ GET    /orderpage/:id              controllers.OrderController.orderPage(id: Int
 GET    /soldorder/:id              controllers.OrderController.soldOrderPage(id:Integer)
 GET    /soldorderchecked/:id       controllers.OrderController.soldOrderChecked(id:Integer)
 
-GET    /ratingpage/:id             controllers.UserController.ratingpage(id: Integer)
+GET    /rating/:id             controllers.UserController.ratingpage(id: Integer)
 POST   /rating/:id                 controllers.UserController.rating(id: Integer)
 
 #Paypal routes

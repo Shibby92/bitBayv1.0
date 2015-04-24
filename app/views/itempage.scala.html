@@ -2,6 +2,11 @@
 
 @import java.math.BigInteger; var i=0
 @main("ItemPage") {
+	<link href="@routes.Assets.at("stylesheets/star-rating.css")" rel="stylesheet"/>
+				<link href="@routes.Assets.at("stylesheets/star-rating.min.css")" rel="stylesheet"/>
+				<link href="@routes.Assets.at("stylesheets/main.css")" rel="stylesheet"/>
+				<script type="text/javascript" src="@routes.Assets.at("javascripts/star-rating.js")"></script>
+				<script type="text/javascript" src="@routes.Assets.at("javascripts/star-rating.min.js")"></script>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -141,6 +146,13 @@
                      </div>
                   </div>
          	}
+          @if(flash.get("minQty")){
+         <div class="alert alert-warning" role="alert">
+                     <div class="container">
+                        @flash.get("minQty")
+                     </div>
+                  </div>
+         }
       <div style="margin: 80px -15px" class="row">
       <div class="col-md-3" style="margin: -3px -235px">
    <div class="list-group">
@@ -199,7 +211,7 @@
                   <div>
                      <dl class=" " id="orderedQuantity_field">
                         <dt><label for="orderedQuantity">Quantity:</label> </dt>
-                        <dd><input maxlength="6" size="6" name="orderedQuantity" id="orderedQuantity" value='1'  placeholder="Enter quantity " type="number" step="1" min="0"  max="999999" class="form-control" required/> </dd>
+                        <dd><input maxlength="6" size="6" name="orderedQuantity" id="orderedQuantity" value='1'  placeholder="Enter quantity " type="number" step="1" min="1"  max="999999" class="form-control" required/> </dd>
                      </dl>
                   </div>
                   }
@@ -223,12 +235,12 @@
                }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
                <a href="/contactsellerpage/@product.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 5px 0px">Contact seller</button>
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 0px 0px">Contact seller</button>
                </a>
                }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
                <a href="/reportproductpage/@product.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 5px 0px">Report product</button>
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Report product</button>
                </a>
                }
                } 
@@ -237,8 +249,8 @@
                @for(order <- User.find(session().get("email")).orderList) {
                	 @for(p <- order.productList){
                	 	@if(p.id == product.id && i == 0) { 
-               	 		<a href="/ratingpage/@product.id"
-               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 30px 0px">Rate Seller</button>
+               	 		<a href="/rating/@product.id"
+               <button type="button" class="btn btn-success" style="width: 350px; height: 40px; margin: 0px 0px">Rate Seller</button>
                </a>
                @{i=i+1}
                	 	}
@@ -251,14 +263,15 @@
          </div>
          <div class="col-md-5" style="margin: 0px 15px">
 
-      		<div class="well login-box" style="background-color: #4AB55A;color: #fff; margin: 5px 0px">
+      		<div class="well login-box" style="margin: 5px 0px">
             <h4>
             Description: </h4>
             <h5> @product.description <br> </h5>
          </div>
-             <h4>
-            Seller rate: </h4>
-            <h5> @product.owner.rating <br> </h5>
+             <h5>
+            Seller rate: </h5>
+            
+                  <input id="rate" value="@product.owner.rating" name="rate" type="number" class="rating" min=0 max=5 step=1 data-size="xs" disabled>   		 
             
               
             <table class='table' style="margin: 50px 0px">
@@ -303,14 +316,60 @@
    </div>
    </div>
    </div>
-   <div class="container">
-      <hr>
-      <a href="/contactpage">
-         <h3>Contact Us</h3>
-      </a>
-      <a href="/faq">
-         <h3> FAQs</h3>
-      </a>
+   <div id="footer" style="background-color: #f5f5f5">
+  <div class="container">
+
+   
+  	<div class="col-md-4">
+   <a href="/contactpage">
+      <h3><i class="glyphicon glyphicon-envelope"></i> Contact Us</h3>
+   </a>
+   <a href="/faq">
+      <h3><i class="glyphicon glyphicon-cog"></i> FAQs</h3>
+   </a>
+   <a href="/blog">
+      <h3><i class="glyphicon glyphicon-stats"></i> Blog </h3>
+   </a>
    </div>
+   
+  	<div class="col-md-4">
+             
+                  <h2 style="color: #4AB55A">About bitBay:</h2>
+                  <address style="color: #4AB55A">
+                     <p>Project bitBay mirror site of eBay</p>  
+                     <p>Sarajevo</p>
+                     <p>Bosnia and Herzegovina</p>
+                      <p>Contact: (061) 100-100</p>  
+                  </address>
+            
+            </div>
+ 	<div class="col-md-4">
+  	<style>.xg_module_body img {margin:0!important;}</style>
+<div align="center" style="margin:20px 0px">
+<table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
+	<tr>
+		  <h3 style="color: #4AB55A">Follow us on:</h3>
+	<td>
+		<a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
+			<img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
+		</a>
+	</td>
+
+
+
+	<td>
+		<a href="http://twitter.com/yourtwitter" target="_blank">
+			<img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
+		</a>
+	</td>
+</tr>
+</table></div>
+</div>
+  
+ 
+
+</div>
+</div>
+<!-- /.container -->
 </body>
 }

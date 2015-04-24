@@ -218,15 +218,31 @@ public class UserController extends Controller {
 		Logger.info("User " + session().get("email")
 				+ " has opened his profile page");
 		String email = session().get("email");
+		
 		User u = User.find(email);
 		List<Orders> soldProducts= new ArrayList<Orders>();
 		for(Notification notification: u.notification){
 				soldProducts.add(Orders.find(notification.orderId));
 		}
+		List<Report> reports = Report.all();
+		List<Report> uniques = new ArrayList<Report>();
+		for(Report report: reports) {
+			boolean contains = false;
+			for(Report r: uniques){
+				if(report.reportedProduct.id == r.reportedProduct.id){
+					contains = true;
+				}
+			}
+			if(!contains)
+				uniques.add(report);
+						
+		}
+		Logger.debug(""+uniques.size());
 		return ok(profile.render(email, User.all(), Category.list(),
 				Product.productList(),
 				Product.myProducts(User.find(session().get("email")).id),
-				FAQ.all(), Message.all(User.find(session().get("email"))), soldProducts));
+				FAQ.all(), Message.all(User.find(session().get("email"))), soldProducts, uniques));
+
 	}
 	
 	/**
@@ -280,7 +296,7 @@ public class UserController extends Controller {
 		Logger.info("User with email: " + session().get("email")
 				+ " has rated user with id: " + id);
 		flash("success", "You have successfuly rated user!");
-		return redirect("/profile");
+		return redirect("/homepage");
 	}
 
 

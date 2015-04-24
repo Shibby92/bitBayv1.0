@@ -82,8 +82,7 @@
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>                  
+                      
                   } else {
                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li> 
@@ -126,7 +125,7 @@
                      </div>
                   </div>
          	}
-         <div 
+       
 
      @if(session().get("email") != null) {
 
@@ -137,9 +136,9 @@
                </div>
                }
                }
-               <div>
-	<table class='table'>
-		<thead> <tr> <th style="float: left"> </th>  </tr>  </thead>
+              
+	<table class='table' align="center">
+		<thead> </thead>
 		<tbody>
 			@if(blogs.size() > 0) {
 				@for(currentBlog <- blogs){
@@ -148,13 +147,13 @@
 								<div class="single-products">
 									<div class="productinfo text-center">
 									
-									<tr> 
+									<tr > 
 									<td>
 										<h4> <strong>Title:</strong> @currentBlog.title </h4>
 										<h5> <strong>Published:</strong> @currentBlog.date </h5>
 									
 										@if(currentBlog.blogImagePath != null){
-											<img class="img-responsive" src="@routes.Assets.at(currentBlog.blogImagePath)" width="700" height="400" alt="">
+											<img class="img-responsive" src="@routes.Assets.at(currentBlog.blogImagePath)" style="width:800px;height:300px" alt="">
 										}
 										
 										
@@ -187,9 +186,59 @@
 	
 	</div>
 	</div>
-	 <div class="container">
-   <hr>
+	<div id="footer" style="background-color: #f5f5f5">
+  <div class="container">
+
+   
+  	<div class="col-md-4">
    <a href="/contactpage">
-      <h3>Contact Us</h3>
+      <h3><i class="glyphicon glyphicon-envelope"></i> Contact Us</h3>
    </a>
+   <a href="/faq">
+      <h3><i class="glyphicon glyphicon-cog"></i> FAQs</h3>
+   </a>
+   <a href="/blog">
+      <h3><i class="glyphicon glyphicon-stats"></i> Blog </h3>
+   </a>
+   </div>
+   
+  	<div class="col-md-4">
+             
+                  <h2 style="color: #4AB55A">About bitBay:</h2>
+                  <address style="color: #4AB55A">
+                     <p>Project bitBay mirror site of eBay</p>  
+                     <p>Sarajevo</p>
+                     <p>Bosnia and Herzegovina</p>
+                      <p>Contact: (061) 100-100</p>  
+                  </address>
+            
+            </div>
+ 	<div class="col-md-4">
+  	<style>.xg_module_body img {margin:0!important;}</style>
+<div align="center" style="margin:20px 0px">
+<table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
+	<tr>
+		  <h3 style="color: #4AB55A">Follow us on:</h3>
+	<td>
+		<a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
+			<img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
+		</a>
+	</td>
+
+
+
+	<td>
+		<a href="http://twitter.com/yourtwitter" target="_blank">
+			<img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
+		</a>
+	</td>
+</tr>
+</table></div>
+</div>
+  
+ 
+
+</div>
+</div>
+<!-- /.container -->
 }

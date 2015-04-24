@@ -62,9 +62,15 @@ create table message (
 
 create table notification (
   id                        integer not null,
+<<<<<<< HEAD
   seller_id                 integer,
   order_id                  integer,
   is_unchecked              boolean,
+=======
+  owner_id                  integer,
+  buyer_id                  integer,
+  product_id                integer,
+>>>>>>> 858d6d2ba00ec47d9eaecd59c80667eca6be131d
   constraint pk_notification primary key (id))
 ;
 
@@ -109,6 +115,8 @@ create table product_quantity (
 
 create table report (
   id                        integer not null,
+  reported_product_id       integer,
+  reporter_id               integer,
   message                   varchar(255),
   constraint pk_report primary key (id))
 ;
@@ -186,6 +194,7 @@ alter table message add constraint fk_message_receiver_5 foreign key (receiver_i
 create index ix_message_receiver_5 on message (receiver_id);
 alter table message add constraint fk_message_product_6 foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_message_product_6 on message (product_id);
+<<<<<<< HEAD
 alter table notification add constraint fk_notification_seller_7 foreign key (seller_id) references user (id) on delete restrict on update restrict;
 create index ix_notification_seller_7 on notification (seller_id);
 alter table orders add constraint fk_orders_buyer_8 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
@@ -198,6 +207,30 @@ alter table product_quantity add constraint fk_product_quantity_order_11 foreign
 create index ix_product_quantity_order_11 on product_quantity (order_id);
 alter table tag add constraint fk_tag_product_12 foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_tag_product_12 on tag (product_id);
+=======
+alter table notification add constraint fk_notification_owner_7 foreign key (owner_id) references user (id) on delete restrict on update restrict;
+create index ix_notification_owner_7 on notification (owner_id);
+alter table notification add constraint fk_notification_buyer_8 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
+create index ix_notification_buyer_8 on notification (buyer_id);
+alter table notification add constraint fk_notification_product_9 foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_notification_product_9 on notification (product_id);
+alter table orders add constraint fk_orders_buyer_10 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_buyer_10 on orders (buyer_id);
+alter table orders add constraint fk_orders_seller_11 foreign key (seller_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_seller_11 on orders (seller_id);
+alter table product add constraint fk_product_cart_12 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
+create index ix_product_cart_12 on product (cart_id);
+alter table product add constraint fk_product_owner_13 foreign key (owner_id) references user (id) on delete restrict on update restrict;
+create index ix_product_owner_13 on product (owner_id);
+alter table product_quantity add constraint fk_product_quantity_order_14 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_product_quantity_order_14 on product_quantity (order_id);
+alter table report add constraint fk_report_reportedProduct_15 foreign key (reported_product_id) references product (id) on delete restrict on update restrict;
+create index ix_report_reportedProduct_15 on report (reported_product_id);
+alter table report add constraint fk_report_reporter_16 foreign key (reporter_id) references user (id) on delete restrict on update restrict;
+create index ix_report_reporter_16 on report (reporter_id);
+alter table tag add constraint fk_tag_product_17 foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_tag_product_17 on tag (product_id);
+>>>>>>> 858d6d2ba00ec47d9eaecd59c80667eca6be131d
 
 
 

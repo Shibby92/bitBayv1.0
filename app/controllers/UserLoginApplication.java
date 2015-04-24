@@ -63,7 +63,6 @@ public class UserLoginApplication extends Controller {
 		if (session().get("email") == null)
 			Logger.info("Homepage has been opened by guest");
 		else
-		//	Logger.debug(Boolean.toString(User.find(email).soldOrders.get(User.find(email).soldOrders.size()-1).notification));
 			Logger.info("Homepage has been opened by user with email: "
 					+ session().get("email"));
 
@@ -207,6 +206,7 @@ public class UserLoginApplication extends Controller {
 							List<User> admins = User.admins();
 							for (User admin : admins) {
 								ContactHelper.send(email, admin.email, message);
+								ContactHelper.sendToPage(email,  admin.email, message, "Contact Us message!");
 							}
 							flash("success", "Message sent!");
 							if (session().get("email") == null)
@@ -370,13 +370,21 @@ public class UserLoginApplication extends Controller {
 
 	@Security.Authenticated(UserFilter.class)
 	public static String cartToString(Cart cart) {
+
 		StringBuilder sb = new StringBuilder();
+
 		sb.append("Your order via bitBay: ");
+
 		for (Product product : cart.productList) {
+
 			sb.append(product.name + " (" + product.price + "0 $) x "
-					+ product.orderedQuantity + ", ");
+
+			+ product.orderedQuantity + ", ");
+
 		}
+
 		sb.append("which is a total prize of: " + cart.checkout + "0 $");
+
 		if (sb.length() > 127) {
 			sb.delete(0, sb.length());
 			sb.append("Your order via bitBay: ");
@@ -390,8 +398,8 @@ public class UserLoginApplication extends Controller {
 			sb.append("Your order via bitBay: ");
 			sb.append("TOTAL: " + cart.checkout + "0 $");
 		}
-
 		return sb.toString();
+
 	}
 
 	@Security.Authenticated(UserFilter.class)
