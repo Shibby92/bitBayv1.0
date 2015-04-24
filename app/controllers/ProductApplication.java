@@ -223,8 +223,7 @@ public class ProductApplication extends Controller {
 			flash("success", "Product successfully updated!");
 			if (User.find(session().get("email")).admin)
 				return redirect("/profile/" + User.find(session().get("email")).id);
-			return redirect("/myproducts/"
-					+ User.find(session().get("email")).id);
+			return redirect("/profile");
 		}
 	}
 	
