@@ -964,6 +964,7 @@ public class ProductApplication extends Controller {
 	
 	@Security.Authenticated(AdminFilter.class)
 	public static Result openReport(int id) {
+		Logger.info("User " + session().get("email") + " has opened report page");
 		List<Report> all = Report.findByProduct(Product.find(id));
 		return ok(report.render(session("email"), all));
 	}

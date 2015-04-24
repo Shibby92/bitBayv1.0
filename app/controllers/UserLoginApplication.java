@@ -258,6 +258,7 @@ public class UserLoginApplication extends Controller {
 				+ " has logged out");
 
 		session().clear();
+		flash("success","You have been successfully logged out! Come back any time!");
 		return redirect("/");
 	}
 

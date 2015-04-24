@@ -261,7 +261,7 @@
 							</div>
              <div style="margin: 10px 60px">
               
-               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Remove from Cart</a> 
+               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to remove this product from cart?');">Remove from Cart</a> 
 
           </div>
                
@@ -274,14 +274,8 @@
    </div>
 
        </div>
-}else{
-<p> <h4 style="margin: 150px 100px ">Your cart is empty...</h4></p>
-
-}
-
-	
-	
        
+              
 <legend>You may also like:</legend>
        
    
@@ -303,6 +297,15 @@
       </div>
        
       	}
+      	
+}else{
+<p> <h4 style="margin: 150px 100px ">Your cart is empty...</h4></p>
+
+}
+
+	
+	
+
  </div>
  </div>
   
