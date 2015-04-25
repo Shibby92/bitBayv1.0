@@ -78,7 +78,7 @@
             @if(email != null) {
             <li class='dropdown'>
                <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-               @if( Orders.notificationCounter(User.find(email).soldOrders)>0){
+               @if( User.getUncheckedNotifications(User.find(email).id).size()>0){
                <button class="btn btn-success "><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;">  </i>  @User.find(email).username   <span class="caret"></span> </button></a>
                }else{<button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
                }
@@ -92,7 +92,7 @@
                   <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
-                  @if(email != null && Orders.notificationCounter(User.find(email).soldOrders)>0){
+                  @if(email != null && User.getUncheckedNotifications(User.find(email).id).size()>0){
                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> Notifications </a>
                   </li>
                   }
@@ -108,7 +108,9 @@
    </div>
    <!-- /.container -->
 </nav>
-	<div class="row" align="center">
+
+	<div style="margin: 80.5px -15px" class="row">
+	<div class="col-md-12">
 		@if(flash.get("error")){
         <div class="alert alert-danger" role="alert">
                      <div class="container">
@@ -130,35 +132,42 @@
                      </div>
                   </div>
          	}
-			 <div class="col-md-6 column">
+				<div class="col-sm-4">
+					<div class="well3 login-box">
 			 <form action="@routes.FAQController.updateFAQ(faq.id)" method ="POST" >
 			
-				  <div class="form-group">
+				 
 				  <legend>Update FAQ </legend>
-		  <label for="inputEmail3" class="col-sm-2 control-label">Question</label>
-						<div class="col-sm-10">
-               <input type="text" class="form-control" placeholder="Question" value="@faq.question" name="question" id="question" required>				
-            </div>
-						</div>
+		  
+		    	<dt><label for="inputEmail3">Question:</label> </dt>
+					
+              		
+            	 <dd><input type="text" name="question" id="question" class="form-control" value="@faq.question" required/></dd>
+						
 				
-						 <div class="form-group">
-						<label for="inputPassword3" class="col-sm-2 control-label">Answer</label>	
-						<div class="col-sm-10">
-						 <textarea rows="5" cols="69" placeholder="Answer" name="answer" id="answer" >@faq.answer</textarea>
-						 <p class="help-block"></p>
-						</div>
-         </div>
-          <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
+					   <dt><label for="inputPassword3" >Answer:</label> </dt>
+							
+						
+						
+						  <dd><textarea name="answer" id="answer" rows="5" cols="60" required> @faq.answer</textarea></dd>
+						
+					
+       
+          <div class="form-group text-center">
+                   
                      <a href="/faq" class="btn btn-danger"> Back </a>
                     <button  type="submit" class="btn btn-success">Update</button>	
-						
+					
 					 </div>
-                </div>
+               
          
       </form>
+       </div>
       </div>
 		</div>
+		</div>
+		
+		
 	<div id="footer" style="background-color: #f5f5f5">
   <div class="container">
 

@@ -220,7 +220,10 @@ public class UserController extends Controller {
 		String email = session().get("email");
 		
 		User u = User.find(email);
-		List<Orders> soldProducts = Orders.find.where().eq("seller_id", u.id).findList();
+		List<Orders> soldProducts= new ArrayList<Orders>();
+		for(Notification notification: u.notification){
+				soldProducts.add(Orders.find(notification.orderId));
+		}
 		List<Report> reports = Report.all();
 		List<Report> uniques = new ArrayList<Report>();
 		for(Report report: reports) {

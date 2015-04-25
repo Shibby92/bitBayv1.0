@@ -129,38 +129,33 @@
 
      @if(session().get("email") != null) {
 
-		@if(User.find(session().get("email")).admin) { 
+		@if(User.find(session().get("email")).admin || User.find(session().get("email")).blogger) { 
 
       <div class="form-group text-center">
               <a class="btn btn-success" href="/addBlog" role="button">Add new Blog</a>
                </div>
                }
                }
-              
-	<table class='table' align="center">
-		<thead> </thead>
-		<tbody>
-			@if(blogs.size() > 0) {
-				@for(currentBlog <- blogs){
-												
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-									
-									<tr > 
-									<td>
-										<h4> <strong>Title:</strong> @currentBlog.title </h4>
-										<h5> <strong>Published:</strong> @currentBlog.date </h5>
-									
-										@if(currentBlog.blogImagePath != null){
-											<img class="img-responsive" src="@routes.Assets.at(currentBlog.blogImagePath)" style="width:800px;height:300px" alt="">
+    @if(blogs.size() > 0) {
+    	@for(currentBlog <- blogs) {
+    			<div class="container">
+			        <div class="row">
+			            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			                <div class="post-preview">
+			                    
+			                        <h2 >
+			                            @currentBlog.title
+			                        </h2>
+			                        @if(currentBlog.blogImagePath != null){
+											<img class="img-responsive" src="@routes.Assets.at(currentBlog.blogImagePath)" style="maxwidth:500px;maxheight:300px" alt="">
 										}
-										
-										
-										<p> <strong>Content:</strong> @Html(currentBlog.content) </p>
-										
-										@if(session().get("email") != null) {
-											@if(User.find(session().get("email")).admin) { 
+			                        <h3 >
+			                            @Html(currentBlog.content)
+			                        </h3>
+			                    
+			                    <p >Posted by @currentBlog.postedBy on @currentBlog.date</p>
+			                    										@if(session().get("email") != null) {
+											@if(User.find(session().get("email")).admin || User.find(session().get("email")).id == currentBlog.userId) { 
 											
 											
 											<a href="@routes.BlogController.toUpdateBlog(currentBlog.id)" class="btn btn-default">Edit</a>
@@ -169,24 +164,17 @@
 									
 											}  
 										}
-										
-										
-										</td>
-										</tr>
-										
-										
-									</div>					
-								</div>
-							</div>
-							}
-						}
-		</tbody>
-		</div>
-	</table>
+			                </div>
+			                <hr>
+			            </div>
+			        </div>
+			    </div>
+    	}
+    }  
 	
 	</div>
 	</div>
-	<div id="footer" style="background-color: #f5f5f5">
+	<div id="footer1" style="background-color: #f5f5f5">
   <div class="container">
 
    

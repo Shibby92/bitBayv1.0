@@ -69,6 +69,15 @@ public class Global extends GlobalSettings {
 			u6.username="Nermin";
 			u6.hasAdditionalInfo=true;
 			u6.update();
+			
+			User u7 = new User("blogger@bitcamp.ba", 
+					HashHelper.createPassword("blogger"), false, true);
+			User.create(u7);
+			u7.user_address = "Bloggers St. 72";
+			u7.username = "Blogger";
+			u7.hasAdditionalInfo = true;
+			u7.blogger = true;
+			u7.update();
 
 		}
 		
@@ -78,48 +87,48 @@ public class Global extends GlobalSettings {
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(2), User.find(1), "Contact Us message!");
+					+ "Lijep pozdrav", User.find(2), User.find(1), "Contact Seller message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(3), User.find(1), "Contact Us message!");
+					+ "Lijep pozdrav", User.find(3), User.find(1), "Contact Seller message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(4), User.find(1), "Contact Us message!");
+					+ "Lijep pozdrav", User.find(4), User.find(1), "Contact Seller message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(5), User.find(1), "Contact Us message!");
+					+ "Lijep pozdrav", User.find(5), User.find(1), "Contact Seller message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(3), User.find(2), "Contact Us message!");
+					+ "Lijep pozdrav", User.find(3), User.find(2), "Contact Seller message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(4), User.find(2), "Contact Us message!");
+					+ "Lijep pozdrav", User.find(4), User.find(2), "Contact Seller message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(1), User.find(3), "Contact Us message!");
+					+ "Lijep pozdrav", User.find(1), User.find(3), "Contact Seller message!");
 			Message.create("Dragi svi "
 					+ "u ime predavaca Arifa je na Google Classroom "
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
-					+ "Lijep pozdrav", User.find(2), User.find(3), "Contact Us message!");
+					+ "Lijep pozdrav", User.find(2), User.find(3), "Contact Seller message!");
 			
 			
 		}
 
 		if (Category.find(1) == null) {
-			String categoryArray[] = { "Cars", "Fashion", "Mobile phones",
+			String categoryArray[] = { "Cars", "Fashion", "Smartphones",
 					"Computers", "Houses", "Shoes", "Biznis", "Animals" };
 
 			for (int i = 0; i < categoryArray.length; i++) {
@@ -432,7 +441,20 @@ public class Global extends GlobalSettings {
 					+ "for security."
 					+ "We really hope you will find our website fun and intuitive to use."
 					+ "Kind Regards BitBay team.", 
-					"images/logo.png");
+					"images/logo.png", 1, "Admin");
+		}
+		
+		if(Report.find(1) == null) {
+			Report.report(Product.find(1), User.find(2), "Report for product 1 from user with id 2.");
+			Report.report(Product.find(1), User.find(3), "Report for product 1 from user with id 3.");
+			Report.report(Product.find(2), User.find(4), "Report for product 2 from user with id 4.");
+			Report.report(Product.find(2), User.find(5), "Report for product 2 from user with id 5.");
+			Report.report(Product.find(2), User.find(6), "Report for product 2 from user with id 6.");
+			Report.report(Product.find(3), User.find(2), "Report for product 3 from user with id 2.");
+			Report.report(Product.find(4), User.find(3), "Report for product 4 from user with id 3.");
+			Report.report(Product.find(4), User.find(4), "Report for product 4 from user with id 4.");
+			Report.report(Product.find(4), User.find(5), "Report for product 4 from user with id 5.");
+			Report.report(Product.find(4), User.find(6), "Report for product 4 from user with id 6.");
 		}
 
 	}

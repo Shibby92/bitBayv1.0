@@ -9,6 +9,8 @@ create table blog (
   content                   TEXT,
   blog_image_path           varchar(255),
   date                      varchar(255),
+  user_id                   integer,
+  posted_by                 varchar(255),
   constraint pk_blog primary key (id))
 ;
 
@@ -62,9 +64,9 @@ create table message (
 
 create table notification (
   id                        integer not null,
-  owner_id                  integer,
-  buyer_id                  integer,
-  product_id                integer,
+  seller_id                 integer,
+  order_id                  integer,
+  is_unchecked              boolean,
   constraint pk_notification primary key (id))
 ;
 
@@ -74,8 +76,6 @@ create table orders (
   price                     double,
   token                     varchar(255),
   shipping_address          varchar(255),
-  seller_id                 integer,
-  notification              boolean,
   order_date                varchar(255),
   constraint pk_orders primary key (id))
 ;
@@ -135,6 +135,7 @@ create table user (
   city                      varchar(255),
   gender                    varchar(255),
   admin                     boolean,
+  blogger                   boolean,
   verification              boolean,
   confirmation              varchar(255),
   has_additional_info       boolean,
@@ -190,28 +191,22 @@ alter table message add constraint fk_message_receiver_5 foreign key (receiver_i
 create index ix_message_receiver_5 on message (receiver_id);
 alter table message add constraint fk_message_product_6 foreign key (product_id) references product (id) on delete restrict on update restrict;
 create index ix_message_product_6 on message (product_id);
-alter table notification add constraint fk_notification_owner_7 foreign key (owner_id) references user (id) on delete restrict on update restrict;
-create index ix_notification_owner_7 on notification (owner_id);
-alter table notification add constraint fk_notification_buyer_8 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
-create index ix_notification_buyer_8 on notification (buyer_id);
-alter table notification add constraint fk_notification_product_9 foreign key (product_id) references product (id) on delete restrict on update restrict;
-create index ix_notification_product_9 on notification (product_id);
-alter table orders add constraint fk_orders_buyer_10 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
-create index ix_orders_buyer_10 on orders (buyer_id);
-alter table orders add constraint fk_orders_seller_11 foreign key (seller_id) references user (id) on delete restrict on update restrict;
-create index ix_orders_seller_11 on orders (seller_id);
-alter table product add constraint fk_product_cart_12 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
-create index ix_product_cart_12 on product (cart_id);
-alter table product add constraint fk_product_owner_13 foreign key (owner_id) references user (id) on delete restrict on update restrict;
-create index ix_product_owner_13 on product (owner_id);
-alter table product_quantity add constraint fk_product_quantity_order_14 foreign key (order_id) references orders (id) on delete restrict on update restrict;
-create index ix_product_quantity_order_14 on product_quantity (order_id);
-alter table report add constraint fk_report_reportedProduct_15 foreign key (reported_product_id) references product (id) on delete restrict on update restrict;
-create index ix_report_reportedProduct_15 on report (reported_product_id);
-alter table report add constraint fk_report_reporter_16 foreign key (reporter_id) references user (id) on delete restrict on update restrict;
-create index ix_report_reporter_16 on report (reporter_id);
-alter table tag add constraint fk_tag_product_17 foreign key (product_id) references product (id) on delete restrict on update restrict;
-create index ix_tag_product_17 on tag (product_id);
+alter table notification add constraint fk_notification_seller_7 foreign key (seller_id) references user (id) on delete restrict on update restrict;
+create index ix_notification_seller_7 on notification (seller_id);
+alter table orders add constraint fk_orders_buyer_8 foreign key (buyer_id) references user (id) on delete restrict on update restrict;
+create index ix_orders_buyer_8 on orders (buyer_id);
+alter table product add constraint fk_product_cart_9 foreign key (cart_id) references cart (id) on delete restrict on update restrict;
+create index ix_product_cart_9 on product (cart_id);
+alter table product add constraint fk_product_owner_10 foreign key (owner_id) references user (id) on delete restrict on update restrict;
+create index ix_product_owner_10 on product (owner_id);
+alter table product_quantity add constraint fk_product_quantity_order_11 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_product_quantity_order_11 on product_quantity (order_id);
+alter table report add constraint fk_report_reportedProduct_12 foreign key (reported_product_id) references product (id) on delete restrict on update restrict;
+create index ix_report_reportedProduct_12 on report (reported_product_id);
+alter table report add constraint fk_report_reporter_13 foreign key (reporter_id) references user (id) on delete restrict on update restrict;
+create index ix_report_reporter_13 on report (reporter_id);
+alter table tag add constraint fk_tag_product_14 foreign key (product_id) references product (id) on delete restrict on update restrict;
+create index ix_tag_product_14 on tag (product_id);
 
 
 

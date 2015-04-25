@@ -16,8 +16,9 @@ public class ReportController extends Controller {
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result deleteReport(int id) {
-		Report.delete(id);
+
 		Logger.warn("Report with product id: " + Report.find(id).reportedProduct.id + " has been deleted");
+		Report.delete(id);
 		flash("success", "Report deleted!");
 		return redirect("/profile");
 

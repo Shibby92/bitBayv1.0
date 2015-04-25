@@ -258,6 +258,7 @@ public class UserLoginApplication extends Controller {
 				+ " has logged out");
 
 		session().clear();
+		flash("success","You have been successfully logged out! Come back any time!");
 		return redirect("/");
 	}
 
@@ -464,37 +465,36 @@ public class UserLoginApplication extends Controller {
 			while (itr.hasNext()) {
 				Product p = itr.next();
 				p.order.add(order);
-				p.cart = null;
+				p.cart=null;
 			}
+			List <User> sellers= new ArrayList<User>();
 			Orders userOrder = user.orderList
 					.get(user.orderList.size() - 1);
 			for(Product p: userOrder.productList){
-
-				User seller = p.owner;
-				seller.soldOrders.add(userOrder);
-				Logger.debug(p.name);
-				Notification.createNotification(seller, userOrder.buyer, p);
-				seller.soldOrders.get(seller.soldOrders.size() - 1).notification = true;
-				seller.soldOrders.get(seller.soldOrders.size() - 1).seller = seller;
-				
+				if(!sellers.contains(p.owner)){
+					sellers.add(p.owner);
+				}
 			}
-
+			
+			
 			for (Product product : order.productList) {
 				if (product.getOrderedQuantity() >= product.getQuantity())
 					product.sold = true;
 				int leftQuantity = product.getQuantity()
 						- product.getOrderedQuantity();
-				ProductQuantity temp = new ProductQuantity(product.id,
-						product.getOrderedQuantity());
+				ProductQuantity temp=new ProductQuantity(product.id,product.getOrderedQuantity());
 				order.pQ.add(temp);
 				product.setQuantity(leftQuantity);
-				product.cart = null;
+				product.cart=null;
 				product.setOrderedQuantity(0);
-
 				order.update();
 			}
-			Cart.clear(user.id);			
+			Cart.clear(user.id);
 			user.save();
+			for(User seller:sellers){
+				new Notification(seller, order).save();
+				seller.update();
+			}
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());
 		}

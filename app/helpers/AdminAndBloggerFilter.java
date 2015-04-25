@@ -5,7 +5,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import play.mvc.Http.Context;
 
-public class AdminFilter extends Security.Authenticator {
+public class AdminAndBloggerFilter extends Security.Authenticator {
 
 	@Override
 	public String getUsername(Context ctx) {
@@ -14,7 +14,7 @@ public class AdminFilter extends Security.Authenticator {
 		String email = ctx.session().get("email");
 		User u = User.find(email);
 		if (u != null) {
-			if(u.admin)
+			if(u.admin || u.blogger)
 				return u.email;
 			else
 				return null;
