@@ -576,11 +576,18 @@ public class Product extends Model {
 				for (Product compare : order.productList) {
 					if (productFromCart.id != compare.id) {
 						if (similarity(productFromCart, compare) >= 2) {
+							if(recommendedProducts.size()<4){
 							recommendedProducts.add(compare);
+							}
 						}
 
 					}
 				}
+			}
+		}
+		for(Product p: Cart.find(user.id).productList){
+			if(recommendedProducts.contains(p)){
+				recommendedProducts.remove(p);
 			}
 		}
 		return recommendedProducts;
