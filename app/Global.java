@@ -64,8 +64,8 @@ public class Global extends GlobalSettings {
 
 			User u6 = new User("nermin.vucinic@bitcamp.ba",
 					HashHelper.createPassword("nermin"), false, true);
-			User.create(u6);
 			u6.user_address="Trebinjska 113";
+			User.create(u6);
 			u6.username="Nermin";
 			u6.hasAdditionalInfo=true;
 			u6.update();
@@ -328,6 +328,7 @@ public class Global extends GlobalSettings {
 			image1.add(img13);
 			Image.saveImg(img13);
 			
+			//Product id 12
 			Product.create("Headphones for Samsung galaxy S6 ",19.99,100,User.find(3),"Very stylish headphones for Samsung galaxy S6",3);
 			Product product7 =Product.find(12);
 			Image img14= new Image();
@@ -423,6 +424,42 @@ public class Global extends GlobalSettings {
 			Comment.createComment("Hope to deal with you again. Thank you.",User.find(3),Product.find(9));
 			Comment.createComment("Thank you a great product Call back anytime A+++++++",User.find(4),Product.find(10));
 			Comment.createComment("Hope to deal with you again. Thank you.",User.find(6),Product.find(10));
+		}
+		if(Orders.find(1)==null){
+			Cart c1=Cart.find(6);
+			Cart.addProduct(Product.find(12), c1);
+			Cart.addProduct(Product.find(3), c1);
+			Orders.create(new Orders(c1,User.find(6),"testnera"),2019.99);
+			new ProductQuantity(Product.find(12).id, 1,Orders.find(1)).save();
+			new ProductQuantity(Product.find(3).id, 1,Orders.find(1)).save();
+			Cart.clear(6);
+			
+			Cart c2=Cart.find(3);
+			Cart.addProduct(Product.find(2), c2);
+			Cart.addProduct(Product.find(6), c2);
+			Cart.addProduct(Product.find(14), c2);
+			Orders.create(new Orders(c2,User.find(3),"testemina"),25125.55);
+			new ProductQuantity(Product.find(2).id, 1,Orders.find(2)).save();
+			new ProductQuantity(Product.find(6).id, 1,Orders.find(2)).save();
+			new ProductQuantity(Product.find(14).id, 1,Orders.find(2)).save();
+			Cart.clear(3);
+			
+			Cart c3=Cart.find(2);
+			Cart.addProduct(Product.find(13), c3);
+			Cart.addProduct(Product.find(3), c3);
+			Orders.create(new Orders(c3,User.find(2),"testmustafa"),2029.99);
+			new ProductQuantity(Product.find(13).id, 1,Orders.find(3)).save();
+			new ProductQuantity(Product.find(3).id, 1,Orders.find(3)).save();
+			Cart.clear(2);
+			
+			Cart c4=Cart.find(3);
+			Cart.addProduct(Product.find(6), c4);
+			Cart.addProduct(Product.find(15), c4);
+			Orders.create(new Orders(c4,User.find(3),"testemina"),129.69);
+			new ProductQuantity(Product.find(6).id, 1,Orders.find(4)).save();
+			new ProductQuantity(Product.find(15).id, 1,Orders.find(4)).save();
+			Cart.clear(3);
+			
 		}
 		
 		if(Blog.findBlogById(1) == null) {

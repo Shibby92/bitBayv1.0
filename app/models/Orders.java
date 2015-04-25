@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import com.paypal.api.payments.Links;
 
 import play.db.ebean.Model;
+import models.Product;;
 
 @Entity
 public class Orders extends Model {
@@ -62,9 +63,9 @@ public class Orders extends Model {
 			this.shippingAddress=cart.shippingAddress;
 			this.token = token;
 			this.buyer = buyer;
+			this.orderDate="1/1/2014";
 		}
 	}
-
 	public Orders() {
 		// TODO Auto-generated constructor stub
 	}
@@ -78,6 +79,10 @@ public class Orders extends Model {
 	public static void create(Orders orders) {
 		orders.save();
 
+	}
+	public static void create(Orders orders,double price){
+		orders.price=price;
+		orders.save();
 	}
 	// Constructor made for easier testing
 	public Orders (Product product){
@@ -112,5 +117,6 @@ public class Orders extends Model {
 		}
 		return sum;
 	}
+
 
 }
