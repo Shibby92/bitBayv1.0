@@ -83,6 +83,8 @@ public class User extends Model {
 	
 	public boolean admin;
 	
+	public boolean blogger;
+	
 	public boolean verification = false;
 	
 	public String confirmation;
@@ -116,6 +118,7 @@ public class User extends Model {
 		this.email = email;
 		this.password = password;
 		this.admin = false;
+		this.blogger = false;
 		this.hasAdditionalInfo = false;
 		this.numberOfRatings = 0;
 		//this.userCart=new Cart(this.id,email);
@@ -125,6 +128,7 @@ public class User extends Model {
 		this.email = email;
 		this.password = password;
 		this.admin = false;
+		this.blogger = false;
 		this.confirmation = confirmation;
 		this.hasAdditionalInfo = false;
 		//this.userCart=new Cart(this.id,email);
@@ -135,6 +139,7 @@ public class User extends Model {
 		this.email = email;
 		this.password = password;
 		this.admin = admin;
+		this.blogger = false;
 		this.verification = verification;
 		this.hasAdditionalInfo = false;
 		this.numberOfRatings = 0;
