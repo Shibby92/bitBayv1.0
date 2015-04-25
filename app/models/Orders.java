@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import com.paypal.api.payments.Links;
 
 import play.db.ebean.Model;
+import models.Product;;
 
 @Entity
 public class Orders extends Model {
@@ -79,6 +80,10 @@ public class Orders extends Model {
 		orders.save();
 
 	}
+	public static void create(Orders orders,double price){
+		orders.price=price;
+		orders.save();
+	}
 	// Constructor made for easier testing
 	public Orders (Product product){
 		this.productList.add(product);
@@ -113,12 +118,5 @@ public class Orders extends Model {
 		return sum;
 	}
 
-	public boolean contains(Product productFromCart) {
-		for(Product p:this.productList){
-			if(p.id==productFromCart.id)
-				return true;
-		}
-		return false;
-	}
 
 }
