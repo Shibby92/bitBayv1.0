@@ -90,9 +90,14 @@
                <button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
                }
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-                  @if(User.find(email).admin == true) {
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li class="divider"></li>
+                  @if(User.find(email).admin == true || User.find(email).blogger) {
+                  	@if(!User.find(email).blogger) {
+                  		<li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  	}
+                  	@if(User.find(email).blogger) {
+                  		<li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >Blog</a></li>
+                  	}
+                  	<li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
@@ -210,6 +215,7 @@
                @if((email==null)||(User.find(email).admin == false)) {
                @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
                	 
+               @if(!User.find(email).blogger){
                <form action="@routes.ProductApplication.productToCart(product.id)"  method="POST" enctype="multipart/form-data">
                   <div>
                      <dl class=" " id="orderedQuantity_field">
@@ -219,7 +225,9 @@
                         <input maxlength="6" size="6" name="orderedQuantity" id="orderedQuantity" value='1'  placeholder="Enter quantity " type="number" step="1" min="1"  max="999999" class="form-control" required/> 
                         </div>
                         <div class='col-md-4'>
-                        <input type="submit" class="btn btn-success " value="Add to cart" style="  width: 200px;" />
+                        
+                        	<input type="submit" class="btn btn-success " value="Add to cart" style="  width: 200px;" />
+                        
                         </div>
                         </dd>
                     	
@@ -227,12 +235,16 @@
                   </div>
                    
                    </form>
+                   }
                   }
                   }
                    @if(session().get("email")!=product.owner.email) {
-                   	<br />
-                  <h4>In Cart(this item): @product.getOrderedQuantity</a>
-                  </h4>
+                   	@if(!User.find(email).blogger){
+                   		<br />
+	                  <h4>In Cart(this item): @product.getOrderedQuantity</a>
+	                  </h4>
+                   	}
+                   	
                   }
                    
                   
@@ -243,19 +255,26 @@
                }
             	 <div class="btn-group btn-group-justified" style="margin: 30px 0px">
                @if(session().get("email")!=product.owner.email) {
-                <a href="/userprofile/@product.owner.id"
-               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Visit seller profile
-               </a> 
+               	@if(!User.find(email).blogger){
+               		 <a href="/userprofile/@product.owner.id"
+		               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Visit seller profile
+		               </a>
+               	}
+                
                }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
-               <a href="/contactsellerpage/@product.id"
-               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Contact seller
-               </a>
+               	@if(!User.find(email).blogger){
+	               <a href="/contactsellerpage/@product.id"
+	               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Contact seller
+	               </a>
+                }
                }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
-               <a href="/reportproductpage/@product.id"
-               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Report product
-               </a>
+               	@if(!User.find(email).blogger){
+	               <a href="/reportproductpage/@product.id"
+	               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Report product
+	               </a>
+	               }
                }
                } 
                @{i=0}
