@@ -250,6 +250,7 @@
 
         <div class="row" >
       @for(product <- products){
+      	@if(product.deleted == false) {
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
             <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
@@ -267,6 +268,7 @@
          
 
       </div>
+      }
       }
    </div>
       
@@ -375,7 +377,7 @@
                    <td>@order.buyer.email</td>
                     <td><span class="price">$ @Orders.priceFromSeller(order,User.find(session().get("email"))),-</span>
                      </td>
-                  <td> <a href="/ratingpage/@order.buyer.id"
+                  <td> <a href="/rating/@order.buyer.id"
 						<button type="button" class="btn btn-warning" style="margin: 0px 15px">Rate buyer</button>
 						</td>
 					<td>	<a href="/userprofile/@order.buyer.id"
@@ -409,10 +411,15 @@
          
          <tbody>
             @for(report <- reports){
+            	@if(report.reportedProduct.deleted == false) {
             <tr>
                <td>
+               
+               <a href="/itempage/@report.reportedProduct.id">
+      <h3> Product with id: @report.reportedProduct.id</h3>
+   </a>
               
-              	<h4>Product with id: @report.reportedProduct.id</h4>
+              	
                <h5>	Number of reports: @Report.sizeReportsByProduct(report.reportedProduct)</h5>
                 
                 </td>
@@ -424,6 +431,7 @@
                   </td>
                </div>
             </tr>
+            }
             }
          </tbody>
       </table>

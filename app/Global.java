@@ -129,7 +129,7 @@ public class Global extends GlobalSettings {
 
 		if (Category.find(1) == null) {
 			String categoryArray[] = { "Cars", "Fashion", "Smartphones",
-					"Computers", "Houses", "Shoes", "Biznis", "Animals" };
+					"Computers", "Houses", "Shoes", "Business", "Animals" };
 
 			for (int i = 0; i < categoryArray.length; i++) {
 				Category.create(categoryArray[i]);

@@ -285,7 +285,6 @@ public class UserController extends Controller {
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result rating(int id) {
-		final String userEmail = session().get("email");
 		final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		User u = User.find(id);
 		int rate = Integer.parseInt(temp.get("rate"));

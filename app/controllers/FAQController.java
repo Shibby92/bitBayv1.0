@@ -113,16 +113,15 @@ public class FAQController extends Controller {
 	
 	/**
 	 * deletes FAQ returns to all FAQs
-	 * 
-	 * @param id
+	 * @param id int id of the FAQ
 	 * @return result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteFAQ(int id) {
 		String email = session().get("email");
 		try {
-			FAQ.delete(id);
 			Logger.warn("FAQ with id: " + id + " has been deleted");
+			FAQ.delete(id);
 			flash("success", "Question deleted!");
 			return ok(faq.render(email, FAQ.all()));
 		} catch (Exception e) {
