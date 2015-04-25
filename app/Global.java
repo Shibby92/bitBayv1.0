@@ -328,6 +328,7 @@ public class Global extends GlobalSettings {
 			image1.add(img13);
 			Image.saveImg(img13);
 			
+			//Product id 12
 			Product.create("Headphones for Samsung galaxy S6 ",19.99,100,User.find(3),"Very stylish headphones for Samsung galaxy S6",3);
 			Product product7 =Product.find(12);
 			Image img14= new Image();
@@ -423,6 +424,12 @@ public class Global extends GlobalSettings {
 			Comment.createComment("Hope to deal with you again. Thank you.",User.find(3),Product.find(9));
 			Comment.createComment("Thank you a great product Call back anytime A+++++++",User.find(4),Product.find(10));
 			Comment.createComment("Hope to deal with you again. Thank you.",User.find(6),Product.find(10));
+		}
+		if(Orders.find(1)==null){
+			Cart c1=Cart.find(6);
+			Cart.addProduct(Product.find(12), c1);
+			Cart.addProduct(Product.find(3), c1);
+			Orders.create(new Orders(c1,User.find(6),"test"));
 		}
 		
 		if(Blog.findBlogById(1) == null) {

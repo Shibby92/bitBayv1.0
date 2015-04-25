@@ -62,9 +62,9 @@ public class Orders extends Model {
 			this.shippingAddress=cart.shippingAddress;
 			this.token = token;
 			this.buyer = buyer;
+			this.orderDate="1/1/2014";
 		}
 	}
-
 	public Orders() {
 		// TODO Auto-generated constructor stub
 	}
@@ -111,6 +111,14 @@ public class Orders extends Model {
 			}
 		}
 		return sum;
+	}
+
+	public boolean contains(Product productFromCart) {
+		for(Product p:this.productList){
+			if(p.id==productFromCart.id)
+				return true;
+		}
+		return false;
 	}
 
 }
