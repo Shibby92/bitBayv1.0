@@ -194,6 +194,15 @@ public class ProductApplication extends Controller {
 		Logger.info("Opened page for updating product");
 
 		Product updateProduct = Product.find(id);
+		
+		List<models.Image> image_urls = updatePicture(id);
+		
+		if (image_urls == null) {
+			return redirect("/updateproduct/" + id);
+	
+		}
+
+		
 		if (updateProduct.sold == true) {
 			updateProduct.sold = false;
 		}
@@ -209,8 +218,7 @@ public class ProductApplication extends Controller {
 			updateProduct.description = productForm.bindFromRequest()
 					.field("description").value();
 
-			List<models.Image> image_urls = updatePicture(id);
-
+			
 			if (image_urls != null) {
 				updateProduct.images = image_urls;
 			}
@@ -238,14 +246,16 @@ public class ProductApplication extends Controller {
 	public static List<models.Image> updatePicture(int id) {
 
 		Product updateProduct = ProductApplication.find(id);
-		Product.deleteImage(updateProduct);
+		
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
 		List<models.Image> imgs = new ArrayList<models.Image>();
 		if (fileParts == null || fileParts.size() == 0) {
+			flash("error", "You need to upload image!");
 			Logger.debug("File part is null");
 			return null;
 		}
+		
 		for (FilePart filePart : fileParts) {
 			if (filePart == null) {
 				Logger.debug("File part is null");
@@ -277,7 +287,9 @@ public class ProductApplication extends Controller {
 			}
 
 			try {
+				
 				models.Image img = new models.Image();
+				Product.deleteImage(updateProduct);
 
 				File profile = new File("./public/images/Productimages/"
 						+ UUID.randomUUID().toString() + extension);
