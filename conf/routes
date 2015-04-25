@@ -2,8 +2,8 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET    /profile               controllers.UserController.profile()
-GET		/userprofile/:id		controllers.UserController.userProfile(id: Integer)
+GET    /profile                    controllers.UserController.profile()
+GET    /userprofile/:id            controllers.UserController.userProfile(id: Integer)
 
 # Home page
 GET    /                           controllers.UserLoginApplication.homePage()
@@ -21,25 +21,27 @@ GET    /confirm/:confirmation      controllers.Verification.verificateEmail(conf
 
 GET    /deleteproduct/:id          controllers.ProductApplication.deleteProduct(id: Integer)
 
-GET 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
-POST 	/addproduct/:id			controllers.ProductApplication.addAdditionalInfo(id:Integer)
-GET		/addproductpage/:id		controllers.ProductApplication.toInfo(id:Integer)
-POST	/addproduct/homepage	controllers.UserLoginApplication.homePage()
-GET		/addproductcategory		controllers.ProductApplication.toPickCategory()
-GET 	/updateproduct/:id		controllers.ProductApplication.updateProduct(id:Integer)
-POST 	/updateproduct/:id		controllers.ProductApplication.updateP(id:Integer)
-GET		/renewproduct/:id		controllers.ProductApplication.renew(id:Integer)
-GET 	/productpage			controllers.ProductApplication.productPage()
-GET    /itempage/logout         controllers.UserLoginApplication.logOut()
-GET    /itempage/:id            controllers.ProductApplication.itemPage(id:Integer)
-GET    /myproducts/:id          controllers.ProductApplication.myProducts(id: Integer)
-POST   /changeshipping/:id      controllers.ProductApplication.changeShippingAddress(id: Integer)
+GET    /addproduct/:id             controllers.ProductApplication.addAdditionalInfo(id:Integer)
+POST   /addproduct/:id             controllers.ProductApplication.addAdditionalInfo(id:Integer)
+GET    /addproductpage/:id         controllers.ProductApplication.toInfo(id:Integer)
+POST   /addproduct/homepage        controllers.UserLoginApplication.homePage()
+GET    /addproductcategory         controllers.ProductApplication.toPickCategory()
+GET    /updateproduct/:id          controllers.ProductApplication.updateProduct(id:Integer)
+POST   /updateproduct/:id          controllers.ProductApplication.updateP(id:Integer)
+GET    /renewproduct/:id           controllers.ProductApplication.renew(id:Integer)
+GET    /productpage                controllers.ProductApplication.productPage()
+GET    /itempage/logout            controllers.UserLoginApplication.logOut()
+GET    /itempage/:id               controllers.ProductApplication.itemPage(id:Integer)
+GET    /myproducts/:id             controllers.ProductApplication.myProducts(id: Integer)
+POST   /changeshipping/:id         controllers.ProductApplication.changeShippingAddress(id: Integer)
 
-GET		/reportproductpage/:id	controllers.ProductApplication.reportProductPage(id: Integer)
-POST	/reportproduct/:id		controllers.ProductApplication.reportProduct(id: Integer)
+GET    /productList1               controllers.ProductApplication.productList()		
+	
+GET    /reportproductpage/:id      controllers.ProductApplication.reportProductPage(id: Integer)
+POST   /reportproduct/:id          controllers.ProductApplication.reportProduct(id: Integer)
 
-GET		/openreport/:id			controllers.ProductApplication.openReport(id: Integer)
-GET		/deletereport/:id		controllers.ReportController.deleteReport(id: Integer)
+GET    /openreport/:id             controllers.ProductApplication.openReport(id: Integer)
+GET    /deletereport/:id           controllers.ReportController.deleteReport(id: Integer)
 
 GET    /category/:name             controllers.ProductApplication.category(name:String)
 
@@ -106,9 +108,9 @@ GET    /assets/*file               controllers.Assets.at(path="/public", file)
 #Paypal routes
 GET    /cartpage/:id               controllers.ProductApplication.cartPage(id: Integer)
 POST   /producttocart/:id          controllers.ProductApplication.productToCart(id: Integer)
-POST   /changeorderedqty/:id          controllers.ProductApplication.changeOrderedQty(id: Integer)
-POST   /addqty/:id                        controllers.ProductApplication.addQty(id: Int)
-POST   /subtractqty/:id                            controllers.ProductApplication.subtractQty(id: Int)
+POST   /changeorderedqty/:id       controllers.ProductApplication.changeOrderedQty(id: Integer)
+POST   /addqty/:id                 controllers.ProductApplication.addQty(id: Int)
+POST   /subtractqty/:id            controllers.ProductApplication.subtractQty(id: Int)
 
 
 
@@ -126,7 +128,7 @@ GET    /orderpage/:id              controllers.OrderController.orderPage(id: Int
 GET    /soldorder/:id              controllers.OrderController.soldOrderPage(id:Integer)
 GET    /soldorderchecked/:id       controllers.OrderController.soldOrderChecked(id:Integer)
 
-GET    /rating/:id             controllers.UserController.ratingpage(id: Integer)
+GET    /rating/:id                 controllers.UserController.ratingpage(id: Integer)
 POST   /rating/:id                 controllers.UserController.rating(id: Integer)
 
 #Paypal routes
@@ -146,21 +148,21 @@ GET    /orderpage/:id              controllers.OrderController.orderPage(id: Int
 POST   /api/register               ws.controllers.JsonController.registration()
 POST   /api/login                  ws.controllers.JsonController.login()
 POST   /api/addproduct             ws.controllers.JsonController.addProduct()
-GET		/api/showuser/:id 			ws.controllers.JsonController.viewUser(id: Integer)
+GET    /api/showuser/:id           ws.controllers.JsonController.viewUser(id: Integer)
 GET    /api/showproduct/:id        ws.controllers.JsonController.viewProduct(id: Integer)
 GET    /api/showuserproducts/:id   ws.controllers.JsonController.userProducts(id: Integer)
 GET    /api/allproducts            ws.controllers.JsonController.allProducts()
 GET    /api/allusers               ws.controllers.JsonController.allUsers()
 
 #Blog routes
-GET		/blog					controllers.BlogController.blogsPage()
-GET    	/addBlog                controllers.BlogController.toAddNewBlog()
-POST   	/addBlog                controllers.BlogController.addNewBlog()
-POST   	/updateBlog             controllers.BlogController.updateBlog(id: Integer)
-GET    	/updateBlog/:id         controllers.BlogController.toUpdateBlog(id: Integer)
-GET   	/deleteBlog             controllers.BlogController.deleteBlog(id: Integer)
+GET    /blog                       controllers.BlogController.blogsPage()
+GET    /addBlog                    controllers.BlogController.toAddNewBlog()
+POST   /addBlog                    controllers.BlogController.addNewBlog()
+POST   /updateBlog                 controllers.BlogController.updateBlog(id: Integer)
+GET    /updateBlog/:id             controllers.BlogController.toUpdateBlog(id: Integer)
+GET    /deleteBlog                 controllers.BlogController.deleteBlog(id: Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET    /assets/*file            controllers.Assets.at(path="/public", file)
+GET    /assets/*file               controllers.Assets.at(path="/public", file)
 

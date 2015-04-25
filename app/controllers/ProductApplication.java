@@ -24,6 +24,7 @@ import play.data.*;
 import play.db.ebean.Model.Finder;
 import play.libs.F.Function;
 import play.libs.F.Promise;
+import play.libs.Json;
 import play.libs.ws.WS;
 import play.libs.ws.WSResponse;
 import play.mvc.*;
@@ -84,6 +85,7 @@ public class ProductApplication extends Controller {
 		int quantity = Integer.valueOf(form.get("quantity"));
 		String description = form.get("description");
 		List<models.Image> image_urls = savePicture(id);
+		
 
 		if (image_urls == null) {
 			return redirect("/addproductpage/" + id);
@@ -979,6 +981,17 @@ public class ProductApplication extends Controller {
 		Logger.info("User " + session().get("email") + " has opened report page");
 		List<Report> all = Report.findByProduct(Product.find(id));
 		return ok(report.render(session("email"), all));
+	}
+	
+	public static Result productList(){
+		
+		
+		List<Product> all = Product.findAll();
+		
+		JsonNode jsonNode = Json.toJson(all);
+		
+		return ok(jsonNode);
+		
 	}
 
 	
