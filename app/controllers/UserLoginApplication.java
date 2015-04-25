@@ -53,7 +53,6 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * main page login page
-	 * 
 	 * @return result
 	 */
 	public static Result homePage() {
@@ -73,9 +72,7 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * tries to log user to page if the user can log, he gets redirected to
-	 * index page if the user is not in database, he gets redirected to register
-	 * page
-	 * 
+	 * index page if the user is not in database, he gets redirected to register page
 	 * @return result
 	 */
 	public static Result login() {
@@ -150,7 +147,6 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * goes to page where the user can be registered
-	 * 
 	 * @return result
 	 */
 	public static Result toRegister() {
@@ -164,7 +160,6 @@ public class UserLoginApplication extends Controller {
 	/**
 	 * We return whatever the promise returns, so the return value is changed
 	 * from Result to Promise<Result>
-	 * 
 	 * @return the contact page with a message indicating if the email has been
 	 *         sent.
 	 */
@@ -237,20 +232,17 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * goes to page where user can login
-	 * 
 	 * @return result
 	 */
 	public static Result toLogin() {
 
 		String email = session().get("email");
 		Logger.info("Opened page for login");
-
 		return ok(logintest.render(email, FAQ.all()));
 	}
 
 	/**
 	 * redirect to homepage user gets logged out clear from session
-	 * 
 	 * @return result
 	 */
 	public static Result logOut() {
@@ -280,7 +272,6 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * avoiding model creation for contact form
-	 * 
 	 * @author eminamuratovic
 	 */
 	public static class Contact {
@@ -306,7 +297,8 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * tries to buy product with paypall
-	 * 
+	 * first page of paypall
+	 * login, order summary
 	 * @return result
 	 */
 	@Security.Authenticated(UserFilter.class)
@@ -373,19 +365,12 @@ public class UserLoginApplication extends Controller {
 	public static String cartToString(Cart cart) {
 
 		StringBuilder sb = new StringBuilder();
-
 		sb.append("Your order via bitBay: ");
-
 		for (Product product : cart.productList) {
-
 			sb.append(product.name + " (" + product.price + "0 $) x "
-
 			+ product.orderedQuantity + ", ");
-
 		}
-
-		sb.append("which is a total prize of: " + cart.checkout + "0 $");
-
+		sb.append("which is a total price of: " + cart.checkout + "0 $");
 		if (sb.length() > 127) {
 			sb.delete(0, sb.length());
 			sb.append("Your order via bitBay: ");
@@ -403,9 +388,12 @@ public class UserLoginApplication extends Controller {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result orderConfirm() {
-		Logger.debug("NALAZIM SE U ORDER CONFIRM!");
 		String email = session().get("email");
 		String paymentID = null;
 		String payerID = null;
@@ -427,11 +415,9 @@ public class UserLoginApplication extends Controller {
 			apiContext.setConfigurationMap(sdkConfig);
 			Payment payment = Payment.get(accessToken, paymentID);
 
-			Logger.debug("POSLIJE FOR PETLJE");
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());
 		}
-		Logger.info("Iznad returna");
 		return ok(confirmorder.render(paymentID, payerID, token, email, cart,
 				FAQ.all()));
 	}
@@ -439,7 +425,6 @@ public class UserLoginApplication extends Controller {
 	@Security.Authenticated(UserFilter.class)
 	public static Result orderSuccess(String paymentId, String payerId,
 			String token) {
-		Logger.info("Order success");
 		String email = session().get("email");
 		try {
 			DynamicForm paypalReturn = Form.form().bindFromRequest();
@@ -504,11 +489,8 @@ public class UserLoginApplication extends Controller {
 	}
 
 	public static String getDate() {
-
 		Date date = Calendar.getInstance().getTime();
-
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
 		return formatter.format(date);
 
 	}
@@ -520,6 +502,7 @@ public class UserLoginApplication extends Controller {
 		int userid = user.id;
 		Cart cart = Cart.getCart(email);
 		Cart.clear(userid);
+		Logger.info("Transaction has been canceled by user " + session().get("email"));
 		flash("failBuy", "Transaction canceled!");
 		return ok(orderresult.render(email, FAQ.all()));
 	}
@@ -527,7 +510,7 @@ public class UserLoginApplication extends Controller {
 	@Security.Authenticated(UserFilter.class)
 	public static Result refundOrder(int id) {
 		RefundHelper.send(Orders.find(id).buyer.email, Orders.find(id).token);
-
+		Logger.info("Token has been sent to users email: " + session().get("email"));
 		String href = "/orderpage/" + Orders.find(id).buyer.id;
 		flash("refund", "Token has been sent to your email!");
 		return redirect(href);

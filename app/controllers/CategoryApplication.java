@@ -49,10 +49,10 @@ public class CategoryApplication extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteCategory(int id) {
-
-		Category.delete(id);
 		Logger.warn(Category.find(id).name + " category is deleted");
-		return redirect("/categorypage");
+		Category.delete(id);
+		flash("success","You have successfully deleted category!");
+		return redirect("/profile");
 
 	}
 	
@@ -75,13 +75,15 @@ public class CategoryApplication extends Controller {
 	public static Result update(int id) {
 		try {
 			Category updateCategory = Category.find(id);
+			String name = updateCategory.name;
 			updateCategory.name = categoryForm.bindFromRequest().field("name")
 					.value();
 			Category.update(updateCategory);
-			Logger.info(updateCategory.name + " category is updated");
-			return redirect("/categorypage");
+			Logger.info(name + " category name has been updated as " + updateCategory.name);
+			flash("success","You have successfully updated category!");
+			return redirect("/profile");
 		} catch (Exception e) {
-			Logger.error("Error in update category");
+			Logger.error("Error in update category " + e.getMessage());
 			flash("error", "There has been a mistake in updating category!");
 			return redirect("/homepage");
 		}

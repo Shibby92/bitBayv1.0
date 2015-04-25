@@ -128,8 +128,9 @@ public class Global extends GlobalSettings {
 		}
 
 		if (Category.find(1) == null) {
-			String categoryArray[] = { "Cars", "Fashion", "Smartphones",
-					"Computers", "Houses", "Shoes", "Biznis", "Animals" };
+			String categoryArray[] = { "Motors", "Fashion", "Smartphones",
+					"Electronics", "Houses", "Collectibles", "Business", "Animals"
+					, "Antiques", "Sports", "Music", "Garden", "Toys", "Books", "Health & Beauty" };
 
 			for (int i = 0; i < categoryArray.length; i++) {
 				Category.create(categoryArray[i]);
@@ -397,6 +398,194 @@ public class Global extends GlobalSettings {
 			List<Image> image6 = new ArrayList<Image>();
 			image6.add(img18);
 			Image.saveImg(img18);
+			
+			
+			Product.create("NEW Authentic GUCCI", 552.49, 7, User.find(3), "New with tags: A brand-new, "
+					+ "unused, and unworn item (including handmade items) in the original "
+					+ "packaging ", 2);
+			Product product12 = Product.find(17);
+			Image gucci = new Image();
+			gucci.image = "images/GucciBag.JPG";
+			gucci.product = product12;
+			Image gucci1 = new Image();
+			gucci1.image = "images/guccibag2.jpg";
+			gucci1.product = product12;
+			Image gucci2 = new Image();
+			gucci2.image = "images/guccibag3.jpg";
+			gucci2.product = product12;
+			Image gucci3 = new Image();
+			gucci3.image = "images/guccibag4.jpg";
+			gucci3.product = product12;
+			Image gucci4 = new Image();
+			gucci4.image = "images/guccibag5.jpg";
+			gucci4.product = product12;
+			Tag.create(product12, Category.find(product12.category_id).name);
+			Tag.create(product12, product12.name);
+			Tag.create(product12,"Dog");
+			List<Image> image7 = new ArrayList<Image>();
+			image7.add(gucci);
+			Image.saveImg(gucci);
+			image7.add(gucci1);
+			Image.saveImg(gucci1);
+			image7.add(gucci2);
+			Image.saveImg(gucci2);
+			image7.add(gucci3);
+			Image.saveImg(gucci3);
+			image7.add(gucci4);
+			Image.saveImg(gucci4);
+			
+			
+			Product.create("Raymond Stainless Watch", 399.00, 3, User.find(4), "This watch is new display model. "
+					+ "Does not come with box and papers. ", 2);
+			Product product13 = Product.find(18);
+			Image raymond = new Image();
+			raymond.image = "images/Raymondwatch.JPG";
+			raymond.product = product13;
+			Image raymond1 = new Image();
+			raymond1.image = "images/Raymondwatch1.JPG";
+			raymond1.product = product13;
+			Image raymond2 = new Image();
+			raymond2.image = "images/Raymondwatch2.JPG";
+			raymond2.product = product13;
+			Image raymond3 = new Image();
+			raymond3.image = "images/Raymondwatch3.JPG";
+			raymond3.product = product13;
+			Tag.create(product13, Category.find(product13.category_id).name);
+			Tag.create(product13, product13.name);
+			Tag.create(product13,"Dog");
+			List<Image> image8 = new ArrayList<Image>();
+			image8.add(raymond);
+			Image.saveImg(raymond);
+			image8.add(raymond1);
+			Image.saveImg(raymond1);
+			image8.add(raymond2);
+			Image.saveImg(raymond2);
+			image8.add(raymond3);
+			Image.saveImg(raymond3);
+			
+			Product product14 = Product.create("Michael KORS BUCKLE SANDALS", 99.00, 7, User.find(5), "New with box: A brand-new, unused, and unworn item (including handmade items) "
+					+ "in the original packaging (such as the original box or bag) "
+					+ "and/or with the original tags attached. ", 2 );
+			
+			Image sandals = new Image();
+			sandals.image = "images/michaelkors.JPG";
+			sandals.product = product14;
+			Image sandals1 = new Image();
+			sandals1.image = "images/michaelkors1.jpeg";
+			sandals1.product = product14;
+			Image sandals2 = new Image();
+			sandals2.image = "images/michaelkors2.jpeg";
+			sandals2.product = product14;
+			Tag.create(product14, Category.find(product14.category_id).name);
+			Tag.create(product14, product14.name);
+			Tag.create(product14,"Dog");
+			List<Image> image9 = new ArrayList<Image>();
+			image9.add(sandals);
+			Image.saveImg(sandals);
+			image9.add(sandals1);
+			Image.saveImg(sandals1);
+			image9.add(sandals2);
+			Image.saveImg(sandals2);
+			
+			
+			Product product15 = Product.create("Tory Burch Thong Sandals", 119.00, 10, User.find(6), "New without box: A brand-new, unused, and unworn item (including handmade items) "
+					+ "that is not in original packaging or may be missing original packaging materials (such as the original box or bag). ", 2);
+			
+			Image tory = new Image();
+			tory.image = "images/toryburch.JPG";
+			tory.product = product15;
+			Image tory1 = new Image();
+			tory1.image = "images/toryburch1.jpeg";
+			tory1.product = product15;
+			Image tory2 = new Image();
+			tory2.image = "images/toryburch2.jpeg";
+			tory2.product = product15;
+			Image tory3 = new Image();
+			tory3.image = "images/toryburch3.jpeg";
+			tory3.product = product15;
+			Image tory4 = new Image();
+			tory4.image = "images/toryburch4.jpeg";
+			tory4.product = product15;
+			Tag.create(product15, Category.find(product15.category_id).name);
+			Tag.create(product15, product15.name);
+			Tag.create(product15,"Dog");
+			List<Image> image10 = new ArrayList<Image>();
+			image10.add(tory);
+			Image.saveImg(tory);
+			image10.add(tory1);
+			Image.saveImg(tory1);
+			image10.add(tory2);
+			Image.saveImg(tory2);
+			image10.add(tory3);
+			Image.saveImg(tory3);
+			image10.add(tory4);
+			Image.saveImg(tory4);
+			
+			Product product16 = Product.create("U2: son gs of innocence- Deluxe Edition (2014)", 5.50, 5, User.find(2), "Brand New: An item that has never been opened or removed from the manufacturer’s sealing (if applicable). "
+					+ "Item is in original shrink wrap (if applicable). See the seller's listing for full details. Number of Discs:	2."
+					+ "Genre:	Rock. Tracks:  16.", 11);
+			
+			Image u2 = new Image();
+			u2.image = "images/u2CD.JPG";
+			u2.product = product16;
+			Image u23 = new Image();
+			u23.image = "images/u2CD1.JPG";
+			u23.product = product16;
+			Tag.create(product16, Category.find(product16.category_id).name);
+			Tag.create(product16, product16.name);
+			Tag.create(product16,"Dog");
+			List<Image> image11 = new ArrayList<Image>();
+			image11.add(u2);
+			Image.saveImg(u2);
+			image11.add(u23);
+			Image.saveImg(u23);
+			
+			
+			Product product17 = Product.create("Vintage Look Vase Coffee TABLE", 55.00, 1, User.find(3), "Good condition, Hand Made. Region of Origin:	Asia. Material:	Wood. Age:	Post-1950", 9);
+			
+			Image table = new Image();
+			table.image = "images/coffeetable.JPG";
+			table.product = product17;
+			Image table1 = new Image();
+			table1.image = "images/coffeetable1.JPG";
+			table1.product = product17;
+			Image table2 = new Image();
+			table2.image = "images/coffeetable2.JPG";
+			table2.product = product17;
+			Tag.create(product17, Category.find(product17.category_id).name);
+			Tag.create(product17, product17.name);
+			Tag.create(product17,"Dog");
+			List<Image> image12 = new ArrayList<Image>();
+			image12.add(table);
+			Image.saveImg(table);
+			image12.add(table1);
+			Image.saveImg(table1);
+			image12.add(table2);
+			Image.saveImg(table2);
+			
+			Product product18 = Product.create("GIANT BIG TEDDY BEAR", 17.99, 20, User.find(4), "New: A brand-new, unused, unopened, undamaged item (including handmade items)"
+			+ "Country of Manufacture:	China. Size:	75cm/29.5 inch(Ear to Feet)", 13);
+			
+			Image bear = new Image();
+			bear.image = "images/tedybear.JPG";
+			bear.product = product18;
+			Image bear1 = new Image();
+			bear1.image = "images/tedybear1.JPG";
+			bear1.product = product18;
+			Image bear2 = new Image();
+			bear2.image = "images/tedybear2.JPG";
+			bear2.product = product16;
+			Tag.create(product18, Category.find(product18.category_id).name);
+			Tag.create(product18, product18.name);
+			Tag.create(product18,"Dog");
+			List<Image> image13 = new ArrayList<Image>();
+			image13.add(bear);
+			Image.saveImg(bear);
+			image13.add(bear1);
+			Image.saveImg(bear1);
+			image13.add(bear2);
+			Image.saveImg(bear2);
+			
 			
 
 		}

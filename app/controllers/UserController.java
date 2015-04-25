@@ -285,7 +285,6 @@ public class UserController extends Controller {
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result rating(int id) {
-		final String userEmail = session().get("email");
 		final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		User u = User.find(id);
 		int rate = Integer.parseInt(temp.get("rate"));
@@ -296,7 +295,7 @@ public class UserController extends Controller {
 		Logger.info("User with email: " + session().get("email")
 				+ " has rated user with id: " + id);
 		flash("success", "You have successfuly rated user!");
-		return redirect("/homepage");
+		return redirect("/userprofile/" + id);
 	}
 
 

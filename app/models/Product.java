@@ -384,9 +384,11 @@ public class Product extends Model {
 
 	}
 
-	public static void create(String name, double price, int quantity,
+	public static Product create(String name, double price, int quantity,
 			User owner, String description, int id) {
-		new Product(name, price, quantity, owner, description, id).save();
+		Product p = new Product(name, price, quantity, owner, description, id);
+		p.save();
+		return p;
 
 	}
 
