@@ -34,7 +34,7 @@ GET    /itempage/logout         controllers.UserLoginApplication.logOut()
 GET    /itempage/:id            controllers.ProductApplication.itemPage(id:Integer)
 GET    /myproducts/:id          controllers.ProductApplication.myProducts(id: Integer)
 POST   /changeshipping/:id      controllers.ProductApplication.changeShippingAddress(id: Integer)
-
+#    /porductList1				
 GET		/reportproductpage/:id	controllers.ProductApplication.reportProductPage(id: Integer)
 POST	/reportproduct/:id		controllers.ProductApplication.reportProduct(id: Integer)
 

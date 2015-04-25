@@ -180,9 +180,29 @@
       </div>
    </div>
    <div class="row">
+			  		<script>
+							  		$("#productList").submit(function(e) {
+				    e.preventDefault();
+				
+				    $.ajax({
+				        method: "GET",
+				        url: "/porductList1/",
+				        data: $("#porductList").serialize()
+				    }).done(function(msg) {
+				        $(".questionList").append(msg);
+				    }).fail(function(msg) {
+				        console.log("FAILED");
+				        alert("Question should not be longer than 600 characters");
+				    });
+				    e.preventDefault();
+				    
+				    return false;
+				
+				});
+				</script>
       @for(product <- products){
       	@if(product.deleted == false) {
-      <div class="col-sm-4 col-lg-4 col-md-4">
+      <div id="productList" class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
 <a href="itempage/@product.id">
             <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
