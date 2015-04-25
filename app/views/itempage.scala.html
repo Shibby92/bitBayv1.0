@@ -215,6 +215,7 @@
                @if((email==null)||(User.find(email).admin == false)) {
                @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
                	 
+               @if(email!=null){
                @if(!User.find(email).blogger){
                <form action="@routes.ProductApplication.productToCart(product.id)"  method="POST" enctype="multipart/form-data">
                   <div>
@@ -236,15 +237,17 @@
                    
                    </form>
                    }
+                   }
                   }
                   }
                    @if(session().get("email")!=product.owner.email) {
-                   	@if(!User.find(email).blogger){
-                   		<br />
-	                  <h4>In Cart(this item): @product.getOrderedQuantity</a>
-	                  </h4>
-                   	}
-                   	
+                   	@if(email!=null){
+                   		@if(!User.find(email).blogger){
+	                   		<br />
+		                  <h4>In Cart(this item): @product.getOrderedQuantity</a>
+		                  </h4>
+                   		}
+                   	} 	
                   }
                    
                   
@@ -255,12 +258,13 @@
                }
             	 <div class="btn-group btn-group-justified" style="margin: 30px 0px">
                @if(session().get("email")!=product.owner.email) {
+               		@if(email!=null){
                	@if(!User.find(email).blogger){
                		 <a href="/userprofile/@product.owner.id"
 		               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Visit seller profile
 		               </a>
                	}
-                
+                }
                }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
                	@if(!User.find(email).blogger){
