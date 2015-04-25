@@ -148,22 +148,24 @@
                }
             
 	<table class='table'>
-		<thead> <tr> <th style="float: left"> </th>  </tr>  </thead>
+		<thead> <h2 style=" color: #4AB55A;"">FAQ:</h2></thead>
 		<tbody>
 
 				@for(currentFAQ <- faqs){
-												
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-									
-									<tr> 
-									<td>
-									
-									<li>
-										<h4> <strong>Question:</strong> @currentFAQ.question </h4>
-										<p> <strong>Answer:</strong> @currentFAQ.answer </p>
-										
+							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin: 30px -10px;">
+  			<div class="panel panel-default">
+    			<div class="panel-heading" role="tab" id="headingOne"   style="background-color: #4AB55A;">
+      			<h4 class="panel-title">
+        			<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+       
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body" style="background-color: #f5f5f5;">
+       <h4> <strong>Question:</strong> @currentFAQ.question </h4>
+		<p> <strong>Answer:</strong> @currentFAQ.answer </p>
+		
 										@if(session().get("email") != null) {
 										@if(User.find(session().get("email")).admin) { 
 										<a href="@routes.FAQController.toUpdateFAQ(currentFAQ.id)" class="btn btn-default">Edit</a>
@@ -174,10 +176,14 @@
 										
 										}  
 										}
-										</li>
+        </div>
+    </div>
+  </div>
+         
+          
+         </div>					
+						
 										
-										</td>
-										</tr>
 										
 										
 									</div>					
@@ -190,7 +196,7 @@
 	
 	</div>
 	</div>
-	<div id="footer" style="background-color: #f5f5f5">
+	<div id="footer1" >
   <div class="container">
 
    

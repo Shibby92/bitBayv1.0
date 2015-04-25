@@ -230,9 +230,9 @@
 								<div class="cart_quantity_button" style="margin: 20px 80px">
 								
  								
-									<form method="POST" action="@routes.ProductApplication.addQty(product.id)" style="margin: -5px -40px"> 
-									 <button type="submit" class="btn btn-success btn-number"  data-type="plus" data-field="quant[2]">
-                					<span class="glyphicon glyphicon-plus"></span>
+									<form method="POST" action="@routes.ProductApplication.subtractQty(product.id)"   style="margin: -5px -40px"> 
+									 <button type="submit" class="btn btn-danger btn-number"  data-type="plus" data-field="quant[2]">
+                					<span class="glyphicon glyphicon-minus"></span>
              						 </button>
              						
 									
@@ -243,10 +243,10 @@
 									
 									
  									
-									<form method="POST" action="@routes.ProductApplication.subtractQty(product.id)" style="margin: -25px 55px"> 
+									<form method="POST" action="@routes.ProductApplication.addQty(product.id)" style="margin: -25px 55px"> 
 									<span class="input-group-btn">
-						              <button type="submit" class="btn btn-danger btn-number" data-type="minus" data-field="quant[2]">
-						                  <span class="glyphicon glyphicon-minus"></span>
+						              <button type="submit" class="btn btn-success btn-number" data-type="minus" data-field="quant[2]">
+						                  <span class="glyphicon glyphicon-plus"></span>
 						              </button>
           							</span>
 									</form> 
@@ -277,10 +277,7 @@
        
               
 <legend>You may also like:</legend>
-       
-   
-     
-      	@for(product<-Product.findRecommendation(cart.productList,Product.findAll())){
+      	@for(product<-Product.recommendProducts(User.find(session().get("email")))){
       		 
       		 <div class="col-lg-3 ">
       		 

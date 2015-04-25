@@ -215,6 +215,7 @@
                @if((email==null)||(User.find(email).admin == false)) {
                @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
                	 
+               @if(email!=null){
                @if(!User.find(email).blogger){
                <form action="@routes.ProductApplication.productToCart(product.id)"  method="POST" enctype="multipart/form-data">
                   <div>
@@ -236,15 +237,17 @@
                    
                    </form>
                    }
+                   }
                   }
                   }
                    @if(session().get("email")!=product.owner.email) {
-                   	@if(!User.find(email).blogger){
-                   		<br />
-	                  <h4>In Cart(this item): @product.getOrderedQuantity</a>
-	                  </h4>
-                   	}
-                   	
+                   	@if(email!=null){
+                   		@if(!User.find(email).blogger){
+	                   		<br />
+		                  <h4>In Cart(this item): @product.getOrderedQuantity</a>
+		                  </h4>
+                   		}
+                   	} 	
                   }
                    
                   
@@ -252,15 +255,20 @@
                   @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
                   	 
              
-               }
-            	 <div class="btn-group btn-group-justified" style="margin: 30px 0px">
+               }	@if(email!=null) {
+            	 <div class="btn-group btn-group-justified1" style="margin: 30px -10px">
+            	 } else {
+            	 
+            	  <div class="btn-group btn-group-justified" style="margin: 30px 40px">
+            	 }
                @if(session().get("email")!=product.owner.email) {
+               		@if(email!=null){
                	@if(!User.find(email).blogger){
                		 <a href="/userprofile/@product.owner.id"
 		               type="button" class="btn btn-default" style="background-color: #f5f5f5;">Visit seller profile
 		               </a>
                	}
-                
+                }
                }
                @if(session().get("email")!=product.owner.email && session().get("email")!=null){
                	@if(!User.find(email).blogger){
@@ -292,7 +300,9 @@
 
                }
                  </div>
+                 
             </div>
+            
          </div>
          <div class="col-md-5" style="margin: 0px 15px">
 		
@@ -315,7 +325,7 @@
       </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
+      <div class="panel-body" style="background-color: #f5f5f5;">
        	@product.description
         </div>
     </div>

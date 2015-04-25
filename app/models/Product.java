@@ -438,9 +438,10 @@ public class Product extends Model {
 		this.update();
 	}
 
-	public static double total(Product p){
-		return p.price*p.getOrderedQuantity();
+	public static double total(Product p) {
+		return p.price * p.getOrderedQuantity();
 	}
+
 	public String getName() {
 		return name;
 	}
@@ -559,6 +560,31 @@ public class Product extends Model {
 	 *            All products from the database
 	 * @return List of products that are recommended by the cartProducts
 	 */
+
+	public static List<Product> recommendProducts(User user) {
+		List<Product> recommendedProducts = new ArrayList<Product>();
+		for (Product productFromCart : Cart.find(user.id).productList) {
+			List<Orders> containableOrders = new ArrayList<Orders>();
+			for (Orders order : Orders.find.all()) {
+				for (Product p : order.productList) {
+					if (p.id == productFromCart.id) {
+						containableOrders.add(order);
+					}
+				}
+			}
+			for (Orders order : containableOrders) {
+				for (Product compare : order.productList) {
+					if (productFromCart.id != compare.id) {
+						if (similarity(productFromCart, compare) >= 2) {
+							recommendedProducts.add(compare);
+						}
+
+					}
+				}
+			}
+		}
+		return recommendedProducts;
+	}
 
 	public static List<Product> findRecommendation(List<Product> cartProducts,
 			List<Product> allProducts) {
