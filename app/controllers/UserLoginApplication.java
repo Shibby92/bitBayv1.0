@@ -297,6 +297,8 @@ public class UserLoginApplication extends Controller {
 
 	/**
 	 * tries to buy product with paypall
+	 * first page of paypall
+	 * login, order summary
 	 * @return result
 	 */
 	@Security.Authenticated(UserFilter.class)
@@ -386,6 +388,10 @@ public class UserLoginApplication extends Controller {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result orderConfirm() {
 		String email = session().get("email");
