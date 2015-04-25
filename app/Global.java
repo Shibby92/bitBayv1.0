@@ -661,12 +661,12 @@ public class Global extends GlobalSettings {
 		}
 		
 		if(Blog.findBlogById(1) == null) {
-			Blog.createBlog("BitBay started", 
-					"A new website for online shopping has started to work today. We will be at your service 24/7 and provide top service"
+			Blog.createBlog("bitBay started", 
+					"A new website for online shopping has started to work today. We will be at your service 24/7 and provide top service "
 					+ "to all our users. Our primary conceirn is safety for our users so they can buy, sell and trade with out any worry"
-					+ "for security."
-					+ "We really hope you will find our website fun and intuitive to use."
-					+ "Kind Regards BitBay team.", 
+					+ "for security. "
+					+ "We really hope you will find our website fun and intuitive to use. "
+					+ "Kind Regards bitBay team.", 
 					"images/logo.png", 1, "Admin");
 		}
 		

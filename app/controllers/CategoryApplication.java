@@ -85,7 +85,7 @@ public class CategoryApplication extends Controller {
 		} catch (Exception e) {
 			Logger.error("Error in update category " + e.getMessage());
 			flash("error", "There has been a mistake in updating category!");
-			return redirect("/homepage");
+			return redirect("/profile");
 		}
 	}
 	
