@@ -45,7 +45,6 @@ public class Cart extends Model {
 		String shipAd= u.user_address;
 		this.shippingAddress=shipAd;
 	}
-
 	public Cart() {
 	}
 

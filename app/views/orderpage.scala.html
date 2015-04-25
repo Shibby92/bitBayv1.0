@@ -169,8 +169,9 @@
          <td>@order.id</td>
           <td>
                     @for(product <- order.productList){
-                    	<p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id) </p><a href="/rating/@product.owner.id"
-						<button type="button" class="btn btn-warning" style="margin:0px 25px">Rate seller</button></a>
+                    	<p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id) 
+                    	<a class="pull-right"href="/rating/@product.owner.id">Rate seller</a></p>
+                 
                     }
                     </td>
                     <td>@order.orderDate</td>

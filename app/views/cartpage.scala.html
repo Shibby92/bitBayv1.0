@@ -277,10 +277,7 @@
        
               
 <legend>You may also like:</legend>
-       
-   
-     
-      	@for(product<-Product.findRecommendation(cart.productList,Product.findAll())){
+      	@for(product<-Product.recommendProducts(User.find(session().get("email")))){
       		 
       		 <div class="col-lg-3 ">
       		 
