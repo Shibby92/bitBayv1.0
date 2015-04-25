@@ -252,8 +252,12 @@
                   @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
                   	 
              
-               }
-            	 <div class="btn-group btn-group-justified" style="margin: 30px 0px">
+               }	@if(email!=null) {
+            	 <div class="btn-group btn-group-justified1" style="margin: 30px -10px">
+            	 } else {
+            	 
+            	  <div class="btn-group btn-group-justified" style="margin: 30px 40px">
+            	 }
                @if(session().get("email")!=product.owner.email) {
                	@if(!User.find(email).blogger){
                		 <a href="/userprofile/@product.owner.id"
@@ -292,7 +296,9 @@
 
                }
                  </div>
+                 @if(User.find(email).admin == false) {
             </div>
+            }
          </div>
          <div class="col-md-5" style="margin: 0px 15px">
 		
@@ -315,7 +321,7 @@
       </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
+      <div class="panel-body" style="background-color: #f5f5f5;">
        	@product.description
         </div>
     </div>

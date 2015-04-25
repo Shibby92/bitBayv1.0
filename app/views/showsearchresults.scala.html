@@ -116,10 +116,10 @@
    <!-- Page Content -->
    <div class="container">
       <!-- Page Header -->
-      <div style="margin: 80px -15px" class="row">
+      <div style="margin: 0px -15px" class="row">
         @if(!products.isEmpty) {
         	 <div class="col-lg-12">
-            <h3 class="page-header"> Product Page </h3>
+            <h3 class="page-header" style="color: #4AB55A"> Product Page </h3>
          </div>
          <div class="row">
          @if(flash.get("error")){
@@ -159,7 +159,7 @@
    </div>
          } else {
          	 <div class="col-lg-12">
-            <h3 class="page-header"> Product Page </h3>
+            <h3 class="page-header" style="color: #4AB55A"> Product Page: </h3>
          </div>
           <div class="row">
           	<h4 style="margin: 180px 35px"> No search results... </h4>
@@ -170,7 +170,11 @@
    
       </hr>
    </div>
-  <div id="footer" style="background-color: #f5f5f5">
+ 	@if(products.size < 5){
+<div id="footer">
+	} else {
+	<div id="footer1">
+	}
   <div class="container">
 
    
