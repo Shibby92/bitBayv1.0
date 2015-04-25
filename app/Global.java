@@ -586,7 +586,36 @@ public class Global extends GlobalSettings {
 			image13.add(bear2);
 			Image.saveImg(bear2);
 			
-			
+			Product product19 = Product.create("NOKIA 3310", 20.99, 20, User.find(6), "This Nokia mobile phone, with its LCD display, lets you view the message clearly."
+					+ "The battery allows you to talk for 2.5 hours on a single charge.", 3);
+					
+					Image nokia = new Image();
+					nokia.image = "images/nokia.3310.jpg";
+					nokia.product = product19;
+					Tag.create(product19, Category.find(product19.category_id).name);
+					Tag.create(product19, product19.name);
+					Tag.create(product19,"Nokia");
+					List<Image> imageList14 = new ArrayList<Image>();
+					imageList14.add(nokia);
+					Image.saveImg(nokia);
+					product19.category_id = 3;
+					product19.images = imggg;
+					
+					Product product20 = Product.create("Dell Optiplex Desktop Computer PC", 120.99, 20, User.find(6), "Computer comes with new install of licensed Windows 8.1 Pro 64-bit with Media Center + licensed Office 2013 Pro Plus SP1"
++" Computer professionally refurbished and tested 100% functional", 4);
+							
+							Image dellPc = new Image();
+							dellPc.image = "images/dellPc.jpg";
+							dellPc.product = product20;
+							Tag.create(product20, Category.find(product20.category_id).name);
+							Tag.create(product20, product20.name);
+							Tag.create(product20,"Dell");
+							List<Image> imageList15 = new ArrayList<Image>();
+							imageList15.add(dellPc);
+							Image.saveImg(dellPc);
+							product20.category_id = 4;
+							product20.images = imggg;
+
 
 		}
 
