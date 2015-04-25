@@ -607,12 +607,22 @@ public class Global extends GlobalSettings {
 							Image dellPc = new Image();
 							dellPc.image = "images/dellPc.jpg";
 							dellPc.product = product20;
+							Image dellPc2 = new Image();
+							dellPc2.image = "images/dellPc2.JPG";
+							dellPc2.product = product20;
+							Image dellPc3 = new Image();
+							dellPc3.image = "images/dellPc3.JPG";
+							dellPc3.product = product20;
 							Tag.create(product20, Category.find(product20.category_id).name);
 							Tag.create(product20, product20.name);
 							Tag.create(product20,"Dell");
 							List<Image> imageList15 = new ArrayList<Image>();
 							imageList15.add(dellPc);
 							Image.saveImg(dellPc);
+							imageList15.add(dellPc2);
+							Image.saveImg(dellPc2);
+							imageList15.add(dellPc3);
+							Image.saveImg(dellPc3);
 							product20.category_id = 4;
 							product20.images = imggg;
 
