@@ -20,6 +20,7 @@ background-color: #328C14;
 
 .back-to-top i {
   font-size: 65px;
+    margin: 5px 3px;
 }
 </style>
 	</head>
@@ -197,7 +198,7 @@ background-color: #328C14;
       </hr>
    </div>
    <!-- /.container -->
-   	@if(products.size < 3){
+   	@if(products.size < 4){
 <div id="footer">
 	} else {
 	<div id="footer1">
@@ -256,9 +257,13 @@ background-color: #328C14;
 </div>
 </div>
 <!-- /.container -->
+  	@if(products.size < 6){
+
+
 <a href="#" class="back-to-top" style="display: inline;">
 <i class="fa fa-arrow-circle-up"></i>
 </a>
+	}
 
 <script>
 jQuery(document).ready(function() {

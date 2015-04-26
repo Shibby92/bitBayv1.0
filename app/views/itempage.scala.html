@@ -58,7 +58,26 @@
          </ul>
          } else {
          <ul class="nav navbar-nav">
-         <li  style="margin: 0px 180px">
+         
+         <li  style="margin: 0px 80px">
+         <li  style="margin: 8px -5px">
+           <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    Category
+                  <span class="caret"></span>
+                  
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                  <ul class="dropdown-menu" role="menu" style="margin: 4px -110px">
+                     <li>
+                      
+      @for(category <- categoryList){
+      <a href="/category/@category.name" class="glyphicon glyphicon-shopping-cart"> @category.name </a>
+      }
+  
+                     </li>
+                  </ul>
+         </li>
+       		
             <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                <div class="form-group">
                   <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
@@ -69,7 +88,7 @@
                   <span class="caret"></span>
                   <span class="sr-only">Toggle Dropdown</span>
                   </button>
-                  <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                  <ul class="dropdown-menu" role="menu" style="margin: 4px -90px">
                      <li>
                         <a href="/advancedsearch">Advanced Search</a>
                      </li>
@@ -159,13 +178,7 @@
                   </div>
          }
       <div style="margin: 80px -15px" class="row">
-      <div class="col-md-3" style="margin: -3px -235px">
-   <div class="list-group">
-      @for(category <- categoryList){
-      <a href="/category/@category.name" class="list-group-item glyphicon glyphicon-shopping-cart"> @category.name </a>
-      }
-   </div>
-</div>
+     
          <div class="col-md-5" style="margin: 0px 75px">
             <centar>
                <div class="row carousel-holder">
@@ -201,11 +214,13 @@
                         <span class="glyphicon glyphicon-chevron-right"></span>
                         </a>
                         <div style="background-color:#fff; width:100%">  
-                        <h4 class="pull-right" style="color: #4AB55A;background-color:#fff;";> @product.price $</h4>
-               			<h4 style="color: #4AB55A;background-color:#fff;">@product.name</div>
+                        <h4 class="pull-right" style="background-color:#fff; margin: -3px 0px"> @product.price $</h4>
+               			<h4 style="background-color:#fff;">@product.name</div>
             </centar>
             </div>
+            @if(User.find(email).admin == false) {
             </div>
+            }
             </div>
             <div class="col-md-11">
               
