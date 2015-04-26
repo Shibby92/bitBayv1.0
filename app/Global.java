@@ -361,7 +361,8 @@ public class Global extends GlobalSettings {
 			image3.add(img15);
 			Image.saveImg(img15);
 			
-			Product product9 = Product.create("3 Person Outdoor Patio Gazebo ", 599.99, 50, User.find(6),"Overall Dimensions: 91\" x 58\" x 75\"/92\". Max Weight Capacity: 800 lbs", 10);
+			Product product9 = Product.create("3 Person Outdoor Patio Gazebo ", 599.99, 50, User.find(6),"Overall Dimensions: 91\" x 58\" x 75\"/92\". Max Weight Capacity: 800 lbs"
+					+ "Material: Steel & polyester", 10);
 			
 			Image img16 = new Image();
 			img16.image = "images/dogChewRope.jpg";
