@@ -457,8 +457,12 @@
      
   
      
-  
-  <div id="footer1" style="background-color: #f5f5f5">
+  @if(sold.size < 0 || myproducts.size < 0 || mails.size < 4) {
+  	<div id="footer1">
+  } else {
+  <div id="footer" >
+  }
+  ^
    <div class="container">
 
    

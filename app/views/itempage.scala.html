@@ -249,6 +249,16 @@
                </h4>
                <br>
                <h4> On Stock: @product.quantity </h4>
+                  @if(session().get("email") != null) {
+                                    @if(User.find(session().get("email")).admin) { 
+    <div style="margin: 10px 0px">
+               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete product</a> 
+            </div>
+            }
+            }
+    
+ 
+         
               
                @if((email==null)||(User.find(email).admin == false)) {
                @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
@@ -370,16 +380,7 @@
         </div>
     </div>
      </div>
-     @if(session().get("email") != null) {
-                                    @if(User.find(session().get("email")).admin) { 
-    <div style="margin: 10px 70px">
-               <a class="btn btn-danger glyphicon glyphicon-trash" href="/deleteproduct/@product.id" role="button" onclick="return confirm('Are you sure you want to delete this product?');">Delete product</a> 
-            </div>
-            }
-            }
-    
- 
-         
+  
           
          </div>
            

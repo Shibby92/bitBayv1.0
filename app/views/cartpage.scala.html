@@ -110,7 +110,7 @@
 </nav>
    <!-- Page Content -->
   <div class="container">
-   <div class="row" >
+  
 		<div class="col-lg-12">	
 		@if(flash.get("shipSuccess")){
         <div class="alert alert-success" role="alert">
@@ -157,7 +157,7 @@
          	  </div>
          	 
         
-                  
+                  <div class="row" > 
 	<div class="col-md-3" style="margin: 25px 0px ">
     <div class="well box" style="background-color: #4AB55A;color: #fff;">
     @if(cart.productList.size() == 0) {
@@ -220,8 +220,14 @@
 							
 							</div>
               
-               <div class="pull-down">
-                 Quantity: 
+           
+               @if(product.name.size > 14) {
+               		    <div class="pull-down" style="margin: -10px 0px">
+               } else {
+               
+               	    <div class="pull-down">
+               }
+                   Quantity: 
             
              @if((email==null)||(User.find(email).admin == false)) {
                @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
@@ -312,7 +318,7 @@
   	@if(cart.productList.size()>0){
 <div id="footer1">
 	} else {
-	<div id="footer">
+	<div id="footer" style="margin: 0px -40px">
 	}
  <div class="container">
 
