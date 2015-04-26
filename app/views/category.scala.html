@@ -172,7 +172,9 @@ background-color: #328C14;
       	@if(product.deleted == false){
       <div class="col-sm-4 col-lg-4 col-md-4">
          <div class="thumbnail">
+         <a href="/itempage/@product.id">
             <img src="@routes.Assets.at(product.images.get(0).image)" alt="" style="width:500px;height:228px">
+         </a>
             <div class="caption">
                <h4 class="pull-right"> @product.price $</h4>
                <h4> <a href="/itempage/@product.id">@product.name</a>

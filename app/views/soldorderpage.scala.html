@@ -128,9 +128,10 @@
           <th>Order number</th>
                 <th>Products</th>
                 <th>Buyer</th>
+                <th>Order date</th>
                 <th><span class="nobr">Total</span></th>
                 <th>Rate Buyer</th>
-                <th>Visit Buyer profile</th>
+                
         </tr>
       </thead>
       <tbody>
@@ -145,16 +146,15 @@
                     	}
                     }
                     </td>
-                   <td>@order.buyer.email</td>
+                   <td><a href="/userprofile/@order.buyer.id">@order.buyer.email</a></td>
+                   <td>@order.orderDate</td>
                     <td><span class="price">$ @Orders.priceFromSeller(order,User.find(session().get("email"))),-</span>
                      <a href ="/soldorderchecked/@order.id">
                     	<button type="button" class="btn btn-warning" style="margin: 0px 15px">Ok, got it!</button></td>
                   <td> <a href="/rating/@order.buyer.id"
 						<button type="button" class="btn btn-warning" style="margin: 0px 15px">Rate buyer</button>
 						</td>
-					<td>	<a href="/userprofile/@order.buyer.id"
-               <button type="button" class="btn btn-warning">Visit buyers profile</button>
-               </td>
+					
                     
         </tr>
          
