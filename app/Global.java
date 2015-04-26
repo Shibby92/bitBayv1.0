@@ -29,6 +29,7 @@ public class Global extends GlobalSettings {
 			User.create(u);
 			u.username = "Admin";
 			u.hasAdditionalInfo = true;
+			u.rating = 5.0;
 			u.update();
 
 			User u2 = new User("mustafa.ademovic93@gmail.com",
@@ -37,6 +38,7 @@ public class Global extends GlobalSettings {
 			User.create(u2);
 			u2.username = "Mustafa";
 			u2.hasAdditionalInfo = true;
+			u2.rating = 4.5;
 			u2.update();
 
 			User u3 = new User("emina.muratovic@bitcamp.ba",
@@ -45,6 +47,7 @@ public class Global extends GlobalSettings {
 			User.create(u3);
 			u3.username = "Emina";
 			u3.hasAdditionalInfo = true;
+			u3.rating = 4;
 			u3.update();
 
 			User u4 = new User("haris.arifovic@bitcamp.ba",
@@ -53,6 +56,7 @@ public class Global extends GlobalSettings {
 			User.create(u4);
 			u4.username="Haris";
 			u4.hasAdditionalInfo=true;
+			u4.rating = 3.5;
 			u4.update();
 
 			User u5 = new User("hikmet.durgutovic@bitcamp.ba",
@@ -60,6 +64,7 @@ public class Global extends GlobalSettings {
 			User.create(u5);
 			u5.username="Hikmet";
 			u5.hasAdditionalInfo=true;
+			u5.rating = 3.0;
 			u5.update();
 
 			User u6 = new User("nermin.vucinic@bitcamp.ba",
@@ -68,6 +73,7 @@ public class Global extends GlobalSettings {
 			User.create(u6);
 			u6.username="Nermin";
 			u6.hasAdditionalInfo=true;
+			u6.rating = 2.5;
 			u6.update();
 			
 			User u7 = new User("blogger@bitcamp.ba", 
@@ -77,6 +83,7 @@ public class Global extends GlobalSettings {
 			u7.username = "Blogger";
 			u7.hasAdditionalInfo = true;
 			u7.blogger = true;
+			u7.rating = 2.0;
 			u7.update();
 
 		}
@@ -140,8 +147,9 @@ public class Global extends GlobalSettings {
 
 		if (Product.find(1) == null) {
 
-			Product.create("Eminin proizvod", 2000, 1, User.find(3), "Neki opis", 5);
-			Product pro = Product.find(1);
+			Product pro = Product.create("POST CARD of H.M.C.S.ASSINIBOINE", 18.00, 1, User.find(3),
+					"Used: An item that has been used previously. WW2 Photo Post Card of HMCS Assin.", 5);
+			
 			Image img3 = new Image();
 			img3.image = "images/bitbaySlika1.jpg";
 			img3.product = pro;
@@ -155,11 +163,11 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product.create("Mazda m5", 25000, 1, User.find(2),
-					"condition:	used, " + "year: 2010, " + "make: Mazda, "
-							+ "mileage: 49,831, " + "transmission: manual", 1);
+			Product prod = Product.create("2014 Mazda CX-5 4DR SUV", 24900.00, 1, User.find(2),
+					"condition:	used; " + "year: 2014; " + "Make: Mazda; "
+							+ "mileage: 12,831; " + "Transmission: Automatic;"
+									+ "	Fuel Type:	Gas", 1);
 
-			Product prod = Product.find(2);
 			Image img4 = new Image();
 			img4.image = "images/6800.jpg";
 			img4.product = prod;
@@ -173,7 +181,7 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product.create("Galaxy S6", 2000.00, 15, User.find(3),
+			Product produ = Product.create("Galaxy S6", 2000.00, 15, User.find(3),
 					"Detailed: item info, " + "Product: Identifiers, "
 							+ "Brand: Samsung, " + "Carrier: Unlocked,"
 							+ " Family Line: Samsung Galaxy S6,"
@@ -182,7 +190,6 @@ public class Global extends GlobalSettings {
 							+ " Battery Capacity: 2550 mAh,"
 							+ " Display Technology:	Quad HD Super AMOLED", 3);
 
-			Product produ = Product.find(3);
 			Image img5 = new Image();
 			img5.image = "images/samsung.jpg";
 			img5.product = produ;
@@ -197,17 +204,14 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product.create(
-					"House Stup",
-					880000,
+			Product produc = Product.create(
+					"THE BOOK OF WHO? by Rodney Dale",
+					0.99,
 					1,
 					User.find(3),
-					"Imported Italian marble floors in the foyer, in the 2 1/2 "
-					+ "baths and the 1st floor laundry room,Designed in the atmosphere "
-					+ "of a Las Vegas Suite. Very ornate.  "
-					+ "Three bedrooms upstairs. Ssiral staircase. ", 5);
+					"Brand New: A new, unread, unused book in perfect condition with no missing or damaged pages."
+					+ "Publication Year:	2005", 13);
 
-			Product produc = Product.find(4);
 			Image img6 = new Image();
 			img6.image = "images/bitbaySlika1.jpg";
 			img6.product = produc;
@@ -221,11 +225,10 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product.create("Mercedes 270", 45750, 2, User.find(4),
-					"year: 2015, " + "make: Mercedes, " + "condition:	used, "
-							+ "mileage: 21,841, " + "transmission: manual", 1);
+			Product product = Product.create("Mercedes 270", 45750, 2, User.find(4),
+					"Year: 2015, " + "Make: Mercedes; " + "Condition: used; "
+							+ "Mileage: 21,841; " + "Transmission: manual", 1);
 
-			Product product = Product.find(5);
 			Image img7 = new Image();
 			img7.image = "images/mercedes.jpg";
 			img7.product = product;
@@ -239,10 +242,9 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product.create("Dog", 120, 3, User.find(6),
+			Product product1 = Product.create("Dog", 120, 3, User.find(6),
 					"Young dog, 3 months, only money!!!", 8);
 
-			Product product1 = Product.find(6);
 			Image img8 = new Image();
 			img8.image = "images/dog.jpg";
 			img8.product = product1;
@@ -256,11 +258,10 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product.create("BMW 320", 15000, 1, User.find(4), "year: 2003, "
-					+ "mileage: 129,274, " + "transmission: automatic"
-					+ "make: Bmw, ", 1);
+			Product product2 = Product.create("BMW 320", 15000, 1, User.find(4), "Year: 2003; "
+					+ "Mileage: 129,27; " + " Transmission: automatic;"
+					+ " Make: BMW ", 1);
 
-			Product product2 = Product.find(7);
 			Image img9 = new Image();
 			img9.image = "images/bmw.jpg";
 			img9.product = product2;
@@ -274,13 +275,12 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product.create("Iphone 6", 1530, 15, User.find(5), "Brand: Apple,"
+			Product product3 = Product.create("Iphone 6", 1530, 15, User.find(5), "Brand: Apple,"
 					+ "Storage Capacity: 64 GB, " + " Camera:	8.0MP,"
 					+ " Model: iPhone 6 Plus," + "Digital Camera: Yes,"
 					+ " Email Access: Yes," + " Battery Capacity: 2000 mAh,"
 					+ " Operating System:iOS", 3);
 
-			Product product3 = Product.find(8);
 			Image img10 = new Image();
 			img10.image = "images/iphone.jpg";
 			img10.product = product3;
@@ -294,10 +294,9 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product.create("Cat", 120, 1, User.find(6),
+			Product product4 = Product.create("Cat", 120, 1, User.find(6),
 					"Young cat, 2 monts, if you want good pet this is the best choice!!!", 8);
 
-			Product product4 = Product.find(9);
 			Image img11 = new Image();
 			img11.image = "images/cat.jpg";
 			img11.product = product4;
@@ -311,10 +310,9 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product.create("House", 100000, 3, User.find(2),
+			Product product5 = Product.create("House", 100000, 3, User.find(2),
 					"This house has got four bedrooms, a living-room, a dining-room, a kitchen", 5);
 
-			Product product5 = Product.find(10);
 			Image img12 = new Image();
 			img12.image = "images/bitbaySlika1.jpg";
 			img12.product = product5;
@@ -326,8 +324,8 @@ public class Global extends GlobalSettings {
 			product5.category_id = 3;
 			product5.images = imgggggggggggg;
 			
-			Product.create("Samsung galaxy S6 cover",9.99,50,User.find(3),"Silicon cover for Samsung galaxy S6",3);
-			Product product6 =Product.find(11);
+			Product product6 =Product.create("Samsung galaxy S6 cover",9.99,50,User.find(3),"Silicon cover for Samsung galaxy S6",3);
+			
 			Image img13= new Image();
 			img13.image="images/samsungCover.jpg";
 			img13.product=product6;
@@ -338,9 +336,9 @@ public class Global extends GlobalSettings {
 			image1.add(img13);
 			Image.saveImg(img13);
 			
-			//Product id 12
-			Product.create("Headphones for Samsung galaxy S6 ",19.99,100,User.find(3),"Very stylish headphones for Samsung galaxy S6",3);
-			Product product7 =Product.find(12);
+			
+			Product product7 = Product.create("Headphones for Samsung galaxy S6 ",19.99,100,User.find(3),"Very stylish headphones for Samsung galaxy S6",3);
+			
 			Image img14= new Image();
 			img14.image="images/samsungHeadphones.jpg";
 			img14.product=product7;
@@ -351,8 +349,8 @@ public class Global extends GlobalSettings {
 			image2.add(img14);
 			Image.saveImg(img14);
 			
-			Product.create("Dock for Samsung galaxy S6 ",29.99,10,User.find(3),"Beatiful all-in-one dock for the new Samsung galaxy S6",3);
-			Product product8 =Product.find(13);
+			Product product8 = Product.create("Dock for Samsung galaxy S6 ",29.99,10,User.find(3),"Beatiful all-in-one dock for the new Samsung galaxy S6",3);
+		
 			Image img15= new Image();
 			img15.image="images/samsungDock.jpg";
 			img15.product=product8;
@@ -363,8 +361,8 @@ public class Global extends GlobalSettings {
 			image3.add(img15);
 			Image.saveImg(img15);
 			
-			Product.create("Dog chew rope", 5.55, 15, User.find(6),"A toy for your best friend!", 8);
-			Product product9 = Product.find(14);
+			Product product9 = Product.create("Dog chew rope", 5.55, 15, User.find(6),"A toy for your best friend!", 8);
+			
 			Image img16 = new Image();
 			img16.image = "images/dogChewRope.jpg";
 			img16.product = product9;
@@ -375,8 +373,8 @@ public class Global extends GlobalSettings {
 			image4.add(img16);
 			Image.saveImg(img16);
 			
-			Product.create("Dog collar", 9.69, 20, User.find(6),"New red plaid stylish dog collar.", 8);
-			Product product10 = Product.find(15);
+			Product product10 = Product.create("Dog collar", 9.69, 20, User.find(6),"New red plaid stylish dog collar.", 8);
+			
 			Image img17 = new Image();
 			img17.image = "images/dogCollar.jpg";
 			img17.product = product10;
@@ -387,8 +385,8 @@ public class Global extends GlobalSettings {
 			image5.add(img17);
 			Image.saveImg(img17);
 			
-			Product.create("Treatball", 21.29, 5, User.find(6),"Mystery green rubber treatball for your dog!", 8);
-			Product product11 = Product.find(16);
+			Product product11 = Product.create("Treatball", 21.29, 5, User.find(6),"Mystery green rubber treatball for your dog!", 8);
+		
 			Image img18 = new Image();
 			img18.image = "images/dogTreatball.jpg";
 			img18.product = product11;
@@ -400,10 +398,10 @@ public class Global extends GlobalSettings {
 			Image.saveImg(img18);
 			
 			
-			Product.create("NEW Authentic GUCCI", 552.49, 7, User.find(3), "New with tags: A brand-new, "
+			Product product12 = Product.create("NEW Authentic GUCCI", 552.49, 7, User.find(3), "New with tags: A brand-new, "
 					+ "unused, and unworn item (including handmade items) in the original "
 					+ "packaging ", 2);
-			Product product12 = Product.find(17);
+		
 			Image gucci = new Image();
 			gucci.image = "images/GucciBag.JPG";
 			gucci.product = product12;
@@ -435,9 +433,9 @@ public class Global extends GlobalSettings {
 			Image.saveImg(gucci4);
 			
 			
-			Product.create("Raymond Stainless Watch", 399.00, 3, User.find(4), "This watch is new display model. "
+			Product product13 = Product.create("Raymond Stainless Watch", 399.00, 3, User.find(4), "This watch is new display model. "
 					+ "Does not come with box and papers. ", 2);
-			Product product13 = Product.find(18);
+			
 			Image raymond = new Image();
 			raymond.image = "images/Raymondwatch.JPG";
 			raymond.product = product13;
