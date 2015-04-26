@@ -751,6 +751,14 @@ public class Global extends GlobalSettings {
 			FAQ.createFAQ(
 					"Additional free listing this month (new listings only) Why didn't I receive this?",
 					"Promo offers are by invitation only; no party crashing allowed.  Unless there is an einstein among us, no one can figure out the criteria used by EBay to get these promos.");
+			FAQ.createFAQ(
+					"What is bitBay doing to get buyers who repeatedly violate bitBay policies off the site?",
+					"Depending on a buyer’s behavior, there are a number of actions the team can take—from issuing a warning, to setting buyer restrictions, to suspending the buyer from our site. "
+					+ "If we take action on a buyer, all defects created by that buyer will be automatically removed.");
+			FAQ.createFAQ(
+					"A buyer contacted me saying they did not receive their order. What should I do?",
+"Work with the buyer to reach a mutually agreeable solution in regard to this transaction. How you decide to proceed is ultimately determined by you and your customer service policy,"
++"but all sellers are expected to demonstrate a high level of customer service. ");
 		}
 		if(Comment.find(1)==null){
 			Comment.createComment("Hope to deal with you again. Thank you.",User.find(2),Product.find(1));
