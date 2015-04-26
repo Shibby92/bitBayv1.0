@@ -19,6 +19,7 @@ public class FAQ extends Model {
 	
 	@Required
 	@MinLength(20)
+	@Column(columnDefinition = "TEXT")
 	public String answer;
 	
 	

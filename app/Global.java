@@ -130,6 +130,12 @@ public class Global extends GlobalSettings {
 					+ "(Predavanja) postavljen kod. "
 					+ "Molim da ovo primite k znanju. "
 					+ "Lijep pozdrav", User.find(2), User.find(3), "Contact Seller message!");
+			Message.create("Thanks for response. Everything was ok with item."
+					, User.find(2), User.find(6), "Contact Seller message!");
+			Message.create("It was a pleasure working with. Best of luck in future trades"
+					, User.find(3), User.find(6), "Contact Seller message!");
+			Message.create("Where is my dog?! I've payed it to you fair and square!!"
+					, User.find(4), User.find(6), "Contact Seller message!");
 			
 			
 		}
@@ -137,7 +143,7 @@ public class Global extends GlobalSettings {
 		if (Category.find(1) == null) {
 			String categoryArray[] = { "Motors", "Fashion", "Smartphones",
 					"Electronics", "Houses", "Collectibles", "Business", "Animals"
-					, "Antiques", "Sports", "Music", "Garden", "Toys", "Books", "Health & Beauty" };
+					, "Antiques", "Sports", "Music", "Garden", "Toys", "Books", "Health" };
 
 			for (int i = 0; i < categoryArray.length; i++) {
 				Category.create(categoryArray[i]);
@@ -151,7 +157,7 @@ public class Global extends GlobalSettings {
 					"Used: An item that has been used previously. WW2 Photo Post Card of HMCS Assin.", 5);
 			
 			Image img3 = new Image();
-			img3.image = "images/bitbaySlika1.jpg";
+			img3.image = "images/assiniboine.JPG";
 			img3.product = pro;
 			Tag.create(pro, Category.find(pro.category_id).name);
 			Tag.create(pro, pro.name);
@@ -181,7 +187,7 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product produ = Product.create("Galaxy S6", 2000.00, 15, User.find(3),
+			Product produ = Product.create("Samsung Galaxy S6", 2000.00, 15, User.find(3),
 					"Detailed: item info, " + "Product: Identifiers, "
 							+ "Brand: Samsung, " + "Carrier: Unlocked,"
 							+ " Family Line: Samsung Galaxy S6,"
@@ -191,14 +197,24 @@ public class Global extends GlobalSettings {
 							+ " Display Technology:	Quad HD Super AMOLED", 3);
 
 			Image img5 = new Image();
-			img5.image = "images/samsung.jpg";
+			img5.image = "images/samsung-galaxy-s6-11.jpg";
 			img5.product = produ;
+			Image img5a = new Image();
+			img5a.image = "images/samsung-galaxy-s6-2.jpg";
+			img5a.product = produ;
+			Image img5aa = new Image();
+			img5aa.image = "images/samsung-galaxy-s6-4.jpg";
+			img5aa.product = produ;
 			Tag.create(produ, Category.find(produ.category_id).name);
 			Tag.create(produ, produ.name);
 			Tag.create(produ,"Samsung");
 			List<Image> imggggg = new ArrayList<Image>();
 			imggggg.add(img5);
 			Image.saveImg(img5);
+			imggggg.add(img5a);
+			Image.saveImg(img5a);
+			imggggg.add(img5aa);
+			Image.saveImg(img5aa);
 			produ.category_id = 3;
 			produ.images = imggggg;
 
@@ -295,7 +311,7 @@ public class Global extends GlobalSettings {
 			
 			
 			Product product4 = Product.create("Cat", 120, 1, User.find(6),
-					"Young cat, 2 monts, if you want good pet this is the best choice!!!", 8);
+					"Young cat, 2 months, if you want good pet this is the best choice!!!", 8);
 
 			Image img11 = new Image();
 			img11.image = "images/cat.jpg";
@@ -337,7 +353,7 @@ public class Global extends GlobalSettings {
 			Image.saveImg(img13);
 			
 			
-			Product product7 = Product.create("Headphones for Samsung galaxy S6 ",19.99,100,User.find(3),"Very stylish headphones for Samsung galaxy S6",3);
+			Product product7 = Product.create("Headphones for S6",19.99,100,User.find(3),"Very stylish headphones for Samsung galaxy S6",3);
 			
 			Image img14= new Image();
 			img14.image="images/samsungHeadphones.jpg";
@@ -593,11 +609,35 @@ public class Global extends GlobalSettings {
 					"I can't get items shipped until Monday and I'm afraid of hurting my top-rated seller qualification. How should I go about this?",
 					"You may, if you can, decide to reward their patience by refunding the shipping cost (let them know that in the apology email).");
 			FAQ.createFAQ(
-					"I have 30 something bids on my vintage camper and about 6 of them are from people with 0 feedback. Is this scammers? I have sold on ebay for years and never saw this before.",
+					"I have 30 something bids on my vintage camper and about 6 of them are from people with 0 feedback. Is this scammers? I have sold on bitbay for years and never saw this before.",
 					"People with 0 feedback are not necessarily scammers.  We all had 0 feedback once.  ");
 			FAQ.createFAQ(
 					"Additional free listing this month (new listings only) Why didn't I receive this?",
-					"Promo offers are by invitation only; no party crashing allowed.  Unless there is an einstein among us, no one can figure out the criteria used by EBay to get these promos.");
+					"Promo offers are by invitation only; no party crashing allowed.  Unless there is an einstein among us, no one can figure out the criteria used by bitBay to get these promos.");
+			FAQ.createFAQ(
+					"I reported a buyer. Can you tell me results of my report?",
+					"To make buyers feel comfortable about buying, we don’t disclose the results of a report. Reports from sellers help us make bitBay a "
+					+ "great experience for everyone. Since the launch of the enhanced Report a Buyer feature, we’ve had more reports submitted by sellers. "
+					+ "In response, we’ve been able to take more actions to prevent abuse by buyers. If we take action on a buyer who is reported for policy "
+					+ "violations, any transaction defects created by that buyer are automatically removed. We will let sellers know if they have had defects "
+					+ "removed either on their Seller Dashboard or via a monthly communication from bitBay.");
+			FAQ.createFAQ(
+					"Does bitBay mainly side with the buyer in case resolution?",
+					"No. We strive to make sure cases get resolved fairly to the satisfaction of both parties. If you feel a case has been resolved unfairly,"
+					+ " you can appeal the decision by providing new information to the case, such as additional information from the shipping carrier to "
+					+ "Customer Support within 45 days from the day the case is closed. bitBay reviews information and documentation from both buyers and sellers"
+					+ " in detail before making a final decision. If a seller's appeal is granted, all defects for that transaction will be automatically removed.");
+			FAQ.createFAQ(
+					"Does bitBay mainly side with the buyer in case resolution?",
+					"No. We strive to make sure cases get resolved fairly to the satisfaction of both parties. If you feel a case has been resolved unfairly,"
+					+ " you can appeal the decision by providing new information to the case, such as additional information from the shipping carrier to "
+					+ "Customer Support within 45 days from the day the case is closed. bitBay reviews information and documentation from both buyers and sellers"
+					+ " in detail before making a final decision. If a seller's appeal is granted, all defects for that transaction will be automatically removed.");
+			FAQ.createFAQ(
+					"What should I do when I feel a buyer is misusing the feedback system by threatening me?",
+					"First, place yourself in the buyer’s shoes and ask yourself if the buyer is asking for something unreasonable. You’ll find that most buyers "
+					+ "just want to resolve an issue. If you feel the buyer is in fact using low Feedback as a threat or the buyer’s demands are beyond what you "
+					+ "promised, please report that buyer. See eBay Feedback Extortion policy to learn more.");
 		}
 		if(Comment.find(1)==null){
 			Comment.createComment("Hope to deal with you again. Thank you.",User.find(2),Product.find(1));
