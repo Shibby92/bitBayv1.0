@@ -31,7 +31,7 @@ public class Global extends GlobalSettings {
 
 			User u2 = new User("mustafa.ademovic93@gmail.com",
 					HashHelper.createPassword("123456"), false, true);
-			u2.user_address = "Admin Street 229 ";
+			u2.user_address = "Direktorska 33";
 			User.create(u2);
 			u2.username = "Mustafa";
 			u2.hasAdditionalInfo = true;
@@ -40,7 +40,7 @@ public class Global extends GlobalSettings {
 
 			User u3 = new User("emina.muratovic@bitcamp.ba",
 					HashHelper.createPassword("emina"), false, true);
-			u3.user_address = "Admin Street 229 ";
+			u3.user_address = "Zrtava turbo folka 12";
 			User.create(u3);
 			u3.username = "Emina";
 			u3.hasAdditionalInfo = true;

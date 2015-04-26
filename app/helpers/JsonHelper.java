@@ -48,6 +48,12 @@ public class JsonHelper {
 		if(u.username!=null){
 		userNode.put("username", u.username);
 		}
+		if(u.user_address!=null){
+		userNode.put("userAddress", u.user_address);
+		}
+		
+		userNode.put("rating", u.rating);
+		
 		//userNode.put("username", u.username);
 
 		//userNode.put("admin", u.admin);
@@ -78,6 +84,8 @@ public class JsonHelper {
 		productNode.put("owner", p.owner.username);
 		}
 		productNode.put("ownerId", p.owner.id);
+		productNode.put("ownerAddress", p.owner.user_address);
+		productNode.put("ownerRating", p.owner.rating);
 		productNode.put("isSold", p.sold);
 		productNode.put("id", p.id);
 		productNode.put("quantity", p.quantity);
