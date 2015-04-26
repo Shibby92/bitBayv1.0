@@ -294,8 +294,8 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product product4 = Product.create("Cat", 120, 1, User.find(6),
-					"Young cat, 2 monts, if you want good pet this is the best choice!!!", 8);
+			Product product4 = Product.create("Crawford Metal Pation Mosquito Net", 279.95, 10, User.find(6),
+					"Stylish design w/ Cream White Fabric to match all kinds furniture. 10' x 10' Rattan gazebo", 10);
 
 			Image img11 = new Image();
 			img11.image = "images/cat.jpg";
@@ -310,8 +310,8 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product product5 = Product.create("House", 100000, 3, User.find(2),
-					"This house has got four bedrooms, a living-room, a dining-room, a kitchen", 5);
+			Product product5 = Product.create("4 PCS Patio Furniture Set", 279.99, 100, User.find(2),
+					"Strong Steel Frame.Cushions For Comfortable Seat.Materials: Polyfiber, Sponge, Steel", 10);
 
 			Image img12 = new Image();
 			img12.image = "images/bitbaySlika1.jpg";
@@ -361,7 +361,7 @@ public class Global extends GlobalSettings {
 			image3.add(img15);
 			Image.saveImg(img15);
 			
-			Product product9 = Product.create("Dog chew rope", 5.55, 15, User.find(6),"A toy for your best friend!", 8);
+			Product product9 = Product.create("3 Person Outdoor Patio Gazebo ", 599.99, 50, User.find(6),"Overall Dimensions: 91\" x 58\" x 75\"/92\". Max Weight Capacity: 800 lbs", 10);
 			
 			Image img16 = new Image();
 			img16.image = "images/dogChewRope.jpg";
