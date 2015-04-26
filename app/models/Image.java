@@ -63,14 +63,12 @@ public class Image extends Model {
 		return counter;
 	}
 	
-	public static List<Image> photosByProduct(Product p){
+	public static List<Image> photosByProduct(Product c){
 		List<Image> allPhotos = find.all();
 		List<Image> byProduct = new ArrayList<Image>();
-		for(Image img: allPhotos){
-		//	if(img!=null && p!=null && img.product!=null){
-			if(img.product.id == p.id ){
-				byProduct.add(img);
-		//	}
+		for(Image p: allPhotos){
+			if(p.product.id == c.id){
+				byProduct.add(p);
 			}
 		}
 		return byProduct;

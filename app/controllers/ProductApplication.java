@@ -291,12 +291,12 @@ public class ProductApplication extends Controller {
 				models.Image img = new models.Image();
 				Product.deleteImage(updateProduct);
 
-				File profile = new File("./public/images/Productimages/"
+				File profile = new File("./public/images/"
 						+ UUID.randomUUID().toString() + extension);
 
 				Logger.debug(profile.getPath());
-				String image_url = "images" + File.separator + "Productimages"
-						+ File.separator + profile.getName();
+				String image_url = "images" + 
+						 File.separator + profile.getName();
 				img.image = image_url;
 				img.product = updateProduct;
 
@@ -370,11 +370,11 @@ public class ProductApplication extends Controller {
 			try {
 				models.Image img = new models.Image();
 
-				File profile = new File("./public/images/Productimages/"
+				File profile = new File("./public/images/"
 						+ UUID.randomUUID().toString() + extension);
 
 				Logger.debug(profile.getPath());
-				String image_url = "images" + File.separator + "Productimages/"
+				String image_url = "images" +File.separator
 						+ profile.getName();
 
 				img.image = image_url;
