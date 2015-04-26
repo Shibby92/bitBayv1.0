@@ -242,8 +242,8 @@ public class Global extends GlobalSettings {
 
 			
 			
-			Product product1 = Product.create("Dog", 120, 3, User.find(6),
-					"Young dog, 3 months, only money!!!", 8);
+			Product product1 = Product.create("Height Adjustment Office Chair", 48.51, 10, User.find(6),
+					"Material: mesh, plastic, metal, foam; Ergonomically designed.", 6);
 
 			Image img8 = new Image();
 			img8.image = "images/dog.jpg";
@@ -374,7 +374,7 @@ public class Global extends GlobalSettings {
 			image4.add(img16);
 			Image.saveImg(img16);
 			
-			Product product10 = Product.create("Dog collar", 9.69, 20, User.find(6),"New red plaid stylish dog collar.", 8);
+			Product product10 = Product.create("50 PERSONALISED LANYARDS", 98.57, 200, User.find(6),"MPN:personalised lanyards,neck straps 20mm width; Country of Manufacture: United Kingdom", 6);
 			
 			Image img17 = new Image();
 			img17.image = "images/dogCollar.jpg";
@@ -386,7 +386,7 @@ public class Global extends GlobalSettings {
 			image5.add(img17);
 			Image.saveImg(img17);
 			
-			Product product11 = Product.create("Treatball", 21.29, 5, User.find(6),"Mystery green rubber treatball for your dog!", 8);
+			Product product11 = Product.create("Modern High-Back Chair", 125.95, 200, User.find(6),"Wheel Color: White; Frame and Base: Chrome; Height adjustable", 6);
 		
 			Image img18 = new Image();
 			img18.image = "images/dogTreatball.jpg";
@@ -522,7 +522,7 @@ public class Global extends GlobalSettings {
 			
 			Product product16 = Product.create("U2: son gs of innocence- Deluxe Edition (2014)", 5.50, 5, User.find(2), "Brand New: An item that has never been opened or removed from the manufacturer’s sealing (if applicable). "
 					+ "Item is in original shrink wrap (if applicable). See the seller's listing for full details. Number of Discs:	2."
-					+ "Genre:	Rock. Tracks:  16.", 11);
+					+ "Genre:	Rock. Tracks:  16.", 9);
 			
 			Image u2 = new Image();
 			u2.image = "images/u2CD.JPG";
@@ -540,7 +540,7 @@ public class Global extends GlobalSettings {
 			Image.saveImg(u23);
 			
 			
-			Product product17 = Product.create("Vintage Look Vase Coffee TABLE", 55.00, 1, User.find(3), "Good condition, Hand Made. Region of Origin:	Asia. Material:	Wood. Age:	Post-1950", 9);
+			Product product17 = Product.create("Vintage Look Vase Coffee TABLE", 55.00, 1, User.find(3), "Good condition, Hand Made. Region of Origin:	Asia. Material:	Wood. Age:	Post-1950", 7);
 			
 			Image table = new Image();
 			table.image = "images/coffeetable.JPG";
@@ -563,7 +563,7 @@ public class Global extends GlobalSettings {
 			Image.saveImg(table2);
 			
 			Product product18 = Product.create("GIANT BIG TEDDY BEAR", 17.99, 20, User.find(4), "New: A brand-new, unused, unopened, undamaged item (including handmade items)"
-			+ "Country of Manufacture:	China. Size:	75cm/29.5 inch(Ear to Feet)", 13);
+			+ "Country of Manufacture:	China. Size:	75cm/29.5 inch(Ear to Feet)", 11);
 			
 			Image bear = new Image();
 			bear.image = "images/tedybear.JPG";
@@ -585,7 +585,160 @@ public class Global extends GlobalSettings {
 			image13.add(bear2);
 			Image.saveImg(bear2);
 			
+			Product product19 = Product
+					.create("NOKIA 3310",
+							20.99,
+							20,
+							User.find(6),
+							"This Nokia mobile phone, with its LCD display, lets you view the message clearly."
+									+ "The battery allows you to talk for 2.5 hours on a single charge.",
+							3);
+
+			Image nokia = new Image();
+			nokia.image = "images/nokia.3310.jpg";
+			nokia.product = product19;
+			Image nokia3310_2 = new Image();
+			nokia3310_2.image = "images/nokia3310.2.JPG";
+			nokia3310_2.product = product19;
+			Image nokia3310_3 = new Image();
+			nokia3310_3.image = "images/nokia3310.3.JPG";
+			nokia3310_3.product = product19;
+			Tag.create(product19, Category.find(product19.category_id).name);
+			Tag.create(product19, product19.name);
+			Tag.create(product19, "Nokia");
+			List<Image> imageList14 = new ArrayList<Image>();
+			imageList14.add(nokia);
+			Image.saveImg(nokia);
+			imageList14.add(nokia3310_2);
+			Image.saveImg(nokia3310_2);
+			imageList14.add(nokia3310_3);
+			Image.saveImg(nokia3310_3);
+			product19.category_id = 3;
+			product19.images = imggg;
+
+			Product product20 = Product
+					.create("Dell Optiplex Desktop Computer PC",
+							120.99,
+							20,
+							User.find(6),
+							"Computer comes with new install of licensed Windows 8.1 Pro 64-bit with Media Center + licensed Office 2013 Pro Plus SP1"
+									+ " Computer professionally refurbished and tested 100% functional",
+							4);
+
+			Image dellPc = new Image();
+			dellPc.image = "images/dellPc.jpg";
+			dellPc.product = product20;
+			Image dellPc2 = new Image();
+			dellPc2.image = "images/dellPc2.JPG";
+			dellPc2.product = product20;
+			Image dellPc3 = new Image();
+			dellPc3.image = "images/dellPc3.JPG";
+			dellPc3.product = product20;
+			Tag.create(product20, Category.find(product20.category_id).name);
+			Tag.create(product20, product20.name);
+			Tag.create(product20, "Dell");
+			List<Image> imageList15 = new ArrayList<Image>();
+			imageList15.add(dellPc);
+			Image.saveImg(dellPc);
+			imageList15.add(dellPc2);
+			Image.saveImg(dellPc2);
+			imageList15.add(dellPc3);
+			Image.saveImg(dellPc3);
+			product20.category_id = 4;
+			product20.images = imggg;
+
+			Product product21 = Product
+					.create("THE ROSY CROSS ITS TEACHINGS 1ST EDITION ",
+							179.99,
+							20,
+							User.find(6),
+							"THE MODERN MANIFESTOES ISSUED BY THE BROTHERHOOD, ORDER, TEMPLE AND FRATERNITY OF THE ROSY CROSS; I.E. "
+									+ "FOR THE GUIDANCE OF THOSE SEEKING A MORE PERFECT {BALANCED} LIFE",
+							12);
+
+			Image redCross = new Image();
+			redCross.image = "images/redCross.JPG";
+			redCross.product = product21;
+			Image redCross2 = new Image();
+			redCross2.image = "images/redCross2.JPG";
+			redCross2.product = product21;
+			Image redCross3 = new Image();
+			redCross3.image = "images/redCross3.JPG";
+			redCross3.product = product21;
+			Tag.create(product21, Category.find(product21.category_id).name);
+			Tag.create(product21, product21.name);
+			Tag.create(product21, "Book");
+			List<Image> imageList16 = new ArrayList<Image>();
+			imageList16.add(redCross);
+			Image.saveImg(redCross);
+			imageList16.add(redCross2);
+			Image.saveImg(redCross2);
+			imageList16.add(redCross3);
+			Image.saveImg(redCross3);
+			product21.category_id = 14;
+			product21.images = imggg;
+
+			Product product22 = Product
+					.create("Crafting and Executing Strategy",
+							30.99,
+							20,
+							User.find(6),
+							" Brand New, Well Wrapped, **ISE** International Student Edition Book. Soft Cover, Paper Back and written in English",
+							12);
+
+			Image strategyBook = new Image();
+			strategyBook.image = "images/bookStrategy.JPG";
+			strategyBook.product = product22;
+			Image strategyBook2 = new Image();
+			strategyBook2.image = "images/bookStrategy2.JPG";
+			strategyBook2.product = product22;
+			Image strategyBook3 = new Image();
+			strategyBook3.image = "images/bookStrategy3.JPG";
+			strategyBook3.product = product22;
+			Tag.create(product22, Category.find(product22.category_id).name);
+			Tag.create(product22, product22.name);
+			Tag.create(product22, "Strategy");
+			List<Image> imageList17 = new ArrayList<Image>();
+			imageList17.add(strategyBook);
+			Image.saveImg(strategyBook);
+			imageList17.add(strategyBook2);
+			Image.saveImg(strategyBook2);
+			imageList17.add(strategyBook3);
+			Image.saveImg(strategyBook3);
+			product22.category_id = 14;
+			product22.images = imggg;
 			
+			Product product23 = Product
+					.create("ZOOT ULTRA SPEED",
+							50.99,
+							20,
+							User.find(6),
+							" Beim Ultra Speed hat Zoot sein ganzes Wissen über Materialien und Kompression eingesetzt, um einen Laufschuh zu bauen, "
+							+ "der es möglich macht den Wechsel in Rekordzeit zu absolvieren. Dieser Triathlonschuh wurde für geschmeidige,",2);
+
+			Image shoes = new Image();
+			shoes.image = "images/shoes.JPG";
+			shoes.product = product23;
+			Image shoes2 = new Image();
+			shoes2.image = "images/shoes2.JPG";
+			shoes2.product = product23;
+			Image shoes3 = new Image();
+			shoes3.image = "images/shoes3.JPG";
+			shoes3.product = product23;
+			Tag.create(product23, Category.find(product23.category_id).name);
+			Tag.create(product23, product23.name);
+			Tag.create(product23, "ZOOT");
+			List<Image> imageList18 = new ArrayList<Image>();
+			imageList18.add(shoes);
+			Image.saveImg(shoes);
+			imageList18.add(shoes2);
+			Image.saveImg(shoes2);
+			imageList18.add(shoes3);
+			Image.saveImg(shoes3);
+			product23.category_id = 10;
+			product23.images = imggg;
+
+	
 
 		}
 
