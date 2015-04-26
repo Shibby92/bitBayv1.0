@@ -125,7 +125,7 @@ public class ProductApplication extends Controller {
 		String email = session().get("email");
 		Logger.info("Category page list opened");
 		return ok(category.render(email, name, Product.listByCategory(name),
-				FAQ.all()));
+				FAQ.all(),  Category.list()));
 	}
 
 	/**

@@ -1,4 +1,4 @@
-@(email: String, category: String, products:List[Product], faqs: List[FAQ])
+@(email: String, category: String, products:List[Product], faqs: List[FAQ],categoryList:List[Category])
 @main("category") {
 	<head>
 					<link rel="stylesheet" id="font-awesome-css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" media="screen">
@@ -42,7 +42,25 @@ background-color: #328C14;
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          @if(email == null) {
          <ul class="nav navbar-nav">
-            <li  style="margin: 0px 155px">
+            <li  style="margin: 0px 35px">
+               <li  style="margin: 8px -35px">
+           <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    Category
+                  <span class="caret"></span>
+                  
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                  <ul class="dropdown-menu" role="menu" style="margin: 4px -110px">
+                     <li>
+                      
+      @for(category <- categoryList){
+      <a href="/category/@category.name" class="glyphicon glyphicon-shopping-cart"> @category.name </a>
+      }
+  
+                     </li>
+                  </ul>
+         </li>
+          <li style="margin: 0px 25px">
                <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                   <div class="form-group">
                      <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
@@ -75,9 +93,28 @@ background-color: #328C14;
                </h4>
             </li>
          </ul>
-         } else {
+         }else {
          <ul class="nav navbar-nav">
-         <li  style="margin: 0px 180px">
+         
+         <li  style="margin: 0px 80px">
+         <li  style="margin: 8px -5px">
+           <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    Category
+                  <span class="caret"></span>
+                  
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                  <ul class="dropdown-menu" role="menu" style="margin: 4px -110px">
+                     <li>
+                      
+      @for(category <- categoryList){
+      <a href="/category/@category.name" class="glyphicon glyphicon-shopping-cart"> @category.name </a>
+      }
+  
+                     </li>
+                  </ul>
+         </li>
+       		
             <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                <div class="form-group">
                   <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
@@ -88,7 +125,7 @@ background-color: #328C14;
                   <span class="caret"></span>
                   <span class="sr-only">Toggle Dropdown</span>
                   </button>
-                  <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                  <ul class="dropdown-menu" role="menu" style="margin: 4px -90px">
                      <li>
                         <a href="/advancedsearch">Advanced Search</a>
                      </li>
@@ -105,7 +142,8 @@ background-color: #328C14;
                <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                @if( User.getUncheckedNotifications(User.find(email).id).size()>0){
                <button class="btn btn-success "><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;">  </i>  @User.find(email).username   <span class="caret"></span> </button></a>
-               }else{<button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
+               }else{
+               <button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
                }
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                   @if(User.find(email).admin == true || User.find(email).blogger) {
@@ -115,7 +153,7 @@ background-color: #328C14;
                   	@if(User.find(email).blogger) {
                   		<li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >Blog</a></li>
                   	}
-                 <li class="divider"></li>
+                  	<li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                   } else {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
@@ -127,11 +165,12 @@ background-color: #328C14;
                   </li>
                   }
                   <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                </ul>
             </li>
          </ul>
          }
+        
          }
       </div>
       <!-- /.navbar-collapse -->
