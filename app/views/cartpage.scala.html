@@ -110,7 +110,7 @@
 </nav>
    <!-- Page Content -->
   <div class="container">
-   <div class="row" >
+  
 		<div class="col-lg-12">	
 		@if(flash.get("shipSuccess")){
         <div class="alert alert-success" role="alert">
@@ -157,7 +157,7 @@
          	  </div>
          	 
         
-                  
+                  <div class="row" > 
 	<div class="col-md-3" style="margin: 25px 0px ">
     <div class="well box" style="background-color: #4AB55A;color: #fff;">
     @if(cart.productList.size() == 0) {
@@ -220,8 +220,14 @@
 							
 							</div>
               
-               <div class="pull-down">
-                 Quantity: 
+           
+               @if(product.name.size > 14) {
+               		    <div class="pull-down" style="margin: -10px 0px">
+               } else {
+               
+               	    <div class="pull-down">
+               }
+                   Quantity: 
             
              @if((email==null)||(User.find(email).admin == false)) {
                @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
@@ -312,26 +318,26 @@
   	@if(cart.productList.size()>0){
 <div id="footer1">
 	} else {
-	<div id="footer">
+	<div id="footer" style="margin: 0px -40px">
 	}
-  <div class="container">
+ <div class="container">
 
    
   	<div class="col-md-4">
    <a href="/contactpage">
-      <h3><i class="glyphicon glyphicon-envelope"></i> Contact Us</h3>
+      <h4><i class="glyphicon glyphicon-envelope"></i> Contact Us</h4>
    </a>
    <a href="/faq">
-      <h3><i class="glyphicon glyphicon-cog"></i> FAQs</h3>
+      <h4><i class="glyphicon glyphicon-cog"></i> FAQs</h4>
    </a>
    <a href="/blog">
-      <h3><i class="glyphicon glyphicon-stats"></i> Blog </h3>
+      <h4><i class="glyphicon glyphicon-stats"></i> Blog </h4>
    </a>
    </div>
    
   	<div class="col-md-4">
              
-                  <h2 style="color: #4AB55A">About bitBay:</h2>
+                  <h4 style="color: #4AB55A;">About bitBay:</h4>
                   <address style="color: #4AB55A">
                      <p>Project bitBay mirror site of eBay</p>  
                      <p>Sarajevo</p>
@@ -345,7 +351,7 @@
 <div align="center" style="margin:20px 0px">
 <table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
 	<tr>
-		  <h3 style="color: #4AB55A">Follow us on:</h3>
+		  <h4 style="color: #4AB55A">Follow us on:</h4>
 	<td>
 		<a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
 			<img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
@@ -367,6 +373,5 @@
 
 </div>
 </div>
-<!-- /.container -->
-</body>
+<!-- /.container --></body>
 }
