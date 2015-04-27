@@ -241,8 +241,10 @@
           <form action="/">
     
      	 <div style="margin:0 auto;width:100px">
-   
-         <a style="margin: 16.5px -2px" class="btn btn-success" href="/addproductcategory" role="button">Add new product</a>
+		   @if(!User.find(email).admin) {
+		   		<a style="margin: 16.5px -2px" class="btn btn-success" href="/addproductcategory" role="button">Add new product</a>
+		   }
+         
         
          
      
@@ -457,7 +459,7 @@
      
   
      
-  @if(sold.size < 0 || myproducts.size < 0 || mails.size < 4) {
+  @if(sold.size < 0 || myproducts.size < 0 || mails.size < 4 || User.find(email).admin) {
   	<div id="footer1">
   } else {
   <div id="footer" >
