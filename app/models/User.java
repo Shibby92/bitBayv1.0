@@ -6,14 +6,15 @@ import helpers.MailHelper;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.avaje.ebean.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import play.db.ebean.Model.Finder;
 
 import javax.persistence.*;
 
@@ -21,8 +22,6 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
-import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 import play.db.ebean.*;
 
 
@@ -84,6 +83,8 @@ public class User extends Model {
 	
 	public boolean admin;
 	
+	public boolean blogger;
+	
 	public boolean verification = false;
 	
 	public String confirmation;
@@ -99,8 +100,10 @@ public class User extends Model {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
 	public List<Orders> orderList;
 	
-	@OneToMany(cascade= CascadeType.ALL, mappedBy = "seller")
 	public List<Orders> soldOrders;
+	
+	@OneToMany (cascade = CascadeType.ALL, mappedBy = "seller")
+	public List <Notification> notification; 
 
 	public static Finder<Integer, User> find = new Finder<Integer, User>(Integer.class, User.class);
 	public static Finder<Integer, User> findUser = new Finder<Integer, User>(Integer.class, User.class);
@@ -115,6 +118,7 @@ public class User extends Model {
 		this.email = email;
 		this.password = password;
 		this.admin = false;
+		this.blogger = false;
 		this.hasAdditionalInfo = false;
 		this.numberOfRatings = 0;
 		//this.userCart=new Cart(this.id,email);
@@ -124,6 +128,7 @@ public class User extends Model {
 		this.email = email;
 		this.password = password;
 		this.admin = false;
+		this.blogger = false;
 		this.confirmation = confirmation;
 		this.hasAdditionalInfo = false;
 		//this.userCart=new Cart(this.id,email);
@@ -134,11 +139,16 @@ public class User extends Model {
 		this.email = email;
 		this.password = password;
 		this.admin = admin;
+		this.blogger = false;
 		this.verification = verification;
 		this.hasAdditionalInfo = false;
 		this.numberOfRatings = 0;
 	//	this.userCart=new Cart(this.id,email);
 
+		
+	}
+
+	public User() {
 		
 	}
 
@@ -242,7 +252,7 @@ public class User extends Model {
 	 * 
 	 * @return all admins in our database
 	 */
-	public static List<User>admins(){
+	public static List<User> admins(){
 		return find.where().eq("admin", true).findList();
 	}
 	
@@ -307,17 +317,47 @@ public class User extends Model {
 		u.user_address = user_address;
 		u.gender = gender;
 		u.city = city;
-		
+		Cart c=Cart.find(u.id);
+		c.shippingAddress=shipping_address;
+		c.update();
 		u.update();
 		return true;
 	}
-	
-
-	
 
 
 	public static List<User> findAll() {
 		return find.all();
+	}
+	
+	/**
+	 * gets all product that one user had sold
+	 * @param id int id of the user
+	 * @return list of products
+	 */
+	public static List<Product> mySoldProducts(int id) {
+		List<Product> pr = new ArrayList<Product>();
+		for(Product p: User.find(id).products) {
+			if(p.sold == true) {
+				pr.add(p);
+			}	
+		}
+		return pr;
+	}
+
+	public static void addSoldOrder(User seller,Orders temp) {
+		seller.soldOrders.add(temp);
+		seller.update();
+	}
+
+	public static List<Orders> getUncheckedNotifications(int id) {
+		User u = User.find(id);
+		List<Orders> unchecked= new ArrayList<Orders>();
+		for(Notification notification: u.notification){
+			if(notification.isUnchecked){
+				unchecked.add(Orders.find(notification.orderId));
+			}
+		}
+		return unchecked;
 	}
 
 

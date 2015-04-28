@@ -24,13 +24,28 @@ public class Message extends Model{
 	@ManyToOne
 	public User receiver;
 	
+	@ManyToOne
+	public Product product;
+	
+	public String subject;
+	
 	
 	public static Finder<Integer, Message> find = new Finder<Integer, Message>(Integer.class, Message.class);
 	
-	public Message(String content, User sender, User receiver) {
+	public Message(String content, User sender, User receiver, String subject) {
 		this.content = content;
 		this.sender = sender;
 		this.receiver = receiver;
+		this.subject = subject;
+		
+	}
+	
+	public Message(String content, User sender, User receiver, Product p, String subject) {
+		this.content = content;
+		this.sender = sender;
+		this.receiver = receiver;
+		this.product = p;
+		this.subject = subject;
 		
 	}
 	
@@ -40,8 +55,14 @@ public class Message extends Model{
 		this.receiver = null;
 	}
 	
-	public static Message create(String content, User sender, User reciever) {
-		Message msg = new Message(content, sender, reciever);
+	public static Message create(String content, User sender, User reciever, String subject) {
+		Message msg = new Message(content, sender, reciever, subject);
+		msg.save();
+		return msg;
+	}
+	
+	public static Message createReport(String content, User sender, User reciever, Product p, String subject) {
+		Message msg = new Message(content, sender, reciever, p, subject);
 		msg.save();
 		return msg;
 	}

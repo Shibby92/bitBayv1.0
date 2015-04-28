@@ -1,5 +1,8 @@
 package controllers;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.net.MalformedURLException;
 import java.text.*;
 import java.util.Date;
@@ -215,11 +218,48 @@ public class UserController extends Controller {
 		Logger.info("User " + session().get("email")
 				+ " has opened his profile page");
 		String email = session().get("email");
+		
+		User u = User.find(email);
+		List<Orders> soldProducts= new ArrayList<Orders>();
+		for(Notification notification: u.notification){
+				soldProducts.add(Orders.find(notification.orderId));
+		}
+		List<Report> reports = Report.all();
+		List<Report> uniques = new ArrayList<Report>();
+		for(Report report: reports) {
+			boolean contains = false;
+			for(Report r: uniques){
+				if(report.reportedProduct.id == r.reportedProduct.id){
+					contains = true;
+				}
+			}
+			if(!contains)
+				uniques.add(report);
+						
+		}
+		Logger.debug(""+uniques.size());
 		return ok(profile.render(email, User.all(), Category.list(),
 				Product.productList(),
 				Product.myProducts(User.find(session().get("email")).id),
-				FAQ.all(), Message.all(User.find(session().get("email")))));
+				FAQ.all(), Message.all(User.find(session().get("email"))), soldProducts, uniques));
+
 	}
+	
+	/**
+	 * opens page to other users profile
+	 * @return result
+	 */
+	public static Result userProfile(int id) {
+		User user = User.find(id);
+		Logger.info("User " + session().get("email")
+				+ " has opened " + User.find(id).email + " profile page");
+		String email = session().get("email");
+		return ok(userprofile.render(user, email,
+				Product.myProducts(user.id),
+				FAQ.all()));
+	}
+	
+	
 	
 	/**
 	 * opens page for rating user
@@ -245,7 +285,7 @@ public class UserController extends Controller {
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result rating(int id) {
-		final String userEmail = session().get("email");
+		User user = Session.getCurrentUser(ctx());
 		final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		User u = User.find(id);
 		int rate = Integer.parseInt(temp.get("rate"));
@@ -256,9 +296,8 @@ public class UserController extends Controller {
 		Logger.info("User with email: " + session().get("email")
 				+ " has rated user with id: " + id);
 		flash("success", "You have successfuly rated user!");
-		return redirect("/profile");
+		return redirect("/orderpage/" + user.id);
 	}
-	
 
 
 

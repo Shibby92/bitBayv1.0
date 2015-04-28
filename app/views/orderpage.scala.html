@@ -5,39 +5,37 @@
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header" style="margin: 0px 20px" >
-       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         </button>
          <a href="/homepage" ><img src="@routes.Assets.at("images/Logo.png")" style="height:50 px; width: 130px"/></a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-       
-        
-               @if(email == null) {
-               	  <ul class="nav navbar-nav">
-                 <li  style="margin: 0px 155px">
-                    <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-                    <div class="form-group">
-                  		<input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
-                  		</div>
-                  		<div class="btn-group">
-  							<button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
-  							<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    						<span class="caret"></span>
-    						<span class="sr-only">Toggle Dropdown</span>
-  							</button>
-  								<ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
-    							<li>
-    								<a href="/advancedsearch">Advanced Search</a>
-    							</li>
-    							</ul>
-						</div>
-            </form>
-         </li>
+         @if(email == null) {
+         <ul class="nav navbar-nav">
+            <li  style="margin: 0px 155px">
+               <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                  <div class="form-group">
+                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                  </div>
+                  <div class="btn-group">
+                     <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                     <span class="caret"></span>
+                     <span class="sr-only">Toggle Dropdown</span>
+                     </button>
+                     <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                        <li>
+                           <a href="/advancedsearch">Advanced Search</a>
+                        </li>
+                     </ul>
+                  </div>
+               </form>
+            </li>
             <li>
                <h4>
                   <p style="color: #000">Hello   
@@ -53,44 +51,50 @@
             </li>
          </ul>
          } else {
-          <ul class="nav navbar-nav">
-                 <li  style="margin: 0px 180px">
-             <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-                    <div class="form-group">
-                  		<input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
-                  		</div>
-                  		<div class="btn-group">
-  							<button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
-  							<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    						<span class="caret"></span>
-    						<span class="sr-only">Toggle Dropdown</span>
-  							</button>
-  								<ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
-    							<li>
-    								<a href="/advancedsearch">Advanced Search</a>
-    							</li>
-    							</ul>
-						</div>
+         <ul class="nav navbar-nav">
+         <li  style="margin: 0px 180px">
+            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+               <div class="form-group">
+                  <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+               </div>
+               <div class="btn-group">
+                  <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+                  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                     <li>
+                        <a href="/advancedsearch">Advanced Search</a>
+                     </li>
+                  </ul>
+               </div>
             </form>
          </li>
-      
          <ul class='nav navbar-nav pull-right'>
-
-                    <li class='dropdown'>
+            <li>
+               }
+            </li>
+            @if(email != null) {
+            <li class='dropdown'>
                <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-               <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-              
+               @if( User.getUncheckedNotifications(User.find(email).id).size()>0){
+               <button class="btn btn-success "><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;">  </i>  @User.find(email).username   <span class="caret"></span> </button></a>
+               }else{<button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
+               }
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-                 @if(User.find(email).admin == true) {
+                  @if(User.find(email).admin == true) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  
+                  <li class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                   } else {
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
-                    <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
-                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
-                 
-
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                  @if(email != null && User.getUncheckedNotifications(User.find(email).id).size()>0){
+                  <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> Notifications </a>
+                  </li>
                   }
                   <li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
@@ -98,12 +102,12 @@
             </li>
          </ul>
          }
+         }
       </div>
       <!-- /.navbar-collapse -->
    </div>
    <!-- /.container -->
 </nav>
-
 @if(flash.get("orderSuccess")) {
          	<div class="alert alert-danger" role="alert">
                      <div class="container">
@@ -141,36 +145,42 @@
                      </div>
                   </div>
          	}
-         <div 
+         
    @if(orders.isEmpty){
-							<h3><center><strong>You have no orders!</strong></center></h3>
+							<h3 style="margin: 180px -15px"><center><strong>You have no orders!</strong></center></h3>
 							}else{
-      <legend>Your Orders: </legend>
-      <div class="row">
+      <legend style="margin:10px 0px">Your Orders: </legend>
+      <div class="row" style="margin:30px 0px">
         
-         <table class="table table-bordered">	
-      <thead>
+         <table class="table table-bordered" >	
+      <thead style="background-color: #4AB55A; color: #fff;">
         <tr>
-          <th>Order number</th>
+          		<th>Order number</th>
                 <th>Products</th>
+                <th>Order date</th>
+                <th>Shipping address</th>
                 <th><span class="nobr">Total</span></th>
+                <th>Refund</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody >
        @for(order <- orders){
-        <tr>
+        <tr style="background-color: #f5f5f5;">
          <td>@order.id</td>
           <td>
                     @for(product <- order.productList){
-                    	<p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id)</p>
+                    	<p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id) 
+                    	<a class="pull-right"href="/rating/@product.owner.id">Rate seller</a></p>
+                 
                     }
                     </td>
+                    <td>@order.orderDate</td>
+                    <td>@order.shippingAddress</td>
                     <td><span class="price">$ @order.price,-</span>
-                    <a href ="/refundorder/@order.id">
-                    	<button type="button" class="btn btn-warning">Refund</button></td>
+                   
+                    <td>  <a href ="/refundorder/@order.id">
+                    	<button type="button" class="btn btn-warning" style="margin:0px 15px">Refund</button></td>
                    </a>
-                    <td> <a href="/ratingpage/@order.seller.id"
-						<button type="button" class="btn btn-warning">Rate seller</button>
 						</td>
                    
                   
@@ -183,14 +193,62 @@
       
 
    </div>
-      <div class="container" >
-      <hr>
-      <a href="/contactpage">
-         <h3>Contact Us</h3>
-      </a>
-      <a href="/faq">
-         <h3> FAQs</h3>
-      </a>
    </div>
+  
+    <div id="footer" style="background-color: #f5f5f5">
+  <div class="container">
+
+   
+  	<div class="col-md-4">
+   <a href="/contactpage">
+      <h4><i class="glyphicon glyphicon-envelope"></i> Contact Us</h4>
+   </a>
+   <a href="/faq">
+      <h4><i class="glyphicon glyphicon-cog"></i> FAQs</h4>
+   </a>
+   <a href="/blog">
+      <h4><i class="glyphicon glyphicon-stats"></i> Blog </h4>
+   </a>
+   </div>
+   
+  	<div class="col-md-4">
+             
+                  <h4 style="color: #4AB55A;">About bitBay:</h4>
+                  <address style="color: #4AB55A">
+                     <p>Project bitBay mirror site of eBay</p>  
+                     <p>Sarajevo</p>
+                     <p>Bosnia and Herzegovina</p>
+                      <p>Contact: (061) 100-100</p>  
+                  </address>
+            
+            </div>
+ 	<div class="col-md-4">
+  	<style>.xg_module_body img {margin:0!important;}</style>
+<div align="center" style="margin:20px 0px">
+<table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
+	<tr>
+		  <h4 style="color: #4AB55A">Follow us on:</h4>
+	<td>
+		<a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
+			<img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
+		</a>
+	</td>
+
+
+
+	<td>
+		<a href="http://twitter.com/yourtwitter" target="_blank">
+			<img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
+		</a>
+	</td>
+</tr>
+</table></div>
+</div>
+  
+ 
+
+</div>
+</div>
+<!-- /.container -->
 </body>
 }

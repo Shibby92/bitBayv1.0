@@ -14,7 +14,7 @@ public class AdminFilter extends Security.Authenticator {
 		String email = ctx.session().get("email");
 		User u = User.find(email);
 		if (u != null) {
-			if(u.admin == true)
+			if(u.admin)
 				return u.email;
 			else
 				return null;

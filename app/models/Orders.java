@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -14,10 +15,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.paypal.api.payments.Links;
 
 import play.db.ebean.Model;
+import models.Product;;
 
 @Entity
 public class Orders extends Model {
@@ -37,13 +40,12 @@ public class Orders extends Model {
 	
 	public String token;
 	
-	@ManyToOne
-	public User seller;
-	
-	public boolean notification;
+	public String shippingAddress;
 	
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "order")
 	public List<ProductQuantity> pQ;
+	
+	public String orderDate;
 
 	public static Finder<Integer,Orders> find=new Finder<Integer,Orders>(Integer.class,Orders.class);
 	public Orders(List<Product> productList){
@@ -58,11 +60,12 @@ public class Orders extends Model {
 				this.productList.add(cart.productList.get(i));
 			}
 			price = cart.checkout;
+			this.shippingAddress=cart.shippingAddress;
 			this.token = token;
 			this.buyer = buyer;
+			this.orderDate="1/1/2014";
 		}
 	}
-
 	public Orders() {
 		// TODO Auto-generated constructor stub
 	}
@@ -77,17 +80,43 @@ public class Orders extends Model {
 		orders.save();
 
 	}
+	public static void create(Orders orders,double price){
+		orders.price=price;
+		orders.save();
+	}
 	// Constructor made for easier testing
 	public Orders (Product product){
 		this.productList.add(product);
 	}
-	public static int notificationCounter(List<Orders>ol){
-		int counter=0;
-		for(Orders o : ol){
-			if(o.notification)
-				counter++;
-		}
-		return counter;
+	public Orders(Orders userOrder) {
+		this.buyer=userOrder.buyer;
+		
+		this.orderDate=userOrder.orderDate;
+		this.pQ=userOrder.pQ;
+		this.price=userOrder.price;
+		this.productList=userOrder.productList;
+		
+		this.shippingAddress=userOrder.shippingAddress;
+		this.token=userOrder.token;
 	}
+
+//	public static int notificationCounter(List<Orders>ol){
+//		int counter=0;
+//		for(Orders o : ol){
+//			if(o.notification)
+//				counter++;
+//		}
+//		return counter;
+//	}
+	public static double priceFromSeller(Orders order, User user){
+		double sum=0;
+		for(Product p: order.productList){
+			if(p.owner.email.equals(user.email)){
+				sum+=p.price;
+			}
+		}
+		return sum;
+	}
+
 
 }

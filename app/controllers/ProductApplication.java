@@ -125,7 +125,7 @@ public class ProductApplication extends Controller {
 		String email = session().get("email");
 		Logger.info("Category page list opened");
 		return ok(category.render(email, name, Product.listByCategory(name),
-				FAQ.all()));
+				FAQ.all(),  Category.list()));
 	}
 
 	/**
@@ -160,9 +160,11 @@ public class ProductApplication extends Controller {
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result deleteProduct(int id) {
-
-		Product.delete(id);
+		Product p = Product.find(id);
+		p.deleted = true;
+		p.update();
 		Logger.warn("product with id: " + id + " has been deleted");
+		flash("success","Youy have successfuly deleted product");
 		return redirect("/profile");
 
 	}
@@ -189,9 +191,18 @@ public class ProductApplication extends Controller {
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result updateP(int id) {
-		Logger.info("Opened page for updating producct");
+		Logger.info("Opened page for updating product");
 
 		Product updateProduct = Product.find(id);
+		
+		List<models.Image> image_urls = updatePicture(id);
+		
+		if (image_urls == null) {
+			return redirect("/updateproduct/" + id);
+	
+		}
+
+		
 		if (updateProduct.sold == true) {
 			updateProduct.sold = false;
 		}
@@ -207,8 +218,7 @@ public class ProductApplication extends Controller {
 			updateProduct.description = productForm.bindFromRequest()
 					.field("description").value();
 
-			List<models.Image> image_urls = updatePicture(id);
-
+			
 			if (image_urls != null) {
 				updateProduct.images = image_urls;
 			}
@@ -220,9 +230,8 @@ public class ProductApplication extends Controller {
 			Logger.info("Product with id: " + id + " has been updated");
 			flash("success", "Product successfully updated!");
 			if (User.find(session().get("email")).admin)
-				return redirect("/profile");
-			return redirect("/myproducts/"
-					+ User.find(session().get("email")).id);
+				return redirect("/profile/" + User.find(session().get("email")).id);
+			return redirect("/profile");
 		}
 	}
 	
@@ -237,14 +246,16 @@ public class ProductApplication extends Controller {
 	public static List<models.Image> updatePicture(int id) {
 
 		Product updateProduct = ProductApplication.find(id);
-		Product.deleteImage(updateProduct);
+		
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
 		List<models.Image> imgs = new ArrayList<models.Image>();
 		if (fileParts == null || fileParts.size() == 0) {
+			flash("error", "You need to upload image!");
 			Logger.debug("File part is null");
 			return null;
 		}
+		
 		for (FilePart filePart : fileParts) {
 			if (filePart == null) {
 				Logger.debug("File part is null");
@@ -276,14 +287,16 @@ public class ProductApplication extends Controller {
 			}
 
 			try {
+				
 				models.Image img = new models.Image();
+				Product.deleteImage(updateProduct);
 
-				File profile = new File("./public/images/Productimages/"
+				File profile = new File("./public/images/"
 						+ UUID.randomUUID().toString() + extension);
 
 				Logger.debug(profile.getPath());
-				String image_url = "images" + File.separator + "Productimages"
-						+ File.separator + profile.getName();
+				String image_url = "images" + 
+						 File.separator + profile.getName();
 				img.image = image_url;
 				img.product = updateProduct;
 
@@ -357,11 +370,11 @@ public class ProductApplication extends Controller {
 			try {
 				models.Image img = new models.Image();
 
-				File profile = new File("./public/images/Productimages/"
+				File profile = new File("./public/images/"
 						+ UUID.randomUUID().toString() + extension);
 
 				Logger.debug(profile.getPath());
-				String image_url = "images" + File.separator + "Productimages/"
+				String image_url = "images" +File.separator
 						+ profile.getName();
 
 				img.image = image_url;
@@ -374,6 +387,7 @@ public class ProductApplication extends Controller {
 				image_urls.add(img);
 
 			} catch (IOException e) {
+				flash("error", "Failed to move file");
 				Logger.error("Failed to move file");
 				Logger.debug(e.getMessage());
 				return null;
@@ -433,6 +447,7 @@ public class ProductApplication extends Controller {
 		String email = session().get("email");
 		return ok(cartpage.render(email, Cart.getCart(id), FAQ.all()));
 	}
+	
 
 	/**
 	 * gets info from one product
@@ -456,6 +471,13 @@ public class ProductApplication extends Controller {
 		Logger.info(String.valueOf(userid));
 		DynamicForm form = Form.form().bindFromRequest();
 		int orderedQuantity = Integer.valueOf(form.get("orderedQuantity"));
+		if(orderedQuantity<1){
+			flash("minQty",
+					"Ordered quantity must be at least 1!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+
+			return redirect("/itempage/" + id);
+		}
 		orderedTotalQta = orderedQuantity + p.getOrderedQuantity();
 		if (orderedTotalQta > p.getQuantity()) {
 			flash("excess",
@@ -463,12 +485,12 @@ public class ProductApplication extends Controller {
 			p.setOrderedQuantity(p.getOrderedQuantity());
 
 			return redirect("/itempage/" + id);
-		} else if(orderedQuantity==0){
+		} /*else if(orderedQuantity==0){
 			flash("excess",
 					"You cannot order zero quantity!");
 			return redirect("/itempage/" + id);
 			
-		}else{
+		}*/else{
 			p.setOrderedQuantity(orderedTotalQta);
 			p.amount = p.getPrice() * p.getOrderedQuantity();
 			Logger.info(String.valueOf("Naruceno: " + orderedQuantity));
@@ -477,8 +499,6 @@ public class ProductApplication extends Controller {
 			if (cart.productList.contains(p)) {
 				Cart.addQuantity(p, cart, orderedQuantity);
 				return redirect("/cartpage/" + userid);
-
-				//return ok(cartpage.render(email, cart, FAQ.all()));
 				
 			} else {
 				Cart.addProduct(p, cart);
@@ -487,6 +507,112 @@ public class ProductApplication extends Controller {
 				return redirect("/cartpage/" + userid);
 			}
 		}
+	}
+	
+	public static Result changeOrderedQty(int id){
+		String email = session().get("email");
+		Product p = find.byId(id);
+		if (session().isEmpty()) {
+			flash("guest", "Please log in to buy stuff!");
+			return redirect("/login");
+		}
+		int userid = User.findUser.where().eq("email", session().get("email"))
+				.findUnique().id;
+		Cart cart = Cart.getCart(email);
+		DynamicForm form = Form.form().bindFromRequest();
+		int orderedQuantity = Integer.valueOf(form.get("changeOrderedQuantity"));
+		if(orderedQuantity<1){
+			flash("minQty",
+					"Ordered quantity must be at least 1!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+			return redirect("/cartpage/" + userid);
+		}
+		p.setOrderedQuantity(orderedQuantity);
+		p.amount = p.getPrice() * p.getOrderedQuantity();
+		Logger.info(String.valueOf("Naruceno: " + orderedQuantity));
+		p.update();
+		p.save();
+		return redirect("/cartpage/" + userid);
+		
+	}
+	
+	public static Result addQty(int pId){
+		String email = session().get("email");
+		Cart cart = Cart.getCart(email);
+		Product p = find.byId(pId);
+		if (session().isEmpty()) {
+			flash("guest", "Please log in to buy stuff!");
+			return redirect("/login");
+		}
+		int userid = User.findUser.where().eq("email", session().get("email"))
+				.findUnique().id;
+		int totalOrderedQty=p.getOrderedQuantity()+1;
+		if (totalOrderedQty > p.getQuantity()) {
+			flash("excess",
+					"You cannot order quantity that exceeds one available on stock!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+
+			return redirect("/cartpage/" + userid);
+		}
+		cart.checkout=cart.checkout-p.price*p.getOrderedQuantity();
+		cart.size=cart.size-p.orderedQuantity;
+		p.setOrderedQuantity(totalOrderedQty);
+		cart.size=cart.size+p.getOrderedQuantity();
+		cart.checkout=cart.checkout+p.price*p.getOrderedQuantity();
+		cart.update();
+		return redirect("/cartpage/" + userid);
+	}
+	
+	
+	public static Result subtractQty(int pId){
+		String email = session().get("email");
+		Cart cart = Cart.getCart(email);
+		Product p = find.byId(pId);
+		if (session().isEmpty()) {
+			flash("guest", "Please log in to buy stuff!");
+			return redirect("/login");
+		}
+		int userid = User.findUser.where().eq("email", session().get("email"))
+				.findUnique().id;
+		int totalOrderedQty=p.getOrderedQuantity()-1;
+		if (totalOrderedQty < 1) {
+			flash("minQty",
+					"Ordered quantity must be at least 1!");
+			p.setOrderedQuantity(p.getOrderedQuantity());
+			return redirect("/cartpage/" + userid);
+		}
+		cart.checkout=cart.checkout-p.price*p.getOrderedQuantity();
+		cart.size=cart.size-p.orderedQuantity;
+		p.setOrderedQuantity(totalOrderedQty);
+		cart.size=cart.size+p.getOrderedQuantity();
+		cart.checkout=cart.checkout+p.price*p.getOrderedQuantity();
+		cart.update();
+		return redirect("/cartpage/" + userid);
+	}
+	
+	
+	public static Result changeQty(int pId, int cId){
+		String email = session().get("email");
+		Product p = find.byId(pId);
+		if (session().isEmpty()) {
+			flash("guest", "Please log in to buy stuff!");
+			return redirect("/login");
+		}
+		int userid = User.findUser.where().eq("email", session().get("email"))
+				.findUnique().id;
+		int totalOrderedQty=p.getOrderedQuantity()+1;
+		p.setOrderedQuantity(totalOrderedQty);
+		return redirect("/cartpage/" + userid);
+	}
+	
+	public static Result changeShippingAddress (int id){
+		DynamicForm form= Form.form().bindFromRequest();
+		String shipA=form.get("shippingAddress");
+		Cart c=Cart.find(id);
+		c.shippingAddress=shipA;
+		c.update();
+		flash("shipSuccess", "Shipping address successfully changed!");
+		return ok(cartpage.render(session().get("email"),Cart.find(id),FAQ.all()));
 	}
 
 	/**
@@ -580,6 +706,7 @@ public class ProductApplication extends Controller {
 
 	}
 	
+	
 	/**
 	 * opens page where user replies to another user
 	 * @param id int id of the sender
@@ -650,14 +777,14 @@ public class ProductApplication extends Controller {
 							ContactHelper.send(userEmail, User.find(id).email,
 									message);
 							ContactHelper.sendToPage(userEmail,
-									User.find(id).email, message);
+									User.find(id).email, message, "Contact US message");
 
 							flash("success", "Message sent!");
 
 							Logger.info("User with email: "
 									+ session().get("email") + " replied to : "
 									+ Product.find(id).owner.email);
-							return redirect("/profile");
+							return redirect("/profile/" + User.find(session().get("email")).id);
 						} else {
 
 							Logger.info("User with email: "
@@ -687,6 +814,7 @@ public class ProductApplication extends Controller {
 		String email = session().get("email");
 		Logger.info("User with email: " + session().get("email")
 				+ " has opened contact us page");
+		
 
 		return ok(contactseller.render(email, FAQ.all(), Product.find(id), ""));
 
@@ -737,7 +865,7 @@ public class ProductApplication extends Controller {
 							ContactHelper.send(email,
 									Product.find(id).owner.email, message);
 							ContactHelper.sendToPage(email,
-									Product.find(id).owner.email, message);
+									Product.find(id).owner.email, message, "Message from buyer");
 
 							flash("success", "Message sent!");
 
@@ -773,6 +901,84 @@ public class ProductApplication extends Controller {
 		flash("renew", "Product " + temp.name
 				+ " has been successfully renewed!");
 		return redirect("/myproducts/" + User.find(session().get("email")).id);
+	}
+	
+	@Security.Authenticated(UserFilter.class)
+	public static Result reportProductPage(int id){
+		Logger.info("User " + session().get("email") + " has open reporting product page");
+		String message = "";
+	return ok(reportpage.render(session().get("email"), id, message));
+	}
+	
+	@Security.Authenticated(UserFilter.class)
+	public static Promise<Result> reportProduct(final int id) {
+		final DynamicForm temp = DynamicForm.form().bindFromRequest();
+		final String report = temp.get("report");
+
+		/*
+		 * send a request to google recaptcha api with the value of our secret
+		 * code and the value of the recaptcha submitted by the form
+		 */
+		Promise<Result> holder = WS
+				.url("https://www.google.com/recaptcha/api/siteverify")
+				.setContentType("application/x-www-form-urlencoded")
+				.post(String.format(
+						"secret=%s&response=%s",
+						// get the API key from the config file
+						Play.application().configuration()
+								.getString("recaptchaKey"),
+						temp.get("g-recaptcha-response")))
+				.map(new Function<WSResponse, Result>() {
+					// once we get the response this method is loaded
+					public Result apply(WSResponse response) {
+						// get the response as JSON
+						JsonNode json = response.asJson();
+						System.out.println(json);
+						System.out.println(temp.get("g-recaptcha-response"));
+						Form<Report> submit = Form.form(Report.class)
+								.bindFromRequest();
+
+						// check if value of success is true
+						if (json.findValue("success").asBoolean() == true
+								&& !submit.hasGlobalErrors()) {
+
+							
+							Report newReport = Report.report(Product.find(id), User.find(session().get("email")), report);
+							for(User u : User.admins()){
+							ContactHelper.send(session().get("email"),
+									u.email, report, Product.find(id));
+							ContactHelper.sendToPage(session().get("email"),
+									u.email, report, Product.find(id), "Report product id: " + id);
+							}
+							
+							flash("success", "You have successfuly reported product!");
+
+							Logger.info("User with email: "
+									+ session().get("email")
+									+ " has reported product with id: "
+									+ Product.find(id).id);
+							return redirect("/itempage/" + id);
+						} else {
+
+							Logger.info("User with email: "
+									+ session().get("email")
+									+ " did not confirm its humanity");
+							flash("error",
+									"You have to confirm that you are not a robot!");
+							return ok(reportpage.render(session().get("email"), id, report));
+
+						}
+					}
+				});
+		// return the promisse
+		return holder;
+	}
+	
+	@Security.Authenticated(AdminFilter.class)
+	public static Result openReport(int id) {
+		Logger.info("User " + session().get("email") + " has opened report page");
+		List<Report> all = Report.findByProduct(Product.find(id));
+		return ok(report.render(session("email"), all));
 	}
 
 	
