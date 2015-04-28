@@ -142,6 +142,7 @@ GET    /refundorder/:id            controllers.UserLoginApplication.refundOrder(
 
 #Order routes
 GET    /orderpage/:id              controllers.OrderController.orderPage(id: Integer)
+
 #Web Service routes
 POST   /api/register               ws.controllers.JsonController.registration()
 POST   /api/login                  ws.controllers.JsonController.login()
@@ -151,6 +152,7 @@ GET    /api/showproduct/:id        ws.controllers.JsonController.viewProduct(id:
 GET    /api/showuserproducts/:id   ws.controllers.JsonController.userProducts(id: Integer)
 GET    /api/allproducts            ws.controllers.JsonController.allProducts()
 GET    /api/allusers               ws.controllers.JsonController.allUsers()
+POST	/api/tocart					ws.controllers.JsonController.toCart()
 
 #Blog routes
 GET		/blog					controllers.BlogController.blogsPage()

@@ -11,7 +11,6 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import play.db.ebean.Model;
 
 
 /**
@@ -56,6 +55,34 @@ public class JsonController extends Controller {
 		}
 		User newUser = User.createUser(email, password);
 		return ok(JsonHelper.userToJson(newUser));
+	}
+
+	/**
+	 * @author nermingraca
+	 * Method adds product to cart and retuns Json Array
+	 * @return
+	 */
+	public static Result toCart() {
+
+		JsonNode json = request().body().asJson();
+		int userId = json.findPath("userId").intValue();
+		Logger.debug(String.valueOf("userId"+userId));
+		int productId = json.findPath("productId").intValue();
+		Logger.debug(String.valueOf("productId"+productId));
+
+		User user = User.find(userId);
+		Product product = Product.find(productId);
+		
+		if(user == null) {
+			Logger.info("User null");
+		}
+		if(user == null) {
+			Logger.info("Product null");
+		}
+			Cart cart = Cart.getCart(userId);
+			Cart.addProduct(product, cart);
+
+		return ok(JsonHelper.cartToJson(cart.id));
 	}
 
 	
@@ -152,6 +179,12 @@ public class JsonController extends Controller {
 		return ok(JsonHelper.productToJson(currProduct));
 	}
 
+	/**
+	 * @author Nermin Graca
+	 * Method returns object of class User in Json
+	 * @param id
+	 * @return
+	 */
 	public static Result viewUser(int id) {
 		User currUser = User.find(id);
 		return ok(JsonHelper.userToJson(currUser));

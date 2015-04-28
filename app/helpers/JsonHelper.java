@@ -2,12 +2,13 @@ package helpers;
 
 import java.util.List;
 
+import play.Logger;
 import play.libs.Json;
+import models.Cart;
 import models.FAQ;
 import models.Product;
 import models.User;
 import models.Category;
-import play.db.ebean.*;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -168,7 +169,18 @@ public class JsonHelper {
 		}
 		return productsArrayNode;
 	}
-	
-	
-	
+
+	public static ArrayNode cartToJson(int id) {
+		Cart cart = Cart.getCart(id);
+		Logger.info(String.valueOf(cart.id) + " cart id");
+		List<Product> products = cart.productList;
+		if(products == null) {
+			Logger.info("Products null");
+		}
+		Logger.info(String.valueOf(products.get(0).name));
+		Logger.info(String.valueOf("size " +products.size()));
+		ArrayNode productsArrayNode = productListToJson(products);
+		return productsArrayNode;
+	}
+		
 }
