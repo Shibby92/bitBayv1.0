@@ -153,6 +153,7 @@ GET    /api/showuserproducts/:id   ws.controllers.JsonController.userProducts(id
 GET    /api/allproducts            ws.controllers.JsonController.allProducts()
 GET    /api/allusers               ws.controllers.JsonController.allUsers()
 POST	/api/tocart					ws.controllers.JsonController.toCart()
+POST	/api/getcart				ws.controllers.JsonController.getCart()
 
 #Blog routes
 GET		/blog					controllers.BlogController.blogsPage()

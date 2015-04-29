@@ -58,7 +58,6 @@ public class JsonController extends Controller {
 	}
 
 	/**
-	 * @author nermingraca
 	 * Method adds product to cart and retuns Json Array
 	 * @return
 	 */
@@ -82,6 +81,20 @@ public class JsonController extends Controller {
 			Cart cart = Cart.getCart(userId);
 			Cart.addProduct(product, cart);
 
+		return ok(JsonHelper.cartToJson(cart.id));
+	}
+	
+	/**
+	 * Method gets contents of users cart
+	 * @return
+	 */
+	public static Result getCart() {
+		
+		JsonNode json = request().body().asJson();
+		int userId = json.findPath("userId").intValue();
+		Logger.debug(String.valueOf("userId"+userId));
+		Cart cart = Cart.getCart(userId);
+		
 		return ok(JsonHelper.cartToJson(cart.id));
 	}
 

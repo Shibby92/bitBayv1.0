@@ -170,6 +170,12 @@ public class JsonHelper {
 		return productsArrayNode;
 	}
 
+	/**
+	 * Method gets the contents of user cart and converts the to ArrayNode
+	 * and sends them to application which requested them
+	 * @param id
+	 * @return
+	 */
 	public static ArrayNode cartToJson(int id) {
 		Cart cart = Cart.getCart(id);
 		Logger.info(String.valueOf(cart.id) + " cart id");
