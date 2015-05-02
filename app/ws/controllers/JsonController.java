@@ -72,6 +72,7 @@ public class JsonController extends Controller {
 		User user = User.find(userId);
 		Product product = Product.find(productId);
 		
+		
 		if(user == null) {
 			Logger.info("User null");
 		}
@@ -80,6 +81,11 @@ public class JsonController extends Controller {
 		}
 			Cart cart = Cart.getCart(userId);
 			Cart.addProduct(product, cart);
+
+		int orderedQuantity = 1;
+		product.setOrderedQuantity(1);
+		product.update();
+		product.save();
 
 		return ok(JsonHelper.cartToJson(cart.id));
 	}

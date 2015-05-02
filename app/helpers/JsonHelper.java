@@ -90,6 +90,7 @@ public class JsonHelper {
 		productNode.put("isSold", p.sold);
 		productNode.put("id", p.id);
 		productNode.put("quantity", p.quantity);
+		productNode.put("orderedQuantity", p.orderedQuantity);
 		String imgPath = p.images.get(0).image;
 		productNode.put("productImagePath1", imgPath);
 		//productNode.put("productImagePath1", p.image2);
