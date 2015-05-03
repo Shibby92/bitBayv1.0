@@ -1,6 +1,5 @@
 package models;
 
-
 import helpers.HashHelper;
 import helpers.MailHelper;
 
@@ -24,29 +23,29 @@ import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.*;
 
-
-
+// TODO: Auto-generated Javadoc
 /**
- * Creates a user 
- * Checks if the user is already registered 
- * Finds user by his id 
- * @author eminamuratovic
+ *The Class User
  *
+ * @author eminamuratovic
  */
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@userId")
 public class User extends Model {
 	
+	/** The list of products. */
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
-	//@JsonManagedReference
 	public List<Product> products;
 	
+	/** The list of messages. */
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="receiver")
 	public List<Message> msgs;
 
+	/** The id. */
 	@Id
 	public int id;
 
+	/** The email. */
 	@Required
 	@MinLength(5)
 	@Column(unique = true)
@@ -54,64 +53,83 @@ public class User extends Model {
 	@Email
 	public String email;
 
+	/** The password. */
 	@Required
 	@MinLength(5)
 	@MaxLength(50)
 	public String password;
 	
+	/** The username. */
 	@Required
 	@MinLength(6)
 	@MaxLength(15)
 	public String username;
 	
+	/** The birth_date. */
 	@DateTime(pattern="yyyy-dd-mm")
 	public Date birth_date;
 	
+	/** The user_address. */
 	@MaxLength(40)
 	public String user_address;
 	
+	/** The shipping_address. */
 	@MaxLength(40)
 	@Required
 	public String shipping_address;
 	
+	/** The city. */
 	@MaxLength(15)
 	public String city;
 	
+	/** The gender. */
 	@Required
 	@MaxLength(1)
 	public String gender;
 	
+	/** The admin. */
 	public boolean admin;
 	
+	/** The blogger. */
 	public boolean blogger;
 	
+	/** The verification. */
 	public boolean verification = false;
 	
+	/** The confirmation. */
 	public String confirmation;
 	
+	/** The has additional info. */
 	public boolean hasAdditionalInfo;
 	
+	/** The user cart. */
 	public Cart userCart;
 
+	/** The rating. */
 	public double rating;
 	
+	/** The number of ratings. */
 	public int numberOfRatings;
 	
+	/** The order list. */
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
 	public List<Orders> orderList;
 	
+	/** The sold orders. */
 	public List<Orders> soldOrders;
 	
+	/** The notification. */
 	@OneToMany (cascade = CascadeType.ALL, mappedBy = "seller")
 	public List <Notification> notification; 
 
+	/** The find. */
 	public static Finder<Integer, User> find = new Finder<Integer, User>(Integer.class, User.class);
-	public static Finder<Integer, User> findUser = new Finder<Integer, User>(Integer.class, User.class);
 
 
 	/**
-	 * creates a user
-	 * @param username String email of the user
+	 * Creates a user.
+	 *
+	 * @param email String the email
 	 * @param password String password of the user
 	 */
 	public User(String email, String password) {
@@ -121,9 +139,15 @@ public class User extends Model {
 		this.blogger = false;
 		this.hasAdditionalInfo = false;
 		this.numberOfRatings = 0;
-		//this.userCart=new Cart(this.id,email);
 	}
 	
+	/**
+	 * Instantiates a new user.
+	 *
+	 * @param email the email
+	 * @param password the password
+	 * @param confirmation the confirmation
+	 */
 	public User(String email, String password, String confirmation) {
 		this.email = email;
 		this.password = password;
@@ -131,10 +155,17 @@ public class User extends Model {
 		this.blogger = false;
 		this.confirmation = confirmation;
 		this.hasAdditionalInfo = false;
-		//this.userCart=new Cart(this.id,email);
 
 	}
 	
+	/**
+	 * Instantiates a new user.
+	 *
+	 * @param email the email
+	 * @param password the password
+	 * @param admin the admin
+	 * @param verification the verification
+	 */
 	public User(String email, String password, boolean admin, boolean verification) {
 		this.email = email;
 		this.password = password;
@@ -143,21 +174,15 @@ public class User extends Model {
 		this.verification = verification;
 		this.hasAdditionalInfo = false;
 		this.numberOfRatings = 0;
-	//	this.userCart=new Cart(this.id,email);
 
-		
-	}
-
-	public User() {
 		
 	}
 
 	/**
 	 * Creates a user with email and password
-	 * Checks if the email already exists
-	 * @param username String email of the user
-	 * @param password String password of the user
-	 * @param username String email of the user
+	 * Checks if the email already exists.
+	 *
+	 * @param email String the email
 	 * @param password String password of the user
 	 * @return true or false(if the user is registered)
 	 */
@@ -168,6 +193,13 @@ public class User extends Model {
 		return true;
 	}
 	
+	/**
+	 * Creates the user.
+	 *
+	 * @param email String the email
+	 * @param password String the password
+	 * @return the user
+	 */
 	public static User createUser(String email, String password) {
 		if (existsEmail(email))
 			return null;
@@ -175,6 +207,15 @@ public class User extends Model {
 	user.save();
 		return user;
 	}
+	
+	/**
+	 * Creates the user.
+	 *
+	 * @param email String the email
+	 * @param password String the password
+	 * @param confirmation String the confirmation of registration
+	 * @return true, if successful
+	 */
 	public static boolean create(String email, String password, String confirmation) {
 		if (existsEmail(email))
 			return false;
@@ -186,6 +227,11 @@ public class User extends Model {
 	
 	
 	
+	/**
+	 * Creates the use.
+	 *
+	 * @param user User the user
+	 */
 	public static void create(User user) {
 		user.save();
 		new Cart(user.id,user.email).save();
@@ -193,8 +239,9 @@ public class User extends Model {
 	}
 
 	/**
-	 * checks if the email is already in database
-	 * @param username String email of the user
+	 * Checks if the email is already in database.
+	 *
+	 * @param email String the email
 	 * @return true or false(if the email is already in database)
 	 */
 	public static boolean existsEmail(String email) {
@@ -204,7 +251,12 @@ public class User extends Model {
 		return true;
 	}
 	
-	//checks if there is the same username in database
+	/**
+	 * Checks if the username exists.
+	 *
+	 * @param username String the username
+	 * @return true, if successful
+	 */
 	public static boolean existsUsername(String username) {
 		if (find.where().eq("username", username).findList().isEmpty()) {
 			return false;
@@ -213,7 +265,8 @@ public class User extends Model {
 	}
 
 	/**
-	 * finds a user by his id
+	 * Finds a user by his id.
+	 *
 	 * @param id int id of the user
 	 * @return user
 	 */
@@ -222,8 +275,9 @@ public class User extends Model {
 	}
 	
 	/**
-	 * finds a user with his email
-	 * @param username String email of the user
+	 * Finds a user with his email.
+	 *
+	 * @param email String the email
 	 * @return the user
 	 */
 	public static User find(String email) {
@@ -231,9 +285,10 @@ public class User extends Model {
 	}
 
 	/**
-	 * Checking for user's email and password
-	 * @param username String The email of the user
-	 * @param password String Password of the user
+	 * Checking for user's email and password.
+	 *
+	 * @param email String the email
+	 * @param password String String Password of the user
 	 * @return true or false
 	 */
 	public static boolean checkLogin(String email, String password) {
@@ -242,6 +297,8 @@ public class User extends Model {
 	}
 	
 	/**
+	 * All users in database.
+	 *
 	 * @return list of all logged in users
 	 */
 	public static List<User> all() {
@@ -249,7 +306,8 @@ public class User extends Model {
 	}
 	
 	/**
-	 * 
+	 * Admins.
+	 *
 	 * @return all admins in our database
 	 */
 	public static List<User> admins(){
@@ -257,7 +315,8 @@ public class User extends Model {
 	}
 	
 	/**
-	 * finds a user by his confirmation string
+	 * Finds a user by his confirmation string.
+	 *
 	 * @param confirmation String confirmation string
 	 * @return the user
 	 */
@@ -266,31 +325,41 @@ public class User extends Model {
 	}
 	
 	/**
-	 * confirms that there is a user 
-	 * adds verification = true in model
-	 * saves the user
-	 * @param u User
+	 * Confirms that there is a user, adds verification = true in model and saves the user.
+	 *
+	 * @param user User
 	 * @return true or false
 	 */
-	public static synchronized boolean confirm(User u) {
+	public static synchronized boolean confirm(User user) {
 		
-        if (u == null) {
+        if (user == null) {
             return false;
         }
    
-        u.verification = true;
-        u.confirmation = null;
-        u.save();
+        user.verification = true;
+        user.confirmation = null;
+        user.save();
             
         return true;
     }
 	
+	/**
+	 * Deletes user by his id.
+	 *
+	 * @param id int the id if the user
+	 */
 	public static void delete(int id){
 		find.byId(id).delete();
 		
 	}
 	
-	//when admin edits users email address it sends verification mail on that address
+	/**
+	 * Edits the email verification.
+	 * When admin edits users email address it sends verification mail on that address
+	 *
+	 * @param id int the id of the user
+	 * @throws MalformedURLException the malformed url exception
+	 */
 	public static void editEmailVerification(int id) throws MalformedURLException {
 		DynamicForm form = Form.form().bindFromRequest();
 		User u = User.find(id);
@@ -306,10 +375,21 @@ public class User extends Model {
 	
 	}
 	
-	//updates user with his additional info
+	/**
+	 * Additional info of the user.
+	 *
+	 * @param email String the email
+	 * @param username String the username
+	 * @param birth_date Date the birth_date
+	 * @param shipping_address String the shipping_address
+	 * @param user_address String the user_address
+	 * @param gender String the gender
+	 * @param city String the city
+	 * @return true, if successful
+	 */
 	public static boolean AdditionalInfo(String email, String username, Date birth_date, String shipping_address, String user_address, String gender, String city) {
 		User u = User.find(email);
-		if(existsUsername(username) && !u.find(email).username.equals(username))
+		if(existsUsername(username) && !find(email).username.equals(username))
 			return false;
 		u.username = username;
 		u.birth_date = birth_date;
@@ -323,14 +403,10 @@ public class User extends Model {
 		u.update();
 		return true;
 	}
-
-
-	public static List<User> findAll() {
-		return find.all();
-	}
 	
 	/**
-	 * gets all product that one user had sold
+	 * Gets all products that one user had sold.
+	 *
 	 * @param id int id of the user
 	 * @return list of products
 	 */
@@ -344,11 +420,23 @@ public class User extends Model {
 		return pr;
 	}
 
+	/**
+	 * Adds the sold order to list and updates seller.
+	 *
+	 * @param seller User the seller
+	 * @param temp the temp
+	 */
 	public static void addSoldOrder(User seller,Orders temp) {
 		seller.soldOrders.add(temp);
 		seller.update();
 	}
 
+	/**
+	 * Gets the unchecked notifications.
+	 *
+	 * @param id int the id of the user
+	 * @return the unchecked notifications
+	 */
 	public static List<Orders> getUncheckedNotifications(int id) {
 		User u = User.find(id);
 		List<Orders> unchecked= new ArrayList<Orders>();

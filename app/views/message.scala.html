@@ -1,6 +1,6 @@
 @(email: String, faqs: List[FAQ], msg: Message)
 @main("Message"){
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header" style="margin: 0px 20px" >
@@ -16,7 +16,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          @if(email == null) {
          <ul class="nav navbar-nav">
-            <li  style="margin: 0px 155px">
+            <li  style="margin: 0px 35px">
                <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                   <div class="form-group">
                      <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
@@ -82,8 +82,13 @@
                }else{<button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
                }
                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-                  @if(User.find(email).admin == true) {
+                  @if(User.find(email).admin == true || User.find(email).blogger) {
+                  @if(!User.find(email).blogger) {
                   <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                  }
+                  @if(User.find(email).blogger) {
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >Blog</a></li>
+                  }
                   <li class="divider"></li>
                   <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                   } else {
@@ -108,112 +113,97 @@
    <!-- /.container -->
 </nav>
 <body>
-
-<div class="container">
-<div class="row">
- @if(flash.get("error")){
-        <div class="alert alert-danger" role="alert">
-                     <div class="container">
-                        @flash.get("error")
-                     </div>
-                  </div>
+   <!-- /.Cntent page -->
+   <div class="container">
+      <div class="row">
+         @if(flash.get("error")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("error")
+            </div>
+         </div>
          }
          @if(flash.get("warning")){
-       <div class="alert alert-warning" role="alert">
-                     <div class="container">
-                        @flash.get("warning")
-                     </div>
-                  </div>
+         <div class="alert alert-warning" role="alert">
+            <div class="container">
+               @flash.get("warning")
+            </div>
+         </div>
          }
-          @if(flash.get("success")) {
-         	<div class="alert alert-success" role="alert">
-                     <div class="container">
-                        @flash.get("success")
-                     </div>
-                  </div>
-         	}
-			
-            <div class="col-md-8" style="margin: 50px  160px">
+         @if(flash.get("success")) {
+         <div class="alert alert-success" role="alert">
+            <div class="container">
+               @flash.get("success")
+            </div>
+         </div>
+         }
+         <div class="col-md-8" style="margin: 50px  160px">
             <div class="well3 login box">
-              <legend>From: @msg.sender.email
-             
+               <legend>From: @msg.sender.email
                </legend>
                <h5>Message:</h5>
-                <div class="thumbnail" style="background-color: #fff">
-               
-          			
-                   <div class="caption">
-              	 <h5 ><p>@msg.content</p></h5>
-              
-                </div>
-                </div>
-               
-                <a type="submit" class="btn btn-success  glyphicon glyphicon" href="/replyToMessagePage/@msg.sender.id" role="button" style="width: 220px; height: 40px; margin: 10px 80px">Reply</a>
-                <a class="btn btn-danger  glyphicon glyphicon-trash " href="/deletemessage/@msg.id" role="button" onclick="return confirm('Are you sure you want to delete this message?');" style="width: 220px; height: 40px; margin: 10px -50px">Delete</a>
+               <div class="thumbnail" style="background-color: #fff">
+                  <div class="caption">
+                     <h5 >
+                        <p>@msg.content</p>
+                     </h5>
+                  </div>
+               </div>
+               <a type="submit" class="btn btn-success  glyphicon glyphicon" href="/replyToMessagePage/@msg.sender.id" role="button" style="width: 220px; height: 40px; margin: 10px 80px">Reply</a>
+               <a class="btn btn-danger  glyphicon glyphicon-trash " href="/deletemessage/@msg.id" role="button" onclick="return confirm('Are you sure you want to delete this message?');" style="width: 220px; height: 40px; margin: 10px -50px">Delete</a>
             </div>
-       </div>
-       
+         </div>
       </div>
-       </div>
-      
-   
    </div>
    </div>
    </div>
-  <div id="footer" style="background-color: #f5f5f5">
-  <div class="container">
-
-   
-  	<div class="col-md-4">
-   <a href="/contactpage">
-      <h3><i class="glyphicon glyphicon-envelope"></i> Contact Us</h3>
-   </a>
-   <a href="/faq">
-      <h3><i class="glyphicon glyphicon-cog"></i> FAQs</h3>
-   </a>
-   <a href="/blog">
-      <h3><i class="glyphicon glyphicon-stats"></i> Blog </h3>
-   </a>
    </div>
-   
-  	<div class="col-md-4">
-             
-                  <h2 style="color: #4AB55A">About bitBay:</h2>
-                  <address style="color: #4AB55A">
-                     <p>Project bitBay mirror site of eBay</p>  
-                     <p>Sarajevo</p>
-                     <p>Bosnia and Herzegovina</p>
-                      <p>Contact: (061) 100-100</p>  
-                  </address>
-            
+      <!-- /.End of content page -->
+      <!-- /.Footer -->
+   <div id="footer" style="background-color: #f5f5f5">
+      <div class="container">
+         <div class="col-md-4">
+            <a href="/contactpage">
+               <h4><i class="glyphicon glyphicon-envelope"></i> Contact Us</h4>
+            </a>
+            <a href="/faq">
+               <h4><i class="glyphicon glyphicon-cog"></i> FAQs</h4>
+            </a>
+            <a href="/blog">
+               <h4><i class="glyphicon glyphicon-stats"></i> Blog </h4>
+            </a>
+         </div>
+         <div class="col-md-4">
+            <h4 style="color: #4AB55A;">About bitBay:</h4>
+            <address style="color: #4AB55A">
+               <p>Project bitBay mirror site of eBay</p>
+               <p>Sarajevo</p>
+               <p>Bosnia and Herzegovina</p>
+               <p>Contact: (061) 100-100</p>
+            </address>
+         </div>
+         <div class="col-md-4">
+            <style>.xg_module_body img {margin:0!important;}</style>
+            <div align="center" style="margin:20px 0px">
+               <table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
+                  <tr>
+                     <h4 style="color: #4AB55A">Follow us on:</h4>
+                     <td>
+                        <a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
+                        <img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
+                        </a>
+                     </td>
+                     <td>
+                        <a href="http://twitter.com/yourtwitter" target="_blank">
+                        <img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
+                        </a>
+                     </td>
+                  </tr>
+               </table>
             </div>
- 	<div class="col-md-4">
-  	<style>.xg_module_body img {margin:0!important;}</style>
-<div align="center" style="margin:20px 0px">
-<table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
-	<tr>
-		  <h3 style="color: #4AB55A">Follow us on:</h3>
-	<td>
-		<a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
-			<img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
-		</a>
-	</td>
-
-
-
-	<td>
-		<a href="http://twitter.com/yourtwitter" target="_blank">
-			<img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
-		</a>
-	</td>
-</tr>
-</table></div>
-</div>
-  
- 
-
-</div>
-</div>
-<!-- /.container -->
+         </div>
+      </div>
+   </div>
+   <!-- /.End of footer -->
 </body>
 }

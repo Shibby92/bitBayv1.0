@@ -13,38 +13,52 @@ import javax.persistence.Id;
 
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
+
+// TODO: Auto-generated Javadoc
 /**
- * Class Blog
- * @author nermingraca
- *
+ * The Class Blog.
  */
 @Entity
 public class Blog extends Model {
 	
+	/** The id. */
 	@Id
 	public int id;
 	
+	/** The title. */
 	@Required
 	public String title;
 	
+	/** The content. */
 	@Required
 	@Column(columnDefinition = "TEXT")
 	public String content;
 	
+	/** The blog image path. */
 	@Required
 	public String blogImagePath;
 	
+	/** The date. */
 	public String date;
 	
+	/** The user id. */
 	public int userId;
 	
+	/** The posted by. */
 	public String postedBy;
 
+	/** The find. */
+	public static Finder<Integer, Blog> find = new Finder<Integer, Blog>(Integer.class, Blog.class);
+
+	
 	/**
-	 * Constructor of object Blog with three parameters
-	 * @param title
-	 * @param content
-	 * @param blogImagePath
+	 * Instantiates a new blog.
+	 *
+	 * @param title String the title
+	 * @param content String the content
+	 * @param blogImagePath String the blog image path
+	 * @param userId int the user id
+	 * @param postedBy String email of the user who posted the blog
 	 */
 	public Blog(String title, String content, String blogImagePath, int userId, String postedBy) {
 		
@@ -57,21 +71,22 @@ public class Blog extends Model {
 	}
 	
 	/**
-	 * Method createBlog creates new object of Blog and saves it into the database
-	 * @param title
-	 * @param content
-	 * @param blogImagePath
+	 * Creates the blog.
+	 *
+	 * @param title String the title
+	 * @param content String the content
+	 * @param blogImagePath String the blog image path
+	 * @param userId int the user id
+	 * @param postedBy String email of the user who posted the blog
 	 */
 	public static void createBlog(String title, String content, String blogImagePath, int userId, String postedBy) {
 		new Blog(title, content, blogImagePath, userId, postedBy).save();
 	}
 	
-	//Finder
-	public static Finder<Integer, Blog> find = new Finder<Integer, Blog>(Integer.class, Blog.class);
-	
 	/**
-	 * Method allBlogs return List of all Blog instances in database
-	 * @return
+	 * All blogs.
+	 *
+	 * @return the list with all blogs
 	 */
 	public static List<Blog> allBlogs() {
 		List<Blog> blogs = find.all();
@@ -79,26 +94,31 @@ public class Blog extends Model {
 		return blogs;
 	}
 	
+
 	/**
-	 * Method findBlogById finds and returns instance of Blog found by given id
-	 * @param id
-	 * @return
+	 * Find blog by his id.
+	 *
+	 * @param id int the id
+	 * @return the blog
 	 */
 	public static Blog findBlogById(int id) {
 		return find.byId(id);
 	}
-	
+
 	/**
-	 * Method deleteBlog deletes instance of blog which was found by given id
-	 * @param id
+	 * Delete blog by his id.
+	 *
+	 * @param id int the id
 	 */
 	public static void deleteBlog(int id) {
 		find.byId(id).delete();
 	}
 	
+
 	/**
-	 * Method returns current date in String value
-	 * @return
+	 * Makes the date of publishing some blog.
+	 *
+	 * @return date
 	 */
 	public static String date() {
 		Date date = Calendar.getInstance().getTime();
