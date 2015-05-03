@@ -33,7 +33,7 @@ public class BlogController extends Controller {
 	
 	/**
 	 * Method renders page which shows already published blogs
-	 * @return
+	 * @return result
 	 */
 	public static Result blogsPage() {
 		Logger.info("Opened Blogs page");

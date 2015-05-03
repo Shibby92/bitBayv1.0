@@ -2,14 +2,11 @@ package models;
 
 import java.io.File;
 import java.sql.Timestamp;
-//import java.security.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -20,7 +17,6 @@ import play.db.ebean.Model.Finder;
 
 /**
  * Creates product
- * 
  * @author eminamuratovic
  */
 @Entity
@@ -34,7 +30,7 @@ public class Product extends Model {
 	@MaxLength(20)
 	public String name;
 
-	public int category_id;
+	public int categoryId;
 
 	@ManyToOne
 	public Cart cart;
@@ -58,14 +54,6 @@ public class Product extends Model {
 	@MaxLength(240)
 	public String description;
 
-	public String image_url;
-
-	public String image1;
-
-	public String image2;
-
-	public String image3;
-
 	@OneToMany(cascade = CascadeType.ALL)
 	public List<Image> images;
 
@@ -76,11 +64,11 @@ public class Product extends Model {
 
 	public boolean sold;
 
-	public List<String> image_urls = new ArrayList<String>();
-
 	public int orderedQuantity;
 
 	public double amount;
+	
+	public String imageUrl;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	public List<Tag> tags;
@@ -90,217 +78,17 @@ public class Product extends Model {
 	static Finder<String, Category> findCategory = new Finder<String, Category>(
 			String.class, Category.class);
 
-	/**
-	 * creates a product
-	 * 
-	 * @param name
-	 *            String name of the product
-	 * @param category_id
-	 *            int id of the category
-	 * @param owner_id
-	 *            int id of the seller
-	 * @param created
-	 *            Date date added
-	 * @param quantity
-	 *            int quantity of the product
-	 * @param price
-	 *            double price of the product
-	 * @param description
-	 *            String description of the product
-	 * @param image_url
-	 *            String url of the image of the product
-	 */
-	public Product(String name, int category_id, User owner, Timestamp updated,
-			int quantity, double price, String description, String image_url) {
-		this.name = name;
-		this.category_id = category_id;
-		this.owner = owner;
-		this.updated = updated;
-		this.quantity = quantity;
-		this.price = price;
-		this.description = description;
-		this.image_url = image_url;
-		this.saveManyToManyAssociations("order");
-		this.sold = false;
-		this.orderedQuantity = 0;
-		this.amount = 0;
-		this.deleted = false;
-	}
-
-	public Product(String name, double price, User owner, String description,
-			int id, String image1) {
-		this.name = name;
-		this.price = price;
-		this.owner = owner;
-		this.description = description;
-		this.category_id = id;
-		this.image_url = image1;
-		this.image1 = image1;
-		this.image_urls.add(image1);
-		this.image_url = this.image_urls.get(0);
-		this.saveManyToManyAssociations("order");
-		this.sold = false;
-		this.orderedQuantity = 0;
-		this.amount = 0;
-		this.deleted = false;
-	}
-
-	public Product(String name, double price, User owner, String description,
-			int id, String image1, String image2) {
-		this.name = name;
-		this.price = price;
-		this.owner = owner;
-		this.description = description;
-		this.category_id = id;
-		this.image1 = image1;
-		this.image_urls.add(image1);
-		this.image2 = image2;
-		this.image_urls.add(image2);
-		this.image_url = this.image_urls.get(0);
-		this.saveManyToManyAssociations("order");
-		this.sold = false;
-		this.orderedQuantity = 0;
-		this.amount = 0;
-		this.deleted = false;
-
-	}
-
-	public Product(String name, double price, User owner, String description,
-			int id, String image1, String image2, String image3) {
-		this.name = name;
-		this.price = price;
-		this.owner = owner;
-		this.description = description;
-		this.category_id = id;
-		this.image1 = image1;
-		this.image_urls.add(image1);
-		this.image2 = image2;
-		this.image_urls.add(image2);
-		this.image3 = image3;
-		this.image_urls.add(image3);
-		this.image_url = this.image_urls.get(0);
-		this.saveManyToManyAssociations("order");
-		this.sold = false;
-		this.orderedQuantity = 0;
-		this.amount = 0;
-		this.deleted = false;
-
-	}
-
-	public Product(String name, double price, int quantity, User owner,
-			String description, int id, String image1, String image2) {
-		this.name = name;
-		this.price = price;
-		this.quantity = quantity;
-		this.owner = owner;
-		this.description = description;
-		this.category_id = id;
-		this.image1 = image1;
-		this.image2 = image2;
-		this.orderedQuantity = 0;
-		this.image_url = image1;
-		this.orderedQuantity = 0;
-		this.saveManyToManyAssociations("order");
-		this.amount = 0;
-		this.deleted = false;
-
-	}
-
-	public Product(String name, double price, int quantity, User owner,
-			String description, int id, String image1) {
-		this.name = name;
-		this.price = price;
-		this.quantity = quantity;
-		this.owner = owner;
-		this.description = description;
-		this.category_id = id;
-		this.image1 = image1;
-		this.orderedQuantity = 0;
-		this.amount = 0;
-		this.deleted = false;
-
-	}
-
-	public Product(String name, double price, User owner, String description,
-			int id, List<Image> images) {
-		this.name = name;
-		this.price = price;
-		this.owner = owner;
-		this.description = description;
-		this.category_id = id;
-		this.images = images;
-		this.sold = false;
-		this.deleted = false;
-	}
-
 	public Product(String name, double price, int quantity, User owner,
 			String description, int id, List<Image> images) {
 		this.name = name;
 		this.price = price;
 		this.owner = owner;
 		this.description = description;
-		this.category_id = id;
+		this.categoryId = id;
 		this.images = images;
 		this.sold = false;
 		this.quantity = quantity;
 		this.orderedQuantity = 0;
-		this.deleted = false;
-	}
-
-	public Product(String name, double price, User owner, String description) {
-		this.name = name;
-		this.price = price;
-		this.owner = owner;
-		this.description = description;
-		this.sold = false;
-		this.orderedQuantity = 0;
-		this.deleted = false;
-	}
-
-	public Product(Product product) {
-		this.name = product.name;
-		this.price = product.price;
-		this.owner = product.owner;
-		this.description = product.description;
-		this.category_id = product.id;
-		this.image1 = product.image1;
-		this.image_urls.add(product.image1);
-		this.image2 = product.image2;
-		this.image_urls.add(product.image2);
-		this.image3 = product.image3;
-		this.image_urls.add(product.image3);
-		this.image_url = this.image_urls.get(0);
-		this.quantity = product.quantity - product.orderedQuantity;
-		this.sold = false;
-		this.saveManyToManyAssociations("order");
-		this.deleted = false;
-	}
-
-	public Product(String name, double price, int quantity, User owner,
-			String description, int id, String image1, String image2,
-			String image3) {
-		this.image_url = image1;
-		this.orderedQuantity = 0;
-		this.saveManyToManyAssociations("order");
-		this.name = name;
-		this.price = price;
-		this.quantity = quantity;
-		this.owner = owner;
-		this.description = description;
-		this.category_id = id;
-		this.image1 = image1;
-		this.image2 = image2;
-		this.image3 = image3;
-		this.deleted = false;
-	}
-
-	public Product(String name, double price, int quantity, User owner,
-			String description) {
-		this.name = name;
-		this.price = price;
-		this.quantity = quantity;
-		this.owner = owner;
-		this.description = description;
 		this.deleted = false;
 	}
 
@@ -312,58 +100,13 @@ public class Product extends Model {
 		this.quantity = quantity;
 		this.owner = owner;
 		this.description = description;
-		this.category_id = id;
+		this.categoryId = id;
 		this.orderedQuantity = 0;
 		this.amount = 0;
 		this.deleted = false;
 
 	}
-
-	public Product(String name, double price, int quantity, String description,
-			String image, User owner) {
-		this.name = name;
-		this.price = price;
-		this.quantity = quantity;
-		this.owner = owner;
-		this.description = description;
-		this.deleted = false;
-
-	}
-
-	// Constructor for easier testing
-	public Product(String string, double d, String string2, int i) {
-		this.name = string;
-		this.price = d;
-		this.description = string2;
-		this.quantity = i;
-		this.deleted = false;
-	}
-
-	public static void create(String name, double price, User owner,
-			String description, int id, String image1) {
-
-		new Product(name, price, owner, description, id, image1).save();
-	}
-
-	public static void create(String name, double price, User owner,
-			String description, int id, String image1, String image2) {
-		new Product(name, price, owner, description, id, image1, image2).save();
-	}
-
-	public static void create(String name, double price, User owner,
-			String description, int id, String image1, String image2,
-			String image3) {
-		new Product(name, price, owner, description, id, image1, image2, image3)
-				.save();
-	}
-
-	public static void create(String name, int category_id, User owner,
-			Timestamp created, int quantity, double price, String description,
-			String image_url) {
-		new Product(name, category_id, owner, created, quantity, price,
-				description, image_url).save();
-	}
-
+	
 	public static void create(String name, double price, int quantity,
 			User owner, String description, int id, List<Image> images) {
 
@@ -373,15 +116,9 @@ public class Product extends Model {
 		for (Image image : images) {
 			image.product = Product.find(p.getId());
 			image.save();
-			Tag.create(p, Category.find(p.category_id).name);
+			Tag.create(p, Category.find(p.categoryId).name);
 			Tag.create(p, p.name);
 		}
-	}
-
-	public static void create(String name, double price, User owner,
-			String description) {
-		new Product(name, price, owner, description).save();
-
 	}
 
 	public static Product create(String name, double price, int quantity,
@@ -392,37 +129,9 @@ public class Product extends Model {
 
 	}
 
-	public static void create(String name, double price, int quantity,
-			User owner, String description, int id, String image1, String image2) {
-		new Product(name, price, quantity, owner, description, id, image1,
-				image2).save();
-	}
-
-	public static void create(String name, double price, int quantity,
-			User owner, String description, int id, String image1) {
-		new Product(name, price, quantity, owner, description, id, image1)
-				.save();
-	}
-
-	public static void create(String name, double price, int quantity,
-			User owner, String description, int id, String image1,
-			String image2, String image3) {
-		new Product(name, price, quantity, owner, description, id, image1,
-				image2, image3).save();
-	}
-
-	public static Product create(String name, double price, int quantity,
-			String description, String image, User owner) {
-		Product newProduct = new Product(name, price, quantity, description,
-				image, owner);
-		return newProduct;
-	}
-
 	/**
 	 * finds a product by his id
-	 * 
-	 * @param id
-	 *            int id of the product
+	 * @param id int id of the product
 	 * @return product
 	 */
 	public static Product find(int id) {
@@ -468,19 +177,18 @@ public class Product extends Model {
 
 	public static List<Product> listByCategory(String category) {
 		int id = findCategory.where().eq("name", category).findUnique().id;
-		return find.where().eq("category_id", id).findList();
+		return find.where().eq("categoryId", id).findList();
 
 	}
 
-	// method which will find id of the product and delete it, else will throw
-	// exception,method is used in ProductApplication
+	
+	/**
+	 * method which will find id of the product and delete it
+	 * @param id
+	 */
 	public static void delete(int id) {
-		if (find.byId(id) == null) {
-			throw new IllegalArgumentException("Produkt ne postoji");
-		} else {
 			Product temp = find.byId(id);
 			temp.delete();
-		}
 	}
 
 	public static void update(Product product) {
@@ -497,10 +205,6 @@ public class Product extends Model {
 		List<Product> userProductList = find.where().eq("owner", user)
 				.findList();
 		return userProductList;
-	}
-
-	public String getFirstPic() {
-		return this.image1;
 	}
 
 	public int getQuantity() {
@@ -530,10 +234,6 @@ public class Product extends Model {
 		}
 	}
 
-	public static List<String> allImages(int id) {
-		return find.byId(id).image_urls;
-	}
-
 	public static List<Product> findAll() {
 		return find.all();
 	}
@@ -553,11 +253,8 @@ public class Product extends Model {
 
 	/**
 	 * Making recommendation list
-	 * 
-	 * @param cartProducts
-	 *            Products that are going to be bought
-	 * @param allProducts
-	 *            All products from the database
+	 * @param cartProducts Products that are going to be bought
+	 * @param allProducts All products from the database
 	 * @return List of products that are recommended by the cartProducts
 	 */
 
@@ -662,11 +359,8 @@ public class Product extends Model {
 
 	/**
 	 * Defines the level of similarity of two products by comparing their tags
-	 * 
-	 * @param product
-	 *            Product to be compared
-	 * @param recommend
-	 *            Product to be compared
+	 * @param product Product to be compared
+	 * @param recommend Product to be compared
 	 * @return level of similarity
 	 */
 	private static int similarity(Product product, Product recommend) {
