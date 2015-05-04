@@ -1,19 +1,22 @@
 package controllers;
 
-import helpers.AdminFilter;
-import models.FAQ;
+import helpers.*;
+import models.*;
 import play.Logger;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
+import play.data.*;
+import play.mvc.*;
+import views.html.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FAQController.
+ */
 public class FAQController extends Controller {
 	
 	/**
-	 * makes a page with listed FAQs
-	 * @return result
+	 * Opens page with listed FAQs.
+	 *
+	 * @return the result
 	 */
 	public static Result allFAQs() {
 		Logger.info("Opened FAQs page");
@@ -23,8 +26,9 @@ public class FAQController extends Controller {
 	}
 	
 	/**
-	 * makes a page add new FAQ
-	 * @return result
+	 * Opens page for adding new FAQ.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toAddNewFAQ() {
@@ -35,8 +39,9 @@ public class FAQController extends Controller {
 	}
 	
 	/**
-	 * gets question and answer from the add new FAQ page
-	 * @return result
+	 * Adds new FAQ to database.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewFAQ() {
@@ -58,9 +63,10 @@ public class FAQController extends Controller {
 	}
 	
 	/**
-	 * makes a page where you update FAQ
+	 * Opens page for updating FAQs.
+	 *
 	 * @param id int the id of the FAQ
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateFAQ(int id) {
@@ -71,10 +77,10 @@ public class FAQController extends Controller {
 	}
 
 	/**
-	 * gets the data from update from FAQ
-	 * saves it in database
-	 * @param id
-	 * @return result
+	 * Updates FAQ.
+	 *
+	 * @param id the id of the FAQ
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result updateFAQ(int id) {
@@ -110,9 +116,10 @@ public class FAQController extends Controller {
 	}
 	
 	/**
-	 * deletes FAQ returns to all FAQs
+	 * Deletes FAQ.
+	 *
 	 * @param id int id of the FAQ
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteFAQ(int id) {

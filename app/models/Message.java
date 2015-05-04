@@ -11,16 +11,19 @@ import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
+
+// TODO: Auto-generated Javadoc
+>>>>>>> 783c41b82f59ae7931120b67d776d99d0f219e70
 /**
  * The Class Message.
  */
 @Entity
 public class Message extends Model{
-	
+
 	/** The id. */
 	@Id
 	public int id;
-	
+
 	/** The content. */
 	@Required
 	@MinLength(10)
@@ -59,23 +62,24 @@ public class Message extends Model{
 		this.sender = sender;
 		this.receiver = receiver;
 		this.subject = subject;
-		
+
 	}
-	
+
 	/**
 	 * Instantiates a new message.
 	 *
-	 * @param content the content
-	 * @param sender the sender
-	 * @param receiver the receiver
-	 * @param p the p
-	 * @param subject the subject
+	 * @param content String the content
+	 * @param sender User the sender
+	 * @param receiver User the receiver
+	 * @param product Product product
+	 * @param subject String the subject
 	 */
-	public Message(String content, User sender, User receiver, Product p, String subject) {
+	public Message(String content, User sender, User receiver, Product product,
+			String subject) {
 		this.content = content;
 		this.sender = sender;
 		this.receiver = receiver;
-		this.product = p;
+		this.product = product;
 		this.subject = subject;
 		
 	}
@@ -88,65 +92,71 @@ public class Message extends Model{
 		this.sender = null;
 		this.receiver = null;
 	}
-	
+
+
+
 	/**
-	 * Creates the.
+	 * Creates the message.
 	 *
-	 * @param content the content
-	 * @param sender the sender
-	 * @param reciever the reciever
-	 * @param subject the subject
+	 * @param content String the content
+	 * @param sender User the sender
+	 * @param receiver User the receiver
+	 * @param subject String the subject
 	 * @return the message
 	 */
-	public static Message create(String content, User sender, User reciever, String subject) {
+	public static Message create(String content, User sender, User reciever,
+			String subject) {
 		Message msg = new Message(content, sender, reciever, subject);
 		msg.save();
 		return msg;
 	}
-	
+
 	/**
-	 * Creates the report.
+	 * Creates the report for one product.
 	 *
-	 * @param content the content
-	 * @param sender the sender
-	 * @param reciever the reciever
-	 * @param p the p
-	 * @param subject the subject
+	 * @param content String the content
+	 * @param sender User the sender
+	 * @param receiver User the receiver
+	 * @param product Product product
+	 * @param subject String the subject
 	 * @return the message
 	 */
-	public static Message createReport(String content, User sender, User reciever, Product p, String subject) {
-		Message msg = new Message(content, sender, reciever, p, subject);
+	public static Message createReport(String content, User sender,
+			User reciever, Product product, String subject) {
+		Message msg = new Message(content, sender, reciever, product, subject);
 		msg.save();
 		return msg;
 	}
-	
+
 	/**
-	 * Delete.
+	 * Deletes a message from database.
 	 *
-	 * @param id the id
+	 * @param id int the id of the message
 	 */
 	public static void delete(int id) {
 		find.byId(id).delete();
 	}
-	
+
 	/**
-	 * All.
+	 * All messages from one user.
 	 *
-	 * @param receiver the receiver
+	 * @param receiver User the receiver
 	 * @return the list
 	 */
 	public static List<Message> all(User receiver) {
-		List<Message> msg = find.where("receiver_id = " + receiver.id).findList();
+		List<Message> msg = find.where("receiver_id = " + receiver.id)
+				.findList();
 		return msg;
 	}
-	
+
+
 	/**
-	 * Find.
+	 * Finds a message by its id.
 	 *
-	 * @param id the id
+	 * @param id int the id
 	 * @return the message
 	 */
-	public static Message find(int id){
+	public static Message find(int id) {
 		return find.byId(id);
 	}
 

@@ -169,7 +169,7 @@ public class JsonController extends Controller {
 	 */
 	public static Result userProducts(int id) {
 		User u = User.find(id);
-		return ok(JsonHelper.productListToJson(Product.userProducts(u)));
+		return ok(JsonHelper.productListToJson(Product.myProducts(u.id)));
 	}
 
 	/*

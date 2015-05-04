@@ -1,18 +1,22 @@
 package controllers;
 
-import helpers.UserFilter;
-import models.Report;
+import helpers.*;
+import models.*;
 import play.Logger;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
+import play.mvc.*;
+import views.html.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ReportController.
+ */
 public class ReportController extends Controller {
-	
+
 	/**
-	 * deletes message from his mail
-	 * @param id int id of the message
-	 * @return result
+	 * Deletes report.
+	 *
+	 * @param id int the id of the report
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result deleteReport(int id) {

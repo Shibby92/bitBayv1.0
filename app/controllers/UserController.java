@@ -1,40 +1,32 @@
 package controllers;
 
-
-import helpers.AdminFilter;
-import helpers.UserFilter;
+import helpers.*;
 
 import java.net.MalformedURLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.*;
+import java.util.*;
 
-import models.Category;
-import models.FAQ;
-import models.Message;
-import models.Notification;
-import models.Orders;
-import models.Product;
-import models.Report;
-import models.User;
+import models.*;
 import play.Logger;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
+import play.data.*;
+import play.mvc.*;
+import views.html.*;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserController.
+ */
 public class UserController extends Controller {
 
+	/** The user form. */
 	static Form<User> userForm = new Form<User>(User.class);
 
 	/**
-	 * goes to page where admin can update user
+	 * Goes to page where administrator can update user.
+	 *
 	 * @param id int id of the user
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateUser(int id) {
@@ -45,11 +37,11 @@ public class UserController extends Controller {
 	}
 
 	/**
-	 * gets data from updated user
-	 * redirect to page where it lists all users
-	 * @param id int id of the user who is beeing updated
-	 * @return result
-	 * @throws MalformedURLException
+	 * Gets data from updated user.
+	 *
+	 * @param id int id of the user who is being updated
+	 * @throws MalformedURLException the malformed url exception
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result updateUser(int id) throws MalformedURLException {
@@ -71,9 +63,10 @@ public class UserController extends Controller {
 	}
 
 	/**
-	 * deletes user and redirect to list of all users
+	 * Deletes user.
+	 *
 	 * @param id int id of the user
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteUser(int id) {
@@ -85,8 +78,9 @@ public class UserController extends Controller {
 	}
 
 	/**
-	 * redirects to page with additional info
-	 * @return result
+	 * Redirects to page with additional info.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result toAdditionalInfo() {
@@ -95,11 +89,12 @@ public class UserController extends Controller {
 		return ok(additionalinfo.render(email, FAQ.all()));
 	}
 
-		/**
-		 * adds additional info to user profile
-		 * @return result
-		 * @throws ParseException
-		 */
+	/**
+	 * Adds additional info to user profile.
+	 *
+	 * @throws ParseException the parse exception
+	 * @return the result
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result additionalInfo() throws ParseException {
 
@@ -149,8 +144,9 @@ public class UserController extends Controller {
 	}
 	
 	/**
-	 * page for adding additional info
-	 * @return result
+	 * Opens a page for editing additional info.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result toEditInfo() {
@@ -163,10 +159,10 @@ public class UserController extends Controller {
 	}
 
 	/**
-	 * gets data from additional info 
-	 * adds it to user profile and database
-	 * @return result
-	 * @throws ParseException
+	 * Gets data from additional info and updates users profile
+	 *
+	 * @throws ParseException the parse exception
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result editAdditionalInfo() throws ParseException {
@@ -220,61 +216,65 @@ public class UserController extends Controller {
 	}
 	
 	/**
-	 * opens page to user profile
-	 * @return result
+	 * Opens page to user profile.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result profile() {
 		Logger.info("User " + session().get("email")
 				+ " has opened his profile page");
 		String email = session().get("email");
-		
+
 		User u = User.find(email);
-		List<Orders> soldProducts= new ArrayList<Orders>();
-		for(Notification notification: u.notification){
-				soldProducts.add(Orders.find(notification.orderId));
+		List<Orders> soldProducts = new ArrayList<Orders>();
+		for (Notification notification : u.notification) {
+			soldProducts.add(Orders.find(notification.orderId));
 		}
 		List<Report> reports = Report.all();
 		List<Report> uniques = new ArrayList<Report>();
-		for(Report report: reports) {
+		for (Report report : reports) {
 			boolean contains = false;
-			for(Report r: uniques){
-				if(report.reportedProduct.id == r.reportedProduct.id){
+			for (Report r : uniques) {
+				if (report.reportedProduct.id == r.reportedProduct.id) {
 					contains = true;
 				}
 			}
-			if(!contains)
+			if (!contains)
 				uniques.add(report);
-						
+
 		}
-		Logger.debug(""+uniques.size());
+		Logger.debug("" + uniques.size());
 		return ok(profile.render(email, User.all(), Category.list(),
 				Product.productList(),
 				Product.myProducts(User.find(session().get("email")).id),
-				FAQ.all(), Message.all(User.find(session().get("email"))), soldProducts, uniques));
+				FAQ.all(), Message.all(User.find(session().get("email"))),
+				soldProducts, uniques));
 
 	}
 	
 	/**
-	 * opens page to other users profile
-	 * @return result
+	 * Opens page to other users profile.
+	 *
+	 * @param id int the id of the user
+	 * @return the result
 	 */
 	public static Result userProfile(int id) {
 		User user = User.find(id);
-		Logger.info("User " + session().get("email")
-				+ " has opened " + User.find(id).email + " profile page");
+		Logger.info("User " + session().get("email") + " has opened "
+				+ User.find(id).email + " profile page");
 		String email = session().get("email");
-		return ok(userprofile.render(user, email,
-				Product.myProducts(user.id),
+		return ok(userprofile.render(user, email, Product.myProducts(user.id),
 				FAQ.all()));
 	}
 	
 	
 	
 	/**
-	 * opens page for rating user
+	 * Opens page for rating user.
+	 *
 	 * @param id int id of the user
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result ratingpage(int id) {
@@ -287,14 +287,16 @@ public class UserController extends Controller {
 	}
 	
 	/**
-	 * gets data from rating user
-	 * adds rating to user
-	 * saves it in database
+	 * Gets data from rating user.
+	 * Adds rating to user.
+	 * Saves it in database.
+	 *
 	 * @param id int id of the user
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result rating(int id) {
+		User user = Session.getCurrentUser(ctx());
 		final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		User u = User.find(id);
 		int rate = Integer.parseInt(temp.get("rate"));
@@ -305,7 +307,7 @@ public class UserController extends Controller {
 		Logger.info("User with email: " + session().get("email")
 				+ " has rated user with id: " + id);
 		flash("success", "You have successfuly rated user!");
-		return redirect("/userprofile/" + id);
+		return redirect("/orderpage/" + user.id);
 	}
 
 

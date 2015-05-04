@@ -1,72 +1,42 @@
 package controllers;
 
-import helpers.ContactHelper;
-import helpers.MailHelper;
-import helpers.RefundHelper;
-import helpers.UserFilter;
+import helpers.*;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.net.*;
+import java.text.*;
+import java.util.*;
 
-import models.Cart;
-import models.Category;
-import models.FAQ;
+import models.*;
 import models.Notification;
-import models.Orders;
-import models.Product;
-import models.ProductQuantity;
-import models.User;
-import play.Logger;
-import play.Play;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.data.validation.Constraints.Email;
-import play.data.validation.Constraints.Required;
-import play.libs.F.Function;
-import play.libs.F.Promise;
-import play.libs.ws.WS;
-import play.libs.ws.WSResponse;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
+import play.*;
+import play.data.*;
+import play.data.validation.Constraints.*;
+import play.libs.F.*;
+import play.libs.ws.*;
+import play.mvc.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.paypal.api.payments.Amount;
-import com.paypal.api.payments.Links;
-import com.paypal.api.payments.Payer;
-import com.paypal.api.payments.Payment;
-import com.paypal.api.payments.PaymentExecution;
-import com.paypal.api.payments.RedirectUrls;
-import com.paypal.api.payments.Transaction;
-import com.paypal.base.rest.APIContext;
-import com.paypal.base.rest.OAuthTokenCredential;
-import com.paypal.base.rest.PayPalRESTException;
+import com.paypal.api.payments.*;
+import com.paypal.base.rest.*;
 
+import views.html.*;
+
+// TODO: Auto-generated Javadoc
 /**
- * Controls the login application Redirects on the pages when needed When the
- * user registers, he gets redirected to page with ads If the user is already
- * registered, then he gets redirected to LOG IN page
- * 
- * @author eminamuratovic
- *
+ * The Class UserLoginApplication
  */
 public class UserLoginApplication extends Controller {
+	
+	/** The login user. */
 	static Form<User> loginUser = new Form<User>(User.class);
+	
+	/** The contact form. */
 	static Form<Contact> contactForm = new Form<Contact>(Contact.class);
 
 	/**
-	 * main page login page
-	 * @return result
+	 * Opens main homepage.
+	 *
+	 * @return the result
 	 */
 	public static Result homePage() {
 		String email = session().get("email");
@@ -83,9 +53,10 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 * tries to log user to page if the user can log, he gets redirected to
-	 * index page if the user is not in database, he gets redirected to register page
-	 * @return result
+	 * Tries to log user to page.If the user can log he gets redirected to homepage.
+	 * If the user is not in database, he gets redirected to register page.
+	 *
+	 * @return the result
 	 */
 	public static Result login() {
 		DynamicForm form = Form.form().bindFromRequest();
@@ -120,12 +91,12 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 * tries to register user if there is already user with the same username he
-	 * gets redirected to login page if the user gets registered, he gets a
-	 * verification email on his email address
-	 * 
-	 * @return result
-	 * @throws MalformedURLException
+	 * Tries to register user. 
+	 * If there is already user with the same username he gets redirected to login page.
+	 * If the user gets registered, he gets a verification email on his email address.
+	 *
+	 * @throws MalformedURLException the malformed url exception
+	 * @return the result
 	 */
 	@SuppressWarnings("static-access")
 	public static Result register() throws MalformedURLException {
@@ -158,8 +129,9 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 * goes to page where the user can be registered
-	 * @return result
+	 * Opens page for registration.
+	 *
+	 * @return the result
 	 */
 	public static Result toRegister() {
 
@@ -170,8 +142,8 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 * We return whatever the promise returns, so the return value is changed
-	 * from Result to Promise<Result>
+	 * Gets data from contact us page
+	 *
 	 * @return the contact page with a message indicating if the email has been
 	 *         sent.
 	 */
@@ -213,7 +185,8 @@ public class UserLoginApplication extends Controller {
 							List<User> admins = User.admins();
 							for (User admin : admins) {
 								ContactHelper.send(email, admin.email, message);
-								ContactHelper.sendToPage(email,  admin.email, message, "Contact Us message!");
+								ContactHelper.sendToPage(email, admin.email,
+										message, "Contact Us message!");
 							}
 							flash("success", "Message sent!");
 							if (session().get("email") == null)
@@ -241,9 +214,11 @@ public class UserLoginApplication extends Controller {
 		// return the promisse
 		return holder;
 	}
+	
 	/**
-	 * goes to page where user can login
-	 * @return result
+	 * Opens page where user can login.
+	 *
+	 * @return the result
 	 */
 	public static Result toLogin() {
 
@@ -253,22 +228,24 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 * redirect to homepage user gets logged out clear from session
-	 * @return result
+	 * Logs out user from the website.
+	 *
+	 * @return the result
 	 */
 	public static Result logOut() {
 		Logger.warn("User with email: " + session().get("email")
 				+ " has logged out");
 
 		session().clear();
-		flash("success","You have been successfully logged out! Come back any time!");
+		flash("success",
+				"You have been successfully logged out! Come back any time!");
 		return redirect("/");
 	}
 
 	/**
-	 * opens page for contact us
-	 * 
-	 * @return result
+	 * Opens page for contact us.
+	 *
+	 * @return the result
 	 */
 	public static Result contactPage() {
 		String email = session().get("email");
@@ -282,20 +259,32 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 * avoiding model creation for contact form
-	 * @author eminamuratovic
+	 * The Class Contact.
 	 */
 	public static class Contact {
+		
+		/** The email. */
 		@Required
 		@Email
 		public String email;
+		
+		/** The message. */
 		@Required
 		public String message;
 
+		/**
+		 * Instantiates a new contact.
+		 */
 		public Contact() {
 			this.message = "";
 		}
 
+		/**
+		 * Instantiates a new contact.
+		 *
+		 * @param email String the email
+		 * @param message String the message
+		 */
 		public Contact(String email, String message) {
 			this.email = email;
 			this.message = message;
@@ -303,22 +292,20 @@ public class UserLoginApplication extends Controller {
 
 	}
 
-	/*********************************************************************/
 	/*********************** PAYPAL SECTION ******************************/
 
 	/**
-	 * tries to buy product with paypall
-	 * first page of paypall
-	 * login, order summary
-	 * @return result
+	 * Tries to buy product with paypall.
+	 * 
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result purchaseProcessing() {
 		String email = session().get("email");
 
 		try {
-			String total = String
-					.valueOf(Cart.getCart(session().get("email")).checkout);
+			String total = String.valueOf(Cart.getCartbyUserEmail(session()
+					.get("email")).checkout);
 			String accessToken = new OAuthTokenCredential(
 					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
 					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai")
@@ -329,15 +316,14 @@ public class UserLoginApplication extends Controller {
 			APIContext apiContext = new APIContext(accessToken);
 			apiContext.setConfigurationMap(sdkConfig);
 			Amount amount = new Amount();
-			if(Double.parseDouble(total)%10==0){
-				amount.setTotal(total+"0");
-			}
-			else{
-			amount.setTotal(total);
+			if (Double.parseDouble(total) % 10 == 0) {
+				amount.setTotal(total + "0");
+			} else {
+				amount.setTotal(total);
 			}
 			amount.setCurrency("USD");
 			Transaction transaction = new Transaction();
-			String stringCart = cartToString(Cart.getCart(session()
+			String stringCart = cartToString(Cart.getCartbyUserEmail(session()
 					.get("email")));
 			transaction.setDescription(stringCart);
 			transaction.setAmount(amount);
@@ -349,8 +335,6 @@ public class UserLoginApplication extends Controller {
 			payment.setIntent("sale");
 			payment.setPayer(payer);
 			payment.setTransactions(transactions);
-			Cart cart = Cart.getCart(email);
-			int cartId = cart.id;
 			RedirectUrls redirectUrls = new RedirectUrls();
 			redirectUrls.setCancelUrl("http://localhost:9000/orderfail");
 			redirectUrls.setReturnUrl("http://localhost:9000/orderconfirm");
@@ -372,6 +356,12 @@ public class UserLoginApplication extends Controller {
 		return TODO;
 	}
 
+	/**
+	 * Turns the cart to string and adds it to paypall order so user can see what he had ordered.
+	 *
+	 * @param cart Cart the cart
+	 * @return the string
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static String cartToString(Cart cart) {
 
@@ -379,7 +369,7 @@ public class UserLoginApplication extends Controller {
 		sb.append("Your order via bitBay: ");
 		for (Product product : cart.productList) {
 			sb.append(product.name + " (" + product.price + "0 $) x "
-			+ product.orderedQuantity + ", ");
+					+ product.orderedQuantity + ", ");
 		}
 		sb.append("which is a total price of: " + cart.checkout + "0 $");
 		if (sb.length() > 127) {
@@ -400,8 +390,9 @@ public class UserLoginApplication extends Controller {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Order confirm.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result orderConfirm() {
@@ -409,7 +400,7 @@ public class UserLoginApplication extends Controller {
 		String paymentID = null;
 		String payerID = null;
 		String token = null;
-		Cart cart = Cart.getCart(email);
+		Cart cart = Cart.getCartbyUserEmail(email);
 		try {
 			DynamicForm paypalReturn = Form.form().bindFromRequest();
 			paymentID = paypalReturn.get("paymentId");
@@ -433,6 +424,14 @@ public class UserLoginApplication extends Controller {
 				FAQ.all()));
 	}
 
+	/**
+	 * Order success.
+	 *
+	 * @param paymentId int the payment id
+	 * @param payerId int the payer id
+	 * @param token String the token
+	 * @return the result
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result orderSuccess(String paymentId, String payerId,
 			String token) {
@@ -454,40 +453,40 @@ public class UserLoginApplication extends Controller {
 			paymentExecution.setPayerId(payerID);
 			Payment newPayment = payment.execute(apiContext, paymentExecution);
 			User user = User.find(session().get("email"));
-			Orders order = new Orders(Cart.getCart(user.email), user, token);
-			order.orderDate=getDate();
+			Orders order = new Orders(Cart.getCartbyUserEmail(user.email),
+					user, token);
+			order.orderDate = getDate();
 			user.orderList.add(order);
 			Iterator<Product> itr = order.productList.iterator();
 			while (itr.hasNext()) {
 				Product p = itr.next();
 				p.order.add(order);
-				p.cart=null;
+				p.cart = null;
 			}
-			List <User> sellers= new ArrayList<User>();
-			Orders userOrder = user.orderList
-					.get(user.orderList.size() - 1);
-			for(Product p: userOrder.productList){
-				if(!sellers.contains(p.owner)){
+			List<User> sellers = new ArrayList<User>();
+			Orders userOrder = user.orderList.get(user.orderList.size() - 1);
+			for (Product p : userOrder.productList) {
+				if (!sellers.contains(p.owner)) {
 					sellers.add(p.owner);
 				}
 			}
-			
-			
+
 			for (Product product : order.productList) {
-				if (product.getOrderedQuantity() >= product.getQuantity())
+				if (product.getOrderedQuantity() >= product.quantity)
 					product.sold = true;
-				int leftQuantity = product.getQuantity()
+				int leftQuantity = product.quantity
 						- product.getOrderedQuantity();
-				ProductQuantity temp=new ProductQuantity(product.id,product.getOrderedQuantity());
-				order.pQ.add(temp);
-				product.setQuantity(leftQuantity);
-				product.cart=null;
+				ProductQuantity temp = new ProductQuantity(product.id,
+						product.getOrderedQuantity());
+				order.productQuantity.add(temp);
+				product.quantity = leftQuantity;
+				product.cart = null;
 				product.setOrderedQuantity(0);
 				order.update();
 			}
 			Cart.clear(user.id);
 			user.save();
-			for(User seller:sellers){
+			for (User seller : sellers) {
 				new Notification(seller, order).save();
 				seller.update();
 			}
@@ -499,6 +498,11 @@ public class UserLoginApplication extends Controller {
 				User.find(session().get("email")).orderList, FAQ.all()));
 	}
 
+	/**
+	 * Gets the date.
+	 *
+	 * @return the date
+	 */
 	public static String getDate() {
 		Date date = Calendar.getInstance().getTime();
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -506,22 +510,35 @@ public class UserLoginApplication extends Controller {
 
 	}
 
+	/**
+	 * Order fail.
+	 *
+	 * @return the result
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result orderFail() {
 		String email = session().get("email");
 		User user = User.find(email);
 		int userid = user.id;
-		Cart cart = Cart.getCart(email);
+		Cart cart = Cart.getCartbyUserEmail(email);
 		Cart.clear(userid);
-		Logger.info("Transaction has been canceled by user " + session().get("email"));
+		Logger.info("Transaction has been canceled by user "
+				+ session().get("email"));
 		flash("failBuy", "Transaction canceled!");
 		return ok(orderresult.render(email, FAQ.all()));
 	}
 
+	/**
+	 * Refund order.
+	 *
+	 * @param id the id
+	 * @return the result
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result refundOrder(int id) {
 		RefundHelper.send(Orders.find(id).buyer.email, Orders.find(id).token);
-		Logger.info("Token has been sent to users email: " + session().get("email"));
+		Logger.info("Token has been sent to users email: "
+				+ session().get("email"));
 		String href = "/orderpage/" + Orders.find(id).buyer.id;
 		flash("refund", "Token has been sent to your email!");
 		return redirect(href);

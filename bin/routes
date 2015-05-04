@@ -29,10 +29,8 @@ GET    /addproductcategory         controllers.ProductApplication.toPickCategory
 GET    /updateproduct/:id          controllers.ProductApplication.updateProduct(id:Integer)
 POST   /updateproduct/:id          controllers.ProductApplication.updateP(id:Integer)
 GET    /renewproduct/:id           controllers.ProductApplication.renew(id:Integer)
-GET    /productpage                controllers.ProductApplication.productPage()
 GET    /itempage/logout            controllers.UserLoginApplication.logOut()
 GET    /itempage/:id               controllers.ProductApplication.itemPage(id:Integer)
-GET    /myproducts/:id             controllers.ProductApplication.myProducts(id: Integer)
 POST   /changeshipping/:id         controllers.ProductApplication.changeShippingAddress(id: Integer)
 
 GET    /productList1               controllers.ProductApplication.productList()		

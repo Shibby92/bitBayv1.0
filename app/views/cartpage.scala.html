@@ -2,370 +2,324 @@
 @import helper._ 
 @main("Cart") {
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-   <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header" style="margin: 0px 20px" >
-       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-         <a href="/homepage" ><img src="@routes.Assets.at("images/Logo.png")" style="height:50 px; width: 130px"/></a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-       
-        
-               @if(email == null) {
-               	  <ul class="nav navbar-nav">
-                 <li  style="margin: 0px 155px">
-                    <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-                    <div class="form-group">
-                  		<input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
-                  		</div>
-                  		<div class="btn-group">
-  							<button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
-  							<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    						<span class="caret"></span>
-    						<span class="sr-only">Toggle Dropdown</span>
-  							</button>
-  								<ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
-    							<li>
-    								<a href="/advancedsearch">Advanced Search</a>
-    							</li>
-    							</ul>
-						</div>
-            </form>
-         </li>
-            <li>
-               <h4>
-                  <p style="color: #000">Hello   
-                     <a href="/login">
-                     <button class="btn btn-success btn-login"> Log in</button> 
-                     </a>
-                     or 
-                     <a href="/toregister">
-                     <button class="btn btn-success btn-register" >Register</button>
-                     </a>
-                  </p>
-               </h4>
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header" style="margin: 0px 20px" >
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a href="/homepage" ><img src="@routes.Assets.at("images/Logo.png")" style="height:50 px; width: 130px"/></a>
+         </div>
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            @if(email == null) {
+            <ul class="nav navbar-nav">
+               <li  style="margin: 0px 35px">
+                  <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                     <div class="form-group">
+                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                     </div>
+                     <div class="btn-group">
+                        <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                           <li>
+                              <a href="/advancedsearch">Advanced Search</a>
+                           </li>
+                        </ul>
+                     </div>
+                  </form>
+               </li>
+               <li>
+                  <h4>
+                     <p style="color: #000">Hello   
+                        <a href="/login">
+                        <button class="btn btn-success btn-login"> Log in</button> 
+                        </a>
+                        or 
+                        <a href="/toregister">
+                        <button class="btn btn-success btn-register" >Register</button>
+                        </a>
+                     </p>
+                  </h4>
+               </li>
+            </ul>
+            } else {
+            <ul class="nav navbar-nav">
+            <li  style="margin: 0px 180px">
+               <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                  <div class="form-group">
+                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                  </div>
+                  <div class="btn-group">
+                     <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                     <span class="caret"></span>
+                     <span class="sr-only">Toggle Dropdown</span>
+                     </button>
+                     <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                        <li>
+                           <a href="/advancedsearch">Advanced Search</a>
+                        </li>
+                     </ul>
+                  </div>
+               </form>
             </li>
-         </ul>
-         } else {
-          <ul class="nav navbar-nav">
-                 <li  style="margin: 0px 180px">
-             <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-                    <div class="form-group">
-                  		<input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
-                  		</div>
-                  		<div class="btn-group">
-  							<button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
-  							<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    						<span class="caret"></span>
-    						<span class="sr-only">Toggle Dropdown</span>
-  							</button>
-  								<ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
-    							<li>
-    								<a href="/advancedsearch">Advanced Search</a>
-    							</li>
-    							</ul>
-						</div>
-            </form>
-         </li>
-      
-         <ul class='nav navbar-nav pull-right'>
-
-                    <li class='dropdown'>
-               <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-               <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-              
-               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-                 @if(User.find(email).admin == true) {
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
-                  
-                  } else {
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
-                  
-
-                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
-                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
-                 
-
+            <ul class='nav navbar-nav pull-right'>
+               <li>
                   }
-                  <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
-               </ul>
-            </li>
-         </ul>
-         }
+               </li>
+               @if(email != null) {
+               <li class='dropdown'>
+                  <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  @if( User.getUncheckedNotifications(User.find(email).id).size()>0){
+                  <button class="btn btn-success "><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;">  </i>  @User.find(email).username   <span class="caret"></span> </button></a>
+                  }else{<button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
+                  }
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                     @if(User.find(email).admin == true || User.find(email).blogger) {
+                     @if(!User.find(email).blogger) {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                     }
+                     @if(User.find(email).blogger) {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >Blog</a></li>
+                     }
+                     <li class="divider"></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+                     } else {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                     @if(email != null && User.getUncheckedNotifications(User.find(email).id).size()>0){
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> Notifications </a>
+                     </li>
+                     }
+                     <li class="divider"></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+                  </ul>
+               </li>
+            </ul>
+            }
+            }
+         </div>
+         <!-- /.navbar-collapse -->
       </div>
-      <!-- /.navbar-collapse -->
-   </div>
-   <!-- /.container -->
-</nav>
+      <!-- /.container -->
+   </nav>
    <!-- Page Content -->
-  <div class="container">
-   <div class="row" >
-		<div class="col-lg-12">	
-		@if(flash.get("shipSuccess")){
-        <div class="alert alert-success" role="alert">
-                     <div class="container">
-                        @flash.get("shipSuccess")
-                     </div>
-                  </div>
-         }
-   @if(flash.get("error")){
-        <div class="alert alert-danger" role="alert">
-                     <div class="container">
-                        @flash.get("error")
-                     </div>
-                  </div>
-         }
-          @if(flash.get("excess")){
-         <div class="alert alert-warning" role="alert">
-                     <div class="container">
-                        @flash.get("excess")
-                     </div>
-                  </div>
-         }
-          @if(flash.get("minQty")){
-         <div class="alert alert-warning" role="alert">
-                     <div class="container">
-                        @flash.get("minQty")
-                     </div>
-                  </div>
-         }
-         @if(flash.get("warning")){
-       <div class="alert alert-warning" role="alert">
-                     <div class="container">
-                        @flash.get("warning")
-                     </div>
-                  </div>
-         }
-          @if(flash.get("success")) {
-         	<div class="alert alert-success" role="alert">
-                     <div class="container">
-                        @flash.get("success")
-                     </div>
-                  </div>
-         	}
-         	  </div>
-         	 
-        
-                  
-	<div class="col-md-3" style="margin: 25px 0px ">
-    <div class="well box" style="background-color: #4AB55A;color: #fff;">
-    @if(cart.productList.size() == 0) {
-    	<h4>Number of items:  @cart.size </h4>
-    	<hr>
-        <h4>Total price: @cart.checkout $</h4>
-        <hr>
-         <a class="btn btn-warning" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 20px">Back to home</a> 
-       } else {
-       <h4>Number of items:  @cart.size </h4>
-    	<hr>
-        <h4>Total price: @cart.checkout $</h4>
-        <hr>
-        
-        <form action="/creditpurchase" method="POST">
-	<a href="/creditpurchase" data-paypal-button="true">
-  <button class="submit" style="margin: 0px 20px "><img src="//www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Check out with PayPal" />
-  </button>
-</a>
-</form>
- <hr>
- <a class="btn btn-warning" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 20px">Back to home</a> 
-       
-}
-
-  
-
-</div>
- @if(cart.productList.size() > 0) {
- 	
- 	 <div class="well box" style="background-color: #4AB55A;color: #fff;">
- 	 <form method="POST" action="/changeshipping/@cart.id"">
-          	<div class="form-group">
-          <label>Shipping address: </label>
-          <input name ="shippingAddress" id="shippingAddress" value='@cart.shippingAddress' placeholder="Type the shipping address" class="form-control" required/>
-          <input type="submit" value="Change" class="btn btn-warning btn-login-submit" style=" margin: 10px 60px"/>
-          </div>
-          </form>
-           </div>
- 	}
- 	
-    </div>
-					
-		
-     <div class="col-md-9" style="margin: 0px 0px">
-      
-     @if(cart.productList.size()>0){	
-      <legend>Your Cart: </legend>
-
-     <div class="row">
-      @for(product <- cart.productList){
-      <div class="col-sm-4 col-lg-4 col-md-4">
-         <div class="thumbnail">
-           <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
-            <div class="caption">
-            <div >
-               <h4 class="pull-right"> @product.price $</h4>
-               <h4><a href="/itempage/@product.id">@product.name </a>
-               </h4>
-							
-							</div>
-              
-               <div class="pull-down">
-                 Quantity: 
-            
-             @if((email==null)||(User.find(email).admin == false)) {
-               @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
-              
-						
-								<div class="cart_quantity_button" style="margin: 20px 80px">
-								
- 								
-									<form method="POST" action="@routes.ProductApplication.subtractQty(product.id)"   style="margin: -5px -40px"> 
-									 <button type="submit" class="btn btn-danger btn-number"  data-type="plus" data-field="quant[2]">
-                					<span class="glyphicon glyphicon-minus"></span>
-             						 </button>
-             						
-									
-									</form> 
-									<div style="margin: -29px 5px">
-									<input class="cart_quantity_input" method="POST" type="text" min="1" id="quantity" name="quantity" value="@product.getOrderedQuantity" autocomplete="off" size="4" DISABLED="true">
-									</div>
-									
-									
- 									
-									<form method="POST" action="@routes.ProductApplication.addQty(product.id)" style="margin: -25px 55px"> 
-									<span class="input-group-btn">
-						              <button type="submit" class="btn btn-success btn-number" data-type="minus" data-field="quant[2]">
-						                  <span class="glyphicon glyphicon-plus"></span>
-						              </button>
-          							</span>
-									</form> 
-									
-								</div>
-							
-									
-								}
-								}								
-							
-							</div>
-							</div>
-             <div style="margin: 10px 60px">
-              
-               <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to remove this product from cart?');">Remove from Cart</a> 
-
-          </div>
-               
-            
-
+   <div class="container">
+   <div class="col-lg-12">
+      @if(flash.get("shipSuccess")){
+      <div class="alert alert-success" role="alert">
+         <div class="container">
+            @flash.get("shipSuccess")
          </div>
       </div>
-
+      }
+      @if(flash.get("error")){
+      <div class="alert alert-danger" role="alert">
+         <div class="container">
+            @flash.get("error")
+         </div>
+      </div>
+      }
+      @if(flash.get("excess")){
+      <div class="alert alert-warning" role="alert">
+         <div class="container">
+            @flash.get("excess")
+         </div>
+      </div>
+      }
+      @if(flash.get("minQty")){
+      <div class="alert alert-warning" role="alert">
+         <div class="container">
+            @flash.get("minQty")
+         </div>
+      </div>
+      }
+      @if(flash.get("warning")){
+      <div class="alert alert-warning" role="alert">
+         <div class="container">
+            @flash.get("warning")
+         </div>
+      </div>
+      }
+      @if(flash.get("success")) {
+      <div class="alert alert-success" role="alert">
+         <div class="container">
+            @flash.get("success")
+         </div>
+      </div>
       }
    </div>
-
-       </div>
-       
-              
-<legend>You may also like:</legend>
-       
-   
-     
-      	@for(product<-Product.findRecommendation(cart.productList,Product.findAll())){
-      		 
-      		 <div class="col-lg-3 ">
-      		 
-         <div class="thumbnail">
-         <a href="/itempage/@product.id">
-         <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:300px;height:150px">
-         </a>
-            <div class="caption" style="height: 60px;">
-               <h4 class="pull-right"> @product.price $</h4>
-               <h4><a href="/itempage/@product.id">@product.name </a>
-               </h4>
+   <div class="row" >
+      <div class="col-md-3" style="margin: 25px 0px ">
+         <div class="well box" style="background-color: #4AB55A;color: #fff;">
+            @if(cart.productList.size() == 0) {
+            <h4>Number of items:  @cart.size </h4>
+            <hr>
+            <h4>Total price: @cart.checkout $</h4>
+            <hr>
+            <a class="btn btn-warning" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 20px">Back to home</a> 
+            } else {
+            <h4>Number of items:  @cart.size </h4>
+            <hr>
+            <h4>Total price: @cart.checkout $</h4>
+            <hr>
+            <form action="/creditpurchase" method="POST">
+               <a href="/creditpurchase" data-paypal-button="true">
+               <button class="submit" style="margin: 0px 20px "><img src="//www.paypalobjects.com/en_US/i/btn/btn_xpressCheckout.gif" alt="Check out with PayPal" />
+               </button>
+               </a>
+            </form>
+            <hr>
+            <a class="btn btn-warning" href="/" role="button" onclick="" style="width: 160px; height: 40px; margin: 10px 20px">Back to home</a> 
+            }
+         </div>
+         @if(cart.productList.size() > 0) {
+         <div class="well box" style="background-color: #4AB55A;color: #fff;">
+            <form method="POST" action="/changeshipping/@cart.id"">
+               <div class="form-group">
+                  <label>Shipping address: </label>
+                  <input name ="shippingAddress" id="shippingAddress" value='@cart.shippingAddress' placeholder="Type the shipping address" class="form-control" required/>
+                  <input type="submit" value="Change" class="btn btn-warning btn-login-submit" style=" margin: 10px 60px"/>
+               </div>
+            </form>
+         </div>
+         }
+      </div>
+      <div class="col-md-9" style="margin: 0px 0px">
+         @if(cart.productList.size()>0){	
+         <legend>Your Cart: </legend>
+         <div class="row">
+            @for(product <- cart.productList){
+            <div class="col-sm-4 col-lg-4 col-md-4">
+               <div class="thumbnail">
+                  <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
+                  <div class="caption">
+                     <div >
+                        <h4 class="pull-right"> @product.price $</h4>
+                        <h4><a href="/itempage/@product.id">@product.name </a>
+                        </h4>
+                     </div>
+                     @if(product.name.size > 14) {
+                     <div class="pull-down" style="margin: -10px 0px">
+                        } else {
+                        <div class="pull-down">
+                           }
+                           Quantity: 
+                           @if((email==null)||(User.find(email).admin == false)) {
+                           @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
+                           <div class="cart_quantity_button" style="margin: 20px 80px">
+                              <form method="POST" action="@routes.ProductApplication.subtractQty(product.id)"   style="margin: -5px -40px"> 
+                                 <button type="submit" class="btn btn-danger btn-number"  data-type="plus" data-field="quant[2]">
+                                 <span class="glyphicon glyphicon-minus"></span>
+                                 </button>
+                              </form>
+                              <div style="margin: -29px 5px">
+                                 <input class="cart_quantity_input" method="POST" type="text" min="1" id="quantity" name="quantity" value="@product.getOrderedQuantity" autocomplete="off" size="4" DISABLED="true">
+                              </div>
+                              <form method="POST" action="@routes.ProductApplication.addQty(product.id)" style="margin: -25px 55px"> 
+                                 <span class="input-group-btn">
+                                 <button type="submit" class="btn btn-success btn-number" data-type="minus" data-field="quant[2]">
+                                 <span class="glyphicon glyphicon-plus"></span>
+                                 </button>
+                                 </span>
+                              </form>
+                           </div>
+                           }
+                           }								
+                        </div>
+                     </div>
+                     <div style="margin: 10px 60px">
+                        <a class="btn btn-danger" href="/deleteproductcart/@product.id" role="button" onclick="return confirm('Are you sure you want to remove this product from cart?');">Remove from Cart</a> 
+                     </div>
+                  </div>
+               </div>
+               }
+            </div>
+         </div>
+         <legend>You may also like:</legend>
+         @for(product<-Product.recommendProducts(User.find(session().get("email")))){
+         <div class="col-lg-3 ">
+            <div class="thumbnail">
+               <a href="/itempage/@product.id">
+               <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:300px;height:150px">
+               </a>
+               <div class="caption" style="height: 60px;">
+                  <h4 class="pull-right"> @product.price $</h4>
+                  <h4><a href="/itempage/@product.id">@product.name </a>
+                  </h4>
+               </div>
+            </div>
+         </div>
+         }
+         }else{
+         <p> 
+         <h4 style="margin: 150px 100px ">Your cart is empty...</h4>
+         </p>
+         }
+      </div>
+   </div>
+    </div>
+      <!-- /.End of content page -->
+      <!-- /.Footer -->
+   @if(cart.productList.size()>0){
+   <div id="footer1">
+   } else {
+   <div id="footer" style="margin: 0px -40px">
+      }
+      <div class="container">
+         <div class="col-md-4">
+            <a href="/contactpage">
+               <h4><i class="glyphicon glyphicon-envelope"></i> Contact Us</h4>
+            </a>
+            <a href="/faq">
+               <h4><i class="glyphicon glyphicon-cog"></i> FAQs</h4>
+            </a>
+            <a href="/blog">
+               <h4><i class="glyphicon glyphicon-stats"></i> Blog </h4>
+            </a>
+         </div>
+         <div class="col-md-4">
+            <h4 style="color: #4AB55A;">About bitBay:</h4>
+            <address style="color: #4AB55A">
+               <p>Project bitBay mirror site of eBay</p>
+               <p>Sarajevo</p>
+               <p>Bosnia and Herzegovina</p>
+               <p>Contact: (061) 100-100</p>
+            </address>
+         </div>
+         <div class="col-md-4">
+            <style>.xg_module_body img {margin:0!important;}</style>
+            <div align="center" style="margin:20px 0px">
+               <table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
+                  <tr>
+                     <h4 style="color: #4AB55A">Follow us on:</h4>
+                     <td>
+                        <a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
+                        <img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
+                        </a>
+                     </td>
+                     <td>
+                        <a href="http://twitter.com/yourtwitter" target="_blank">
+                        <img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
+                        </a>
+                     </td>
+                  </tr>
+               </table>
             </div>
          </div>
       </div>
-       
-      	}
-      	
-}else{
-<p> <h4 style="margin: 150px 100px ">Your cart is empty...</h4></p>
-
-}
-
-	
-	
-
- </div>
- </div>
-  
-  
-
-            
-    <div id="footer" style="background-color: #f5f5f5;   position: relative;">
-  <div class="container">
-
-   
-  	<div class="col-md-4">
-   <a href="/contactpage">
-      <h3><i class="glyphicon glyphicon-envelope"></i> Contact Us</h3>
-   </a>
-   <a href="/faq">
-      <h3><i class="glyphicon glyphicon-cog"></i> FAQs</h3>
-   </a>
-   <a href="/blog">
-      <h3><i class="glyphicon glyphicon-stats"></i> Blog </h3>
-   </a>
    </div>
-   
-  	<div class="col-md-4">
-             
-                  <h2 style="color: #4AB55A">About bitBay:</h2>
-                  <address style="color: #4AB55A">
-                     <p>Project bitBay mirror site of eBay</p>  
-                     <p>Sarajevo</p>
-                     <p>Bosnia and Herzegovina</p>
-                      <p>Contact: (061) 100-100</p>  
-                  </address>
-            
-            </div>
- 	<div class="col-md-4">
-  	<style>.xg_module_body img {margin:0!important;}</style>
-<div align="center" style="margin:20px 0px">
-<table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
-	<tr>
-		  <h3 style="color: #4AB55A">Follow us on:</h3>
-	<td>
-		<a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
-			<img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
-		</a>
-	</td>
-
-
-
-	<td>
-		<a href="http://twitter.com/yourtwitter" target="_blank">
-			<img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
-		</a>
-	</td>
-</tr>
-</table></div>
-</div>
-  
- 
-
-</div>
-</div>
-<!-- /.container -->
+   <!-- /.End of footer -->
 </body>
 }

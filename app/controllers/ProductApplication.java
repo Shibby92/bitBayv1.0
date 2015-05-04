@@ -1,62 +1,54 @@
 package controllers;
 
-import helpers.AdminFilter;
-import helpers.ContactHelper;
-import helpers.UserFilter;
-
+import helpers.*;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
 
 import javax.swing.ImageIcon;
 
-import models.Cart;
-import models.Category;
-import models.Comment;
-import models.FAQ;
-import models.Message;
-import models.Product;
-import models.Report;
-import models.User;
-import play.Logger;
-import play.Play;
-import play.data.DynamicForm;
-import play.data.Form;
+import models.*;
+import play.*;
+import play.data.*;
 import play.db.ebean.Model.Finder;
-import play.libs.F.Function;
-import play.libs.F.Promise;
+import play.libs.F.*;
 import play.libs.Json;
-import play.libs.ws.WS;
-import play.libs.ws.WSResponse;
+import play.libs.ws.*;
 import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
-import play.mvc.Result;
-import play.mvc.Security;
+import play.mvc.*;
+import views.html.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.io.Files;
 
 import controllers.UserLoginApplication.Contact;
 
+// TODO: Auto-generated Javadoc
 /**
- * Controls the ad application Redirects on the pages when needed
- * @author eminamuratovic
+ * The Class ProductApplication
  */
 public class ProductApplication extends Controller {
 
+	/** The find. */
 	static Finder<Integer, Product> find = new Finder<Integer, Product>(
 			Integer.class, Product.class);
 
+	/** The login user. */
 	static Form<User> loginUser = new Form<User>(User.class);
+	
+	/** The product form. */
 	static Form<Product> productForm = new Form<Product>(Product.class);
 	
+	/** The cart finder. */
+	static Finder<Integer, Cart> cartFinder = new Finder<Integer, Cart>(
+			Integer.class, Cart.class);
+	
 	/**
-	 * user picks new category for his product
-	 * @return result
+	 * User picks new category for his product.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result pickCategory() {
@@ -69,11 +61,11 @@ public class ProductApplication extends Controller {
 	}
 
 	/**
-	 * adds additional info to product
-	 * creates new product
-	 * returns user to his home page
+	 * Adds additional info to product.
+	 * Creates new product.
+	 *
 	 * @param id int id of the product
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Product find(int id) {
@@ -82,9 +74,10 @@ public class ProductApplication extends Controller {
 	
 	/**
 	 * Adds additional info to product
-	 * (name, price, quantity, images and description)
+	 * (name, price, quantity, images and description).
+	 *
 	 * @param id int id of the category
-	 * @return result
+	 * @return int result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result addAdditionalInfo(int id) {
@@ -95,18 +88,17 @@ public class ProductApplication extends Controller {
 		int quantity = Integer.valueOf(form.get("quantity"));
 		String description = form.get("description");
 		List<models.Image> image_urls = savePicture(id);
-		
 
 		if (image_urls == null) {
 			return redirect("/addproductpage/" + id);
-	
+
 		}
-		
-		if(image_urls.size()==0){
-			flash("pictureSelect", "You must select a picture for your product!");
-			return redirect("/addproductpage/"+id);
+
+		if (image_urls.size() == 0) {
+			flash("pictureSelect",
+					"You must select a picture for your product!");
+			return redirect("/addproductpage/" + id);
 		}
-		
 
 		Product.create(name, price, quantity,
 				User.find(session().get("email")), description, id, image_urls);
@@ -116,33 +108,12 @@ public class ProductApplication extends Controller {
 		flash("success", "You have successfuly added product!");
 		return redirect("/homepage");
 	}
-	
+
 
 	/**
-	 * opens a page with all products
-	 * @return result
-	 */
-	public static Result productPage() {
-		String email = session().get("email");
-		Logger.info("Product page opened");
-		return ok(productpage.render(email, Product.productList(), FAQ.all()));
-	}
-
-	/**
-	 * opens a page with all of the categories
-	 * @param name String name of the category
-	 * @return result
-	 */
-	public static Result category(String name) {
-		String email = session().get("email");
-		Logger.info("Category page list opened");
-		return ok(category.render(email, name, Product.listByCategory(name),
-				FAQ.all()));
-	}
-
-	/**
-	 * opens a page where user can pick category for his product
-	 * @return result
+	 * Opens a page where user can pick category for his product.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result toPickCategory() {
@@ -154,9 +125,10 @@ public class ProductApplication extends Controller {
 	
 
 	/**
-	 * opens a page where user adds info for his product
+	 * Opens a page where user adds info for his product.
+	 *
 	 * @param id int id of the category
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result toInfo(int id) {
@@ -166,26 +138,28 @@ public class ProductApplication extends Controller {
 	}
 
 	/**
-	 * method that delete product and redirect to other products
+	 * Deletes product.
+	 *
 	 * @param id int id of the product
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result deleteProduct(int id) {
 		Product p = Product.find(id);
 		p.deleted = true;
 		p.update();
-		Logger.warn("product with id: " + id + " has been deleted");
-		flash("success","Youy have successfuly deleted product");
+		Logger.warn("Product with id: " + id + " has been deleted");
+		flash("success", "You have successfuly deleted product");
 		return redirect("/profile");
 
 	}
 	
 	
 	/**
-	 * opens a page where user can update his product
+	 * Opens a page where user can update his product.
+	 *
 	 * @param id int id of the product
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result updateProduct(int id) {
@@ -196,25 +170,25 @@ public class ProductApplication extends Controller {
 	
 	
 	/**
-	 * gets the data from the updated product
-	 * saves it in database
+	 * Gets the data from the updated product.
+	 * Saves it in database.
+	 *
 	 * @param id int id of the product
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result updateP(int id) {
 		Logger.info("Opened page for updating product");
 
 		Product updateProduct = Product.find(id);
-		
+
 		List<models.Image> image_urls = updatePicture(id);
-		
+
 		if (image_urls == null) {
 			return redirect("/updateproduct/" + id);
-	
+
 		}
 
-		
 		if (updateProduct.sold == true) {
 			updateProduct.sold = false;
 		}
@@ -230,7 +204,6 @@ public class ProductApplication extends Controller {
 			updateProduct.description = productForm.bindFromRequest()
 					.field("description").value();
 
-			
 			if (image_urls != null) {
 				updateProduct.images = image_urls;
 			}
@@ -242,7 +215,8 @@ public class ProductApplication extends Controller {
 			Logger.info("Product with id: " + id + " has been updated");
 			flash("success", "Product successfully updated!");
 			if (User.find(session().get("email")).admin)
-				return redirect("/profile/" + User.find(session().get("email")).id);
+				return redirect("/profile/"
+						+ User.find(session().get("email")).id);
 			return redirect("/profile");
 		}
 	}
@@ -250,15 +224,16 @@ public class ProductApplication extends Controller {
 	
 	
 	/**
-	 * updates picture on given product
+	 * Updates picture on given product.
+	 *
 	 * @param id int id of the product
-	 * @return result 
+	 * @return list of images
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static List<models.Image> updatePicture(int id) {
 
 		Product updateProduct = ProductApplication.find(id);
-		
+
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
 		List<models.Image> imgs = new ArrayList<models.Image>();
@@ -267,7 +242,7 @@ public class ProductApplication extends Controller {
 			Logger.debug("File part is null");
 			return null;
 		}
-		
+
 		for (FilePart filePart : fileParts) {
 			if (filePart == null) {
 				Logger.debug("File part is null");
@@ -299,16 +274,16 @@ public class ProductApplication extends Controller {
 			}
 
 			try {
-				
+
 				models.Image img = new models.Image();
 				Product.deleteImage(updateProduct);
 
-				File profile = new File("./public/images/Productimages/"
+				File profile = new File("./public/images/"
 						+ UUID.randomUUID().toString() + extension);
 
 				Logger.debug(profile.getPath());
-				String image_url = "images" + File.separator + "Productimages"
-						+ File.separator + profile.getName();
+				String image_url = "images" + File.separator
+						+ profile.getName();
 				img.image = image_url;
 				img.product = updateProduct;
 
@@ -332,9 +307,10 @@ public class ProductApplication extends Controller {
 	}
 	
 	/**
-	 * saves picture on given product
+	 * Saves picture on given product.
+	 *
 	 * @param id int id of the product
-	 * @return result 
+	 * @return list of images
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static List<models.Image> savePicture(int id) {
@@ -382,11 +358,11 @@ public class ProductApplication extends Controller {
 			try {
 				models.Image img = new models.Image();
 
-				File profile = new File("./public/images/Productimages/"
+				File profile = new File("./public/images/"
 						+ UUID.randomUUID().toString() + extension);
 
 				Logger.debug(profile.getPath());
-				String image_url = "images" + File.separator + "Productimages/"
+				String image_url = "images" + File.separator
 						+ profile.getName();
 
 				img.image = image_url;
@@ -408,10 +384,12 @@ public class ProductApplication extends Controller {
 		return image_urls;
 
 	}
+	
 	/**
-	 * Page of the product
+	 * Opens a page from one product.
+	 *
 	 * @param id int id of the product
-	 * @return result
+	 * @return the result
 	 */
 	public static Result itemPage(int id) {
 		if (session().get("email") == null)
@@ -424,48 +402,25 @@ public class ProductApplication extends Controller {
 		return ok(itempage.render(session("email"), Product.find(id),
 				FAQ.all(), models.Image.photosByProduct(p), Comment.all(), Category.list()));
 	}
-	
-	/**
-	 * opens page with all product of one user
-	 * @param id int id of the user
-	 * @return result
-	 */
-	@Security.Authenticated(UserFilter.class)
-	public static Result myProducts(int id) {
-		String email = session().get("email");
-		Logger.info("User with email: " + session().get("email")
-				+ " has opened his products");
-		return ok(myproducts.render(email, Product.myProducts(id), FAQ.all()));
-
-	}
-	
-	
-	
-	
-	
-	/********************************************************************
-	 ************************* CART SECTION ****************************/
-
-	static Finder<Integer, Cart> cartFinder = new Finder<Integer, Cart>(
-			Integer.class, Cart.class);
 
 	/**
-	 * page with all products from one cart
+	 * Opens a page with all products from one cart.
+	 *
 	 * @param id int id of the cart
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result cartPage(int id) {
 		String email = session().get("email");
-		return ok(cartpage.render(email, Cart.getCart(id), FAQ.all()));
+		return ok(cartpage.render(email, Cart.getCartbyUserId(id), FAQ.all()));
 	}
 	
 
 	/**
-	 * gets info from one product
-	 * then puts it in cart
+	 * Gets info from one product and adds it in cart.
+	 *
 	 * @param id int id of the product
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result productToCart(int id) {
@@ -476,42 +431,36 @@ public class ProductApplication extends Controller {
 			flash("guest", "Please log in to buy stuff!");
 			return redirect("/login");
 		}
-		int userid = User.findUser.where().eq("email", session().get("email"))
+		int userid = User.find.where().eq("email", session().get("email"))
 				.findUnique().id;
-		Cart cart = Cart.getCart(email);
+		Cart cart = Cart.getCartbyUserEmail(email);
 
 		Logger.info(String.valueOf(userid));
 		DynamicForm form = Form.form().bindFromRequest();
 		int orderedQuantity = Integer.valueOf(form.get("orderedQuantity"));
-		if(orderedQuantity<1){
-			flash("minQty",
-					"Ordered quantity must be at least 1!");
+		if (orderedQuantity < 1) {
+			flash("minQty", "Ordered quantity must be at least 1!");
 			p.setOrderedQuantity(p.getOrderedQuantity());
 
 			return redirect("/itempage/" + id);
 		}
 		orderedTotalQta = orderedQuantity + p.getOrderedQuantity();
-		if (orderedTotalQta > p.getQuantity()) {
+		if (orderedTotalQta > p.quantity) {
 			flash("excess",
 					"You cannot order quantity that exceeds one available on stock!");
 			p.setOrderedQuantity(p.getOrderedQuantity());
 
 			return redirect("/itempage/" + id);
-		} /*else if(orderedQuantity==0){
-			flash("excess",
-					"You cannot order zero quantity!");
-			return redirect("/itempage/" + id);
-			
-		}*/else{
+		} else {
 			p.setOrderedQuantity(orderedTotalQta);
-			p.amount = p.getPrice() * p.getOrderedQuantity();
-			Logger.info(String.valueOf("Naruceno: " + orderedQuantity));
+			p.amount = p.price * p.getOrderedQuantity();
+			Logger.info(String.valueOf("Ordered: " + orderedQuantity));
 			p.update();
 			p.save();
 			if (cart.productList.contains(p)) {
 				Cart.addQuantity(p, cart, orderedQuantity);
 				return redirect("/cartpage/" + userid);
-				
+
 			} else {
 				Cart.addProduct(p, cart);
 				Logger.info(String.valueOf("Naruceno posle: "
@@ -521,51 +470,64 @@ public class ProductApplication extends Controller {
 		}
 	}
 	
-	public static Result changeOrderedQty(int id){
+	/**
+	 * Change ordered quantity.
+	 *
+	 * @param id int the id of the product
+	 * @return the result
+	 */
+	public static Result changeOrderedQty(int id) {
 		String email = session().get("email");
 		Product p = find.byId(id);
 		if (session().isEmpty()) {
 			flash("guest", "Please log in to buy stuff!");
 			return redirect("/login");
 		}
-		int userid = User.findUser.where().eq("email", session().get("email"))
+		int userid = User.find.where().eq("email", session().get("email"))
 				.findUnique().id;
-		Cart cart = Cart.getCart(email);
+		Cart cart = Cart.getCartbyUserEmail(email);
 		DynamicForm form = Form.form().bindFromRequest();
-		int orderedQuantity = Integer.valueOf(form.get("changeOrderedQuantity"));
-		if(orderedQuantity<1){
-			flash("minQty",
-					"Ordered quantity must be at least 1!");
+		int orderedQuantity = Integer
+				.valueOf(form.get("changeOrderedQuantity"));
+		if (orderedQuantity < 1) {
+			flash("minQty", "Ordered quantity must be at least 1!");
 			p.setOrderedQuantity(p.getOrderedQuantity());
 			return redirect("/cartpage/" + userid);
 		}
 		p.setOrderedQuantity(orderedQuantity);
-		p.amount = p.getPrice() * p.getOrderedQuantity();
-		Logger.info(String.valueOf("Naruceno: " + orderedQuantity));
+		p.amount = p.price * p.getOrderedQuantity();
+		Logger.info(String.valueOf("Ordered: " + orderedQuantity));
 		p.update();
 		p.save();
 		return redirect("/cartpage/" + userid);
-		
+
 	}
 	
+	/**
+	 * Adds the quantity to product.
+	 *
+	 * @param pId int the id of the product
+	 * @return the result
+	 */
 	public static Result addQty(int pId){
 		String email = session().get("email");
-		Cart cart = Cart.getCart(email);
+		Cart cart = Cart.getCartbyUserEmail(email);
 		Product p = find.byId(pId);
 		if (session().isEmpty()) {
 			flash("guest", "Please log in to buy stuff!");
 			return redirect("/login");
 		}
-		int userid = User.findUser.where().eq("email", session().get("email"))
+		int userid = User.find.where().eq("email", session().get("email"))
 				.findUnique().id;
 		int totalOrderedQty=p.getOrderedQuantity()+1;
-		if (totalOrderedQty > p.getQuantity()) {
+		if (totalOrderedQty > p.quantity) {
 			flash("excess",
 					"You cannot order quantity that exceeds one available on stock!");
 			p.setOrderedQuantity(p.getOrderedQuantity());
 
 			return redirect("/cartpage/" + userid);
 		}
+		Logger.info("User " + email + " ordered product id: " + pId + " with quantity " + totalOrderedQty);
 		cart.checkout=cart.checkout-p.price*p.getOrderedQuantity();
 		cart.size=cart.size-p.orderedQuantity;
 		p.setOrderedQuantity(totalOrderedQty);
@@ -576,15 +538,21 @@ public class ProductApplication extends Controller {
 	}
 	
 	
+	/**
+	 * Subtract quantity.
+	 *
+	 * @param pId int the id of the product
+	 * @return the result
+	 */
 	public static Result subtractQty(int pId){
 		String email = session().get("email");
-		Cart cart = Cart.getCart(email);
+		Cart cart = Cart.getCartbyUserEmail(email);
 		Product p = find.byId(pId);
 		if (session().isEmpty()) {
 			flash("guest", "Please log in to buy stuff!");
 			return redirect("/login");
 		}
-		int userid = User.findUser.where().eq("email", session().get("email"))
+		int userid = User.find.where().eq("email", session().get("email"))
 				.findUnique().id;
 		int totalOrderedQty=p.getOrderedQuantity()-1;
 		if (totalOrderedQty < 1) {
@@ -603,32 +571,46 @@ public class ProductApplication extends Controller {
 	}
 	
 	
+	/**
+	 * Change quantity of the product.
+	 *
+	 * @param pId int the id of the product
+	 * @param cId int the id of the cart
+	 * @return the result
+	 */
 	public static Result changeQty(int pId, int cId){
-		String email = session().get("email");
 		Product p = find.byId(pId);
 		if (session().isEmpty()) {
 			flash("guest", "Please log in to buy stuff!");
 			return redirect("/login");
 		}
-		int userid = User.findUser.where().eq("email", session().get("email"))
+		int userid = User.find.where().eq("email", session().get("email"))
 				.findUnique().id;
 		int totalOrderedQty=p.getOrderedQuantity()+1;
 		p.setOrderedQuantity(totalOrderedQty);
 		return redirect("/cartpage/" + userid);
 	}
 	
+	/**
+	 * Change shipping address.
+	 *
+	 * @param id int the id of the cart
+	 * @return the result
+	 */
 	public static Result changeShippingAddress (int id){
 		DynamicForm form= Form.form().bindFromRequest();
 		String shipA=form.get("shippingAddress");
 		Cart c=Cart.find(id);
 		c.shippingAddress=shipA;
 		c.update();
+		Logger.info("User " + session().get("email") + " has changed his shipping address to " + shipA); 
 		flash("shipSuccess", "Shipping address successfully changed!");
 		return ok(cartpage.render(session().get("email"),Cart.find(id),FAQ.all()));
 	}
 
 	/**
-	 * deletes a product from the cart
+	 * Deletes a product from the cart.
+	 *
 	 * @param id int id of the product
 	 * @return result
 	 */
@@ -663,15 +645,10 @@ public class ProductApplication extends Controller {
 	}
 	
 	
-	
-	/***************************************************************/
-	/***************************************************************/
-	/***************************************************************/
-	
 	/**
-	 * gets info from page where user adds his comment to product
+	 * Gets info from page where user adds his comment to product
 	 * @param id int id of the product
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result addNewComment(int id) {
@@ -679,21 +656,22 @@ public class ProductApplication extends Controller {
 		Product p = Product.find(id);
 		String comment = form.get("comment");
 		Comment.createComment(comment, User.find(session().get("email")), p);
-		Logger.info("New comment added: " + comment);
+		Logger.info("New comment has been added: " + comment);
 
 		List<Comment> list2 = Comment.all();
 
-		flash("success", "New comment added");
+		flash("success", "New comment added!");
 		return ok(itempage.render(session("email"), Product.find(id),
 				FAQ.all(), models.Image.photosByProduct(p), list2, Category.list()));
 
 	}
 	
 	/**
-	 * deletes comment from the product
+	 * Deletes comment from the product.
+	 *
 	 * @param id int id of the comment
 	 * @param p_id int id of the product
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteComment(int id, int p_id) {
@@ -705,9 +683,10 @@ public class ProductApplication extends Controller {
 	}
 	
 	/**
-	 * deletes message from his mail
+	 * Deletes message from his mail.
+	 *
 	 * @param id int id of the message
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result deleteMessage(int id) {
@@ -720,9 +699,10 @@ public class ProductApplication extends Controller {
 	
 	
 	/**
-	 * opens page where user replies to another user
+	 * Opens page where user replies to another user.
+	 *
 	 * @param id int id of the sender
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result replyToMessagePage(int id) {
@@ -734,9 +714,10 @@ public class ProductApplication extends Controller {
 	}
 	
 	/**
-	 * opens message from another user
+	 * Opens message from another user.
+	 *
 	 * @param id int id of the message
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result openMessage(int id) {
@@ -747,9 +728,10 @@ public class ProductApplication extends Controller {
 	}
 	
 	/**
-	 * gets the data from the reply page
+	 * Gets the data from the reply page.
+	 *
 	 * @param id int id of the sender
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Promise<Result> reply(final int id) {
@@ -816,26 +798,27 @@ public class ProductApplication extends Controller {
 
 	
 	/**
-	 * User can contact seller
-	 * He sends mail to his account and to his mail on the page
+	 * User can contact seller.
+	 * He sends mail to sellers account and to sellers mail on the page.
+	 *
 	 * @param id int id of the product
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result contactSellerPage(int id) {
 		String email = session().get("email");
 		Logger.info("User with email: " + session().get("email")
 				+ " has opened contact us page");
-		
 
 		return ok(contactseller.render(email, FAQ.all(), Product.find(id), ""));
 
 	}
 	
 	/**
-	 * gets the data from the contact seller page
+	 * Gets the data from the contact seller page.
+	 *
 	 * @param id int id of the product
-	 * @return result
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Promise<Result> contactSeller(final int id) {
@@ -877,7 +860,8 @@ public class ProductApplication extends Controller {
 							ContactHelper.send(email,
 									Product.find(id).owner.email, message);
 							ContactHelper.sendToPage(email,
-									Product.find(id).owner.email, message, "Message from buyer");
+									Product.find(id).owner.email, message,
+									"Message from buyer");
 
 							flash("success", "Message sent!");
 
@@ -903,25 +887,44 @@ public class ProductApplication extends Controller {
 		return holder;
 	}
 	
+	/**
+	 * Renewing product.
+	 *
+	 * @param id int the id of the product
+	 * @return the result
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result renew(int id) {
 		Product temp = find.byId(id);
 		temp.sold = false;
 		temp.order = null;
-		temp.quantity=1;
+		temp.quantity = 1;
 		temp.update();
 		flash("renew", "Product " + temp.name
 				+ " has been successfully renewed!");
 		return redirect("/myproducts/" + User.find(session().get("email")).id);
 	}
 	
+	/**
+	 * Opened page for reporting product.
+	 *
+	 * @param id int the id of the product
+	 * @return the result
+	 */
 	@Security.Authenticated(UserFilter.class)
-	public static Result reportProductPage(int id){
-		Logger.info("User " + session().get("email") + " has open reporting product page");
+	public static Result reportProductPage(int id) {
+		Logger.info("User " + session().get("email")
+				+ " has open reporting product page");
 		String message = "";
-	return ok(reportpage.render(session().get("email"), id, message));
+		return ok(reportpage.render(session().get("email"), id, message));
 	}
-	
+
+	/**
+	 * Reports a product.
+	 *
+	 * @param id int the id of the product
+	 * @return the promise
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Promise<Result> reportProduct(final int id) {
 		final DynamicForm temp = DynamicForm.form().bindFromRequest();
@@ -954,16 +957,19 @@ public class ProductApplication extends Controller {
 						if (json.findValue("success").asBoolean() == true
 								&& !submit.hasGlobalErrors()) {
 
-							
-							Report newReport = Report.report(Product.find(id), User.find(session().get("email")), report);
-							for(User u : User.admins()){
-							ContactHelper.send(session().get("email"),
-									u.email, report, Product.find(id));
-							ContactHelper.sendToPage(session().get("email"),
-									u.email, report, Product.find(id), "Report product id: " + id);
+							Report newReport = Report.report(Product.find(id),
+									User.find(session().get("email")), report);
+							for (User u : User.admins()) {
+								ContactHelper.send(session().get("email"),
+										u.email, report, Product.find(id));
+								ContactHelper.sendToPage(
+										session().get("email"), u.email,
+										report, Product.find(id),
+										"Report product id: " + id);
 							}
-							
-							flash("success", "You have successfuly reported product!");
+
+							flash("success",
+									"You have successfuly reported product!");
 
 							Logger.info("User with email: "
 									+ session().get("email")
@@ -977,7 +983,8 @@ public class ProductApplication extends Controller {
 									+ " did not confirm its humanity");
 							flash("error",
 									"You have to confirm that you are not a robot!");
-							return ok(reportpage.render(session().get("email"), id, report));
+							return ok(reportpage.render(session().get("email"),
+									id, report));
 
 						}
 					}
@@ -986,22 +993,17 @@ public class ProductApplication extends Controller {
 		return holder;
 	}
 	
+	/**
+	 * Opens report.
+	 *
+	 * @param id the id
+	 * @return the result
+	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result openReport(int id) {
-		Logger.info("User " + session().get("email") + " has opened report page");
+		Logger.info("User " + session().get("email") + " has opened report");
 		List<Report> all = Report.findByProduct(Product.find(id));
 		return ok(report.render(session("email"), all));
-	}
-	
-	public static Result productList(){
-		
-		
-		List<Product> all = Product.findAll();
-		
-		JsonNode jsonNode = Json.toJson(all);
-		
-		return ok(jsonNode);
-		
 	}
 
 	

@@ -1,22 +1,81 @@
 @(email: String, faqs: List[FAQ])
 @main("FAQs") {
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-   <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header" style="margin: 0px 20px" >
-         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-         <span class="sr-only">Toggle navigation</span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-         </button>
-         <a href="/homepage" ><img src="@routes.Assets.at("images/Logo.png")" style="height:50 px; width: 130px"/></a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-         @if(email == null) {
-         <ul class="nav navbar-nav">
-            <li  style="margin: 0px 155px">
+<head>
+   <link rel="stylesheet" id="font-awesome-css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" media="screen">
+   <style>
+      .back-to-top {
+      background: none;
+      margin: 0;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 70px;
+      z-index: 100;
+      display: none;
+      text-decoration: none;
+      color: #ffffff;
+      background-color: #328C14;
+      }
+      .back-to-top i {
+      font-size: 65px;
+      margin: 5px 3px;
+      }
+   </style>
+</head>
+<body>
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header" style="margin: 0px 20px" >
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a href="/homepage" ><img src="@routes.Assets.at("images/Logo.png")" style="height:50 px; width: 130px"/></a>
+         </div>
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            @if(email == null) {
+            <ul class="nav navbar-nav">
+               <li  style="margin: 0px 35px">
+                  <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                     <div class="form-group">
+                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                     </div>
+                     <div class="btn-group">
+                        <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                           <li>
+                              <a href="/advancedsearch">Advanced Search</a>
+                           </li>
+                        </ul>
+                     </div>
+                  </form>
+               </li>
+               <li>
+                  <h4>
+                     <p style="color: #000">Hello   
+                        <a href="/login">
+                        <button class="btn btn-success btn-login"> Log in</button> 
+                        </a>
+                        or 
+                        <a href="/toregister">
+                        <button class="btn btn-success btn-register" >Register</button>
+                        </a>
+                     </p>
+                  </h4>
+               </li>
+            </ul>
+            } else {
+            <ul class="nav navbar-nav">
+            <li  style="margin: 0px 180px">
                <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                   <div class="form-group">
                      <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
@@ -35,220 +94,184 @@
                   </div>
                </form>
             </li>
-            <li>
-               <h4>
-                  <p style="color: #000">Hello   
-                     <a href="/login">
-                     <button class="btn btn-success btn-login"> Log in</button> 
-                     </a>
-                     or 
-                     <a href="/toregister">
-                     <button class="btn btn-success btn-register" >Register</button>
-                     </a>
-                  </p>
-               </h4>
-            </li>
-         </ul>
-         } else {
-         <ul class="nav navbar-nav">
-         <li  style="margin: 0px 180px">
-            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-               <div class="form-group">
-                  <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
-               </div>
-               <div class="btn-group">
-                  <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
-                  <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <span class="caret"></span>
-                  <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
-                     <li>
-                        <a href="/advancedsearch">Advanced Search</a>
-                     </li>
-                  </ul>
-               </div>
-            </form>
-         </li>
-         <ul class='nav navbar-nav pull-right'>
-            <li>
-               }
-            </li>
-            @if(email != null) {
-            <li class='dropdown'>
-               <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-               @if( User.getUncheckedNotifications(User.find(email).id).size()>0){
-               <button class="btn btn-success "><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;">  </i>  @User.find(email).username   <span class="caret"></span> </button></a>
-               }else{<button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
-               }
-               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-                  @if(User.find(email).admin == true || User.find(email).blogger) {
-                  	@if(!User.find(email).blogger) {
-                  		<li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  	}
-                  	@if(User.find(email).blogger) {
-                  		<li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >Blog</a></li>
-                  	}
-                 <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
-                  } else {
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
-                  @if(email != null && User.getUncheckedNotifications(User.find(email).id).size()>0){
-                  <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> Notifications </a>
-                  </li>
+            <ul class='nav navbar-nav pull-right'>
+               <li>
                   }
-                  <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
-               </ul>
-            </li>
-         </ul>
-         }
-         }
+               </li>
+               @if(email != null) {
+               <li class='dropdown'>
+                  <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  @if( User.getUncheckedNotifications(User.find(email).id).size()>0){
+                  <button class="btn btn-success "><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;">  </i>  @User.find(email).username   <span class="caret"></span> </button></a>
+                  }else{<button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
+                  }
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                     @if(User.find(email).admin == true || User.find(email).blogger) {
+                     @if(!User.find(email).blogger) {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                     }
+                     @if(User.find(email).blogger) {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >Blog</a></li>
+                     }
+                     <li class="divider"></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+                     } else {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                     @if(email != null && User.getUncheckedNotifications(User.find(email).id).size()>0){
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> Notifications </a>
+                     </li>
+                     }
+                     <li class="divider"></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+                  </ul>
+               </li>
+            </ul>
+            }
+            }
+         </div>
+         <!-- /.navbar-collapse -->
       </div>
-      <!-- /.navbar-collapse -->
-   </div>
-   <!-- /.container -->
-</nav>
-     <div class="container">
-     <div style="margin: 80.5px -15px"class="row">
-      @if(flash.get("error")){
-        <div class="alert alert-danger" role="alert">
-                     <div class="container">
-                        @flash.get("error")
-                     </div>
-                  </div>
+      <!-- /.container -->
+   </nav>
+    <!-- /.PAge Content -->
+   <div class="container">
+      <div style="margin: 80.5px -15px"class="row">
+         @if(flash.get("error")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("error")
+            </div>
+         </div>
          }
          @if(flash.get("warning")){
-       <div class="alert alert-warning" role="alert">
-                     <div class="container">
-                        @flash.get("warning")
-                     </div>
-                  </div>
-         }
-          @if(flash.get("success")) {
-         	<div class="alert alert-success" role="alert">
-                     <div class="container">
-                        @flash.get("success")
-                     </div>
-                  </div>
-         	}
-       
-
-     @if(session().get("email") != null) {
-
-		@if(User.find(session().get("email")).admin) { 
-
-      <div class="form-group text-center">
-              <a class="btn btn-success" href="/addfaq" role="button">Add new FAQ</a>
-               </div>
-               }
-               }
-            
-	<table class='table'>
-		<thead> <h2 style=" color: #4AB55A;"">FAQ:</h2></thead>
-		<tbody>
-
-				@for(currentFAQ <- faqs){
-							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin: 30px -10px;">
-  			<div class="panel panel-default">
-    			<div class="panel-heading" role="tab" id="headingOne"   style="background-color: #4AB55A;">
-      			<h4 class="panel-title">
-        			<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-       
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body" style="background-color: #f5f5f5;">
-       <h4> <strong>Question:</strong> @currentFAQ.question </h4>
-		<p> <strong>Answer:</strong> @currentFAQ.answer </p>
-		
-										@if(session().get("email") != null) {
-										@if(User.find(session().get("email")).admin) { 
-										<a href="@routes.FAQController.toUpdateFAQ(currentFAQ.id)" class="btn btn-default">Edit</a>
-										
-										<a href="@routes.FAQController.deleteFAQ(currentFAQ.id)" onclick="return confirm('Are you sure you want to delete this question?');"class="btn btn-danger">Delete</a>
-								
-										
-										
-										}  
-										}
-        </div>
-    </div>
-  </div>
-         
-          
-         </div>					
-						
-										
-										
-										
-									</div>					
-								</div>
-							</div>
-							}
-		</tbody>
-		</div>
-	</table>
-	
-	</div>
-	</div>
-	<div id="footer1" >
-  <div class="container">
-
-   
-  	<div class="col-md-4">
-   <a href="/contactpage">
-      <h3><i class="glyphicon glyphicon-envelope"></i> Contact Us</h3>
-   </a>
-   <a href="/faq">
-      <h3><i class="glyphicon glyphicon-cog"></i> FAQs</h3>
-   </a>
-   <a href="/blog">
-      <h3><i class="glyphicon glyphicon-stats"></i> Blog </h3>
-   </a>
-   </div>
-   
-  	<div class="col-md-4">
-             
-                  <h2 style="color: #4AB55A">About bitBay:</h2>
-                  <address style="color: #4AB55A">
-                     <p>Project bitBay mirror site of eBay</p>  
-                     <p>Sarajevo</p>
-                     <p>Bosnia and Herzegovina</p>
-                      <p>Contact: (061) 100-100</p>  
-                  </address>
-            
+         <div class="alert alert-warning" role="alert">
+            <div class="container">
+               @flash.get("warning")
             </div>
- 	<div class="col-md-4">
-  	<style>.xg_module_body img {margin:0!important;}</style>
-<div align="center" style="margin:20px 0px">
-<table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
-	<tr>
-		  <h3 style="color: #4AB55A">Follow us on:</h3>
-	<td>
-		<a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
-			<img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
-		</a>
-	</td>
-
-
-
-	<td>
-		<a href="http://twitter.com/yourtwitter" target="_blank">
-			<img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
-		</a>
-	</td>
-</tr>
-</table></div>
-</div>
-  
- 
-
-</div>
-</div>
-<!-- /.container -->
+         </div>
+         }
+         @if(flash.get("success")) {
+         <div class="alert alert-success" role="alert">
+            <div class="container">
+               @flash.get("success")
+            </div>
+         </div>
+         }
+         @if(session().get("email") != null) {
+         @if(User.find(session().get("email")).admin) { 
+         <div class="form-group text-center">
+            <a class="btn btn-success" href="/addfaq" role="button">Add new FAQ</a>
+         </div>
+         }
+         }
+         <table class='table'>
+            <thead>
+               <h2 style=" color: #4AB55A;"">FAQ:</h2>
+            </thead>
+            <tbody>
+               @for(currentFAQ <- faqs){
+               <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin: 30px -10px;">
+                  <div class="panel panel-default">
+                     <div class="panel-heading" role="tab" id="headingOne"   style="background-color: #4AB55A;">
+                        <h4 class="panel-title">
+                           <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                           </a>
+                        </h4>
+                     </div>
+                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body" style="background-color: #f5f5f5;">
+                           <h4> <strong>Question:</strong> @currentFAQ.question </h4>
+                           <p> <strong>Answer:</strong> @currentFAQ.answer </p>
+                           @if(session().get("email") != null) {
+                           @if(User.find(session().get("email")).admin) { 
+                           <a href="@routes.FAQController.toUpdateFAQ(currentFAQ.id)" class="btn btn-default">Edit</a>
+                           <a href="@routes.FAQController.deleteFAQ(currentFAQ.id)" onclick="return confirm('Are you sure you want to delete this question?');"class="btn btn-danger">Delete</a>
+                           }  
+                           }
+                        </div>
+                     </div>
+                  </div>
+               </div>
+      </div>
+   </div>
+   </div>
+   }
+   </tbody>
+   </div>
+   </table>
+   </div>
+   </div>
+    <!-- /.footer -->
+   <div id="footer1" >
+      <div class="container">
+         <div class="col-md-4">
+            <a href="/contactpage">
+               <h4><i class="glyphicon glyphicon-envelope"></i> Contact Us</h4>
+            </a>
+            <a href="/faq">
+               <h4><i class="glyphicon glyphicon-cog"></i> FAQs</h4>
+            </a>
+            <a href="/blog">
+               <h4><i class="glyphicon glyphicon-stats"></i> Blog </h4>
+            </a>
+         </div>
+         <div class="col-md-4">
+            <h4 style="color: #4AB55A;">About bitBay:</h4>
+            <address style="color: #4AB55A">
+               <p>Project bitBay mirror site of eBay</p>
+               <p>Sarajevo</p>
+               <p>Bosnia and Herzegovina</p>
+               <p>Contact: (061) 100-100</p>
+            </address>
+         </div>
+         <div class="col-md-4">
+            <style>.xg_module_body img {margin:0!important;}</style>
+            <div align="center" style="margin:20px 0px">
+               <table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
+                  <tr>
+                     <h4 style="color: #4AB55A">Follow us on:</h4>
+                     <td>
+                        <a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
+                        <img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
+                        </a>
+                     </td>
+                     <td>
+                        <a href="http://twitter.com/yourtwitter" target="_blank">
+                        <img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
+                        </a>
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- /.End of footer -->
+   <a href="#" class="back-to-top" style="display: inline;">
+   <i class="fa fa-arrow-circle-up"></i>
+   </a>
+    <!-- /.Script for back to top button -->
+   <script>
+      jQuery(document).ready(function() {
+          var offset = 250;
+          var duration = 300;
+          jQuery(window).scroll(function() {
+              if (jQuery(this).scrollTop() > offset) {
+                  jQuery('.back-to-top').fadeIn(duration);
+              } else {
+                  jQuery('.back-to-top').fadeOut(duration);
+              }
+          });
+      
+          jQuery('.back-to-top').click(function(event) {
+              event.preventDefault();
+              jQuery('html, body').animate({scrollTop: 0}, duration);
+              return false;
+          })
+      });
+   </script>
+</body>
 }
