@@ -30,10 +30,13 @@ public class BlogController extends Controller {
 	 * @return the result
 	 */
 	public static Result blogsPage() {
-		Logger.info(Play.application().configuration()
-				.getString("blogControllerLogger1"));
+		
 		String email = session().get("email");
 		List<Blog> blogs = Blog.allBlogs();
+		if(session().get("email") == null)
+			Logger.info("Guest has opened blog page");
+		else
+			Logger.info("User " + session().get("email") + " has opened blog page");
 		return ok(blog.render(email, blogs));
 	}
 
@@ -51,16 +54,13 @@ public class BlogController extends Controller {
 			String imgPath = savePicture();
 			User user = Session.getCurrentUser(ctx());
 			Blog.createBlog(title, content, imgPath, user.id, user.username);
-			Logger.info(Play.application().configuration()
-					.getString("blogControllerLogger2")
-					+ title);
+			Logger.info("New Blog added with title: " + title);
 			flash("success",
 					Play.application().configuration()
 							.getString("blogControllerFlash1"));
 			return redirect("/blog");
 		} catch (Exception e) {
-			Logger.error(Play.application().configuration()
-					.getString("blogControllerLogger3"));
+			Logger.error("Error in adding new blog: " + e.getMessage());
 			flash("error",
 					Play.application().configuration()
 							.getString("blogControllerFlash2"));
@@ -76,8 +76,7 @@ public class BlogController extends Controller {
 	 */
 	@Security.Authenticated(AdminAndBloggerFilter.class)
 	public static Result toAddNewBlog() {
-		Logger.info(Play.application().configuration()
-				.getString("blogControllerLogger4"));
+		Logger.info("Opened page for adding new Blog");
 		String email = session().get("email");
 		return ok(newblog.render(email));
 	}
@@ -105,8 +104,7 @@ public class BlogController extends Controller {
 
 			return redirect("/blog");
 		} catch (Exception e) {
-			Logger.error(Play.application().configuration()
-					.getString("blogControllerLogger5"));
+			Logger.error("Error in updating Blog" + e.getMessage());
 			flash("error",
 					Play.application().configuration()
 							.getString("blogControllerFlash4"));
@@ -126,8 +124,7 @@ public class BlogController extends Controller {
 	public static Result toUpdateBlog(int id) {
 		String email = session().get("email");
 		Blog currentBlog = Blog.findBlogById(id);
-		Logger.error(Play.application().configuration()
-				.getString("blogControllerLogger6")
+		Logger.error("Updated blog has been shown with id: "
 				+ id);
 		return ok(updateblog.render(email, currentBlog));
 	}
@@ -143,8 +140,7 @@ public class BlogController extends Controller {
 	public static Result deleteBlog(int id) {
 		String email = session().get("email");
 		Blog.deleteBlog(id);
-		Logger.warn(Play.application().configuration()
-				.getString("blogControllerLogger7")
+		Logger.warn("Blog has been deleted with id: "
 				+ id);
 		flash("success",
 				Play.application().configuration()
@@ -170,13 +166,11 @@ public class BlogController extends Controller {
 			flash("error",
 					Play.application().configuration()
 							.getString("blogControllerFlash6"));
-			Logger.debug(Play.application().configuration()
-					.getString("blogControllerLogger8"));
+			Logger.debug("File part is null");
 			return null;
 		}
 
-		Logger.debug(Play.application().configuration()
-				.getString("blogController9")
+		Logger.debug("Filepart, content type and key: \n"
 				+ filePart.toString()
 				+ "\n"
 				+ filePart.getContentType()
@@ -191,8 +185,7 @@ public class BlogController extends Controller {
 		if (!extension.equalsIgnoreCase(".jpeg")
 				&& !extension.equalsIgnoreCase(".jpg")
 				&& !extension.equalsIgnoreCase(".png")) {
-			Logger.error(Play.application().configuration()
-					.getString("blogControllerLogger10"));
+			Logger.error("Image type not valid");
 			flash("error",
 					Play.application().configuration()
 							.getString("blogControllerFlash7"));
@@ -201,8 +194,7 @@ public class BlogController extends Controller {
 		double megabiteSyze = (double) ((image.length() / 1024) / 1024);
 
 		if (megabiteSyze > 2) {
-			Logger.debug(Play.application().configuration()
-					.getString("blogControllerLogger11"));
+			Logger.debug("Image size not valid");
 			flash("error",
 					Play.application().configuration()
 							.getString("blogControllerFlash8"));
@@ -220,8 +212,7 @@ public class BlogController extends Controller {
 			Files.move(image, profile);
 
 		} catch (IOException e) {
-			Logger.error(Play.application().configuration()
-					.getString("blogControllerLogger12"));
+			Logger.error("Failed to move file");
 			Logger.debug(e.getMessage());
 			return null;
 		}

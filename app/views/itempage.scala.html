@@ -249,7 +249,7 @@
       @if((product.sold==false)&&(session().get("email")!=product.owner.email)){
       @if(email!=null){
       @if(!User.find(email).blogger){
-      <form action="@routes.ProductApplication.productToCart(product.id)"  method="POST" enctype="multipart/form-data">
+      <form action="@routes.CartController.productToCart(product.id)"  method="POST" enctype="multipart/form-data">
       <div>
       <dl class=" " id="orderedQuantity_field">
       <dt><label for="orderedQuantity">Quantity:</label> </dt>
@@ -363,7 +363,7 @@
                                  <p> <strong>@comment.owner.email: </strong> @comment.comment </p>
                                  @if(session().get("email") != null) {
                                  @if(User.find(session().get("email")).admin) { 
-                                 <a href="@routes.ProductApplication.deleteComment(comment.id, product.id)" onclick="return confirm('Are you sure you want to delete this comment?');"class="btn btn-danger">Delete</a>
+                                 <a href="@routes.CommentController.deleteComment(comment.id, product.id)" onclick="return confirm('Are you sure you want to delete this comment?');"class="btn btn-danger">Delete</a>
                                  }  
                                  }
                               </li>

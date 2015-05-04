@@ -125,5 +125,17 @@ public class CategoryApplication extends Controller {
 		String email = session().get("email");
 		return ok(updatecategory.render(email, Category.find(id), FAQ.all()));
 	}
+	
+	/**
+	 * Opens a page with all of the products from one category.
+	 * @param name String name of the category
+	 * @return result
+	 */
+	public static Result category(String name) {
+		String email = session().get("email");
+		Logger.info("Category page list opened");
+		return ok(category.render(email, name, Product.listByCategory(name),
+				FAQ.all(), Category.list()));
+	}
 
 }

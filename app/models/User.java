@@ -11,6 +11,7 @@ import play.data.*;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
 
 import com.fasterxml.jackson.annotation.*;
 
