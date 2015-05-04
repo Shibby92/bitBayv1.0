@@ -1,8 +1,6 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import play.db.ebean.Model;
 
@@ -53,6 +51,18 @@ public class ProductQuantity extends Model {
 		this.productId = productId;
 		this.quantity = quantity;
 		this.order = order;
+	}
+	
+	/**
+	 * Gets the product quantity.
+	 *
+	 * @param productId int the product id
+	 * @param orderId int the order id
+	 * @return the product quantity
+	 */
+	public static int getProductQuantity(int productId,int orderId){
+		ProductQuantity temp= find.where().eq("productId", productId).eq("ORDER_ID",orderId).findUnique();
+		return temp.quantity;
 	}
 
 }

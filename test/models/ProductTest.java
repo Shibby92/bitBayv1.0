@@ -1,14 +1,5 @@
 package models;
 
-import static org.junit.Assert.*;
-import static play.test.Helpers.*;
-import static org.fest.assertions.Assertions.*;
-
-import java.util.Date;
-
-
-import org.junit.*;
-
 import play.test.WithApplication;
 
 public class ProductTest extends WithApplication {

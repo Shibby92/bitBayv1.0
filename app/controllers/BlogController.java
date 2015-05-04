@@ -1,51 +1,50 @@
 package controllers;
 
-import helpers.AdminAndBloggerFilter;
+import helpers.*;
 import helpers.Session;
-import helpers.UserFilter;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
+
+import models.*;
+import play.*;
+import play.data.*;
+import play.mvc.Http.*;
+import play.mvc.*;
+import views.html.*;
+import play.mvc.Http.MultipartFormData.*;
 
 import com.google.common.io.Files;
 
-import models.Blog;
-import models.User;
-import play.Logger;
-import play.Play;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
-import play.mvc.Http.MultipartFormData;
-import play.mvc.Http.MultipartFormData.FilePart;
-import views.html.*;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class BlogController
- * @author nermingraca
- *
+ * The Class BlogController.
  */
 public class BlogController extends Controller {
 
+	
 	/**
-	 * Method renders page which shows already published blogs
-	 * @return result
+	 * Blogs page.
+	 *
+	 * @return the result
 	 */
 	public static Result blogsPage() {
-		Logger.info(Play.application().configuration()
-				.getString("blogControllerLogger1"));
+		
 		String email = session().get("email");
 		List<Blog> blogs = Blog.allBlogs();
+		if(session().get("email") == null)
+			Logger.info("Guest has opened blog page");
+		else
+			Logger.info("User " + session().get("email") + " has opened blog page");
 		return ok(blog.render(email, blogs));
 	}
 
+
 	/**
-	 * Adds a new blog
-	 * @return reloaded page with a flash whether it has successfully added a new blog or not
+	 * Adds the new blog.
+	 *
+	 * @return the result
 	 */
 	public static Result addNewBlog() {
 		DynamicForm form = Form.form().bindFromRequest();
@@ -55,16 +54,13 @@ public class BlogController extends Controller {
 			String imgPath = savePicture();
 			User user = Session.getCurrentUser(ctx());
 			Blog.createBlog(title, content, imgPath, user.id, user.username);
-			Logger.info(Play.application().configuration()
-					.getString("blogControllerLogger2")
-					+ title);
+			Logger.info("New Blog added with title: " + title);
 			flash("success",
 					Play.application().configuration()
 							.getString("blogControllerFlash1"));
 			return redirect("/blog");
 		} catch (Exception e) {
-			Logger.error(Play.application().configuration()
-					.getString("blogControllerLogger3"));
+			Logger.error("Error in adding new blog: " + e.getMessage());
 			flash("error",
 					Play.application().configuration()
 							.getString("blogControllerFlash2"));
@@ -72,22 +68,25 @@ public class BlogController extends Controller {
 		}
 	}
 
+	
 	/**
-	 * Method renders the page in which new blog is created
-	 * @return
+	 * To add new blog.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminAndBloggerFilter.class)
 	public static Result toAddNewBlog() {
-		Logger.info(Play.application().configuration()
-				.getString("blogControllerLogger4"));
+		Logger.info("Opened page for adding new Blog");
 		String email = session().get("email");
 		return ok(newblog.render(email));
 	}
 
+	
 	/**
-	 * Updating a blog
-	 * @param id int Id of the blog
-	 * @return reloaded page with a flash whether it has successfully updated a blog or not
+	 * Update blog.
+	 *
+	 * @param id int the id
+	 * @return the result
 	 */
 	public static Result updateBlog(int id) {
 		DynamicForm form = Form.form().bindFromRequest();
@@ -105,8 +104,7 @@ public class BlogController extends Controller {
 
 			return redirect("/blog");
 		} catch (Exception e) {
-			Logger.error(Play.application().configuration()
-					.getString("blogControllerLogger5"));
+			Logger.error("Error in updating Blog" + e.getMessage());
 			flash("error",
 					Play.application().configuration()
 							.getString("blogControllerFlash4"));
@@ -115,32 +113,34 @@ public class BlogController extends Controller {
 
 	}
 
+	
 	/**
-	 * Goes to updated blog
-	 * @param id int ID of the blog
-	 * @return rendered page with updated blog
+	 * Updates blog.
+	 *
+	 * @param id int the id of the blog
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminAndBloggerFilter.class)
 	public static Result toUpdateBlog(int id) {
 		String email = session().get("email");
 		Blog currentBlog = Blog.findBlogById(id);
-		Logger.error(Play.application().configuration()
-				.getString("blogControllerLogger6")
+		Logger.error("Updated blog has been shown with id: "
 				+ id);
 		return ok(updateblog.render(email, currentBlog));
 	}
 
+
 	/**
-	 * Method deletes selected blog from the database
-	 * @param id int ID of the blog
-	 * @return result
+	 * Deletes blog.
+	 *
+	 * @param id int the id of the blog
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminAndBloggerFilter.class)
 	public static Result deleteBlog(int id) {
 		String email = session().get("email");
 		Blog.deleteBlog(id);
-		Logger.warn(Play.application().configuration()
-				.getString("blogControllerLogger7")
+		Logger.warn("Blog has been deleted with id: "
 				+ id);
 		flash("success",
 				Play.application().configuration()
@@ -149,9 +149,11 @@ public class BlogController extends Controller {
 		return ok(blog.render(email, blogs));
 	}
 
+
 	/**
-	 * saves picture
-	 * @return result
+	 * Saves picture.
+	 *
+	 * @return image url
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static String savePicture() {
@@ -164,13 +166,11 @@ public class BlogController extends Controller {
 			flash("error",
 					Play.application().configuration()
 							.getString("blogControllerFlash6"));
-			Logger.debug(Play.application().configuration()
-					.getString("blogControllerLogger8"));
+			Logger.debug("File part is null");
 			return null;
 		}
 
-		Logger.debug(Play.application().configuration()
-				.getString("blogController9")
+		Logger.debug("Filepart, content type and key: \n"
 				+ filePart.toString()
 				+ "\n"
 				+ filePart.getContentType()
@@ -185,8 +185,7 @@ public class BlogController extends Controller {
 		if (!extension.equalsIgnoreCase(".jpeg")
 				&& !extension.equalsIgnoreCase(".jpg")
 				&& !extension.equalsIgnoreCase(".png")) {
-			Logger.error(Play.application().configuration()
-					.getString("blogControllerLogger10"));
+			Logger.error("Image type not valid");
 			flash("error",
 					Play.application().configuration()
 							.getString("blogControllerFlash7"));
@@ -195,8 +194,7 @@ public class BlogController extends Controller {
 		double megabiteSyze = (double) ((image.length() / 1024) / 1024);
 
 		if (megabiteSyze > 2) {
-			Logger.debug(Play.application().configuration()
-					.getString("blogControllerLogger11"));
+			Logger.debug("Image size not valid");
 			flash("error",
 					Play.application().configuration()
 							.getString("blogControllerFlash8"));
@@ -214,8 +212,7 @@ public class BlogController extends Controller {
 			Files.move(image, profile);
 
 		} catch (IOException e) {
-			Logger.error(Play.application().configuration()
-					.getString("blogControllerLogger12"));
+			Logger.error("Failed to move file");
 			Logger.debug(e.getMessage());
 			return null;
 		}

@@ -113,5 +113,18 @@ public class Report extends Model {
 		for (Report report : all)
 			report.delete();
 	}
+	
+	/**
+	 * Size reports by product.
+	 *
+	 * @param product Product the product
+	 * @return the int
+	 */
+	public static int sizeReportsByProduct(Product product) {
+		List<Report> reportsByProduct = find.where().eq("reportedProduct",product).findList();
+		if(reportsByProduct == null)
+			reportsByProduct = new ArrayList<Report>();
+		return reportsByProduct.size();
+	}
 
 }

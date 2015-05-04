@@ -1,31 +1,25 @@
 package controllers;
 
-import helpers.AdminFilter;
-import models.Category;
-import models.FAQ;
-import play.Logger;
-import play.Play;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
+import helpers.*;
+import models.*;
+import play.*;
+import play.data.*;
+import play.mvc.*;
 import views.html.*;
 
+// TODO: Auto-generated Javadoc
 /**
- * Controller for categories
- * 
- * @author harisarifovic
- *
+ * The Class CategoryApplication.
  */
 public class CategoryApplication extends Controller {
 
+	/** The category form. */
 	static Form<Category> categoryForm = new Form<Category>(Category.class);
 
 	/**
-	 * Adding a new category in the database
-	 * 
-	 * @return result
+	 * Adds the category.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addCategory() {
@@ -38,10 +32,11 @@ public class CategoryApplication extends Controller {
 		return redirect("/");
 	}
 
+
 	/**
-	 * opens page for adding new category to database
-	 * 
-	 * @return
+	 * Opens page for adding new category.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewCategory() {
@@ -53,12 +48,10 @@ public class CategoryApplication extends Controller {
 	}
 
 	/**
-	 * method that should delete category and redirect to other products/uses
-	 * delete method from Category class
-	 * 
-	 * @param id
-	 *            id of the category
-	 * @return result
+	 * Deletes category.
+	 *
+	 * @param id int the id of the category
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteCategory(int id) {
@@ -74,9 +67,9 @@ public class CategoryApplication extends Controller {
 	}
 
 	/**
-	 * opens the page where categories are listed
-	 * 
-	 * @return result
+	 * Category page.
+	 *
+	 * @return the result
 	 */
 	public static Result categoryPage() {
 		Logger.info(Play.application().configuration()
@@ -85,12 +78,12 @@ public class CategoryApplication extends Controller {
 		return ok(categorypage.render(email, Category.list(), FAQ.all()));
 	}
 
+
 	/**
-	 * updates a category
-	 * 
-	 * @param id
-	 *            id of the category
-	 * @return result
+	 * Updates category.
+	 *
+	 * @param id int the id of the category
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result update(int id) {
@@ -120,11 +113,10 @@ public class CategoryApplication extends Controller {
 	}
 
 	/**
-	 * opens page where user can update a category
-	 * 
-	 * @param id
-	 *            id of the category
-	 * @return results
+	 * Opens page for updating category.
+	 *
+	 * @param id the id
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result updateCategory(int id) {
@@ -132,6 +124,18 @@ public class CategoryApplication extends Controller {
 				.getString("categoryApplicationLogger7"));
 		String email = session().get("email");
 		return ok(updatecategory.render(email, Category.find(id), FAQ.all()));
+	}
+	
+	/**
+	 * Opens a page with all of the products from one category.
+	 * @param name String name of the category
+	 * @return result
+	 */
+	public static Result category(String name) {
+		String email = session().get("email");
+		Logger.info("Category page list opened");
+		return ok(category.render(email, name, Product.listByCategory(name),
+				FAQ.all(), Category.list()));
 	}
 
 }

@@ -1,16 +1,9 @@
 package models;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.text.*;
+import java.util.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
+import javax.persistence.*;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 

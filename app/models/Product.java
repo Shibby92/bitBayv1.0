@@ -1,25 +1,20 @@
 package models;
 
 import java.io.File;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import play.Logger;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
+
 
 // TODO: Auto-generated Javadoc
 /**
  * Creates product.
- *
- * @author eminamuratovic
  */
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@productId")
@@ -140,6 +135,46 @@ public class Product extends Model {
 		this.amount = 0;
 		this.deleted = false;
 
+	}
+	
+	/**
+	 * Instantiates a new product. This is needed for JsonController.
+	 *
+	 * @param name String the name
+	 * @param price double the price
+	 * @param quantity int the quantity
+	 * @param description String the description
+	 * @param image String the image
+	 * @param owner User the owner
+	 */
+	public Product(String name, double price, int quantity, String description,
+			String image, User owner) {
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+		this.owner = owner;
+		this.description = description;
+		this.deleted = false;
+		this.orderedQuantity = 0;
+		this.amount = 0;
+	}
+	
+	/**
+	 * Creates the product. This is needed for JsonController.
+	 *
+	 * @param name String the name
+	 * @param price double the price
+	 * @param quantity int the quantity
+	 * @param description String the description
+	 * @param image String the image
+	 * @param owner User the owner
+	 * @return the product
+	 */
+	public static Product create(String name, double price, int quantity,
+			String description, String image, User owner) {
+		Product newProduct = new Product(name, price, quantity, description,
+				image, owner);
+		return newProduct;
 	}
 
 	/**

@@ -1,11 +1,25 @@
+import helpers.HashHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import helpers.HashHelper;
-import models.*;
+import models.Blog;
+import models.Cart;
+import models.Category;
+import models.Comment;
+import models.FAQ;
+import models.Image;
+import models.Message;
+import models.Orders;
+import models.Product;
+import models.ProductQuantity;
+import models.Report;
+import models.Tag;
+import models.User;
 import play.Application;
 import play.GlobalSettings;
 import play.Play;
+
 
 /**
  * Global class is used to create several data for the purpose of easier work
@@ -601,24 +615,15 @@ public class Global extends GlobalSettings {
 	/**
 	 * Shortening the code for creating a user on application start
 	 * 
-	 * @param email
-	 *            User's email
-	 * @param password
-	 *            User's password
-	 * @param isAdmin
-	 *            Is the user an admin user
-	 * @param isVerified
-	 *            Is the user verified
-	 * @param street
-	 *            User's street address
-	 * @param nickname
-	 *            User's nickname
-	 * @param addInfo
-	 *            Has the user filled additional info
-	 * @param rating
-	 *            User's rating
-	 * @param isBlogger
-	 *            Is the user a blogger
+	 * @param email String User's email
+	 * @param password String User's password
+	 * @param isAdmin boolean Is the user an admin user
+	 * @param isVerified boolean Is the user verified
+	 * @param street String User's street address
+	 * @param nickname String User's nickname
+	 * @param addInfo boolean Has the user filled additional info
+	 * @param rating double User's rating
+	 * @param isBlogger boolean Is the user a blogger
 	 */
 	private void makeUser(String email, String password, boolean isAdmin,
 			boolean isVerified, String street, String nickname,
@@ -636,18 +641,12 @@ public class Global extends GlobalSettings {
 	/**
 	 * Shortening the code for creating an order on application start
 	 * 
-	 * @param userId
-	 *            User's id for finding the cart
-	 * @param productId1
-	 *            Product's id to add to the order
-	 * @param productId2
-	 *            Product's id to add to the order
-	 * @param token
-	 *            Orders' token
-	 * @param price
-	 *            Orders' price
-	 * @param orderNumber
-	 *            Number that finds that specific order
+	 * @param userId int User's id for finding the cart
+	 * @param productId1 int Product's id to add to the order
+	 * @param productId2 int Product's id to add to the order
+	 * @param token String Orders' token
+	 * @param priceđ double Orders' price
+	 * @param orderNumber int Number that finds that specific order
 	 */
 	private void makeOrder(int userId, int productId1, int productId2,
 			String token, double price, int orderNumber) {
@@ -665,22 +664,14 @@ public class Global extends GlobalSettings {
 	/**
 	 * Method for shortening the creation of products with one picture
 	 * 
-	 * @param name
-	 *            Product's name
-	 * @param price
-	 *            Product's price
-	 * @param quantity
-	 *            Product's quantity
-	 * @param owner
-	 *            Product's owner
-	 * @param description
-	 *            Product's description
-	 * @param categoryId
-	 *            Product's category
-	 * @param imagePath
-	 *            Product's picture
-	 * @param tag
-	 *            Product's tag
+	 * @param name String Product's name
+	 * @param price double Product's price
+	 * @param quantity int Product's quantity
+	 * @param owner User Product's owner
+	 * @param description String Product's description
+	 * @param categoryId int Product's category
+	 * @param imagePath String Product's picture
+	 * @param tag String Product's tag
 	 */
 	private void makeProduct(String name, double price, int quantity,
 			User owner, String description, int categoryId, String imagePath,
@@ -690,7 +681,7 @@ public class Global extends GlobalSettings {
 		Image i = new Image();
 		i.image = imagePath;
 		i.product = p;
-		Tag.create(p, Category.find(p.category_id).name);
+		Tag.create(p, Category.find(p.categoryId).name);
 		Tag.create(p, p.name);
 		if (!tag.equals("")) {
 			Tag.create(p, tag);
@@ -705,26 +696,16 @@ public class Global extends GlobalSettings {
 	/**
 	 * Method for shortening the creation of products with three pictures
 	 * 
-	 * @param name
-	 *            Product's name
-	 * @param price
-	 *            Product's price
-	 * @param quantity
-	 *            Product's quantity
-	 * @param owner
-	 *            Product's owner
-	 * @param description
-	 *            Product's description
-	 * @param categoryId
-	 *            Product's category
-	 * @param imagePath1
-	 *            Product's picture 1
-	 * @param imagePath2
-	 *            Product's picture 2
-	 * @param imagePath3
-	 *            Product's picture 3
-	 * @param tag
-	 *            Product's tag
+	 * @param name String Product's name
+	 * @param price double Product's price
+	 * @param quantity int Product's quantity
+	 * @param owner User Product's owner
+	 * @param description String Product's description
+	 * @param categoryId int Product's category
+	 * @param imagePath1 String Product's picture 1
+	 * @param imagePath2 String Product's picture 2
+	 * @param imagePath3 String Product's picture 3
+	 * @param tag String Product's tag
 	 */
 	private void makeProduct(String name, double price, int quantity,
 			User owner, String description, int categoryId, String imagePath1,
@@ -740,7 +721,7 @@ public class Global extends GlobalSettings {
 		Image ic = new Image();
 		ic.image = imagePath3;
 		ic.product = p;
-		Tag.create(p, Category.find(p.category_id).name);
+		Tag.create(p, Category.find(p.categoryId).name);
 		Tag.create(p, p.name);
 		if (!tag.equals("")) {
 			Tag.create(p, tag);

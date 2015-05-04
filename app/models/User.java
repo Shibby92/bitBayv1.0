@@ -1,27 +1,19 @@
 package models;
 
-import helpers.HashHelper;
-import helpers.MailHelper;
+import helpers.*;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import play.db.ebean.Model.Finder;
+import java.net.*;
+import java.util.*;
 
 import javax.persistence.*;
 
-import play.data.DynamicForm;
-import play.data.Form;
+import play.data.*;
 import play.data.format.Formats.DateTime;
 import play.data.validation.Constraints.*;
-import play.db.ebean.*;
+import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
+
+import com.fasterxml.jackson.annotation.*;
 
 // TODO: Auto-generated Javadoc
 /**

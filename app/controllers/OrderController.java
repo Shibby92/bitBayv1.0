@@ -4,44 +4,37 @@ import helpers.UserFilter;
 import models.*;
 import play.Logger;
 import play.db.ebean.Model.Finder;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
+import play.mvc.*;
 import views.html.*;
 
+// TODO: Auto-generated Javadoc
 /**
- * Controller for order functionalities
- * 
- * @author harisarifovic
- *
+ * The Class OrderController.
  */
-
 public class OrderController extends Controller {
-
-	public static Finder<Integer, Notification> find = new Finder<Integer, Notification>(
-			Integer.class, Notification.class);
+	
+	/** The find. */
+	public static Finder <Integer,Notification> find=new Finder<Integer,Notification>(Integer.class,Notification.class);
 
 	/**
-	 * Opens the orderpage
-	 * 
-	 * @param id
-	 *            ID of the user
-	 * @return orderpage
+	 * Opens order page.
+	 *
+	 * @param id int the id of the user
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result orderPage(int id) {
 		String email = session().get("email");
 		Logger.info("User " + session().get("email") + " has opened order page");
-		return ok(orderpage.render(email, User.findUser.byId(id).orderList,
+		return ok(orderpage.render(email, User.find.byId(id).orderList,
 				FAQ.all()));
 	}
 
 	/**
-	 * Shows orders that has been sold
-	 * 
-	 * @param id
-	 *            ID of the user
-	 * @return soldorderpage
+	 * Opens sold order page.
+	 *
+	 * @param id int the id of the user 
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result soldOrderPage(int id) {
@@ -52,23 +45,21 @@ public class OrderController extends Controller {
 	}
 
 	/**
-	 * After the user checked the notification, it disappears in this method
-	 * 
-	 * @param id
-	 *            ID of the user
-	 * @return homepage but wuth no more notifiations
+	 * Sold order checked by user.
+	 *
+	 * @param id int the id of the order
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result soldOrderChecked(int id) {
-		Orders order = Orders.find.byId(id);
-		User seller = User.find(session().get("email"));
-		Notification notification = find.where().eq("order_id", order.id)
-				.eq("seller_id", seller.id).findUnique();
-		notification.isUnchecked = false;
+		Orders order = Orders.findOrder.byId(id);
+		User seller= User.find(session().get("email"));
+		Notification notification =find.where().eq("order_id", order.id).eq("seller_id", seller.id).findUnique();
+		notification.isUnchecked=false;
 		notification.update();
-		Logger.info("User" + session().get("email")
-				+ " has checked his notification");
+		Logger.info("User" + session().get("email") + " has checked his notification");
 		return redirect("/homepage");
 	}
-
+	
+	
 }

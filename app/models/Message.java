@@ -7,12 +7,13 @@ import javax.persistence.*;
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Message.
  */
 @Entity
-public class Message extends Model {
+public class Message extends Model{
 
 	/** The id. */
 	@Id
@@ -23,33 +24,33 @@ public class Message extends Model {
 	@MinLength(10)
 	@MaxLength(240)
 	public String content;
-
+	
 	/** The sender. */
 	@ManyToOne
 	public User sender;
-
+	
 	/** The receiver. */
 	@ManyToOne
 	public User receiver;
-
+	
 	/** The product. */
 	@ManyToOne
 	public Product product;
-
+	
 	/** The subject. */
 	public String subject;
-
+	
+	
 	/** The find. */
-	public static Finder<Integer, Message> find = new Finder<Integer, Message>(
-			Integer.class, Message.class);
-
+	public static Finder<Integer, Message> find = new Finder<Integer, Message>(Integer.class, Message.class);
+	
 	/**
 	 * Instantiates a new message.
 	 *
-	 * @param content String the content
-	 * @param sender User the sender
-	 * @param receiver User the receiver
-	 * @param subject String the subject
+	 * @param content the content
+	 * @param sender the sender
+	 * @param receiver the receiver
+	 * @param subject the subject
 	 */
 	public Message(String content, User sender, User receiver, String subject) {
 		this.content = content;
@@ -75,8 +76,19 @@ public class Message extends Model {
 		this.receiver = receiver;
 		this.product = product;
 		this.subject = subject;
-
+		
 	}
+	
+	/**
+	 * Instantiates a new message.
+	 */
+	public Message() {
+		this.content = "no content";
+		this.sender = null;
+		this.receiver = null;
+	}
+
+
 
 	/**
 	 * Creates the message.
@@ -131,6 +143,7 @@ public class Message extends Model {
 				.findList();
 		return msg;
 	}
+
 
 	/**
 	 * Finds a message by its id.
