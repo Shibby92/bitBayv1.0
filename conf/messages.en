@@ -161,4 +161,43 @@ categoryApplicationLogger7 = Update category page opened
 categoryApplicationFlash1 = "You have successfully deleted category!"
 categoryApplicationFlash2 = "You have successfully updated category!"
 categoryApplicationFlash3 = "There has been a mistake in updating category!"
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+#HTML
+
+#Buttons
+cancel = "Cancel"
+addCategory = "Add Category"
+
+
+#Header
+advancedSearch = "Advanced Search"
+hello = "Hello"
+login = "Log in"
+register = "register"
+placeholderSearch = "Search..."
+profile = "Profile"
+blog = "Blog"
+logout = "Logout"
+newProduct = "Add New Product"
+myCart = "My Cart"
+myOrders = "My Orders"
+notification = "Notification"
+
+#Footer
+contactUs = "Contact Us"
+faqs = "FAQs"
+aboutBitBay = "About bitBay"
+mirrorsite = "Project bitBay mirror site of eBay"
+sarajevo = "Sarajevo"
+bosna = "Bosnia and Herzegovina"
+phone = "Contact: (061) 100-100"
+followUs = "Follow us on"
+
+#AddCategoryPage
+addCategory = "Add Category"
+categoryPageName = "Name"
+placeholderCategoryPageName = "Name of your product"
+

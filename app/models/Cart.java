@@ -8,7 +8,6 @@ import javax.persistence.*;
 import play.Logger;
 import play.db.ebean.Model;
 import play.db.ebean.Model.*;
-import play.db.ebean.Model.Finder;
 
 
 // TODO: Auto-generated Javadoc
@@ -141,12 +140,12 @@ public class Cart extends Model {
 	/**
 	 * Gets the cart by user id.
 	 * 
-	 * @param user_id int the user_id
+	 * @param userId int the user id
 	 * @return the cart
 	 */
 	public static Cart getCartbyUserId(int userId) {
 		Logger.debug("User id u cartu "+userId);
-		return find.where().eq("userid", userId).findUnique();
+		return find.where().eq("user_id", userId).findUnique();
 	}
 
 	/**
