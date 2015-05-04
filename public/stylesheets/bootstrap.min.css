@@ -757,6 +757,12 @@ td, th {
 .glyphicon-gift:before {
 	content: "\e102"
 }
+.more-button {
+	
+	margin: 25px 20px;
+	color: rgb(74,181,90); 
+	opacity: 0.7
+}
 
 .glyphicon-leaf:before {
 	content: "\e103"

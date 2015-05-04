@@ -1,47 +1,51 @@
 package controllers;
 
-import helpers.AdminAndBloggerFilter;
-import helpers.AdminFilter;
+import helpers.*;
 import helpers.Session;
-import helpers.UserFilter;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
+
+import models.*;
+import play.*;
+import play.data.*;
+import play.mvc.Http.*;
+import play.mvc.*;
+import views.html.*;
+import play.mvc.Http.MultipartFormData.*;
 
 import com.google.common.io.Files;
 
-import models.Blog;
-import models.User;
-import play.Logger;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
-import play.mvc.Http.MultipartFormData;
-import play.mvc.Http.MultipartFormData.FilePart;
-import views.html.*;
 
+// TODO: Auto-generated Javadoc
 /**
- * Class BlogController
- * @author nermingraca
- *
+ * The Class BlogController.
  */
 public class BlogController extends Controller {
+
 	
 	/**
-	 * Method renders page which shows already published blogs
-	 * @return
+	 * Blogs page.
+	 *
+	 * @return the result
 	 */
 	public static Result blogsPage() {
-		Logger.info("Opened Blogs page");
+		
 		String email = session().get("email");
 		List<Blog> blogs = Blog.allBlogs();
+		if(session().get("email") == null)
+			Logger.info("Guest has opened blog page");
+		else
+			Logger.info("User " + session().get("email") + " has opened blog page");
 		return ok(blog.render(email, blogs));
 	}
-	
+
+
+	/**
+	 * Adds the new blog.
+	 *
+	 * @return the result
+	 */
 	public static Result addNewBlog() {
 		DynamicForm form = Form.form().bindFromRequest();
 		try {
@@ -51,18 +55,24 @@ public class BlogController extends Controller {
 			User user = Session.getCurrentUser(ctx());
 			Blog.createBlog(title, content, imgPath, user.id, user.username);
 			Logger.info("New Blog added with title: " + title);
-			flash("success", "New blog added!");
+			flash("success",
+					Play.application().configuration()
+							.getString("blogControllerFlash1"));
 			return redirect("/blog");
 		} catch (Exception e) {
-			Logger.error("Error in addNewBlog");
-			flash("error", "There has been an error in adding Blog!");
+			Logger.error("Error in adding new blog: " + e.getMessage());
+			flash("error",
+					Play.application().configuration()
+							.getString("blogControllerFlash2"));
 			return redirect("/blog");
 		}
 	}
+
 	
 	/**
-	 * Method renders the page in which new blog is created
-	 * @return
+	 * To add new blog.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminAndBloggerFilter.class)
 	public static Result toAddNewBlog() {
@@ -70,72 +80,103 @@ public class BlogController extends Controller {
 		String email = session().get("email");
 		return ok(newblog.render(email));
 	}
+
 	
+	/**
+	 * Update blog.
+	 *
+	 * @param id int the id
+	 * @return the result
+	 */
 	public static Result updateBlog(int id) {
 		DynamicForm form = Form.form().bindFromRequest();
 		Blog currentBlog = Blog.findBlogById(id);
-		
+
 		try {
 			currentBlog.title = form.get("title");
 			currentBlog.content = form.get("content");
 			String imgPath = savePicture();
 			currentBlog.blogImagePath = imgPath;
 			currentBlog.update();
-			flash("success", "Successful update!");
-			
+			flash("success",
+					Play.application().configuration()
+							.getString("blogControllerFlash3"));
+
 			return redirect("/blog");
 		} catch (Exception e) {
-			Logger.error("Error in updating Blog");
-			flash("error", "There has been an error in updating Blog!");
+			Logger.error("Error in updating Blog" + e.getMessage());
+			flash("error",
+					Play.application().configuration()
+							.getString("blogControllerFlash4"));
 			return redirect("/blog");
 		}
 
 	}
+
 	
+	/**
+	 * Updates blog.
+	 *
+	 * @param id int the id of the blog
+	 * @return the result
+	 */
 	@Security.Authenticated(AdminAndBloggerFilter.class)
 	public static Result toUpdateBlog(int id) {
 		String email = session().get("email");
 		Blog currentBlog = Blog.findBlogById(id);
+		Logger.error("Updated blog has been shown with id: "
+				+ id);
 		return ok(updateblog.render(email, currentBlog));
 	}
-	
+
+
 	/**
-	 * Method deletes selected blog from the database
-	 * @param id
-	 * @return
+	 * Deletes blog.
+	 *
+	 * @param id int the id of the blog
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminAndBloggerFilter.class)
 	public static Result deleteBlog(int id) {
 		String email = session().get("email");
 		Blog.deleteBlog(id);
-		Logger.warn("Blog with id: " + id + " has been deleted");
-		flash("success", "Blog deleted!");
+		Logger.warn("Blog has been deleted with id: "
+				+ id);
+		flash("success",
+				Play.application().configuration()
+						.getString("blogControllerFlash5"));
 		List<Blog> blogs = Blog.allBlogs();
 		return ok(blog.render(email, blogs));
 	}
-	
+
+
 	/**
-	 * saves picture on given product
-	 * @param id int id of the product
-	 * @return result 
+	 * Saves picture.
+	 *
+	 * @return image url
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static String savePicture() {
-		
+
 		String image_url;
-		
+
 		MultipartFormData body = request().body().asMultipartFormData();
 		FilePart filePart = body.getFile("image_url");
 		if (filePart == null) {
-			flash("error", "You need to upload image!");
+			flash("error",
+					Play.application().configuration()
+							.getString("blogControllerFlash6"));
 			Logger.debug("File part is null");
 			return null;
 		}
 
-		Logger.debug("Filepart: " + filePart.toString());
-		Logger.debug("Content type: " + filePart.getContentType());
-		Logger.debug("Key: " + filePart.getKey());
-		
+		Logger.debug("Filepart, content type and key: \n"
+				+ filePart.toString()
+				+ "\n"
+				+ filePart.getContentType()
+				+ "\n"
+				+ filePart.getKey());
+
 		File image = filePart.getFile();
 		String extension = filePart.getFilename().substring(
 				filePart.getFilename().lastIndexOf('.'));
@@ -144,33 +185,37 @@ public class BlogController extends Controller {
 		if (!extension.equalsIgnoreCase(".jpeg")
 				&& !extension.equalsIgnoreCase(".jpg")
 				&& !extension.equalsIgnoreCase(".png")) {
-					Logger.error("Image type not valid");
-					flash("error", "Image type not valid");
-					return null;
+			Logger.error("Image type not valid");
+			flash("error",
+					Play.application().configuration()
+							.getString("blogControllerFlash7"));
+			return null;
 		}
 		double megabiteSyze = (double) ((image.length() / 1024) / 1024);
-		
+
 		if (megabiteSyze > 2) {
-			Logger.debug("Image size not valid ");
-			flash("error", "Image size not valid");
+			Logger.debug("Image size not valid");
+			flash("error",
+					Play.application().configuration()
+							.getString("blogControllerFlash8"));
 			return null;
 		}
 
 		try {
-				File profile = new File("./public/images/Productimages/"
-						+ UUID.randomUUID().toString() + extension);
+			File profile = new File("./public/images/Productimages/"
+					+ UUID.randomUUID().toString() + extension);
 
-				Logger.debug(profile.getPath());
-				image_url = "images" + File.separator + "Productimages/"
-						+ profile.getName();
+			Logger.debug(profile.getPath());
+			image_url = "images" + File.separator + "Productimages/"
+					+ profile.getName();
 
-				Files.move(image, profile);
+			Files.move(image, profile);
 
-			} catch (IOException e) {
-				Logger.error("Failed to move file");
-				Logger.debug(e.getMessage());
-				return null;
-			}		
+		} catch (IOException e) {
+			Logger.error("Failed to move file");
+			Logger.debug(e.getMessage());
+			return null;
+		}
 		return image_url;
 
 	}
