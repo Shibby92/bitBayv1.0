@@ -7,14 +7,21 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.*;
 import views.html.*;
 import play.Logger;
+import play.Play;
 
+/**
+ * FAQController for different FAQ's functionalities
+ * 
+ * @author harisarifovic
+ *
+ */
 public class FAQController extends Controller {
-	
+
 	/**
 	 * makes a page with listed FAQs
+	 * 
 	 * @return result
 	 */
 	public static Result allFAQs() {
@@ -23,9 +30,10 @@ public class FAQController extends Controller {
 		return ok(faq.render(email, FAQ.all()));
 
 	}
-	
+
 	/**
 	 * makes a page add new FAQ
+	 * 
 	 * @return result
 	 */
 	@Security.Authenticated(AdminFilter.class)
@@ -35,9 +43,10 @@ public class FAQController extends Controller {
 		return ok(newfaq.render(email));
 
 	}
-	
+
 	/**
 	 * gets question and answer from the add new FAQ page
+	 * 
 	 * @return result
 	 */
 	@Security.Authenticated(AdminFilter.class)
@@ -50,18 +59,24 @@ public class FAQController extends Controller {
 			String answer = form.get("answer");
 			FAQ.createFAQ(question, answer);
 			Logger.info("New FAQ added with question: " + question);
-			flash("success", "New question added!");
+			flash("success",
+					Play.application().configuration()
+							.getString("FAQControllerFlash1"));
 			return ok(newfaq.render(email));
 		} catch (Exception e) {
 			Logger.error("Error in addNewFAQ");
-			flash("error", "There has been an error in adding FAQ!");
+			flash("error",
+					Play.application().configuration()
+							.getString("FAQControllerFlash2"));
 			return redirect("/homepage");
 		}
 	}
-	
+
 	/**
 	 * makes a page where you update FAQ
-	 * @param id int the id of the FAQ
+	 * 
+	 * @param id
+	 *            int the id of the FAQ
 	 * @return result
 	 */
 	@Security.Authenticated(AdminFilter.class)
@@ -73,8 +88,8 @@ public class FAQController extends Controller {
 	}
 
 	/**
-	 * gets the data from update from FAQ
-	 * saves it in database
+	 * gets the data from update from FAQ saves it in database
+	 * 
 	 * @param id
 	 * @return result
 	 */
@@ -88,7 +103,9 @@ public class FAQController extends Controller {
 			f.answer = form.get("answer");
 			f.question = form.get("question");
 			f.update();
-			flash("success", "Successful update!");
+			flash("success",
+					Play.application().configuration()
+							.getString("FAQControllerFlash3"));
 			if (!oldFAQ.question.equals(f.question)
 					&& oldFAQ.answer.equals(f.answer))
 				Logger.info("FAQ with id: " + id + " updated with question: "
@@ -106,14 +123,18 @@ public class FAQController extends Controller {
 			return ok(updatefaq.render(email, f, FAQ.all()));
 		} catch (Exception e) {
 			Logger.error("Error in updating FAQs");
-			flash("error", "There has been an error in updating FAQ!");
+			flash("error",
+					Play.application().configuration()
+							.getString("FAQControllerFlash4"));
 			return redirect("/homepage");
 		}
 	}
-	
+
 	/**
 	 * deletes FAQ returns to all FAQs
-	 * @param id int id of the FAQ
+	 * 
+	 * @param id
+	 *            int id of the FAQ
 	 * @return result
 	 */
 	@Security.Authenticated(AdminFilter.class)
@@ -122,14 +143,17 @@ public class FAQController extends Controller {
 		try {
 			Logger.warn("FAQ with id: " + id + " has been deleted");
 			FAQ.delete(id);
-			flash("success", "Question deleted!");
+			flash("success",
+					Play.application().configuration()
+							.getString("FAQControllerFlash5"));
 			return ok(faq.render(email, FAQ.all()));
 		} catch (Exception e) {
 			Logger.error("Error in delete FAQ");
-			flash("error", "There has been an error in deleting FAQ!");
+			flash("error",
+					Play.application().configuration()
+							.getString("FAQControllerFlash6"));
 			return redirect("/homepage");
 		}
 	}
-	
 
 }
