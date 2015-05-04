@@ -134,7 +134,7 @@ public class Cart extends Model {
 	 * @return list of products
 	 */
 	public static List<Product> getProducts(int id) {
-		return find.where().eq("userid", id).findUnique().productList;
+		return find.where().eq("user_id", id).findUnique().productList;
 
 	}
 
@@ -146,7 +146,7 @@ public class Cart extends Model {
 	 */
 	public static Cart getCartbyUserId(int userId) {
 		Logger.debug("User id u cartu "+userId);
-		return find.where().eq("userid", userId).findUnique();
+		return find.where().eq("user_id", userId).findUnique();
 	}
 
 	/**

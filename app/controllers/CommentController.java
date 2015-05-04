@@ -27,7 +27,7 @@ public class CommentController extends Controller {
 
 		List<Comment> list2 = Comment.all();
 
-		flash("success", "New comment added!");
+		flash("success", play.i18n.Messages.get("commentControllerFlash1"));
 		return ok(itempage.render(session("email"), Product.find(id),
 				FAQ.all(), models.Image.photosByProduct(p), list2, Category.list()));
 
@@ -44,7 +44,7 @@ public class CommentController extends Controller {
 	public static Result deleteComment(int id, int p_id) {
 		Comment.delete(id);
 		Logger.warn("Comment with id: " + id + " has been deleted");
-		flash("success", "Comment deleted!");
+		flash("success", play.i18n.Messages.get("commentControllerFlash2"));
 		return redirect("/itempage/" + p_id);
 
 	}

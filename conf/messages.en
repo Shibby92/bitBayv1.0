@@ -162,3 +162,35 @@ categoryApplicationFlash1 = "You have successfully deleted category!"
 categoryApplicationFlash2 = "You have successfully updated category!"
 categoryApplicationFlash3 = "There has been a mistake in updating category!"
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#CommentController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+commentControllerFlash1 = "New comment added!"
+commentControllerFlash2 = "Comment deleted!"
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#FAQController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FAQControllerFlash1 = "New question added!"
+FAQControllerFlash2 = "There has been an error in adding FAQ!"
+FAQControllerFlash3 = "Successful update!"
+FAQControllerFlash4 = "There has been an error in updating FAQ!"
+FAQControllerFlash5 = "Question deleted!"
+FAQCotnrollerFlash6 = "There has been an error in deleting FAQ!"
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#MessageController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MessageControllerFlash1 = "Message deleted!"
+MessageControllerFlash2 = "Message sent!" 
+MessageControllerFlash3 = "You have to confirm that you are not a robot!"
+MessageControllerFlash4 = "Report deleted!"
+MessageControllerHelper1 = Contact US message
+MessageControllerHelper2 = Message from buyer
+MessageControllerHelper3 = "Contact Us message!"
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#OrderController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+

@@ -27,8 +27,8 @@ public class CategoryApplication extends Controller {
 		String name = form.data().get("name");
 		Category.create(name);
 		Logger.info(name
-				+ Play.application().configuration()
-						.getString("categoryApplicationLogger1"));
+				+ play.i18n.Messages.get
+						("categoryApplicationLogger1"));
 		return redirect("/");
 	}
 
@@ -40,8 +40,8 @@ public class CategoryApplication extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewCategory() {
-		Logger.info(Play.application().configuration()
-				.getString("categoryApplicationLogger2"));
+		Logger.info(play.i18n.Messages.get
+				("categoryApplicationLogger2"));
 		String email = session().get("email");
 		return ok(addcategorypage.render(email, categoryForm, FAQ.all()));
 
@@ -56,12 +56,12 @@ public class CategoryApplication extends Controller {
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteCategory(int id) {
 		Logger.warn(Category.find(id).name
-				+ Play.application().configuration()
-						.getString("categoryApplicationLogger3"));
+				+ play.i18n.Messages.get
+						("categoryApplicationLogger3"));
 		Category.delete(id);
 		flash("success",
-				Play.application().configuration()
-						.getString("categoryApplicationFlash1"));
+				play.i18n.Messages.get
+						("categoryApplicationFlash1"));
 		return redirect("/profile");
 
 	}
@@ -72,8 +72,8 @@ public class CategoryApplication extends Controller {
 	 * @return the result
 	 */
 	public static Result categoryPage() {
-		Logger.info(Play.application().configuration()
-				.getString("categoryApplicationLogger4"));
+		Logger.info(play.i18n.Messages.get
+				("categoryApplicationLogger4"));
 		String email = session().get("email");
 		return ok(categorypage.render(email, Category.list(), FAQ.all()));
 	}
@@ -94,20 +94,20 @@ public class CategoryApplication extends Controller {
 					.value();
 			Category.update(updateCategory);
 			Logger.info(name
-					+ Play.application().configuration()
-							.getString("categoryApplicationLogger5")
+					+ play.i18n.Messages.get
+							("categoryApplicationLogger5")
 					+ updateCategory.name);
 			flash("success",
-					Play.application().configuration()
-							.getString("categoryApplicationFlash2"));
+					play.i18n.Messages.get
+							("categoryApplicationFlash2"));
 			return redirect("/profile");
 		} catch (Exception e) {
-			Logger.error(Play.application().configuration()
-					.getString("categoryApplicationLogger6")
+			Logger.error(play.i18n.Messages.get
+					("categoryApplicationLogger6")
 					+ e.getMessage());
 			flash("error",
-					Play.application().configuration()
-							.getString("categoryApplicationFlash3"));
+					play.i18n.Messages.get
+							("categoryApplicationFlash3"));
 			return redirect("/profile");
 		}
 	}
@@ -120,8 +120,8 @@ public class CategoryApplication extends Controller {
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result updateCategory(int id) {
-		Logger.info(Play.application().configuration()
-				.getString("categoryApplicationLogger7"));
+		Logger.info(play.i18n.Messages.get
+				("categoryApplicationLogger7"));
 		String email = session().get("email");
 		return ok(updatecategory.render(email, Category.find(id), FAQ.all()));
 	}

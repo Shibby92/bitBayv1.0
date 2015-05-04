@@ -53,11 +53,11 @@ public class FAQController extends Controller {
 			String answer = form.get("answer");
 			FAQ.createFAQ(question, answer);
 			Logger.info("New FAQ added with question: " + question);
-			flash("success", "New question added!");
+			flash("success", play.i18n.Messages.get("FAQControllerFlash1"));
 			return ok(newfaq.render(email));
 		} catch (Exception e) {
 			Logger.error("Error in addNewFAQ");
-			flash("error", "There has been an error in adding FAQ!");
+			flash("error", play.i18n.Messages.get("FAQControllerFlash2"));
 			return redirect("/homepage");
 		}
 	}
@@ -92,7 +92,7 @@ public class FAQController extends Controller {
 			f.answer = form.get("answer");
 			f.question = form.get("question");
 			f.update();
-			flash("success", "Successful update!");
+			flash("success", play.i18n.Messages.get("FAQControllerFlash3"));
 			if (!oldFAQ.question.equals(f.question)
 					&& oldFAQ.answer.equals(f.answer))
 				Logger.info("FAQ with id: " + id + " updated with question: "
@@ -110,7 +110,7 @@ public class FAQController extends Controller {
 			return ok(updatefaq.render(email, f, FAQ.all()));
 		} catch (Exception e) {
 			Logger.error("Error in updating FAQs");
-			flash("error", "There has been an error in updating FAQ!");
+			flash("error", play.i18n.Messages.get("FAQControllerFlash4"));
 			return redirect("/homepage");
 		}
 	}
@@ -127,11 +127,11 @@ public class FAQController extends Controller {
 		try {
 			Logger.warn("FAQ with id: " + id + " has been deleted");
 			FAQ.delete(id);
-			flash("success", "Question deleted!");
+			flash("success",play.i18n.Messages.get("FAQControllerFlash5"));
 			return ok(faq.render(email, FAQ.all()));
 		} catch (Exception e) {
 			Logger.error("Error in delete FAQ");
-			flash("error", "There has been an error in deleting FAQ!");
+			flash("error", play.i18n.Messages.get("FAQControllerFlash6"));
 			return redirect("/homepage");
 		}
 	}
