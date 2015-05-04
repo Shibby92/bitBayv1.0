@@ -1,20 +1,12 @@
 package models;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import play.db.ebean.Model;
-<<<<<<< HEAD
-=======
 import play.db.ebean.Model.*;
->>>>>>> 783c41b82f59ae7931120b67d776d99d0f219e70
+
 
 // TODO: Auto-generated Javadoc
 /**

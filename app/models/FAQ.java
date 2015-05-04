@@ -2,11 +2,9 @@ package models;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import play.data.validation.Constraints.MinLength;
-import play.data.validation.Constraints.Required;
+import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
 // TODO: Auto-generated Javadoc

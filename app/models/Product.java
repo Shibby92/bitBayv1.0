@@ -1,18 +1,14 @@
 package models;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import play.Logger;
-import play.data.validation.Constraints.MaxLength;
-import play.data.validation.Constraints.MinLength;
-import play.data.validation.Constraints.Required;
+import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
 
