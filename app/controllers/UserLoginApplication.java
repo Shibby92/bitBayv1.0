@@ -47,8 +47,14 @@ public class UserLoginApplication extends Controller {
 			Logger.info("Homepage has been opened by user with email: "
 					+ session().get("email"));
 
-		return ok(homePage.render(email, Category.list(),
-				Product.productList(), FAQ.all()));
+		List<Product> allproducts = Product.productList();
+		List<Product> start = new ArrayList<Product>();
+
+		for (int i = 0; i < 6; i++) {
+			start.add(allproducts.get(i));
+		}
+
+		return ok(homePage.render(email, Category.list(), start, FAQ.all()));
 
 	}
 

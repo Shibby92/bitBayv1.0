@@ -142,6 +142,9 @@ GET    /api/showuserproducts/:id   ws.controllers.JsonController.userProducts(id
 GET    /api/allproducts            ws.controllers.JsonController.allProducts()
 GET    /api/allusers               ws.controllers.JsonController.allUsers()
 
+# Route for Ajax
+POST  /ajaxList/:id						controllers.ProductApplication.ajaxCall(id : Integer)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file               controllers.Assets.at(path="/public", file)

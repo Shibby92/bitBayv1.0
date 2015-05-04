@@ -14,9 +14,10 @@ import play.db.ebean.Model.Finder;
 import play.libs.F.*;
 import play.libs.ws.*;
 import play.mvc.Controller;
+import play.libs.Json;
+import play.mvc.*;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
-import play.mvc.*;
 import views.html.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -400,12 +401,6 @@ public class ProductApplication extends Controller {
 		return ok(itempage.render(session("email"), Product.find(id),
 				FAQ.all(), models.Image.photosByProduct(p), Comment.all(), Category.list()));
 	}
-
-	
-	
-	
-	
-
 	
 	/**
 	 * Renewing product.
@@ -512,4 +507,19 @@ public class ProductApplication extends Controller {
 		// return the promisse
 		return holder;
 	}
+	
+	public static Result ajaxCall(int counter) {
+		List<Product> allproducts = Product.productList();
+		
+		List<Product> start = new ArrayList<Product>();
+		
+		for (int i = counter; i < counter + 6; i++) {
+				start.add(allproducts.get(i));
+		}
+		
+		return ok(scrollProduct.render(start));
+		
+	}
+
+	
 }
