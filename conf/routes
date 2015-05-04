@@ -126,8 +126,8 @@ GET    /orderpage/:id              controllers.OrderController.orderPage(id: Int
 GET    /soldorder/:id              controllers.OrderController.soldOrderPage(id:Integer)
 GET    /soldorderchecked/:id       controllers.OrderController.soldOrderChecked(id:Integer)
 
-GET    /rating/:id             controllers.UserController.ratingpage(id: Integer)
-POST   /rating/:id                 controllers.UserController.rating(id: Integer)
+GET    /rating/:id             		controllers.UserController.ratingpage(id: Integer)
+POST   /rating/:id                 	controllers.UserController.rating(id: Integer)
 
 #Paypal routes
 GET    /cartpage/:id               controllers.ProductApplication.cartPage(id: Integer)
@@ -144,16 +144,17 @@ GET    /refundorder/:id            controllers.UserLoginApplication.refundOrder(
 GET    /orderpage/:id              controllers.OrderController.orderPage(id: Integer)
 
 #Web Service routes
-POST   /api/register               ws.controllers.JsonController.registration()
-POST   /api/login                  ws.controllers.JsonController.login()
-POST   /api/addproduct             ws.controllers.JsonController.addProduct()
+POST	/api/register               ws.controllers.JsonController.registration()
+POST	/api/login                  ws.controllers.JsonController.login()
+POST	/api/addproduct             ws.controllers.JsonController.addProduct()
 GET		/api/showuser/:id 			ws.controllers.JsonController.viewUser(id: Integer)
-GET    /api/showproduct/:id        ws.controllers.JsonController.viewProduct(id: Integer)
-GET    /api/showuserproducts/:id   ws.controllers.JsonController.userProducts(id: Integer)
-GET    /api/allproducts            ws.controllers.JsonController.allProducts()
-GET    /api/allusers               ws.controllers.JsonController.allUsers()
+GET		/api/showproduct/:id        ws.controllers.JsonController.viewProduct(id: Integer)
+GET		/api/showuserproducts/:id   ws.controllers.JsonController.userProducts(id: Integer)
+GET		/api/allproducts            ws.controllers.JsonController.allProducts()
+GET		/api/allusers               ws.controllers.JsonController.allUsers()
 POST	/api/tocart					ws.controllers.JsonController.toCart()
 POST	/api/getcart				ws.controllers.JsonController.getCart()
+GET		/api/cartpage/:id			ws.controllers.JsonController.cartPage(id: Integer)
 
 #Blog routes
 GET		/blog					controllers.BlogController.blogsPage()

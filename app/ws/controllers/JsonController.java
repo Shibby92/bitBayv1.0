@@ -1,8 +1,8 @@
 package ws.controllers;
 
-//import java.util.List;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import helpers.*;
 import models.*;
 import play.Logger;
@@ -11,6 +11,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import views.html.*;
 
 
 /**
@@ -79,13 +80,16 @@ public class JsonController extends Controller {
 		if(user == null) {
 			Logger.info("Product null");
 		}
-			Cart cart = Cart.getCart(userId);
-			Cart.addProduct(product, cart);
+		
+		Cart cart = Cart.getCart(userId);
+		
 
-		int orderedQuantity = 1;
+		//int orderedQuantity = 1;
 		product.setOrderedQuantity(1);
+		product.amount = product.getPrice();
 		product.update();
 		product.save();
+		Cart.addProduct(product, cart);
 
 		return ok(JsonHelper.cartToJson(cart.id));
 	}
@@ -102,6 +106,13 @@ public class JsonController extends Controller {
 		Cart cart = Cart.getCart(userId);
 		
 		return ok(JsonHelper.cartToJson(cart.id));
+	}
+	
+	public static Result cartPage(int id) {
+		User user = User.find(id);
+		String email = user.email;
+		session("email", email);
+		return ok(cartpage.render(email, Cart.getCart(id), FAQ.all()));
 	}
 
 	
