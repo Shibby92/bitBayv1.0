@@ -2,10 +2,13 @@ package models;
 
 import java.util.*;
 
+
 import javax.persistence.*;
 
+import play.Logger;
 import play.db.ebean.Model;
 import play.db.ebean.Model.*;
+import play.db.ebean.Model.Finder;
 
 
 // TODO: Auto-generated Javadoc
@@ -142,6 +145,7 @@ public class Cart extends Model {
 	 * @return the cart
 	 */
 	public static Cart getCartbyUserId(int userId) {
+		Logger.debug("User id u cartu "+userId);
 		return find.where().eq("userid", userId).findUnique();
 	}
 
