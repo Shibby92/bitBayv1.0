@@ -98,13 +98,11 @@ public class JsonController extends Controller {
 	 * Method gets contents of users cart
 	 * @return
 	 */
-	public static Result getCart() {
-		
+	public static Result getCart() {		
 		JsonNode json = request().body().asJson();
 		int userId = json.findPath("userId").intValue();
 		Logger.debug(String.valueOf("userId"+userId));
-		Cart cart = Cart.getCart(userId);
-		
+		Cart cart = Cart.getCart(userId);		
 		return ok(JsonHelper.cartToJson(cart.id));
 	}
 	
@@ -113,6 +111,40 @@ public class JsonController extends Controller {
 		String email = user.email;
 		session("email", email);
 		return ok(cartpage.render(email, Cart.getCart(id), FAQ.all()));
+	}
+	
+	public static Result removeFromCart() {
+		Logger.debug("Cart remove from");
+		JsonNode json = request().body().asJson();
+		int productId = json.findPath("productId").intValue();
+		Logger.debug(String.valueOf("prodId "+productId));
+		int userId = json.findPath("userId").intValue();
+		Product product = Product.find(productId);
+		Logger.debug("Name " + product.name);
+		Cart cart = product.cart;
+		//cart = Cart.removeProductFromCart(productId);
+		Logger.debug("Cart size " + String.valueOf(cart.productList.size()));
+		cart.productList.remove(product);
+		Logger.debug("Cart size 2: " + String.valueOf(cart.productList.size()));
+		cart.update();
+		cart.save();
+		if (cart.productList.size() < 1) {
+			cart.checkout = 0;
+			cart.size = 0;
+		} else {
+			cart.checkout = cart.checkout - product.price
+					* product.getOrderedQuantity();
+			if (cart.checkout < 0)
+				cart.checkout = 0;
+			cart.size = cart.size - product.getOrderedQuantity();
+		}
+		cart.update();
+		cart.save();
+		product.cart = null;
+		product.setOrderedQuantity(0);
+		product.update();
+		product.save();
+		return ok(JsonHelper.cartToJson(cart.id));
 	}
 
 	

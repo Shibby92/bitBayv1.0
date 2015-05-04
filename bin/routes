@@ -155,6 +155,7 @@ GET		/api/allusers               ws.controllers.JsonController.allUsers()
 POST	/api/tocart					ws.controllers.JsonController.toCart()
 POST	/api/getcart				ws.controllers.JsonController.getCart()
 GET		/api/cartpage/:id			ws.controllers.JsonController.cartPage(id: Integer)
+POST	/api/removefromcart			ws.controllers.JsonController.removeFromCart()
 
 #Blog routes
 GET		/blog					controllers.BlogController.blogsPage()
