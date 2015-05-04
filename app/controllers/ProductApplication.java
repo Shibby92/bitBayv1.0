@@ -24,6 +24,7 @@ import play.data.*;
 import play.db.ebean.Model.Finder;
 import play.libs.F.Function;
 import play.libs.F.Promise;
+import play.libs.Json;
 import play.libs.ws.WS;
 import play.libs.ws.WSResponse;
 import play.mvc.*;
@@ -979,6 +980,19 @@ public class ProductApplication extends Controller {
 		Logger.info("User " + session().get("email") + " has opened report page");
 		List<Report> all = Report.findByProduct(Product.find(id));
 		return ok(report.render(session("email"), all));
+	}
+	
+	public static Result ajaxCall(int brojac) {
+		List<Product> allproducts = Product.findAll();
+		
+		List<Product> start = new ArrayList<Product>();
+		
+		for (int i = brojac; i < brojac + 6; i++) {
+				start.add(allproducts.get(i));
+		}
+		
+		return ok(scroolProduct.render(start));
+		
 	}
 
 	

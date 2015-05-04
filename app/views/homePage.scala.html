@@ -28,7 +28,7 @@
    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
          <!-- Brand and toggle get grouped for better mobile display -->
-         <div class="navbar-header" style="margin: 0px 20px" >
+         <div class="navbar-header" >
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -206,7 +206,9 @@
                   </div>
                </div>
             </div>
-            <div class="row">
+            
+            <script> var brojac = 0;</script>
+            <div class="row" id="teki">
                @for(product <- products){
                @if(product.deleted == false) {
                <div class="col-sm-4 col-lg-4 col-md-4">
@@ -223,7 +225,38 @@
                   </div>
                </div>
                }
+               <script> brojac = brojac + 1;</script>
                }
+              
+               
+               <div id="test"></div>
+                  <form id="more">
+               <button type="submit" onclick=" $('html, body').animate({scrollTop: $(window).scrollTop() + 600});" class="btn btn-lg " style="margin: 25px 10px;color: rgba(74,181,90,0.7);width: 97%; background-color: #f5f5f5;"> More Products</button>
+               
+               </form>
+               
+               							<script>
+               									$("#more").submit(function(e) {
+														$.ajax({
+															  method: "POST",
+															  url: "/ajaxList/" + brojac,
+															  dataType : 'html',
+															}).done(function(msg) {
+																console.log("SUCCESSFULL JSON");
+																$('#test').append(msg);
+																brojac = brojac + 6;
+																
+															 }).fail(function( msg ) {
+																  console.log("FAILED");
+																  console.log(msg);
+																  $('#result').load('pages/page1.html');
+															   	  alert( "There are no more products to show!" );
+															  });
+																	e.preventDefault();
+														});
+               								</script>
+               
+               
             </div>
          </div>
       </div>

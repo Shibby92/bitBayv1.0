@@ -81,6 +81,7 @@ GET    /searchusers                controllers.SearchController.searchUsers(q: S
 GET    /advancedsearch             controllers.SearchController.advancedSearchPage()
 POST   /advancedsearch             controllers.SearchController.advancedSearch(ids: String)
 
+POST  /ajaxList/:id						controllers.ProductApplication.ajaxCall(id : Integer)
 
 
 # Routes for contact form

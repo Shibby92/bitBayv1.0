@@ -227,7 +227,11 @@
    </div>
     <!-- /.End of content page -->
     <!-- /.Footer -->
-   <div id="footer" style="background-color: #f5f5f5;   position: relative;">
+   @if(products.size < 2){
+   <div id="footer">
+   } else {
+   <div id="footer1">
+      }
       <div class="container">
          <div class="col-md-4">
             <a href="/contactpage">
