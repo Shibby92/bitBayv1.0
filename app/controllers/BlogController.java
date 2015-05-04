@@ -56,14 +56,14 @@ public class BlogController extends Controller {
 			Blog.createBlog(title, content, imgPath, user.id, user.username);
 			Logger.info("New Blog added with title: " + title);
 			flash("success",
-					Play.application().configuration()
-							.getString("blogControllerFlash1"));
+					play.i18n.Messages.get
+							("blogControllerFlash1"));
 			return redirect("/blog");
 		} catch (Exception e) {
 			Logger.error("Error in adding new blog: " + e.getMessage());
 			flash("error",
-					Play.application().configuration()
-							.getString("blogControllerFlash2"));
+					play.i18n.Messages.get
+							("blogControllerFlash2"));
 			return redirect("/blog");
 		}
 	}
@@ -99,15 +99,15 @@ public class BlogController extends Controller {
 			currentBlog.blogImagePath = imgPath;
 			currentBlog.update();
 			flash("success",
-					Play.application().configuration()
-							.getString("blogControllerFlash3"));
+					play.i18n.Messages.get
+							("blogControllerFlash3"));
 
 			return redirect("/blog");
 		} catch (Exception e) {
 			Logger.error("Error in updating Blog" + e.getMessage());
 			flash("error",
-					Play.application().configuration()
-							.getString("blogControllerFlash4"));
+					play.i18n.Messages.get
+							("blogControllerFlash4"));
 			return redirect("/blog");
 		}
 
@@ -143,8 +143,8 @@ public class BlogController extends Controller {
 		Logger.warn("Blog has been deleted with id: "
 				+ id);
 		flash("success",
-				Play.application().configuration()
-						.getString("blogControllerFlash5"));
+				play.i18n.Messages.get
+						("blogControllerFlash5"));
 		List<Blog> blogs = Blog.allBlogs();
 		return ok(blog.render(email, blogs));
 	}
@@ -164,8 +164,8 @@ public class BlogController extends Controller {
 		FilePart filePart = body.getFile("image_url");
 		if (filePart == null) {
 			flash("error",
-					Play.application().configuration()
-							.getString("blogControllerFlash6"));
+					play.i18n.Messages.get
+							("blogControllerFlash6"));
 			Logger.debug("File part is null");
 			return null;
 		}
@@ -187,8 +187,8 @@ public class BlogController extends Controller {
 				&& !extension.equalsIgnoreCase(".png")) {
 			Logger.error("Image type not valid");
 			flash("error",
-					Play.application().configuration()
-							.getString("blogControllerFlash7"));
+					play.i18n.Messages.get
+							("blogControllerFlash7"));
 			return null;
 		}
 		double megabiteSyze = (double) ((image.length() / 1024) / 1024);
@@ -196,8 +196,8 @@ public class BlogController extends Controller {
 		if (megabiteSyze > 2) {
 			Logger.debug("Image size not valid");
 			flash("error",
-					Play.application().configuration()
-							.getString("blogControllerFlash8"));
+					play.i18n.Messages.get
+							("blogControllerFlash8"));
 			return null;
 		}
 
