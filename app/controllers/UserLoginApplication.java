@@ -1,12 +1,14 @@
 package controllers;
 
-import helpers.*;
+import helpers.ContactHelper;
+import helpers.MailHelper;
+import helpers.RefundHelper;
+import helpers.UserFilter;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.List;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,27 +16,38 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.UUID;
 
-import com.fasterxml.jackson.databind.JsonNode;
-
-import models.*;
+import models.Cart;
+import models.Category;
+import models.FAQ;
 import models.Notification;
+import models.Orders;
+import models.Product;
+import models.ProductQuantity;
+import models.User;
 import play.Logger;
 import play.Play;
-import play.data.*;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.Required;
 import play.libs.F.Function;
 import play.libs.F.Promise;
 import play.libs.ws.WS;
 import play.libs.ws.WSResponse;
-import play.mvc.*;
-import views.html.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.Security;
 
-import com.paypal.api.payments.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.paypal.api.payments.Amount;
+import com.paypal.api.payments.Links;
+import com.paypal.api.payments.Payer;
+import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.PaymentExecution;
+import com.paypal.api.payments.RedirectUrls;
+import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
@@ -57,7 +70,6 @@ public class UserLoginApplication extends Controller {
 	 */
 	public static Result homePage() {
 		String email = session().get("email");
-		
 
 		if (session().get("email") == null)
 			Logger.info("Homepage has been opened by guest");
@@ -229,7 +241,6 @@ public class UserLoginApplication extends Controller {
 		// return the promisse
 		return holder;
 	}
-
 	/**
 	 * goes to page where user can login
 	 * @return result

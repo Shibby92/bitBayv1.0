@@ -1,8 +1,11 @@
 package models;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import play.db.ebean.Model;
 

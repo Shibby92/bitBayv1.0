@@ -12,7 +12,6 @@ import javax.persistence.OneToOne;
 
 import play.Logger;
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
 
 @Entity
 public class Cart extends Model {

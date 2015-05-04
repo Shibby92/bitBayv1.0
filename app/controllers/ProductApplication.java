@@ -1,36 +1,46 @@
 package controllers;
 
-import helpers.*;
+import helpers.AdminFilter;
+import helpers.ContactHelper;
+import helpers.UserFilter;
 
-import java.util.Iterator;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import javax.swing.ImageIcon;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.google.common.io.Files;
-
-import controllers.UserLoginApplication.Contact;
-import models.*;
+import models.Cart;
+import models.Category;
+import models.Comment;
+import models.FAQ;
+import models.Message;
+import models.Product;
+import models.Report;
+import models.User;
 import play.Logger;
 import play.Play;
-import play.data.*;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.db.ebean.Model.Finder;
 import play.libs.F.Function;
 import play.libs.F.Promise;
 import play.libs.Json;
 import play.libs.ws.WS;
 import play.libs.ws.WSResponse;
-import play.mvc.*;
+import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
-import views.html.*;
+import play.mvc.Result;
+import play.mvc.Security;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.io.Files;
+
+import controllers.UserLoginApplication.Contact;
 
 /**
  * Controls the ad application Redirects on the pages when needed

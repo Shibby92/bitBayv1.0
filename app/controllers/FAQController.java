@@ -1,15 +1,13 @@
 package controllers;
 
-import models.*;
-import helpers.*;
+import helpers.AdminFilter;
+import models.FAQ;
+import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.*;
-import views.html.*;
-import play.Logger;
 
 public class FAQController extends Controller {
 	

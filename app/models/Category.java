@@ -2,7 +2,9 @@ package models;
 
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;

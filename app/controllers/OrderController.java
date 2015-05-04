@@ -1,13 +1,15 @@
 package controllers;
 
 import helpers.UserFilter;
-import models.*;
+import models.FAQ;
+import models.Notification;
+import models.Orders;
+import models.User;
 import play.Logger;
 import play.db.ebean.Model.Finder;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.*;
 
 public class OrderController extends Controller {
 	

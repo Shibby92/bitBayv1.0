@@ -1,17 +1,20 @@
 package ws.controllers;
 
 //import java.util.List;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import helpers.*;
-import models.*;
+import helpers.JsonHelper;
+import helpers.ServiceAuth;
+import helpers.Session;
+import models.Product;
+import models.User;
 import play.Logger;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import play.db.ebean.Model;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 
 /**

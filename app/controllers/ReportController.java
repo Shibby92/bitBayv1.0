@@ -1,7 +1,7 @@
 package controllers;
 
-import models.Report;
 import helpers.UserFilter;
+import models.Report;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;

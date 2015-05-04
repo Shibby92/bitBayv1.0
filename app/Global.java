@@ -1,11 +1,20 @@
+import helpers.HashHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import helpers.HashHelper;
-import models.*;
+import models.Blog;
+import models.Category;
+import models.Comment;
+import models.FAQ;
+import models.Image;
+import models.Message;
+import models.Product;
+import models.Report;
+import models.Tag;
+import models.User;
 import play.Application;
 import play.GlobalSettings;
-import play.db.ebean.Model.Finder;
 
 /**
  * At the opening of the website there is already created:

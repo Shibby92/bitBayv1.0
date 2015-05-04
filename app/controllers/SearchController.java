@@ -2,16 +2,17 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Collections;
 
-import models.*;
+import models.Category;
+import models.FAQ;
+import models.Product;
+import models.User;
+import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.db.ebean.Model.Finder;
-import play.mvc.*;
-import views.*;
-import views.html.*;
-import play.Logger;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 public class SearchController extends Controller {
 

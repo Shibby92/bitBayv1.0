@@ -4,19 +4,25 @@ import java.io.File;
 import java.sql.Timestamp;
 //import java.security.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 import play.Logger;
-import play.data.validation.Constraints.*;
+import play.data.validation.Constraints.MaxLength;
+import play.data.validation.Constraints.MinLength;
+import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
-import play.db.ebean.Model.Finder;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Creates product

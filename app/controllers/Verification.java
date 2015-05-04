@@ -2,8 +2,8 @@ package controllers;
 
 import models.User;
 import play.Logger;
-import play.mvc.Controller;
 import play.i18n.Messages;
+import play.mvc.Controller;
 import play.mvc.Result;
 
 public class Verification extends Controller{

@@ -2,12 +2,11 @@ package helpers;
 
 import java.util.List;
 
-import play.libs.Json;
+import models.Category;
 import models.FAQ;
 import models.Product;
 import models.User;
-import models.Category;
-import play.db.ebean.*;
+import play.libs.Json;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;

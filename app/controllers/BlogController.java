@@ -1,7 +1,6 @@
 package controllers;
 
 import helpers.AdminAndBloggerFilter;
-import helpers.AdminFilter;
 import helpers.Session;
 import helpers.UserFilter;
 
@@ -10,19 +9,18 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-import com.google.common.io.Files;
-
 import models.Blog;
 import models.User;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
-import views.html.*;
+import play.mvc.Result;
+import play.mvc.Security;
+
+import com.google.common.io.Files;
 
 /**
  * Class BlogController

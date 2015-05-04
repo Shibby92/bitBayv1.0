@@ -11,18 +11,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import play.db.ebean.Model.Finder;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.format.Formats.DateTime;
-import play.data.validation.Constraints.*;
-import play.db.ebean.*;
+import play.data.validation.Constraints.Email;
+import play.data.validation.Constraints.MaxLength;
+import play.data.validation.Constraints.MinLength;
+import play.data.validation.Constraints.Required;
+import play.db.ebean.Model;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 
