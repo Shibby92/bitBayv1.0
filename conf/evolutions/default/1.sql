@@ -16,7 +16,7 @@ create table blog (
 
 create table cart (
   id                        integer not null,
-  userid                    integer,
+  user_id                   integer,
   user_mail                 varchar(255),
   checkout                  double,
   size                      integer,
@@ -89,15 +89,10 @@ create table product (
   quantity                  integer,
   price                     double,
   description               varchar(255),
-  image_url                 varchar(255),
-  image1                    varchar(255),
-  image2                    varchar(255),
-  image3                    varchar(255),
   deleted                   boolean,
   sold                      boolean,
   ordered_quantity          integer,
   amount                    double,
-  updated                   timestamp default '2015-16-04 20:17:06' not null,
   constraint pk_product primary key (id))
 ;
 

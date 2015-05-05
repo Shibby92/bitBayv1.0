@@ -139,12 +139,12 @@ user7 = blogger
 
 #BloggerController strings
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-blogControllerFlash1 = "New blog added!"
-blogControllerFlash2 = "There has been an error in adding Blog!"
-blogControllerFlash3 = "Successful update!"
-blogControllerFlash4 = "There has been an error in updating Blog!"
-blogControllerFlash5 = "Blog deleted!"
-blogCotnrollerFlash6 = "You need to upload image!"
+blogControllerFlash1 = New blog added!
+blogControllerFlash2 = There has been an error in adding Blog!
+blogControllerFlash3 = Successful update!
+blogControllerFlash4 = There has been an error in updating Blog!
+blogControllerFlash5 = Blog deleted!
+blogCotnrollerFlash6 = You need to upload image!
 blogControllerFlash7 = Image type not valid
 blogControllerFlash8 = Image size not valid
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,7 +158,91 @@ categoryApplicationLogger4 = Category page opened
 categoryApplicationLogger5 = " category name has been updated as "
 categoryApplicationLogger6 = "Error in update category "
 categoryApplicationLogger7 = Update category page opened
-categoryApplicationFlash1 = "You have successfully deleted category!"
-categoryApplicationFlash2 = "You have successfully updated category!"
-categoryApplicationFlash3 = "There has been a mistake in updating category!"
+categoryApplicationFlash1 = You have successfully deleted category!
+categoryApplicationFlash2 = You have successfully updated category!
+categoryApplicationFlash3 = There has been a mistake in updating category!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#CommentController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+commentControllerFlash1 = New comment added!
+commentControllerFlash2 = Comment deleted!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#FAQController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FAQControllerFlash1 = New question added!
+FAQControllerFlash2 = There has been an error in adding FAQ!
+FAQControllerFlash3 = Successful update!
+FAQControllerFlash4 = There has been an error in updating FAQ!
+FAQControllerFlash5 = Question deleted!
+FAQCotnrollerFlash6 = There has been an error in deleting FAQ!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#MessageController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MessageControllerFlash1 = Message deleted!
+MessageControllerFlash2 = Message sent!"
+MessageControllerFlash3 = You have to confirm that you are not a robot!
+MessageControllerFlash4 = Report deleted!
+MessageControllerHelper1 = Contact US message
+MessageControllerHelper2 = Message from buyer
+MessageControllerHelper3 = Contact Us message
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#OrderController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#PaypalController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PaypalControllerCTS1 = Your order via bitBay: 
+PaypalControllerCTS2 = which is a total price of: 
+PaypalControllerCTS3 = TOTAL: 
+PaypalControllerFlash1 = Transaction canceled!
+PaypalControllerFlash2 = Token has been sent to your email!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#ProductApplication strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ProductApplicationFlash1 = You must select a picture for your product!
+ProductApplicationFlash2 = You have successfully added product!
+ProductApplicationFlash3 = You have successfully deleted product!
+ProductApplicationFlash4 = Product successfully updated!
+ProductApplicationFlash5 = You need to upload image!
+ProductApplicationFlash6 = Image type not valid!
+ProductApplicationFlash7 = Image size not valid!
+ProductApplicationFlash8 = Failed to move file
+ProductApplicationFlash9 = You need to upload image!
+ProductApplicationFlash10 = Use less than 5 images!
+ProductApplicationFlash11 = Failed to move file!
+ProductApplicationFlash12a = Product "
+ProductApplicationFlash12b = " has been successfully renewed!"
+ProductApplicationFlash13 = You have successfully reported product!
+ProductApplicationFlash14 = You have to confirm that you are not a robot!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#SearchController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#UserController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+UserControllerFlash1 = You have successfully updated user!
+UserControllerFlash2 = You have successfully deleted user!
+UserControllerFlash3 = Enter valid date!
+UserControllerFlash4 = Enter valid gender!
+UserControllerFlash5 = Username already exists!
+UserControllerFlash6 = Additional info updated successfully!
+UserControllerFlash7 = You have successfully rated user!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#UserLoginApplication strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ULAFlash1 = You have entered wrong password!
+ULAFlash2 = Email does not exist!
+ULAFlash3 = Passwords are not the same!
+ULAFlash4 = Please check your email
+ULAFlash5 = There is already a user with that email!
+ULAFlash6 = You have been successfully logged out! Come back any time!
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -95,7 +95,7 @@ public class ProductApplication extends Controller {
 
 		if (image_urls.size() == 0) {
 			flash("pictureSelect",
-					"You must select a picture for your product!");
+					play.i18n.Messages.get("ProductApplicationFlash1"));
 			return redirect("/addproductpage/" + id);
 		}
 
@@ -104,7 +104,7 @@ public class ProductApplication extends Controller {
 
 		Logger.info("User with email: " + session().get("email")
 				+ "created product with name: " + name);
-		flash("success", "You have successfuly added product!");
+		flash("success", play.i18n.Messages.get("ProductApplicationFlash2"));
 		return redirect("/homepage");
 	}
 
@@ -148,7 +148,7 @@ public class ProductApplication extends Controller {
 		p.deleted = true;
 		p.update();
 		Logger.warn("Product with id: " + id + " has been deleted");
-		flash("success", "You have successfuly deleted product");
+		flash("success", play.i18n.Messages.get("ProductApplicationFlash3"));
 		return redirect("/profile");
 
 	}
@@ -212,7 +212,7 @@ public class ProductApplication extends Controller {
 			updateProduct.update();
 
 			Logger.info("Product with id: " + id + " has been updated");
-			flash("success", "Product successfully updated!");
+			flash("success", play.i18n.Messages.get("ProductApplicationFlash4"));
 			if (User.find(session().get("email")).admin)
 				return redirect("/profile/"
 						+ User.find(session().get("email")).id);
@@ -237,7 +237,7 @@ public class ProductApplication extends Controller {
 		List<FilePart> fileParts = body.getFiles();
 		List<models.Image> imgs = new ArrayList<models.Image>();
 		if (fileParts == null || fileParts.size() == 0) {
-			flash("error", "You need to upload image!");
+			flash("error", play.i18n.Messages.get("ProductApplicationFlash5"));
 			Logger.debug("File part is null");
 			return null;
 		}
@@ -262,13 +262,13 @@ public class ProductApplication extends Controller {
 					&& !extension.equalsIgnoreCase(".jpg")
 					&& !extension.equalsIgnoreCase(".png")) {
 				Logger.error("Image type not valid");
-				flash("error", "Image type not valid");
+				flash("error", play.i18n.Messages.get("ProductApllicationFlash6"));
 				return null;
 			}
 			double megabiteSyze = (double) ((image.length() / 1024) / 1024);
 			if (megabiteSyze > 2) {
 				Logger.debug("Image size not valid ");
-				flash("error", "Image size not valid");
+				flash("error", play.i18n.Messages.get("ProductApplicationFlash7"));
 				return null;
 			}
 
@@ -296,7 +296,7 @@ public class ProductApplication extends Controller {
 			} catch (IOException e) {
 				Logger.error("Failed to move file");
 				e.printStackTrace();
-				flash("error", "Failed to move file");
+				flash("error", play.i18n.Messages.get("ProductApplicationFlash8"));
 				return null;
 			}
 		}
@@ -317,18 +317,18 @@ public class ProductApplication extends Controller {
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
 		if (fileParts == null || fileParts.size() == 0) {
-			flash("error", "You need to upload image!");
+			flash("error", play.i18n.Messages.get("ProductApplicationFlash9"));
 			Logger.debug("File part is null");
 			return null;
 		}
 		for (FilePart filePart : fileParts) {
 			if (filePart == null) {
-				flash("error", "You need to upload image!");
+				flash("error", play.i18n.Messages.get("ProductApplicationFlash9"));
 				Logger.debug("File part is null");
 				return null;
 			}
 			if (fileParts.size() > 5) {
-				flash("error", "Use less than 5 images!");
+				flash("error", play.i18n.Messages.get("ProductApplicationFlash10"));
 				Logger.debug("User tried to save more than 5 images");
 				return null;
 			}
@@ -344,13 +344,13 @@ public class ProductApplication extends Controller {
 					&& !extension.equalsIgnoreCase(".jpg")
 					&& !extension.equalsIgnoreCase(".png")) {
 				Logger.error("Image type not valid");
-				flash("error", "Image type not valid");
+				flash("error", play.i18n.Messages.get("ProductApllicationFlash6"));
 				return null;
 			}
 			double megabiteSyze = (double) ((image.length() / 1024) / 1024);
 			if (megabiteSyze > 2) {
 				Logger.debug("Image size not valid ");
-				flash("error", "Image size not valid");
+				flash("error", play.i18n.Messages.get("ProductApplicationFlash7"));
 				return null;
 			}
 
@@ -374,7 +374,7 @@ public class ProductApplication extends Controller {
 				image_urls.add(img);
 
 			} catch (IOException e) {
-				flash("error", "Failed to move file");
+				flash("error", play.i18n.Messages.get("ProductApplicationFlash11"));
 				Logger.error("Failed to move file");
 				Logger.debug(e.getMessage());
 				return null;
@@ -415,8 +415,8 @@ public class ProductApplication extends Controller {
 		temp.order = null;
 		temp.quantity = 1;
 		temp.update();
-		flash("renew", "Product " + temp.name
-				+ " has been successfully renewed!");
+		flash("renew", play.i18n.Messages.get("ProductApplication12a") + temp.name
+				+ play.i18n.Messages.get("ProductApplication12b"));
 		return redirect("/myproducts/" + User.find(session().get("email")).id);
 	}
 	
@@ -484,7 +484,7 @@ public class ProductApplication extends Controller {
 							}
 
 							flash("success",
-									"You have successfuly reported product!");
+									play.i18n.Messages.get("ProductApplicationFlash13"));
 
 							Logger.info("User with email: "
 									+ session().get("email")
@@ -497,14 +497,14 @@ public class ProductApplication extends Controller {
 									+ session().get("email")
 									+ " did not confirm its humanity");
 							flash("error",
-									"You have to confirm that you are not a robot!");
+									play.i18n.Messages.get("ProductApplicationFlash14"));
 							return ok(reportpage.render(session().get("email"),
 									id, report));
 
 						}
 					}
 				});
-		// return the promisse
+		// return the promise
 		return holder;
 	}
 	
