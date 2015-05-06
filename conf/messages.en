@@ -272,6 +272,9 @@ addFaq = "Add FAQ"
 update = "Update"
 addNewProduct = "Add new product"
 submit = "Submit"
+visitSeller = "Visit seller profile"
+contactSeller = "Contact seller"
+reportProduct = "Report product"
 
 #Header
 category = "Category"
@@ -288,6 +291,7 @@ myCart = "My Cart"
 myOrders = "My Orders"
 notification = "Notification"
 or = "or"
+searchHeader = "Search..."
 
 #Footer
 contactUs = "Contact Us"
@@ -323,7 +327,7 @@ gender = "Gender"
 genderPlaceholder = "Enter your gender: m-male; f-female"
 
 #AddProduct
-addProductAddProduct = "Add product"
+addProduct = "Add product"
 namePlaceholderAddProduct = "Name of your product"
 price = "Price"
 priceOfYourProductPlaceholder = "Enter price of your product"
@@ -344,10 +348,13 @@ productPlaceholderAdvancedSearch = "Product..."
 descriptionPlaceholderAdvancedSearch = "Description..."
 fromPlaceholderAdvancedSearch = "From..."
 toPlaceholderAdvancedSearch = "To..."
-searchResultAdvancedSearch = "Search Result"
+searchResultAdvancedSearch = "Search Results"
 noSearchResults = "No search result..."
 
 #Blog
+homepageBitBay = "bitbay Homepage"
+bitbayBlog = "bitbay Blog"
+subheading = "A Blog of team bitBay"
 addNewBlog = "Add new Blog"
 postedBy = "Posted by "
 
@@ -361,6 +368,7 @@ youMayAlsoLIke = "You may also like"
 emptyCart = "Your cart is empty..."
 
 #Confirmorder
+confirmOrder = "Confirm Order"
 total = "Total"
 
 #Contact
@@ -383,9 +391,14 @@ answer = "Answer"
 
 #Itempage
 addToCart = "Add to cart"
+onStock = "On Stock"
+inCart = "In Cart(this item)"
+sellerEmail = "Seller email"
+sellerRate = "Seller rate"
+comments = "Comments"
+
 
 #Logintest
-login = "Login"
 email = "Email"
 password = "Password"
 
