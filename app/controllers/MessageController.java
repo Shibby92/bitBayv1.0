@@ -29,7 +29,7 @@ public class MessageController extends Controller {
 	public static Result deleteMessage(int id) {
 		Message.delete(id);
 		Logger.warn("Message with id: " + id + " has been deleted");
-		flash("success", "Message deleted!");
+		flash("success", play.i18n.Messages.get("MessageControllerFlash1"));
 		return redirect("/profile");
 
 	}
@@ -108,9 +108,9 @@ public class MessageController extends Controller {
 							ContactHelper.send(userEmail, User.find(id).email,
 									message);
 							ContactHelper.sendToPage(userEmail,
-									User.find(id).email, message, "Contact US message");
+									User.find(id).email, message, play.i18n.Messages.get("MessageControllerHelper1"));
 
-							flash("success", "Message sent!");
+							flash("success", play.i18n.Messages.get("MessageControllerFlash2"));
 
 							Logger.info("User with email: "
 									+ session().get("email") + " replied to : "
@@ -121,15 +121,14 @@ public class MessageController extends Controller {
 							Logger.info("User with email: "
 									+ session().get("email")
 									+ " did not confirm its humanity");
-							flash("error",
-									"You have to confirm that you are not a robot!");
+							flash("error", play.i18n.Messages.get("MessageControllerFlash3"));
 							return ok(reply.render(userEmail, FAQ.all(),
 									User.find(id)));
 
 						}
 					}
 				});
-		// return the promisse
+		// return the promise
 		return holder;
 	}
 
@@ -161,7 +160,7 @@ public class MessageController extends Controller {
 	public static Promise<Result> contactSeller(final int id) {
 		final String userEmail = session().get("email");
 
-		// need this to get the google recapctha value
+		// need this to get the google recaptcha value
 		final DynamicForm temp = DynamicForm.form().bindFromRequest();
 		final String message = temp.get("message");
 
@@ -198,9 +197,9 @@ public class MessageController extends Controller {
 									Product.find(id).owner.email, message);
 							ContactHelper.sendToPage(email,
 									Product.find(id).owner.email, message,
-									"Message from buyer");
+									play.i18n.Messages.get("MessageControllerHelper2"));
 
-							flash("success", "Message sent!");
+							flash("success", play.i18n.Messages.get("MessageControllerFlash2"));
 
 							Logger.info("User with email: "
 									+ session().get("email")
@@ -212,15 +211,14 @@ public class MessageController extends Controller {
 							Logger.info("User with email: "
 									+ session().get("email")
 									+ " did not confirm its humanity");
-							flash("error",
-									"You have to confirm that you are not a robot!");
+							flash("error", play.i18n.Messages.get("MessageControllerFlash3"));
 							return ok(contactseller.render(userEmail,
 									FAQ.all(), Product.find(id), message));
 
 						}
 					}
 				});
-		// return the promisse
+		// return the promise
 		return holder;
 	}
 	
@@ -249,7 +247,7 @@ public class MessageController extends Controller {
 
 		Logger.warn("Report with product id: " + Report.find(id).reportedProduct.id + " has been deleted");
 		Report.delete(id);
-		flash("success", "Report deleted!");
+		flash("success", play.i18n.Messages.get("MessageControllerFlash4"));
 		return redirect("/profile");
 
 	}
@@ -315,9 +313,9 @@ public class MessageController extends Controller {
 							for (User admin : admins) {
 								ContactHelper.send(email, admin.email, message);
 								ContactHelper.sendToPage(email, admin.email,
-										message, "Contact Us message!");
+										message, play.i18n.Messages.get("MessageControllerHelper3"));
 							}
-							flash("success", "Message sent!");
+							flash("success", play.i18n.Messages.get("MessageControllerFlash2"));
 							if (session().get("email") == null)
 								Logger.info("Guest has sent message to admin");
 							else
@@ -332,15 +330,14 @@ public class MessageController extends Controller {
 								Logger.info("User with email: "
 										+ session().get("email")
 										+ " did not confirm its humanity");
-							flash("error",
-									"You have to confirm that you are not a robot!");
+							flash("error", play.i18n.Messages.get("MessageControllerFlash3"));
 							return ok(contact.render(userEmail, FAQ.all(),
 									message));
 
 						}
 					}
 				});
-		// return the promisse
+		// return the promise
 		return holder;
 	}
 

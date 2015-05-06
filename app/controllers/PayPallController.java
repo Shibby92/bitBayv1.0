@@ -31,8 +31,8 @@ public class PayPallController extends Controller {
 			String total = String.valueOf(Cart.getCartbyUserEmail(session()
 					.get("email")).checkout);
 			String accessToken = new OAuthTokenCredential(
-					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
-					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai")
+					Play.application().configuration().getString("payPalPublicKey"),
+					Play.application().configuration().getString("payPalSecretKey"))
 					.getAccessToken();
 
 			Map<String, String> sdkConfig = new HashMap<String, String>();
@@ -90,24 +90,24 @@ public class PayPallController extends Controller {
 	public static String cartToString(Cart cart) {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("Your order via bitBay: ");
+		sb.append(play.i18n.Messages.get("PaypalControllerCTS1"));
 		for (Product product : cart.productList) {
 			sb.append(product.name + " (" + product.price + "0 $) x "
 					+ product.orderedQuantity + ", ");
 		}
-		sb.append("which is a total price of: " + cart.checkout + "0 $");
+		sb.append(play.i18n.Messages.get("PaypalControllerCTS2") + cart.checkout + "0 $");
 		if (sb.length() > 127) {
 			sb.delete(0, sb.length());
-			sb.append("Your order via bitBay: ");
+			sb.append(play.i18n.Messages.get("PaypalControllerCTS1"));
 			for (Product product : cart.productList) {
 				sb.append(product.name + " x " + product.orderedQuantity + ", ");
 			}
-			sb.append("TOTAL: " + cart.checkout + "0 $");
+			sb.append(play.i18n.Messages.get("PaypalControllerCTS3") + cart.checkout + "0 $");
 		}
 		if (sb.length() > 127) {
 			sb.delete(0, sb.length());
-			sb.append("Your order via bitBay: ");
-			sb.append("TOTAL: " + cart.checkout + "0 $");
+			sb.append(play.i18n.Messages.get("PaypalControllerCTS1"));
+			sb.append(play.i18n.Messages.get("PaypalControllerCTS3") + cart.checkout + "0 $");
 		}
 		return sb.toString();
 
@@ -132,8 +132,8 @@ public class PayPallController extends Controller {
 
 			token = paypalReturn.get("token");
 			String accessToken = new OAuthTokenCredential(
-					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
-					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai")
+					Play.application().configuration().getString("payPalPublicKey"),
+					Play.application().configuration().getString("payPalSecretKey"))
 					.getAccessToken();
 			Map<String, String> sdkConfig = new HashMap<String, String>();
 			sdkConfig.put("mode", "sandbox");
@@ -165,8 +165,8 @@ public class PayPallController extends Controller {
 			String paymentID = paymentId;
 			String payerID = payerId;
 			String accessToken = new OAuthTokenCredential(
-					"AbijjyL8ZwCwdnVyiqJbpiNz9oIxovkOnp5T3vM97TLWOfdY-YKthB4geUI-ftm-Bqxo5awhkAmiNAZb",
-					"EJtniUjUuTaw7SryBqatAtIs96Bzs9hklRejABEyVwYhI0eF0cQyWIahIWnA3giEmLza6-GrK81r42Ai")
+					Play.application().configuration().getString("payPalPublicKey"),
+					Play.application().configuration().getString("payPalSecretKey"))
 					.getAccessToken();
 			Map<String, String> sdkConfig = new HashMap<String, String>();
 			sdkConfig.put("mode", "sandbox");
@@ -236,7 +236,7 @@ public class PayPallController extends Controller {
 		Cart.clear(userid);
 		Logger.info("Transaction has been canceled by user "
 				+ session().get("email"));
-		flash("failBuy", "Transaction canceled!");
+		flash("failBuy", play.i18n.Messages.get("PaypalControllerFlash1"));
 		return ok(orderresult.render(email, FAQ.all()));
 	}
 
@@ -252,7 +252,7 @@ public class PayPallController extends Controller {
 		Logger.info("Token has been sent to users email: "
 				+ session().get("email"));
 		String href = "/orderpage/" + Orders.find(id).buyer.id;
-		flash("refund", "Token has been sent to your email!");
+		flash("refund", play.i18n.Messages.get("PaypalControllerFlash2"));
 		return redirect(href);
 
 	}
