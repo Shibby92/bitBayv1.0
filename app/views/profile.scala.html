@@ -20,7 +20,7 @@
                <li  style="margin: 0px 35px">
                   <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                      <div class="form-group">
-                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="@Messages("searchHeader")" required>
                      </div>
                      <div class="btn-group">
                         <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
@@ -259,7 +259,7 @@
                               <h4 class="pull-right"> @product.price $</h4>
                               <h4> <a href="itempage/@product.id">@product.name</a>
                               </h4>
-                              <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
+                              <p> @product.description @if(product.sold==true){<strong> @Messages("sold")!!! </strong>} </p>
                            </div>
                            <div style="margin: -5px 70px">
                               <a class="btn btn-success glyphicon glyphicon-refresh" href="/updateproduct/@product.id" role="button" style="width: 220px; height: 40px; margin: 10px -50px">@Messages("update")</a>
