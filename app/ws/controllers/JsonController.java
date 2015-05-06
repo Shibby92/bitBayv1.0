@@ -1,20 +1,20 @@
 package ws.controllers;
 
-//import java.util.List;
 import helpers.JsonHelper;
 import helpers.ServiceAuth;
 import helpers.Session;
 import models.Product;
 import models.User;
-import play.Logger;
-import play.data.Form;
-import play.libs.Json;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import models.*;
+import play.Logger;
+import play.data.Form;
+import play.libs.Json;
+import play.mvc.*;
+import views.html.*;
 
 
 /**
@@ -60,7 +60,6 @@ public class JsonController extends Controller {
 		User newUser = User.createUser(email, password);
 		return ok(JsonHelper.userToJson(newUser));
 	}
-
 	
 	/**
 	 * method that accepts json post request, parses its body, 
@@ -85,8 +84,8 @@ public class JsonController extends Controller {
 		}
 		if (User.checkLogin(email, password) == true) {
 			User user = User.find(email);
-			session().clear();
-			session("email", user.email);
+			//session().clear();
+			session("email", email);
 			return ok(JsonHelper.userToJson(user));
 		} else {
 			ObjectNode message = Json.newObject();
@@ -94,6 +93,96 @@ public class JsonController extends Controller {
 					"You are not registered user. Please register first!"));
 
 		}
+	}
+
+	/**
+	 * Method adds product to cart and retuns Json Array
+	 * @return
+	 */
+	public static Result toCart() {
+
+		JsonNode json = request().body().asJson();
+		int userId = json.findPath("userId").intValue();
+		Logger.debug(String.valueOf("userId"+userId));
+		int productId = json.findPath("productId").intValue();
+		Logger.debug(String.valueOf("productId"+productId));
+
+		User user = User.find(userId);
+		Product product = Product.find(productId);
+		
+		
+		if(user == null) {
+			Logger.info("User null");
+		}
+		if(user == null) {
+			Logger.info("Product null");
+		}
+		
+		Cart cart = Cart.getCartbyUserId(userId);
+		
+
+		//int orderedQuantity = 1;
+		product.setOrderedQuantity(1);
+		product.amount = product.price;
+		product.update();
+		product.save();
+		Cart.addProduct(product, cart);
+
+		return ok(JsonHelper.cartToJson(cart.id));
+	}
+	
+	/**
+	 * Method gets contents of users cart
+	 * @return
+	 */
+	public static Result getCart() {		
+		JsonNode json = request().body().asJson();
+		int userId = json.findPath("userId").intValue();
+		Logger.debug(String.valueOf("userId"+userId));
+		Cart cart = Cart.getCartbyUserId(userId);		
+		return ok(JsonHelper.cartToJson(cart.id));
+	}
+	
+	public static Result cartPage(int id) {
+		User user = User.find(id);
+		String email = user.email;
+		//session("email", email);
+		//System.out.println(session().get("email") + "***********");
+		return ok(cartpage.render(email, Cart.getCartbyUserId(id), FAQ.all()));
+	}
+	
+	public static Result removeFromCart() {
+		Logger.debug("Cart remove from");
+		JsonNode json = request().body().asJson();
+		int productId = json.findPath("productId").intValue();
+		Logger.debug(String.valueOf("prodId "+productId));
+		int userId = json.findPath("userId").intValue();
+		Product product = Product.find(productId);
+		Logger.debug("Name " + product.name);
+		Cart cart = product.cart;
+		//cart = Cart.removeProductFromCart(productId);
+		Logger.debug("Cart size " + String.valueOf(cart.productList.size()));
+		cart.productList.remove(product);
+		Logger.debug("Cart size 2: " + String.valueOf(cart.productList.size()));
+		cart.update();
+		cart.save();
+		if (cart.productList.size() < 1) {
+			cart.checkout = 0;
+			cart.size = 0;
+		} else {
+			cart.checkout = cart.checkout - product.price
+					* product.getOrderedQuantity();
+			if (cart.checkout < 0)
+				cart.checkout = 0;
+			cart.size = cart.size - product.getOrderedQuantity();
+		}
+		cart.update();
+		cart.save();
+		product.cart = null;
+		product.setOrderedQuantity(0);
+		product.update();
+		product.save();
+		return ok(JsonHelper.cartToJson(cart.id));
 	}
 
 
@@ -155,6 +244,12 @@ public class JsonController extends Controller {
 		return ok(JsonHelper.productToJson(currProduct));
 	}
 
+	/**
+	 * @author Nermin Graca
+	 * Method returns object of class User in Json
+	 * @param id
+	 * @return
+	 */
 	public static Result viewUser(int id) {
 		User currUser = User.find(id);
 		return ok(JsonHelper.userToJson(currUser));

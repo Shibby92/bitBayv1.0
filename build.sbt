@@ -16,5 +16,6 @@ libraryDependencies ++= Seq(
   "org.webjars" % "bootstrap" % "3.1.1-2",
   "com.typesafe.play" %% "play-mailer" % "2.4.0",
   "com.paypal.sdk" % "rest-api-sdk" % "1.2.0",
-    "org.jsoup" % "jsoup" % "1.8.1"
+  "org.jsoup" % "jsoup" % "1.8.1",
+  "nl.bitwalker" % "UserAgentUtils" % "1.2.4"
   )

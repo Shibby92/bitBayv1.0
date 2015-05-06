@@ -1,5 +1,5 @@
-@(email: String, orders: List[Orders], faqs: List[FAQ])
-@main("Orders") {
+@(paymentID:String,payerID:String,token:String,email: String,cart:Cart, faqs: List[FAQ])
+@main("Confirm") {
 <body>
    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -113,91 +113,56 @@
       </div>
       <!-- /.container -->
    </nav>
-   @if(flash.get("orderSuccess")) {
-   <div class="alert alert-danger" role="alert">
-      <div class="container">
-         @flash.get("orderSuccess")
-      </div>
-   </div>
-   }
    <!-- Page Content -->
    <div class="container">
-      @if(flash.get("refund")){
-      <div class="alert alert-success" role="alert">
-         <div class="container">
-            @flash.get("refund")
-         </div>
-      </div>
-      }
-      @if(flash.get("error")){
-      <div class="alert alert-danger" role="alert">
-         <div class="container">
-            @flash.get("error")
-         </div>
-      </div>
-      }
-      @if(flash.get("warning")){
-      <div class="alert alert-warning" role="alert">
-         <div class="container">
-            @flash.get("warning")
-         </div>
-      </div>
-      }
-      @if(flash.get("success")) {
-      <div class="alert alert-success" role="alert">
-         <div class="container">
-            @flash.get("success")
-         </div>
-      </div>
-      }
-      @if(orders.isEmpty){
-      <h3 style="margin: 180px -15px">
-         <center><strong>You have no orders!</strong></center>
-      </h3>
-      }else{
-      <legend style="margin:10px 0px">Your Orders: </legend>
-      <div class="row" style="margin:30px 0px">
+      <legend>Confirm Order: </legend>
+      <br><br>
+      <div class="row" style="margin: 10px 0px">
          <table class="table table-bordered" >
             <thead style="background-color: #4AB55A; color: #fff;">
                <tr>
-                  <th>Order number</th>
-                  <th>Products</th>
-                  <th>Order date</th>
-                  <th>Shipping address</th>
-                  <th><span class="nobr">Total</span></th>
-                  <th>Refund</th>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Total</th>
                </tr>
             </thead>
             <tbody >
-               @for(order <- orders){
+               @for(product <- cart.productList){
                <tr style="background-color: #f5f5f5;">
-                  <td>@order.id</td>
-                  <td>
-                     @for(product <- order.productList){
-                     <p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id) 
-                        <a class="pull-right"href="/rating/@product.owner.id">Rate seller</a>
-                     </p>
-                     }
-                  </td>
-                  <td>@order.orderDate</td>
-                  <td>@order.shippingAddress</td>
-                  <td><span class="price">$ @order.price,-</span>
-                  <td>  <a href ="/refundorder/@order.id">
-                     <button type="button" class="btn btn-warning" style="margin:0px 15px">Refund</button>
-                  </td>
-                  </a>
-                  </td>
+                  <td>@product.name</td>
+                  <td>@product.orderedQuantity</td>
+                  <td>$ @product.price</td>
+                  <td>$ @Product.total(product)</td>
                </tr>
+               }
+            </tbody>
+         </table>
+         <br>	
+         <div>
+            <h4>Total: @cart.checkout $</h4>
+            <a href="@routes.PayPallController.orderSuccess(paymentID,payerID,token)">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">
+            Confirm
+            </button></a>
+            <a href="/orderfail"
+            <button type="button" class="btn btn-danger">Cancel</button>
+            </a>
+            <p>
+            </p>
+         </div>
+         <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+               <div class="modal-content" style="margin: 100px 45px">
+                  <img src="@routes.Assets.at("images/preloader.gif")"/ >
+               </div>
+            </div>
+         </div>
       </div>
-      </tbody>
-      }
-      </table>
-      }
    </div>
-   </div>
-      <!-- /.End of Content -->
-      <!-- /.footer -->
-   <div id="footer">
+    <!-- /.End of Content PAge -->
+    <!-- /.Footer -->
+   <div id="footer1" style="background-color: #f5f5f5">
       <div class="container">
          <div class="col-md-4">
             <a href="/contactpage">

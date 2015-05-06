@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.text.*;
 import java.util.*;
 
+import nl.bitwalker.useragentutils.UserAgent;
 import models.*;
 import play.Logger;
 import play.data.*;
@@ -287,7 +288,14 @@ public class UserController extends Controller {
 		User u = User.find(id);
 		Logger.info("User with email: " + session().get("email")
 				+ " has opened rate page");
-		return ok(rating.render(email, u));
+		UserAgent userAgent = UserAgent.parseUserAgentString(Http.Context.current().request().getHeader("User-Agent"));
+		String deviceType = userAgent.getOperatingSystem().getDeviceType().toString();
+		if (deviceType.equals("MOBILE") || deviceType.equals("TABLET")) {
+			return ok(ratingmobile.render(email, u));
+		} else {
+			return ok(rating.render(email, u));
+		}
+		
 
 	}
 

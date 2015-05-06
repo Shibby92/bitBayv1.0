@@ -5,6 +5,7 @@ import helpers.*;
 import java.text.*;
 import java.util.*;
 
+import nl.bitwalker.useragentutils.UserAgent;
 import models.*;
 import models.Notification;
 import play.*;
@@ -26,7 +27,7 @@ public class PayPallController extends Controller {
 	@Security.Authenticated(UserFilter.class)
 	public static Result purchaseProcessing() {
 		String email = session().get("email");
-
+		System.out.println(email + " in purchProc");
 		try {
 			String total = String.valueOf(Cart.getCartbyUserEmail(session()
 					.get("email")).checkout);
@@ -60,8 +61,16 @@ public class PayPallController extends Controller {
 			payment.setPayer(payer);
 			payment.setTransactions(transactions);
 			RedirectUrls redirectUrls = new RedirectUrls();
-			redirectUrls.setCancelUrl("http://localhost:9000/orderfail");
-			redirectUrls.setReturnUrl("http://localhost:9000/orderconfirm");
+			
+			UserAgent userAgent = UserAgent.parseUserAgentString(Http.Context.current().request().getHeader("User-Agent"));
+			String deviceType = userAgent.getOperatingSystem().getDeviceType().toString();
+			if (deviceType.equals("MOBILE") || deviceType.equals("TABLET")) {
+				redirectUrls.setCancelUrl("http://10.0.2.2:9000/orderfail");
+				redirectUrls.setReturnUrl("http://10.0.2.2:9000/orderconfirmmobile/" + email);
+			} else {
+				redirectUrls.setCancelUrl("http://localhost:9000/orderfail");
+				redirectUrls.setReturnUrl("http://localhost:9000/orderconfirm");
+			}
 			payment.setRedirectUrls(redirectUrls);
 			Payment createdPayment = payment.create(apiContext);
 			Iterator<Links> itr = createdPayment.getLinks().iterator();
@@ -118,9 +127,10 @@ public class PayPallController extends Controller {
 	 *
 	 * @return the result
 	 */
-	@Security.Authenticated(UserFilter.class)
+	//@Security.Authenticated(UserFilter.class)
 	public static Result orderConfirm() {
 		String email = session().get("email");
+		System.out.println(email);
 		String paymentID = null;
 		String payerID = null;
 		String token = null;
@@ -147,6 +157,42 @@ public class PayPallController extends Controller {
 		return ok(confirmorder.render(paymentID, payerID, token, email, cart,
 				FAQ.all()));
 	}
+	
+	/**
+	 * Order confirm.
+	 *
+	 * @return the result
+	 */
+	//@Security.Authenticated(UserFilter.class)
+	public static Result orderConfirmMobile(String email) {
+		System.out.println(email + " in mobile purch proc");
+		session("email", email);
+		String paymentID = null;
+		String payerID = null;
+		String token = null;
+		Cart cart = Cart.getCartbyUserEmail(email);
+		try {
+			DynamicForm paypalReturn = Form.form().bindFromRequest();
+			paymentID = paypalReturn.get("paymentId");
+			payerID = paypalReturn.get("PayerID");
+
+			token = paypalReturn.get("token");
+			String accessToken = new OAuthTokenCredential(
+					Play.application().configuration().getString("payPalPublicKey"),
+					Play.application().configuration().getString("payPalSecretKey"))
+					.getAccessToken();
+			Map<String, String> sdkConfig = new HashMap<String, String>();
+			sdkConfig.put("mode", "sandbox");
+			APIContext apiContext = new APIContext(accessToken);
+			apiContext.setConfigurationMap(sdkConfig);
+			Payment payment = Payment.get(accessToken, paymentID);
+
+		} catch (PayPalRESTException e) {
+			Logger.warn(e.getMessage());
+		}
+		return ok(confirmordermobile.render(paymentID, payerID, token, email, cart,
+				FAQ.all()));
+	}
 
 	/**
 	 * Order success.
@@ -156,7 +202,7 @@ public class PayPallController extends Controller {
 	 * @param token String the token
 	 * @return the result
 	 */
-	@Security.Authenticated(UserFilter.class)
+	//@Security.Authenticated(UserFilter.class)
 	public static Result orderSuccess(String paymentId, String payerId,
 			String token) {
 		String email = session().get("email");
@@ -217,9 +263,17 @@ public class PayPallController extends Controller {
 		} catch (PayPalRESTException e) {
 			Logger.warn(e.getMessage());
 		}
+		UserAgent userAgent = UserAgent.parseUserAgentString(Http.Context.current().request().getHeader("User-Agent"));
+		String deviceType = userAgent.getOperatingSystem().getDeviceType().toString();
+		if (deviceType.equals("MOBILE") || deviceType.equals("TABLET")) {
+			return ok(orderpagemobile.render(email,
+					User.find(session().get("email")).orderList, FAQ.all()));
+		} else {
+			return ok(orderpage.render(email,
+					User.find(session().get("email")).orderList, FAQ.all()));
+		}
 
-		return ok(orderpage.render(email,
-				User.find(session().get("email")).orderList, FAQ.all()));
+		
 	}
 	
 	/**
