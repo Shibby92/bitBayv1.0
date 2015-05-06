@@ -1,30 +1,32 @@
 package controllers;
 
+import helpers.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.net.MalformedURLException;
 import java.text.*;
-import java.util.Date;
+import java.util.*;
 
-import helpers.*;
 import models.*;
 import play.Logger;
-import play.data.DynamicForm;
-import play.data.Form;
+import play.data.*;
 import play.mvc.*;
-import views.*;
 import views.html.*;
 
-
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserController.
+ */
 public class UserController extends Controller {
 
+	/** The user form. */
 	static Form<User> userForm = new Form<User>(User.class);
 
 	/**
-	 * goes to page where admin can update user
-	 * @param id int id of the user
-	 * @return result
+	 * Goes to page where administrator can update user.
+	 *
+	 * @param id
+	 *            int id of the user
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result toUpdateUser(int id) {
@@ -35,11 +37,13 @@ public class UserController extends Controller {
 	}
 
 	/**
-	 * gets data from updated user
-	 * redirect to page where it lists all users
-	 * @param id int id of the user who is beeing updated
-	 * @return result
+	 * Gets data from updated user.
+	 *
+	 * @param id
+	 *            int id of the user who is being updated
 	 * @throws MalformedURLException
+	 *             the malformed url exception
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result updateUser(int id) throws MalformedURLException {
@@ -56,27 +60,30 @@ public class UserController extends Controller {
 		updateUser.update();
 		Logger.info("User with id: " + id + " has been updated");
 
-		flash("success", "You have successfuly updated user!");
+		flash("success", play.i18n.Messages.get("UserControllerFlash1"));
 		return redirect("/profile");
 	}
 
 	/**
-	 * deletes user and redirect to list of all users
-	 * @param id int id of the user
-	 * @return result
+	 * Deletes user.
+	 *
+	 * @param id
+	 *            int id of the user
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteUser(int id) {
 
 		User.delete(id);
 		Logger.warn("User with id: " + id + " has been deleted");
-		flash("success", "You have successfuly deleted user!");
+		flash("success", play.i18n.Messages.get("UserControllerFlash2"));
 		return redirect("/profile");
 	}
 
 	/**
-	 * redirects to page with additional info
-	 * @return result
+	 * Redirects to page with additional info.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result toAdditionalInfo() {
@@ -85,11 +92,13 @@ public class UserController extends Controller {
 		return ok(additionalinfo.render(email, FAQ.all()));
 	}
 
-		/**
-		 * adds additional info to user profile
-		 * @return result
-		 * @throws ParseException
-		 */
+	/**
+	 * Adds additional info to user profile.
+	 *
+	 * @throws ParseException
+	 *             the parse exception
+	 * @return the result
+	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result additionalInfo() throws ParseException {
 
@@ -105,7 +114,7 @@ public class UserController extends Controller {
 		if (!birth_date.before(current)) {
 			Logger.error("User " + session().get("email")
 					+ "has entered invalid date");
-			flash("error", "Enter valid date!");
+			flash("error", play.i18n.Messages.get("UserControllerFlash3"));
 			return ok(additionalinfo.render(email, FAQ.all()));
 		}
 		String city = form.get("city");
@@ -116,7 +125,7 @@ public class UserController extends Controller {
 				&& !gender.toLowerCase().contains("f")) {
 			Logger.error("User " + session().get("email")
 					+ "has entered invalid gender");
-			flash("error", "Enter valid gender!");
+			flash("error", play.i18n.Messages.get("UserControllerFlash4"));
 			return ok(additionalinfo.render(email, FAQ.all()));
 		}
 
@@ -131,16 +140,17 @@ public class UserController extends Controller {
 			return redirect("/homepage");
 		}
 
-		flash("warning", "Username already exists!");
+		flash("warning", play.i18n.Messages.get("UserControllerFlash5"));
 		Logger.error("User " + session().get("email")
 				+ "has entered invalid username");
 		return ok(additionalinfo.render(email, FAQ.all()));
 
 	}
-	
+
 	/**
-	 * page for adding additional info
-	 * @return result
+	 * Opens a page for editing additional info.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result toEditInfo() {
@@ -153,10 +163,11 @@ public class UserController extends Controller {
 	}
 
 	/**
-	 * gets data from additional info 
-	 * adds it to user profile and database
-	 * @return result
+	 * Gets data from additional info and updates users profile
+	 *
 	 * @throws ParseException
+	 *             the parse exception
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result editAdditionalInfo() throws ParseException {
@@ -170,7 +181,7 @@ public class UserController extends Controller {
 		} else {
 			Logger.error("User " + session().get("email")
 					+ "has entered invalid username");
-			flash("error", "Username already exists!");
+			flash("error", play.i18n.Messages.get("UserControllerFlash5"));
 			return ok(editadditionalinfo.render(email, u, FAQ.all()));
 		}
 		Date current = new Date();
@@ -183,7 +194,7 @@ public class UserController extends Controller {
 			if (!u.birth_date.before(current)) {
 				Logger.error("User " + session().get("email")
 						+ "has entered invalid date");
-				flash("error", "Enter valid date!");
+				flash("error", play.i18n.Messages.get("UserControllerFlash3"));
 				return ok(editadditionalinfo.render(email, u, FAQ.all()));
 			}
 		}
@@ -196,7 +207,7 @@ public class UserController extends Controller {
 					&& !u.gender.toLowerCase().contains("f")) {
 				Logger.error("User " + session().get("email")
 						+ "has entered invalid gender");
-				flash("error", "Enter valid gender!");
+				flash("error", play.i18n.Messages.get("UserControllerFlash4"));
 				return ok(editadditionalinfo.render(email, u, FAQ.all()));
 			}
 		}
@@ -204,67 +215,71 @@ public class UserController extends Controller {
 		u.update();
 		Logger.info("User " + session().get("email")
 				+ "has updated his additional info");
-		flash("success", "Additional info updated successfuly!");
+		flash("success", play.i18n.Messages.get("UserControllerFlash6"));
 		return redirect("/homepage");
 
 	}
-	
+
 	/**
-	 * opens page to user profile
-	 * @return result
+	 * Opens page to user profile.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result profile() {
 		Logger.info("User " + session().get("email")
 				+ " has opened his profile page");
 		String email = session().get("email");
-		
+
 		User u = User.find(email);
-		List<Orders> soldProducts= new ArrayList<Orders>();
-		for(Notification notification: u.notification){
-				soldProducts.add(Orders.find(notification.orderId));
+		List<Orders> soldProducts = new ArrayList<Orders>();
+		for (Notification notification : u.notification) {
+			soldProducts.add(Orders.find(notification.orderId));
 		}
 		List<Report> reports = Report.all();
 		List<Report> uniques = new ArrayList<Report>();
-		for(Report report: reports) {
+		for (Report report : reports) {
 			boolean contains = false;
-			for(Report r: uniques){
-				if(report.reportedProduct.id == r.reportedProduct.id){
+			for (Report r : uniques) {
+				if (report.reportedProduct.id == r.reportedProduct.id) {
 					contains = true;
 				}
 			}
-			if(!contains)
+			if (!contains)
 				uniques.add(report);
-						
+
 		}
-		Logger.debug(""+uniques.size());
+		Logger.debug("" + uniques.size());
 		return ok(profile.render(email, User.all(), Category.list(),
 				Product.productList(),
 				Product.myProducts(User.find(session().get("email")).id),
-				FAQ.all(), Message.all(User.find(session().get("email"))), soldProducts, uniques));
+				FAQ.all(), Message.all(User.find(session().get("email"))),
+				soldProducts, uniques));
 
 	}
-	
+
 	/**
-	 * opens page to other users profile
-	 * @return result
+	 * Opens page to other users profile.
+	 *
+	 * @param id
+	 *            int the id of the user
+	 * @return the result
 	 */
 	public static Result userProfile(int id) {
 		User user = User.find(id);
-		Logger.info("User " + session().get("email")
-				+ " has opened " + User.find(id).email + " profile page");
+		Logger.info("User " + session().get("email") + " has opened "
+				+ User.find(id).email + " profile page");
 		String email = session().get("email");
-		return ok(userprofile.render(user, email,
-				Product.myProducts(user.id),
+		return ok(userprofile.render(user, email, Product.myProducts(user.id),
 				FAQ.all()));
 	}
-	
-	
-	
+
 	/**
-	 * opens page for rating user
-	 * @param id int id of the user
-	 * @return result
+	 * Opens page for rating user.
+	 *
+	 * @param id
+	 *            int id of the user
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result ratingpage(int id) {
@@ -275,13 +290,13 @@ public class UserController extends Controller {
 		return ok(rating.render(email, u));
 
 	}
-	
+
 	/**
-	 * gets data from rating user
-	 * adds rating to user
-	 * saves it in database
-	 * @param id int id of the user
-	 * @return result
+	 * Gets data from rating user. Adds rating to user. Saves it in database.
+	 *
+	 * @param id
+	 *            int id of the user
+	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static Result rating(int id) {
@@ -295,11 +310,7 @@ public class UserController extends Controller {
 		u.update();
 		Logger.info("User with email: " + session().get("email")
 				+ " has rated user with id: " + id);
-		flash("success", "You have successfuly rated user!");
+		flash("success", play.i18n.Messages.get("UserControllerFlash7"));
 		return redirect("/orderpage/" + user.id);
 	}
-
-
-
-
 }

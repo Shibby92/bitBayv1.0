@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import models.User;
+import play.mvc.Http.Context;
 import play.mvc.Result;
 import play.mvc.Security;
-import play.mvc.Http.Context;
 import sun.misc.BASE64Decoder;
 
 

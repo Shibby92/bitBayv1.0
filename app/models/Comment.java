@@ -5,28 +5,45 @@ import java.util.List;
 import javax.persistence.*;
 
 import play.data.validation.Constraints.*;
+
 import play.db.ebean.Model;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Comment.
+ */
 @Entity
 public class Comment extends Model {
 
+	/** The id. */
 	@Id
 	public int id;
 
+	/** The comment. */
 	@Required
 	@MinLength(10)
 	@MaxLength(140)
 	public String comment;
 
+	/** The owner. */
 	@ManyToOne
 	public User owner;
 
+	/** The product. */
 	@OneToOne
 	public Product product;
 
+	/** The find. */
 	static Finder<Integer, Comment> find = new Finder<Integer, Comment>(
 			Integer.class, Comment.class);
 
+	/**
+	 * Instantiates a new comment.
+	 *
+	 * @param comment String the comment
+	 * @param owner User the owner
+	 * @param product Product the product
+	 */
 	public Comment(String comment, User owner, Product product) {
 		this.comment = comment;
 		this.owner = owner;
@@ -34,11 +51,12 @@ public class Comment extends Model {
 	}
 
 	/**
-	 * creates new comment and saves it to database
-	 * @param comment String comment
-	 * @param owner User owner of the comment
-	 * @param product Product comment will be connected to this product
-	 * @return id of the comment
+	 * Creates the comment.
+	 *
+	 * @param comment String the comment
+	 * @param owner User the owner
+	 * @param product Product the product
+	 * @return the id of the comment
 	 */
 	public static int createComment(String comment, User owner, Product product) {
 		Comment c = new Comment(comment, owner, product);
@@ -47,32 +65,28 @@ public class Comment extends Model {
 	}
 
 	/**
-	 * @return list of all comments
+	 * All comments in database.
+	 *
+	 * @return the list
 	 */
 	public static List<Comment> all() {
 		return find.findList();
 	}
 
 	/**
-	 * @param id int id of the comment
-	 * @return comment
+	 * Finds the comment by its id.
+	 *
+	 * @param id int the id
+	 * @return the comment
 	 */
 	public static Comment find(int id) {
 		return find.byId(id);
 	}
 
 	/**
-	 * finds a comment by his content
-	 * @param comment String content of the comment
-	 * @return true or false
-	 */
-	public static boolean find(String comment) {
-		return find.where().eq("comment", comment).findUnique() != null;
-	}
-
-	/**
-	 * deletes a comment by his id from the site and database
-	 * @param id int id of the comment
+	 * Deletes the comment by its id.
+	 *
+	 * @param id int the id
 	 */
 	public static void delete(int id) {
 		find.byId(id).delete();

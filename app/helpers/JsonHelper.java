@@ -2,12 +2,11 @@ package helpers;
 
 import java.util.List;
 
-import play.libs.Json;
+import models.Category;
 import models.FAQ;
 import models.Product;
 import models.User;
-import models.Category;
-import play.db.ebean.*;
+import play.libs.Json;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -75,7 +74,7 @@ public class JsonHelper {
 		ObjectNode productNode = Json.newObject();
 		productNode.put("name", p.name);
 		productNode.put("description", p.description);
-		productNode.put("categoryID", p.category_id);
+		productNode.put("categoryID", p.categoryId);
 		productNode.put("price", p.price);
 		if(p.owner.username==null){
 		productNode.put("owner", p.owner.email);

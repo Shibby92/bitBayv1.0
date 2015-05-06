@@ -1,15 +1,16 @@
 package models;
 
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.inMemoryDatabase;
-import models.FAQ;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import play.test.WithApplication;
-import static org.junit.Assert.*;
 
 public class FaqTest extends WithApplication {
 	

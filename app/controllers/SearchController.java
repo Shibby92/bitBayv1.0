@@ -1,31 +1,49 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Collections;
+import java.util.*;
 
 import models.*;
-import play.data.DynamicForm;
-import play.data.Form;
+import play.Logger;
+import play.data.*;
 import play.db.ebean.Model.Finder;
 import play.mvc.*;
-import views.*;
 import views.html.*;
-import play.Logger;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SearchController.
+ */
 public class SearchController extends Controller {
 
 	/**
-	 * class for filtered search
-	 * @author mustafaademovic
+	 * The Class for filtered search.
 	 */
 	public static class FilteredSearch {
+		
+		/** The category. */
 		String category;
+		
+		/** The product. */
 		String product;
+		
+		/** The description. */
 		String description;
+		
+		/** The min value. */
 		String minValue;
+		
+		/** The max value. */
 		String maxValue;
 
+		/**
+		 * Instantiates a new filtered search.
+		 *
+		 * @param category String the category
+		 * @param product String the product
+		 * @param description String the description
+		 * @param minValue String the min value
+		 * @param maxValue String the max value
+		 */
 		public FilteredSearch(String category, String product,
 				String description, String minValue, String maxValue) {
 
@@ -36,22 +54,31 @@ public class SearchController extends Controller {
 			this.maxValue = maxValue;
 		}
 
+		/**
+		 * Instantiates a new filtered search.
+		 */
 		public FilteredSearch() {
 
 		}
 
 	}
 
+	/** The new product. */
 	static Form<Product> newProduct = new Form<Product>(Product.class);
+	
+	/** The filtered search. */
 	static Form<FilteredSearch> filteredSearch = new Form<FilteredSearch>(
 			FilteredSearch.class);
+	
+	/** The find product. */
 	static Finder<Integer, Product> findProduct = new Finder<Integer, Product>(
 			Integer.class, Product.class);
 	
 	/**
-	 * searches products in database
+	 * Searches products in database.
+	 *
 	 * @param q String entered word in search engine
-	 * @return result
+	 * @return the result
 	 */
 	public static Result search(String q) {
 
@@ -63,12 +90,13 @@ public class SearchController extends Controller {
 	}
 
 	/**
-	 * searches users in database
+	 * Searches users in database.
+	 *
 	 * @param q String entered word in search engine
 	 * @return result
 	 */
 	public static Result searchUsers(String q) {
-		List<User> users = User.findUser.where().ilike("email", "%" + q + "%")
+		List<User> users = User.find.where().ilike("email", "%" + q + "%")
 				.findList();
 		String email = session().get("email");
 
@@ -77,8 +105,9 @@ public class SearchController extends Controller {
 	}
 
 	/**
-	 * opens page for advanced search
-	 * @return result
+	 * Opens page for advanced search.
+	 *
+	 * @return the result
 	 */
 	public static Result advancedSearchPage() {
 
@@ -90,9 +119,10 @@ public class SearchController extends Controller {
 	}
 
 	/**
-	 * searches every entered data in advanced search page
+	 * Searches every entered data in advanced search page.
+	 *
 	 * @param ids String ids of the products
-	 * @return result
+	 * @return the result
 	 */
 	public static Result advancedSearch(String ids) {
 
@@ -126,7 +156,7 @@ public class SearchController extends Controller {
 		descr = filteredSearch.bindFromRequest().get().description;
 		String categoryName = df.data().get("category");
 		category = Category.findByName(categoryName);
-		
+
 		if (prod == null) {
 			prod = "";
 		}
@@ -151,12 +181,16 @@ public class SearchController extends Controller {
 		if (descr == null) {
 			descr = "";
 		}
-		
-		if(category == null){
-			productList = Product.find.where().ilike("name", "%" + prod + "%").ilike("description", "%" + descr + "%").findList();
+
+		if (category == null) {
+			productList = Product.find.where().ilike("name", "%" + prod + "%")
+					.ilike("description", "%" + descr + "%").findList();
 		} else {
-		
-		productList = Product.find.where().ilike("category_id", "" + category.id).ilike("name", "%" + prod + "%").ilike("description", "%" + descr + "%").findList();
+
+			productList = Product.find.where()
+					.ilike("category_id", "" + category.id)
+					.ilike("name", "%" + prod + "%")
+					.ilike("description", "%" + descr + "%").findList();
 		}
 		List<Product> filteredProducts = new ArrayList<Product>();
 

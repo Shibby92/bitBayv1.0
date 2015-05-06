@@ -6,73 +6,100 @@ import javax.persistence.*;
 
 import play.db.ebean.Model;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Image.
+ */
 @Entity
 public class Image extends Model {
-	
+
+	/** The id. */
 	@Id
 	public int id;
-	
+
+	/** The image. */
 	public String image;
-	
+
+	/** The product. */
 	@ManyToOne
 	public Product product;
 
-	static Finder<Integer, Image> find = new Finder<Integer, Image>(Integer.class, Image.class);
-	
-	public Image(String image, Product product){
+	/** The find. */
+	static Finder<Integer, Image> find = new Finder<Integer, Image>(
+			Integer.class, Image.class);
+
+	/**
+	 * Instantiates a new image.
+	 *
+	 * @param image String the image
+	 * @param product Product the product
+	 */
+	public Image(String image, Product product) {
 		this.image = image;
 		this.product = product;
 	}
-	
+
+	/**
+	 * Instantiates a new image.
+	 */
 	public Image() {
 		this.image = null;
 		this.id = 0;
 	}
-	
-	public static void create(String image, Product product){
+
+	/**
+	 * Creates the image and saves it in database.
+	 *
+	 * @param image String the image
+	 * @param product Product the product
+	 */
+	public static void create(String image, Product product) {
 		new Image(image, product).save();
 	}
 	
-	public static Image createI(String image, Product product){
-		Image i = new Image(image, product);
-		i.save();
-		return i;
-	}
-	
-	public static void delete(int id){
+	/**
+	 * Deletes the image from database.
+	 *
+	 * @param id int the id
+	 */
+	public static void delete(int id) {
 		find.byId(id).delete();
 	}
-	
-	public static Image find(int id){
+
+	/**
+	 * Find image by its id.
+	 *
+	 * @param id int the id
+	 * @return the image
+	 */
+	public static Image find(int id) {
 		return find.byId(id);
 	}
-	
+
+	/**
+	 * Save image to database.
+	 *
+	 * @param img Image the image
+	 */
 	public static void saveImg(Image img) {
 		img.save();
 	}
 	
-
-	public static int photoStackLength(Product c){
-		List<Image> photos =  find.all();
-		int counter = 0;
-		for(Image p: photos){
-			if(p.product.id == c.id){
-				counter ++;
-			}
-		}
-		return counter;
-	}
-	
-	public static List<Image> photosByProduct(Product c){
+	/**
+	 * List of photos by one product.
+	 *
+	 * @param product Product the product
+	 * @return the list
+	 */
+	public static List<Image> photosByProduct(Product product) {
 		List<Image> allPhotos = find.all();
 		List<Image> byProduct = new ArrayList<Image>();
-		for(Image p: allPhotos){
-			if(p.product.id == c.id){
+		for (Image p : allPhotos) {
+			if (p.product.id == product.id) {
 				byProduct.add(p);
 			}
 		}
 		return byProduct;
 	}
-
 
 }
