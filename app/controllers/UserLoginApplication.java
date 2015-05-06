@@ -43,6 +43,7 @@ public class UserLoginApplication extends Controller {
 		List<Product> start = new ArrayList<Product>();
 
 		for (int i = 0; i < 6; i++) {
+			if(i<allproducts.size())
 			start.add(allproducts.get(i));
 		}
 

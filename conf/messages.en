@@ -8,7 +8,8 @@ globalMessage5 = "Where is my dog?! I've payed it to you fair and square!!"
 
 productName1 = POST CARD of H.M.C.S.ASSINIBOINE
 productDescription1 = "Used: An item that has been used previously. WW2 Photo Post Card of HMCS Assin."
-productImagePath1 = images/assiniboine.JPG
+productImagePath1 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430861359/assiniboine_asmklu.jpg
+product1CloudName=assiniboine_asmklu
 
 productName2 = 2014 Mazda CX-5 4DR SUV
 productDescription2 =  "condition: used, year: 2014, Manufacturer: Mazda, mileage: 12,831, Transmission: Automatic, Fuel Type: Gas"

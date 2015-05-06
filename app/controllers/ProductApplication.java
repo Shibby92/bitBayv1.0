@@ -317,18 +317,18 @@ public class ProductApplication extends Controller {
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
 		if (fileParts == null || fileParts.size() == 0) {
-			flash("error", play.i18n.Messages.get("ProductApplicationFlash9"));
+			flash("error", "You need to upload image!");
 			Logger.debug("File part is null");
 			return null;
 		}
 		for (FilePart filePart : fileParts) {
 			if (filePart == null) {
-				flash("error", play.i18n.Messages.get("ProductApplicationFlash9"));
+				flash("error", "You need to upload image!");
 				Logger.debug("File part is null");
 				return null;
 			}
 			if (fileParts.size() > 5) {
-				flash("error", play.i18n.Messages.get("ProductApplicationFlash10"));
+				flash("error", "Use less than 5 images!");
 				Logger.debug("User tried to save more than 5 images");
 				return null;
 			}
@@ -344,45 +344,40 @@ public class ProductApplication extends Controller {
 					&& !extension.equalsIgnoreCase(".jpg")
 					&& !extension.equalsIgnoreCase(".png")) {
 				Logger.error("Image type not valid");
-				flash("error", play.i18n.Messages.get("ProductApllicationFlash6"));
+				flash("error", "Image type not valid");
 				return null;
 			}
 			double megabiteSyze = (double) ((image.length() / 1024) / 1024);
 			if (megabiteSyze > 2) {
 				Logger.debug("Image size not valid ");
-				flash("error", play.i18n.Messages.get("ProductApplicationFlash7"));
+				flash("error", "Image size not valid");
 				return null;
 			}
-
-			try {
-				models.Image img = new models.Image();
-
-				File profile = new File("./public/images/"
+		//	try {
+				/*File profile = new File("./public/images/"
 						+ UUID.randomUUID().toString() + extension);
-
 				Logger.debug(profile.getPath());
-				String image_url = "images" + File.separator
-						+ profile.getName();
-
-				img.image = image_url;
-
-				Files.move(image, profile);
+				String image_url = "images" +File.separator
+						+ profile.getName();*/
+				
+				models.Image img=models.Image.uploadCreate(image);
+				
+				/*Files.move(image, profile);
 				ImageIcon tmp = new ImageIcon(img.image);
 				Image resize = tmp.getImage();
 				resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
-
+*/
 				image_urls.add(img);
 
-			} catch (IOException e) {
-				flash("error", play.i18n.Messages.get("ProductApplicationFlash11"));
+			/*} catch (IOException e) {
+				flash("error", "Failed to move file");
 				Logger.error("Failed to move file");
 				Logger.debug(e.getMessage());
 				return null;
-			}
+			}*/
 		}
 		return image_urls;
-
-	}
+}
 	
 	/**
 	 * Opens a page from one product.

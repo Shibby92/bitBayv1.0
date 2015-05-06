@@ -122,12 +122,12 @@ public class Global extends GlobalSettings {
 		/**
 		 * Creating 23 different products
 		 */
-		if (Product.find(1) == null) {
+		//if (Product.find(1) == null) {
 			makeProduct(play.i18n.Messages.get("productName1"), 18.00, 1,
 					User.find(3),
 					play.i18n.Messages.get("productDescription1"), 5,
-					play.i18n.Messages.get("productImagePath1"), "");
-			makeProduct(play.i18n.Messages.get("productName2"), 24900.0, 1,
+					play.i18n.Messages.get("productImagePath1"),play.i18n.Messages.get("product1CloudName"), "");
+			/*makeProduct(play.i18n.Messages.get("productName2"), 24900.0, 1,
 					User.find(2),
 					play.i18n.Messages.get("productDescription2"), 1,
 					play.i18n.Messages.get("productImagePath2"), "");
@@ -228,7 +228,7 @@ public class Global extends GlobalSettings {
 					User.find(4),
 					play.i18n.Messages.get("productDescription23"), 13,
 					play.i18n.Messages.get("productImagePath23"), "");
-		}
+		}*/
 
 		/**
 		 * Creating 8 different FAQ's
@@ -257,7 +257,7 @@ public class Global extends GlobalSettings {
 		 * Creating 20 comments for several products
 		 */
 
-		if (Comment.find(1) == null) {
+		/*if (Comment.find(1) == null) {
 			Comment.createComment("Hope to deal with you again. Thank you.",
 					User.find(2), Product.find(1));
 			Comment.createComment(
@@ -314,17 +314,17 @@ public class Global extends GlobalSettings {
 			Comment.createComment("Hope to deal with you again. Thank you.",
 					User.find(6), Product.find(10));
 		}
-
+*/
 		/**
 		 * Creating 4 orders for the recommendation algorithm demonstration
 		 */
-
+/*
 		if (Orders.find(1) == null) {
 			makeOrder(6, 12, 3, "testnera", 2019.99, 1);
 			makeOrder(3, 6, 14, "testemina", 25125.55, 2);
 			makeOrder(2, 13, 3, "testmustafa", 2029.99, 3);
 			makeOrder(3, 6, 15, "testemina", 129.69, 4);
-		}
+		}*/
 
 		/**
 		 * Creating a blog post
@@ -341,7 +341,7 @@ public class Global extends GlobalSettings {
 		 * Making 10 different reports for several products
 		 */
 
-		if (Report.find(1) == null) {
+		/*if (Report.find(1) == null) {
 			Report.report(Product.find(1), User.find(2),
 					"Report for product 1 from user with id 2.");
 			Report.report(Product.find(1), User.find(3),
@@ -362,7 +362,7 @@ public class Global extends GlobalSettings {
 					"Report for product 4 from user with id 5.");
 			Report.report(Product.find(4), User.find(6),
 					"Report for product 4 from user with id 6.");
-		}
+		}*/
 
 	}
 
@@ -457,6 +457,47 @@ public class Global extends GlobalSettings {
 				categoryId);
 		Image i = new Image();
 		i.image = imagePath;
+		i.product = p;
+		Tag.create(p, Category.find(p.categoryId).name);
+		Tag.create(p, p.name);
+		if (!tag.equals("")) {
+			Tag.create(p, tag);
+		}
+		List<Image> il = new ArrayList<Image>();
+		il.add(i);
+		Image.saveImg(i);
+		p.images = il;
+		p.update();
+	}
+	
+	/**
+	 * Method for shortening the creation of products with one picture
+	 * 
+	 * @param name
+	 *            String Product's name
+	 * @param price
+	 *            double Product's price
+	 * @param quantity
+	 *            int Product's quantity
+	 * @param owner
+	 *            User Product's owner
+	 * @param description
+	 *            String Product's description
+	 * @param categoryId
+	 *            int Product's category
+	 * @param imagePath
+	 *            String Product's picture
+	 * @param tag
+	 *            String Product's tag
+	 */
+	private void makeProduct(String name, double price, int quantity,
+			User owner, String description, int categoryId, String imagePath,String cloudName,
+			String tag) {
+		Product p = Product.create(name, price, quantity, owner, description,
+				categoryId);
+		Image i = new Image();
+		i.image = imagePath;
+		i.public_id=cloudName;
 		i.product = p;
 		Tag.create(p, Category.find(p.categoryId).name);
 		Tag.create(p, p.name);
