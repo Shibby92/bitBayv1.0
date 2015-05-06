@@ -21,7 +21,7 @@
                <li  style="margin: 0px 35px">
                   <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                      <div class="form-group">
-                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="@Messages("searchHeader")" required>
                      </div>
                      <div class="btn-group">
                         <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
@@ -31,7 +31,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
                            <li>
-                              <a href="/advancedsearch">Advanced Search</a>
+                              <a href="/advancedsearch">@Messages("advancedSearch")</a>
                            </li>
                         </ul>
                      </div>
@@ -39,13 +39,13 @@
                </li>
                <li>
                   <h4>
-                     <p style="color: #000">Hello   
+                     <p style="color: #000">@Messages("hello")   
                         <a href="/login">
-                        <button class="btn btn-success btn-login"> Log in</button> 
+                        <button class="btn btn-success btn-login"> @Messages("login")</button> 
                         </a>
-                        or 
+                       @Messages("or") 
                         <a href="/toregister">
-                        <button class="btn btn-success btn-register" >Register</button>
+                        <button class="btn btn-success btn-register" >@Messages("register")</button>
                         </a>
                      </p>
                   </h4>
@@ -56,7 +56,7 @@
             <li  style="margin: 0px 180px">
                <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
+                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="@Messages("placeholderSearch")" required>
                   </div>
                   <div class="btn-group">
                      <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
@@ -66,7 +66,7 @@
                      </button>
                      <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
                         <li>
-                           <a href="/advancedsearch">Advanced Search</a>
+                           <a href="/advancedsearch">@Messages("advancedSearch")</a>
                         </li>
                      </ul>
                   </div>
@@ -86,24 +86,24 @@
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                      @if(User.find(email).admin == true || User.find(email).blogger) {
                      @if(!User.find(email).blogger) {
-                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >@Messages("profile")</a></li>
                      }
                      @if(User.find(email).blogger) {
-                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >Blog</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >@Messages("blog")</a></li>
                      }
                      <li class="divider"></li>
-                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">@Messages("logout")</a></li>
                      } else {
-                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                     <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
-                     <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
-                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >@Messages("profile")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory">@Messages("newProduct")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id">@Messages("myCart")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id">@Messages("myOrders")</a></li>
                      @if(email != null && User.getUncheckedNotifications(User.find(email).id).size()>0){
-                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> Notifications </a>
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> @Messages("notification") </a>
                      </li>
                      }
                      <li class="divider"></li>
-                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">@Messages("logout")</a></li>
                   </ul>
                </li>
             </ul>
@@ -114,7 +114,7 @@
       </div>
       <!-- /.container -->
    </nav>
-    <!-- /.Start content -->
+    <!-- /.Content page -->
    <div class="row">
       <div class="col-md-12">
          @if(flash.get("inDatabase") || flash.get("validate")){
@@ -149,29 +149,29 @@
          <div class="col-sm-3">
             <div style="margin: 56.5px -15px" class="well3 login-box">
                <form action="/register" method="GET">
-                  <legend>Register</legend>
+                  <legend>@Messages("register")</legend>
                   <dl class=" " id="email_field">
-                     <dt><label for="email">Email*</label></dt>
+                     <dt><label for="email">@Messages("emial")*</label></dt>
                      <dd>
-                        <input type="email" id="email" name="email" value="" placeholder="Enter email" class="form-control" required>
+                        <input type="email" id="email" name="email" value="" placeholder=@Messages("enterEmailPlaceholder") class="form-control" required>
                      </dd>
                   </dl>
                   <dl class=" " id="password_field">
-                     <dt><label for="password">Password*</label></dt>
+                     <dt><label for="password">@Messages("password")*</label></dt>
                      <dd>
-                        <input type="password" id="password" name="password" placeholder="Enter password" class="form-control" pattern=".{5,50}" required >
+                        <input type="password" id="password" name="password" placeholder=@Messages("enterPasswordPlaceholder") class="form-control" pattern=".{5,50}" required >
                      </dd>
-                     <dd class="info">Minimum length: 5</dd>
+                     <dd class="info"@Messages("minimumLength") 5</dd>
                   </dl>
                   <dl class=" " id="password_field">
-                     <dt><label for="password">Confirm password*</label></dt>
+                     <dt><label for="password">@Messages("confirmPassword")*</label></dt>
                      <dd>
-                        <input type="password" id="confirm_pass" name="confirm_pass" placeholder="Confirm your password" class="form-control" pattern=".{5,50}" required >
+                        <input type="password" id="confirm_pass" name="confirm_pass" placeholder=@Messages("confirmPasswordPlaceholder") class="form-control" pattern=".{5,50}" required >
                      </dd>
                   </dl>
                   <div class="form-group text-center">
-                     <input type="submit" value="Register" class="btn btn-success" >
-                     <a class="btn btn-danger" href="homepage" role="button">Cancel</a>
+                     <input type="submit" value="@Messages("register")" class="btn btn-success" >
+                     <a class="btn btn-danger" href="homepage" role="button">@Messages("cancel")</a>
                   </div>
                </form>
             </div>
@@ -181,25 +181,25 @@
     <!-- /.End of Content -->
     <!-- /.Start footer -->
    <div id="footer">
-      <div class="container">
+    <div class="container">
          <div class="col-md-4">
             <a href="/contactpage">
-               <h4><i class="glyphicon glyphicon-envelope"></i> Contact Us</h4>
+               <h4><i class="glyphicon glyphicon-envelope"></i>@Messages("contactUs")</h4>
             </a>
             <a href="/faq">
-               <h4><i class="glyphicon glyphicon-cog"></i> FAQs</h4>
+               <h4><i class="glyphicon glyphicon-cog"></i>@Messages("faqs")</h4>
             </a>
             <a href="/blog">
-               <h4><i class="glyphicon glyphicon-stats"></i> Blog </h4>
+               <h4><i class="glyphicon glyphicon-stats"></i>@Messages("blog")</h4>
             </a>
          </div>
          <div class="col-md-4">
-            <h4 style="color: #4AB55A;">About bitBay:</h4>
+            <h4 style="color: #4AB55A;">@Messages("aboutBitBay"):</h4>
             <address style="color: #4AB55A">
-               <p>Project bitBay mirror site of eBay</p>
-               <p>Sarajevo</p>
-               <p>Bosnia and Herzegovina</p>
-               <p>Contact: (061) 100-100</p>
+               <p>@Messages("mirrorsite")</p>
+               <p>@Messages("sarajevo")</p>
+               <p>@Messages("bosna")</p>
+               <p>@Messages("phone")</p>
             </address>
          </div>
          <div class="col-md-4">
@@ -207,7 +207,7 @@
             <div align="center" style="margin:20px 0px">
                <table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
                   <tr>
-                     <h4 style="color: #4AB55A">Follow us on:</h4>
+                     <h4 style="color: #4AB55A">@Messages("Follow us on"):</h4>
                      <td>
                         <a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
                         <img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
