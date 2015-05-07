@@ -143,99 +143,157 @@ public class Global extends GlobalSettings {
 					play.i18n.Messages.get("product3CloudImage2Name"),
 					play.i18n.Messages.get("product3CloudImage3Name"),
 					"Samsung");
-			/*
+			
 			makeProduct(play.i18n.Messages.get("productName4"), 0.99, 1,
 					User.find(3),
 					play.i18n.Messages.get("productDescription4"), 13,
-					play.i18n.Messages.get("productImagePath4"), "");
+					play.i18n.Messages.get("productImagePath4"),
+					play.i18n.Messages.get("product4CloudImageName"), "");
+			
 			makeProduct(play.i18n.Messages.get("productName5"), 45750, 2,
 					User.find(4),
 					play.i18n.Messages.get("productDescription5"), 1,
-					play.i18n.Messages.get("productImagePath5"), "");
+					play.i18n.Messages.get("productImagePath5"),
+					play.i18n.Messages.get("product5CloudImageName"),
+					"");
+			
 			makeProduct(play.i18n.Messages.get("productName6"), 120, 3,
 					User.find(6),
 					play.i18n.Messages.get("productDescription6"), 8,
-					play.i18n.Messages.get("productImagePath6"), "");
+					play.i18n.Messages.get("productImagePath6"), 
+					play.i18n.Messages.get("product6CloudImageName"),
+					"");
+			
 			makeProduct(play.i18n.Messages.get("productName7"), 15000, 1,
 					User.find(4),
 					play.i18n.Messages.get("productDescription7"), 1,
-					play.i18n.Messages.get("productImagePath7"), "");
+					play.i18n.Messages.get("productImagePath7"), 
+					play.i18n.Messages.get("product7CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName8"), 1530, 15,
 					User.find(5),
 					play.i18n.Messages.get("productDescription8"), 3,
-					play.i18n.Messages.get("productImagePath8"), "");
+					play.i18n.Messages.get("productImagePath8"),
+					play.i18n.Messages.get("product8CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName9"), 120, 1,
 					User.find(6),
 					play.i18n.Messages.get("productDescription9"), 8,
-					play.i18n.Messages.get("productImagePath9"), "");
+					play.i18n.Messages.get("productImagePath9"), 
+					play.i18n.Messages.get("product9CloudImageName"),
+"");
 
 			// 10th
 
 			makeProduct(play.i18n.Messages.get("productName10"), 100000, 3,
 					User.find(2),
 					play.i18n.Messages.get("productDescription10"), 5,
-					play.i18n.Messages.get("productImagePath10"), "");
+					play.i18n.Messages.get("productImagePath10"),
+					play.i18n.Messages.get("product10CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName11"), 9.99, 50,
 					User.find(3),
 					play.i18n.Messages.get("productDescription11"), 3,
-					play.i18n.Messages.get("productImagePath11"), "Samsung");
+					play.i18n.Messages.get("productImagePath11"),
+					play.i18n.Messages.get("product11CloudImageName"),
+"Samsung");
+			
 			makeProduct(play.i18n.Messages.get("productName12"), 19.99, 100,
 					User.find(3),
 					play.i18n.Messages.get("productDescription12"), 3,
-					play.i18n.Messages.get("productImagePath12"), "Samsung");
+					play.i18n.Messages.get("productImagePath12"),
+					play.i18n.Messages.get("product12CloudImageName"),
+"Samsung");
+		
 			makeProduct(play.i18n.Messages.get("productName13"), 29.99, 10,
 					User.find(3),
 					play.i18n.Messages.get("productDescription13"), 3,
-					play.i18n.Messages.get("productImagePath13"), "Samsung");
+					play.i18n.Messages.get("productImagePath13"),
+					play.i18n.Messages.get("product13CloudImageName"),
+"Samsung");
+		
 			makeProduct(play.i18n.Messages.get("productName14"), 5.55, 15,
 					User.find(6),
 					play.i18n.Messages.get("productDescription14"), 8,
-					play.i18n.Messages.get("productImagePath14"), "Dog");
+					play.i18n.Messages.get("productImagePath14"),
+					play.i18n.Messages.get("product14CloudImageName"),
+"Dog");
+		
 			makeProduct(play.i18n.Messages.get("productName15"), 9.69, 20,
 					User.find(6),
 					play.i18n.Messages.get("productDescription15"), 8,
-					play.i18n.Messages.get("productImagePath15"), "Dog");
+					play.i18n.Messages.get("productImagePath15"),
+					play.i18n.Messages.get("product15CloudImageName"),
+"Dog");
+		
 			makeProduct(play.i18n.Messages.get("productName16"), 21.29, 5,
 					User.find(6),
 					play.i18n.Messages.get("productDescription16"), 8,
-					play.i18n.Messages.get("productImagePath16"), "Dog");
+					play.i18n.Messages.get("productImagePath16"),
+					play.i18n.Messages.get("product16CloudImageName"),
+"Dog");
+		
 			makeProduct(play.i18n.Messages.get("productName17"), 552.49, 7,
 					User.find(3),
 					play.i18n.Messages.get("productDescription17"), 2,
 					play.i18n.Messages.get("productImagePath17a"),
-					play.i18n.Messages.get("productImagePath17b"),
-					play.i18n.Messages.get("productImagePath17c"), "");
+					//play.i18n.Messages.get("productImagePath17b"),
+					//play.i18n.Messages.get("productImagePath17c"),
+					play.i18n.Messages.get("product17CloudImageName"),
+
+					"");
+		
 			makeProduct(play.i18n.Messages.get("productName18"), 399.00, 3,
 					User.find(4),
 					play.i18n.Messages.get("productDescription18"), 2,
 					play.i18n.Messages.get("productImagePath18a"),
-					play.i18n.Messages.get("productImagePath18b"),
-					play.i18n.Messages.get("productImagePath18c"), "");
+					//play.i18n.Messages.get("productImagePath18b"),
+					//play.i18n.Messages.get("productImagePath18c"), 
+					play.i18n.Messages.get("product18CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName19"), 99.00, 7,
 					User.find(5),
 					play.i18n.Messages.get("productDescription19"), 2,
 					play.i18n.Messages.get("productImagePath19a"),
-					play.i18n.Messages.get("productImagePath19b"),
-					play.i18n.Messages.get("productImagePath19c"), "");
+					//play.i18n.Messages.get("productImagePath19b"),
+					//play.i18n.Messages.get("productImagePath19c"), 
+					play.i18n.Messages.get("product19CloudImageName"),
+"");
+			
 			makeProduct(play.i18n.Messages.get("productName20"), 119.00, 10,
 					User.find(6),
 					play.i18n.Messages.get("productDescription20"), 2,
 					play.i18n.Messages.get("productImagePath20a"),
-					play.i18n.Messages.get("productImagePath20b"),
-					play.i18n.Messages.get("productImagePath20c"), "");
+					//play.i18n.Messages.get("productImagePath20b"),
+					//play.i18n.Messages.get("productImagePath20c"),
+					play.i18n.Messages.get("product20CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName21"), 5.50, 5,
 					User.find(2),
 					play.i18n.Messages.get("productDescription21"), 11,
-					play.i18n.Messages.get("productImagePath21"), "");
+					play.i18n.Messages.get("productImagePath21"), 
+					play.i18n.Messages.get("product21CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName22"), 55.00, 1,
 					User.find(3),
 					play.i18n.Messages.get("productDescription22"), 9,
-					play.i18n.Messages.get("productImagePath22"), "");
+					play.i18n.Messages.get("productImagePath22"), 
+					play.i18n.Messages.get("product22CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName23"), 17.99, 20,
 					User.find(4),
 					play.i18n.Messages.get("productDescription23"), 13,
-					play.i18n.Messages.get("productImagePath23"), "");
-		}*/
+					play.i18n.Messages.get("productImagePath23"),
+					play.i18n.Messages.get("product23CloudImageName"),
+"");
+		//}
 
 		/**
 		 * Creating 8 different FAQ's
@@ -264,7 +322,7 @@ public class Global extends GlobalSettings {
 		 * Creating 20 comments for several products
 		 */
 
-		/*if (Comment.find(1) == null) {
+		if (Comment.find(1) == null) {
 			Comment.createComment("Hope to deal with you again. Thank you.",
 					User.find(2), Product.find(1));
 			Comment.createComment(
@@ -321,17 +379,17 @@ public class Global extends GlobalSettings {
 			Comment.createComment("Hope to deal with you again. Thank you.",
 					User.find(6), Product.find(10));
 		}
-*/
+
 		/**
 		 * Creating 4 orders for the recommendation algorithm demonstration
 		 */
-/*
+
 		if (Orders.find(1) == null) {
 			makeOrder(6, 12, 3, "testnera", 2019.99, 1);
 			makeOrder(3, 6, 14, "testemina", 25125.55, 2);
 			makeOrder(2, 13, 3, "testmustafa", 2029.99, 3);
 			makeOrder(3, 6, 15, "testemina", 129.69, 4);
-		}*/
+		}
 
 		/**
 		 * Creating a blog post
@@ -348,7 +406,7 @@ public class Global extends GlobalSettings {
 		 * Making 10 different reports for several products
 		 */
 
-		/*if (Report.find(1) == null) {
+		if (Report.find(1) == null) {
 			Report.report(Product.find(1), User.find(2),
 					"Report for product 1 from user with id 2.");
 			Report.report(Product.find(1), User.find(3),
@@ -369,7 +427,7 @@ public class Global extends GlobalSettings {
 					"Report for product 4 from user with id 5.");
 			Report.report(Product.find(4), User.find(6),
 					"Report for product 4 from user with id 6.");
-		}*/
+		}
 
 	}
 

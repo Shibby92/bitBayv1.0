@@ -28,91 +28,127 @@ product3CloudImage3Name=samsung-galaxy-s6-4_vkwkqx
 
 productName4 = "THE BOOK OF WHO? by Rodney Dale"
 productDescritpion4 = "Brand New: A new, unread, unused book in perfect condition with no missing or damaged pages. Publication Year: 2005"
-productImagePath4 = images/bitbaySlika1.jpg
+productImagePath4 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430959511/bookofwho_qr41pb.jpg
+product4CloudImageName=bookofwho_qr41pb
 
 productName5 = Mercedes 270
 productDescription5 = "Year: 2015, Manufacturer: Mercedes, Condition: used, Mileage: 21,841, Transmission: manual"
-productImagePath5 = images/mercedes.jpg
+productImagePath5 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430959711/mercedes_msijmx.jpg
+product5CloudImageName=mercedes_msijmx
 
 productName6 = Dog
 productDescription6 = "Young dog, 3 months, only money!!!"
-productImagePath6 = images/dog.jpg
+productImagePath6 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430959837/dog_pmoiwt.jpg
+product6CloudImageName=dog_pmoiwt
+
 
 productName7 = BMW 320
 productDescription7 = "Year: 2003, Mileage: 129,27, Transmission: automatic, Manufacturer: BMW"
-productImagePath7 = images/bmw.jpg
+productImagePath7 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430959968/bmw_wvj2re.jpg
+product7CloudImageName=bmw_wvj2re
+
 
 productName8 = Iphone 6
 productDescription8 = "Brand: Apple, Storage Capacity: 64 GB, Camera:8.0MP, Model: iPhone 6 Plus, Digital Camera: Yes, Email Access: Yes, Battery Capacity: 2000 mAh, Operating System:iOS"
-productImagePath8 = images/iphone.jpg
+productImagePath8 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430960232/iphone_khrdka.jpg
+product8CloudImageName=iphone_khrdka
+
 
 productName9 = Cat
 productDescription9 = "Young cat, 2 months, if you want good pet this is the best choice!!!"
-productImagePath9 = images/cat.jpg
+productImagePath9 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430960434/cat_wjwv9k.jpg
+product9CloudImageName=cat_wjwv9k
 
 productName10 = House
 productDescription10 = "This house has got four bedrooms, a living room, a dining room, a kitchen"
-productImagePath10 = images/bitbaySlika1.jpg
+productImagePath10 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430960531/bitbaySlika1_wqlhs0.jpg
+product10CloudImageName=bitbaySlika1_wqlhs0
+
 
 productName11 = Samsung galaxy S6 cover
 productDescription11 = Silicon cover for Samsung galaxy S6
-productImagePath11 = images/samsungCover.jpg
+productImagePath11 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962038/samsungCover_eamhct.jpg
+product11CloudImageName=samsungCover_eamhct
+
 
 productName12 = Headphones for S6
 productDescription12 = Very stylish headphones for Samsung galaxy S6
-productImagePath12 = images/samsungHeadphones.jpg
+productImagePath12 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962257/samsungHeadphones_f0iudt.jpg
+product12CloudImageName=samsungHeadphones_f0iudt
+
 
 productName13 = Dock for Samsung galaxy S6
 productDescription13 = Beatiful all-in-one dock for the new Samsung galaxy S6
-productImagePath13 = images/samsungDock.jpg
+productImagePath13 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962366/samsungDock_olrha1.png
+product13CloudImageName=samsungDock_olrha1
+
 
 productName14 = Dog chew rope
 productDescription14 = "A toy for your best friend!"
-productImagePath14 = images/dogChewRope.jpg
+productImagePath14 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962552/dogChewRope_qvzi7s.jpg
+product14CloudImageName=dogChewRope_qvzi7s
+
 
 productName15 = Dog collar
 productDescription15 = New red plaid stylish dog collar.
-productImagePath15 = images/dogCollar.jpg
+productImagePath15 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962646/dogCollar_vrvnpy.jpg
+product15CloudImageName=dogCollar_vrvnpy
 
 productName16 = Treatball
 productDescription16 = "Mystery green rubber treatball for your dog!"
-productImagePath16 = images/dogTreatball.jpg
+productImagePath16 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962760/dogTreatball_ew8kyv.jpg
+product16CloudImageName=dogTreatball_ew8kyv
+
 
 productName17 = NEW Authentic GUCCI
 productDescription17 = "New with tags: A brand-new, unused, and unworn item (including handmade items) in the original packaging"
-productImagePath17a = images/GucciBag.JPG
+productImagePath17a = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962883/GucciBag_n01xzk.jpg
 productImagePath17b = images/guccibag2.jpg
 productImagePath17c = images/guccibag3.jpeg
+product17CloudImageName=GucciBag_n01xzk
+
 
 productName18 = Raymond Stainless Watch
 productDescription18 = This watch is new display model. Does not come with box and papers.
-productImagePath18a = images/Raymondwatch.JPG
+productImagePath18a = http://res.cloudinary.com/dypsvhs02/image/upload/v1430963120/Raymondwatch_uzwdxg.jpg
 productImagePath18b = images/Raymondwatch1.JPG
 productImagePath18c = images/Raymondwatch2.JPG
+product18CloudImageName=Raymondwatch_uzwdxg
+
 
 productName19 = Michael KORS BUCKLE SANDALS
 productDescription19 = "New with box: A brand-new, unused, and unworn item (including handmade items) in the original packaging (such as the original box or bag) and/or with the original tags attached."
-productImagePath19a = images/michaelkors.JPG
+productImagePath19a = http://res.cloudinary.com/dypsvhs02/image/upload/v1430963563/michaelkors_mdfmjo.jpg
 productImagePath19b = images/michaelkors1.jpeg
 productImagePath19c = images/michaelkors2.jpeg
+product19CloudImageName=michaelkors_mdfmjo
+
 
 productName20 = Tory Burch Thong Sandals
 productDescription20 = "New without box: A brand-new, unused, and unworn item (including handmade items) that is not in original packaging or may be missing original packaging materials (such as the original box or bag)."
-productImagePath20a = images/toryburch.JPG
+productImagePath20a = http://res.cloudinary.com/dypsvhs02/image/upload/v1430963695/toryburch_pehqdf.jpg
 productImagePath20b = images/toryburch1.jpeg
 productImagePath20c = images/toryburch2.jpeg
+product20CloudImageName=toryburch_pehqdf
+
 
 productName21 = "U2: son gs of innocence- Deluxe Edition (2014)"
 productDescription21 = "Brand New: An item that has never been opened or removed from the manufacturer’s sealing (if applicable). Item is in original shrink wrap (if applicable). See the seller's listing for full details. Number of Discs: 2. Genre: Rock. Tracks: 16."
-productImagePath21 = images/u2CD.JPG
+productImagePath21 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430963827/u2CD_d02qof.jpg
+product21CloudImageName=u2CD_d02qof
+
 
 productName22 = Vintage Look Vase Coffee TABLE
 productDescription22 = "Good condition, Hand Made. Region of Origin: Asia. Material: Wood. Age: Post-1950"
-productImagePath22 = images/coffeetable.JPG
+productImagePath22 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430963941/coffeetable_jbwpvh.jpg
+product22CloudImageName=coffeetable_jbwpvh
+
 
 productName23 = GIANT BIG TEDDY BEAR
 productDescription23 = "New: A brand-new, unused, unopened, undamaged item (including handmade items) Country of Manufacture: China. Size: 75cm/29.5 inch(Ear to Feet)"
-productImagePath23 = images/tedybear.JPG
+productImagePath23 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430964057/tedybear_pzzjuo.jpg
+product23CloudImageName=tedybear_pzzjuo
+
 
 FAQQuestion1 = "I can't get items shipped until Monday and I'm afraid of hurting my top-rated seller qualification. How should I go about this?"
 FAQQuestion2 = "I have 30 something bids on my vintage camper and about 6 of them are from people with 0 feedback. Is this scammers? I have sold on bitbay for years and never saw this before." 
