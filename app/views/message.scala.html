@@ -139,9 +139,9 @@
          }
          <div class="col-md-8" style="margin: 50px  160px">
             <div class="well3 login box">
-               <legend>@Message("from"): @msg.sender.email
+               <legend>@Messages("from"): @msg.sender.email
                </legend>
-               <h5>@Message("message"):</h5>
+               <h5>@Messages("message"):</h5>
                <div class="thumbnail" style="background-color: #fff">
                   <div class="caption">
                      <h5 >
@@ -149,7 +149,7 @@
                      </h5>
                   </div>
                </div>
-               <a type="submit" class="btn btn-success  glyphicon glyphicon" href="/replyToMessagePage/@msg.sender.id" role="button" style="width: 220px; height: 40px; margin: 10px 80px">@Message("reply")</a>
+               <a type="submit" class="btn btn-success  glyphicon glyphicon" href="/replyToMessagePage/@msg.sender.id" role="button" style="width: 220px; height: 40px; margin: 10px 80px">@Messages("reply")</a>
                <a class="btn btn-danger  glyphicon glyphicon-trash " href="/deletemessage/@msg.id" role="button" onclick="return confirm('Are you sure you want to delete this message?');" style="width: 220px; height: 40px; margin: 10px -50px">@Messages("delete")</a>
             </div>
          </div>
