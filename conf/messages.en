@@ -9,17 +9,22 @@ globalMessage5 = "Where is my dog?! I've payed it to you fair and square!!"
 productName1 = POST CARD of H.M.C.S.ASSINIBOINE
 productDescription1 = "Used: An item that has been used previously. WW2 Photo Post Card of HMCS Assin."
 productImagePath1 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430861359/assiniboine_asmklu.jpg
-product1CloudName=assiniboine_asmklu
+product1CloudImageName=assiniboine_asmklu
 
 productName2 = 2014 Mazda CX-5 4DR SUV
 productDescription2 =  "condition: used, year: 2014, Manufacturer: Mazda, mileage: 12,831, Transmission: Automatic, Fuel Type: Gas"
-productImagePath2 = images/6800.jpg
+productImagePath2 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430956786/6800_gh1oyj.jpg
+product2CloudImageName=6800_gh1oyj
+
 
 productName3 = Samsung Galaxy S6
 productDescription3 = "Detailed: item info, Product: Identifiers, Brand: Samsung, Carrier: Unlocked, Family Line: Samsung Galaxy S6, Type: Smartphone, Digital Camera: Yes, Email Access: Yes, Battery Capacity: 2550 mAh, Display Technology: Quad HD Super AMOLED"
-productImagePath3 = images/samsung-galaxy-s6-11.jpg
-productImagePath3a = images/samsung-galaxy-s6-2.jpg
-productImagePath3aa = images/samsung-galaxy-s6-4.jpg
+productImagePath3 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430957201/samsung-galaxy-s6-11_kemyzy.jpg
+productImagePath3a = http://res.cloudinary.com/dypsvhs02/image/upload/v1430957127/samsung-galaxy-s6-2_by00ud.jpg
+productImagePath3aa = http://res.cloudinary.com/dypsvhs02/image/upload/v1430957262/samsung-galaxy-s6-4_vkwkqx.jpg
+product3CloudImageName=samsung-galaxy-s6-11_kemyzy
+product3CloudImage2Name=samsung-galaxy-s6-2_by00ud
+product3CloudImage3Name=samsung-galaxy-s6-4_vkwkqx
 
 productName4 = "THE BOOK OF WHO? by Rodney Dale"
 productDescritpion4 = "Brand New: A new, unread, unused book in perfect condition with no missing or damaged pages. Publication Year: 2005"

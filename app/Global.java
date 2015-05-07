@@ -126,17 +126,24 @@ public class Global extends GlobalSettings {
 			makeProduct(play.i18n.Messages.get("productName1"), 18.00, 1,
 					User.find(3),
 					play.i18n.Messages.get("productDescription1"), 5,
-					play.i18n.Messages.get("productImagePath1"),play.i18n.Messages.get("product1CloudName"), "");
-			/*makeProduct(play.i18n.Messages.get("productName2"), 24900.0, 1,
+					play.i18n.Messages.get("productImagePath1"),play.i18n.Messages.get("product1CloudImageName"), "");
+			
+			makeProduct(play.i18n.Messages.get("productName2"), 24900.0, 1,
 					User.find(2),
 					play.i18n.Messages.get("productDescription2"), 1,
-					play.i18n.Messages.get("productImagePath2"), "");
+					play.i18n.Messages.get("productImagePath2"),play.i18n.Messages.get("product2CloudImageName"), "");
+			
 			makeProduct(play.i18n.Messages.get("productName3"), 2000.00, 15,
 					User.find(3),
 					play.i18n.Messages.get("productDescription3"), 3,
 					play.i18n.Messages.get("productImagePath3"),
 					play.i18n.Messages.get("productImagePath3a"),
-					play.i18n.Messages.get("productImagePath3aa"), "Samsung");
+					play.i18n.Messages.get("productImagePath3aa"),
+					play.i18n.Messages.get("product3CloudImageName"),
+					play.i18n.Messages.get("product3CloudImage2Name"),
+					play.i18n.Messages.get("product3CloudImage3Name"),
+					"Samsung");
+			/*
 			makeProduct(play.i18n.Messages.get("productName4"), 0.99, 1,
 					User.find(3),
 					play.i18n.Messages.get("productDescription4"), 13,
@@ -565,4 +572,61 @@ public class Global extends GlobalSettings {
 		p.update();
 	}
 
+	/**
+	 * Method for shortening the creation of products with three pictures
+	 * 
+	 * @param name
+	 *            String Product's name
+	 * @param price
+	 *            double Product's price
+	 * @param quantity
+	 *            int Product's quantity
+	 * @param owner
+	 *            User Product's owner
+	 * @param description
+	 *            String Product's description
+	 * @param categoryId
+	 *            int Product's category
+	 * @param imagePath1
+	 *            String Product's picture 1
+	 * @param imagePath2
+	 *            String Product's picture 2
+	 * @param imagePath3
+	 *            String Product's picture 3
+	 * @param tag
+	 *            String Product's tag
+	 */
+	private void makeProduct(String name, double price, int quantity,
+			User owner, String description, int categoryId, String imagePath1,
+			String imagePath2, String imagePath3, String cloudImage1Name,String cloudImage2Name, String cloudImage3Name, String tag) {
+		Product p = Product.create(name, price, quantity, owner, description,
+				categoryId);
+		Image ia = new Image();
+		ia.public_id=cloudImage1Name;
+		ia.image = imagePath1;
+		ia.product = p;
+		Image ib = new Image();
+		ib.public_id=cloudImage2Name;
+		ib.image = imagePath2;
+		ib.product = p;
+		Image ic = new Image();
+		ic.public_id=cloudImage3Name;
+		ic.image = imagePath3;
+		ic.product = p;
+		Tag.create(p, Category.find(p.categoryId).name);
+		Tag.create(p, p.name);
+		if (!tag.equals("")) {
+			Tag.create(p, tag);
+		}
+		List<Image> il = new ArrayList<Image>();
+		il.add(ia);
+		Image.saveImg(ib);
+		il.add(ib);
+		Image.saveImg(ic);
+		il.add(ic);
+		Image.saveImg(ic);
+		p.images = il;
+		p.update();
+	}	
+	
 }
