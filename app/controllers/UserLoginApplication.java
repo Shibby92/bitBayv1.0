@@ -40,14 +40,14 @@ public class UserLoginApplication extends Controller {
 					+ session().get("email"));
 
 		List<Product> allproducts = Product.productList();
-		List<Product> start = new ArrayList<Product>();
+		List<Product> startList = new ArrayList<Product>();
 
 		for (int i = 0; i < 6; i++) {
 			if(i<allproducts.size())
-			start.add(allproducts.get(i));
+			startList.add(allproducts.get(i));
 		}
 
-		return ok(homePage.render(email, Category.list(), start, FAQ.all()));
+		return ok(homePage.render(email, Category.list(), startList, FAQ.all()));
 
 	}
 
