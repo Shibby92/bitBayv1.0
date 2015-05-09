@@ -2,8 +2,10 @@ package models;
 
 import java.util.*;
 
+
 import javax.persistence.*;
 
+import play.Logger;
 import play.db.ebean.Model;
 import play.db.ebean.Model.*;
 
@@ -131,18 +133,19 @@ public class Cart extends Model {
 	 * @return list of products
 	 */
 	public static List<Product> getProducts(int id) {
-		return find.where().eq("userid", id).findUnique().productList;
+		return find.where().eq("user_id", id).findUnique().productList;
 
 	}
 
 	/**
 	 * Gets the cart by user id.
 	 * 
-	 * @param user_id int the user_id
+	 * @param userId int the user id
 	 * @return the cart
 	 */
 	public static Cart getCartbyUserId(int userId) {
-		return find.where().eq("userid", userId).findUnique();
+		Logger.debug("User id u cartu "+userId);
+		return find.where().eq("user_id", userId).findUnique();
 	}
 
 	/**

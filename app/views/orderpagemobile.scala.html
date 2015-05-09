@@ -1,7 +1,7 @@
-@(paymentID:String,payerID:String,token:String,email: String,cart:Cart, faqs: List[FAQ])
-@main("Confirm") {
+@(email: String, orders: List[Orders], faqs: List[FAQ])
+@main("Orders") {
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
          <!-- Brand and toggle get grouped for better mobile display -->
          <div class="navbar-header" style="margin: 0px 20px" >
@@ -20,7 +20,7 @@
                <li  style="margin: 0px 35px">
                   <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                      <div class="form-group">
-                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="@Messages("searchHeader")" required>
+                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
                      </div>
                      <div class="btn-group">
                         <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
@@ -30,7 +30,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
                            <li>
-                              <a href="/advancedsearch">@Messages("advancedSearch")</a>
+                              <a href="/advancedsearch">Advanced Search</a>
                            </li>
                         </ul>
                      </div>
@@ -38,13 +38,13 @@
                </li>
                <li>
                   <h4>
-                     <p style="color: #000">@Messages("hello")   
+                     <p style="color: #000">Hello   
                         <a href="/login">
-                        <button class="btn btn-success btn-login"> @Messages("login")</button> 
+                        <button class="btn btn-success btn-login"> Log in</button> 
                         </a>
-                       @Messages("or") 
+                        or 
                         <a href="/toregister">
-                        <button class="btn btn-success btn-register" >@Messages("register")</button>
+                        <button class="btn btn-success btn-register" >Register</button>
                         </a>
                      </p>
                   </h4>
@@ -55,7 +55,7 @@
             <li  style="margin: 0px 180px">
                <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
                   <div class="form-group">
-                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="@Messages("placeholderSearch")" required>
+                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="Search..." required>
                   </div>
                   <div class="btn-group">
                      <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
@@ -65,7 +65,7 @@
                      </button>
                      <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
                         <li>
-                           <a href="/advancedsearch">@Messages("advancedSearch")</a>
+                           <a href="/advancedsearch">Advanced Search</a>
                         </li>
                      </ul>
                   </div>
@@ -85,24 +85,24 @@
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
                      @if(User.find(email).admin == true || User.find(email).blogger) {
                      @if(!User.find(email).blogger) {
-                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >@Messages("profile")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
                      }
                      @if(User.find(email).blogger) {
-                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >@Messages("blog")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >Blog</a></li>
                      }
                      <li class="divider"></li>
-                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">@Messages("logout")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                      } else {
-                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >@Messages("profile")</a></li>
-                     <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory">@Messages("newProduct")</a></li>
-                     <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id">@Messages("myCart")</a></li>
-                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id">@Messages("myOrders")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
                      @if(email != null && User.getUncheckedNotifications(User.find(email).id).size()>0){
-                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> @Messages("notification") </a>
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> Notifications </a>
                      </li>
                      }
                      <li class="divider"></li>
-                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">@Messages("logout")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
                   </ul>
                </li>
             </ul>
@@ -113,75 +113,110 @@
       </div>
       <!-- /.container -->
    </nav>
+   @if(flash.get("orderSuccess")) {
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("orderSuccess")
+      </div>
+   </div>
+   }
    <!-- Page Content -->
    <div class="container">
-      <legend>@Messages("confirmOrder"): </legend>
-      <br><br>
-      <div class="row" style="margin: 10px 0px">
+      @if(flash.get("refund")){
+      <div class="alert alert-success" role="alert">
+         <div class="container">
+            @flash.get("refund")
+         </div>
+      </div>
+      }
+      @if(flash.get("error")){
+      <div class="alert alert-danger" role="alert">
+         <div class="container">
+            @flash.get("error")
+         </div>
+      </div>
+      }
+      @if(flash.get("warning")){
+      <div class="alert alert-warning" role="alert">
+         <div class="container">
+            @flash.get("warning")
+         </div>
+      </div>
+      }
+      @if(flash.get("success")) {
+      <div class="alert alert-success" role="alert">
+         <div class="container">
+            @flash.get("success")
+         </div>
+      </div>
+      }
+      @if(orders.isEmpty){
+      <h3 style="margin: 180px -15px">
+         <center><strong>You have no orders!</strong></center>
+      </h3>
+      }else{
+      <legend style="margin:10px 0px">Your Orders: </legend>
+      <div class="row" style="margin:30px 0px">
          <table class="table table-bordered" >
             <thead style="background-color: #4AB55A; color: #fff;">
                <tr>
-                  <th>@Messages("product")</th>
-                  <th>@Messages("quantity")</th>
-                  <th>@Messages("price")</th>
-                  <th>@Messages("total")</th>
+                  <th>Order number</th>
+                  <th>Products</th>
+                  <th>Order date</th>
+                  <th>Shipping address</th>
+                  <th><span class="nobr">Total</span></th>
+                  <th>Refund</th>
                </tr>
             </thead>
             <tbody >
-               @for(product <- cart.productList){
+               @for(order <- orders){
                <tr style="background-color: #f5f5f5;">
-                  <td>@product.name</td>
-                  <td>@product.orderedQuantity</td>
-                  <td>$ @product.price</td>
-                  <td>$ @Product.total(product)</td>
+                  <td>@order.id</td>
+                  <td>
+                     @for(product <- order.productList){
+                     <p>@product.name ($ @product.price) x @ProductQuantity.getProductQuantity(product.id,order.id) 
+                        <a class="pull-right"href="/rating/@product.owner.id">Rate seller</a>
+                     </p>
+                     }
+                  </td>
+                  <td>@order.orderDate</td>
+                  <td>@order.shippingAddress</td>
+                  <td><span class="price">$ @order.price,-</span>
+                  <td>  <a href ="/refundorder/@order.id">
+                     <button type="button" class="btn btn-warning" style="margin:0px 15px">Refund</button>
+                  </td>
+                  </a>
+                  </td>
                </tr>
-               }
-            </tbody>
-         </table>
-         <br>	
-         <div>
-            <h4>@Messages("total"): @cart.checkout $</h4>
-            <a href="@routes.PayPallController.orderSuccess(paymentID,payerID,token)">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm">
-            @Messages("confirm")
-            </button></a>
-            <a href="/orderfail"
-            <button type="button" class="btn btn-danger">@Messages("cancel")</button>
-            </a>
-            <p>
-            </p>
-         </div>
-         <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-               <div class="modal-content" style="margin: 100px 45px">
-                  <img src="@routes.Assets.at("images/preloader.gif")"/ >
-               </div>
-            </div>
-         </div>
       </div>
+      </tbody>
+      }
+      </table>
+      }
    </div>
-    <!-- /.End of Content PAge -->
-    <!-- /.Footer -->
-   <div id="footer" style="background-color: #f5f5f5">
+   </div>
+      <!-- /.End of Content -->
+      <!-- /.footer -->
+   <div id="footer1">
       <div class="container">
          <div class="col-md-4">
             <a href="/contactpage">
-               <h4><i class="glyphicon glyphicon-envelope"></i>@Messages("contactUs")</h4>
+               <h4><i class="glyphicon glyphicon-envelope"></i> Contact Us</h4>
             </a>
             <a href="/faq">
-               <h4><i class="glyphicon glyphicon-cog"></i>@Messages("faqs")</h4>
+               <h4><i class="glyphicon glyphicon-cog"></i> FAQs</h4>
             </a>
             <a href="/blog">
-               <h4><i class="glyphicon glyphicon-stats"></i>@Messages("blog")</h4>
+               <h4><i class="glyphicon glyphicon-stats"></i> Blog </h4>
             </a>
          </div>
          <div class="col-md-4">
-            <h4 style="color: #4AB55A;">@Messages("aboutBitBay"):</h4>
+            <h4 style="color: #4AB55A;">About bitBay:</h4>
             <address style="color: #4AB55A">
-               <p>@Messages("mirrorsite")</p>
-               <p>@Messages("sarajevo")</p>
-               <p>@Messages("bosna")</p>
-               <p>@Messages("phone")</p>
+               <p>Project bitBay mirror site of eBay</p>
+               <p>Sarajevo</p>
+               <p>Bosnia and Herzegovina</p>
+               <p>Contact: (061) 100-100</p>
             </address>
          </div>
          <div class="col-md-4">
@@ -189,7 +224,7 @@
             <div align="center" style="margin:20px 0px">
                <table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
                   <tr>
-                     <h4 style="color: #4AB55A">@Messages("Follow us on"):</h4>
+                     <h4 style="color: #4AB55A">Follow us on:</h4>
                      <td>
                         <a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
                         <img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">

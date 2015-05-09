@@ -3,21 +3,13 @@ package controllers;
 import helpers.*;
 
 import java.net.*;
-import java.text.*;
 import java.util.*;
 
 import models.*;
-import models.Notification;
 import play.*;
 import play.data.*;
 import play.data.validation.Constraints.*;
-import play.libs.F.*;
-import play.libs.ws.*;
 import play.mvc.*;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.paypal.api.payments.*;
-import com.paypal.base.rest.*;
 
 import views.html.*;
 
@@ -48,13 +40,14 @@ public class UserLoginApplication extends Controller {
 					+ session().get("email"));
 
 		List<Product> allproducts = Product.productList();
-		List<Product> start = new ArrayList<Product>();
+		List<Product> startList = new ArrayList<Product>();
 
 		for (int i = 0; i < 6; i++) {
-			start.add(allproducts.get(i));
+			if(i<allproducts.size())
+			startList.add(allproducts.get(i));
 		}
 
-		return ok(homePage.render(email, Category.list(), start, FAQ.all()));
+		return ok(homePage.render(email, Category.list(), startList, FAQ.all()));
 
 	}
 
@@ -85,13 +78,13 @@ public class UserLoginApplication extends Controller {
 			} else {
 				Logger.warn("User with email: " + email
 						+ " has entered wrong password");
-				flash("error", "You have entered wrong password!");
+				flash("error", play.i18n.Messages.get("ULAFlash1"));
 				return redirect("/login");
 			}
 
 		}
 
-		flash("error", "Email does not exist!");
+		flash("error", play.i18n.Messages.get("ULAFlash2"));
 		Logger.error("User has entered wrong email");
 		return redirect("/toregister");
 	}
@@ -113,7 +106,7 @@ public class UserLoginApplication extends Controller {
 		String passconfirm = form.get("confirm_pass");
 		if (!password.equals(passconfirm)) {
 			Logger.error("User has entered unmatching passwords");
-			flash("error", "Passwords are not the same!");
+			flash("error", play.i18n.Messages.get("ULAFlash3"));
 			return ok(toregister.render(loginUser, email, FAQ.all()));
 		}
 		String confirmation = UUID.randomUUID().toString();
@@ -124,11 +117,11 @@ public class UserLoginApplication extends Controller {
 			URL url = new URL(urlS);
 			MailHelper.send(email, url.toString());
 			Logger.info("User with email: " + email + " has registered");
-			flash("validate", "Please check your email");
+			flash("validate", play.i18n.Messages.get("ULAFlash4"));
 			return redirect("/login");
 		} else {
 			Logger.error("User has entered existing email: " + email);
-			flash("error", "There is already a user with that email!");
+			flash("error", play.i18n.Messages.get("ULAFlash5"));
 			return ok(toregister.render(loginUser, email, FAQ.all()));
 		}
 
@@ -172,7 +165,7 @@ public class UserLoginApplication extends Controller {
 
 		session().clear();
 		flash("success",
-				"You have been successfully logged out! Come back any time!");
+				play.i18n.Messages.get("ULAFlash6"));
 		return redirect("/");
 	}
 

@@ -7,7 +7,8 @@ import models.FAQ;
 import models.Product;
 import models.User;
 import play.libs.Json;
-
+import play.Logger;
+import models.Cart;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -88,6 +89,7 @@ public class JsonHelper {
 		productNode.put("isSold", p.sold);
 		productNode.put("id", p.id);
 		productNode.put("quantity", p.quantity);
+		productNode.put("orderedQuantity", p.orderedQuantity);
 		String imgPath = p.images.get(0).image;
 		productNode.put("productImagePath1", imgPath);
 		//productNode.put("productImagePath1", p.image2);
@@ -167,7 +169,24 @@ public class JsonHelper {
 		}
 		return productsArrayNode;
 	}
-	
-	
-	
+
+	/**
+	 * Method gets the contents of user cart and converts the to ArrayNode
+	 * and sends them to application which requested them
+	 * @param id
+	 * @return
+	 */
+	public static ArrayNode cartToJson(int id) {
+		Cart cart = Cart.getCartbyUserId(id);
+		Logger.info(String.valueOf(cart.id) + " cart id");
+		List<Product> products = cart.productList;
+		if(products == null) {
+			Logger.info("Products null");
+		}
+		Logger.info(String.valueOf(products.get(0).name));
+		Logger.info(String.valueOf("size " +products.size()));
+		ArrayNode productsArrayNode = productListToJson(products);
+		return productsArrayNode;
+	}
+		
 }

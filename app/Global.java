@@ -18,8 +18,7 @@ import models.Tag;
 import models.User;
 import play.Application;
 import play.GlobalSettings;
-import play.Play;
-
+import play.db.ebean.Model.Finder;
 
 /**
  * Global class is used to create several data for the purpose of easier work
@@ -41,124 +40,66 @@ public class Global extends GlobalSettings {
 
 		if (User.find("mehnnbitbay@gmail.com") == null) {
 
-			makeUser(
-					"mehnnbitbay@gmail.com",
-					HashHelper.createPassword(Play.application()
-							.configuration().getString("user1")), true, true,
-					"Admin Street 229", "Admin", true, 5.00, false);
-			makeUser(
-					"mustafa.ademovic93@gmail.com",
-					HashHelper.createPassword(Play.application()
-							.configuration().getString("user2")), false, true,
-					"Direktorska 33", "Mustafa", true, 4.5, false);
-			makeUser(
-					"emina.muratovic@bitcamp.ba",
-					HashHelper.createPassword(Play.application()
-							.configuration().getString("user3")), false, true,
-					"Zrtava turbo folka", "Emina", true, 4, false);
-			makeUser(
-					"haris.arifovic@bitcamp.ba",
-					HashHelper.createPassword(Play.application()
-							.configuration().getString("user4")), false, true,
-					"Lozionicka 2", "Haris", true, 3.5, false);
-			makeUser(
-					"nermin.graca@bitcamp.ba",
-					HashHelper.createPassword(Play.application()
-							.configuration().getString("user5")), false, true,
-					"Laticka bb", "Nermin", true, 3, false);
-			makeUser(
-					"nermin.vucinic@bitcamp.ba",
-					HashHelper.createPassword(Play.application()
-							.configuration().getString("user6")), false, true,
-					"Trebinjska 113", "Nermin", true, 2.5, false);
-			makeUser(
-					"blogger@bitcamp.ba",
-					HashHelper.createPassword(Play.application()
-							.configuration().getString("user7")), false, true,
-					"Bloggers St. 72", "Blogger", true, 2.0, true);
+			makeUser("mehnnbitbay@gmail.com",
+					HashHelper.createPassword(play.i18n.Messages.get("user1")),
+					true, true, "Admin Street 229", "Admin", true, 5.00, false);
+			makeUser("mustafa.ademovic93@gmail.com",
+					HashHelper.createPassword(play.i18n.Messages.get("user2")),
+					false, true, "Direktorska 33", "Mustafa", true, 4.5, false);
+			makeUser("emina.muratovic@bitcamp.ba",
+					HashHelper.createPassword(play.i18n.Messages.get("user3")),
+					false, true, "Zrtava turbo folka", "Emina", true, 4, false);
+			makeUser("haris.arifovic@bitcamp.ba",
+					HashHelper.createPassword(play.i18n.Messages.get("user4")),
+					false, true, "Lozionicka 2", "Haris", true, 3.5, false);
+			makeUser("nermin.graca@bitcamp.ba",
+					HashHelper.createPassword(play.i18n.Messages.get("user5")),
+					false, true, "Laticka bb", "Nermin", true, 3, false);
+			makeUser("nermin.vucinic@bitcamp.ba",
+					HashHelper.createPassword(play.i18n.Messages.get("user6")),
+					false, true, "Trebinjska 113", "Nermin", true, 2.5, false);
+			makeUser("blogger@bitcamp.ba",
+					HashHelper.createPassword(play.i18n.Messages.get("user7")),
+					false, true, "Bloggers St. 72", "Blogger", true, 2.0, true);
 		}
 
 		/**
 		 * Creating 10 messages for several users
 		 */
 		if (Message.find(1) == null) {
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage"),
-					User.find(2),
-					User.find(1),
-					Play.application().configuration()
-							.getString("globalMessage2"));
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage"),
-					User.find(3),
-					User.find(1),
-					Play.application().configuration()
-							.getString("globalMessage2"));
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage"),
-					User.find(4),
-					User.find(1),
-					Play.application().configuration()
-							.getString("globalMessage2"));
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage"),
-					User.find(5),
-					User.find(1),
-					Play.application().configuration()
-							.getString("globalMessage2"));
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage"),
-					User.find(3),
-					User.find(2),
-					Play.application().configuration()
-							.getString("globalMessage2"));
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage"),
-					User.find(4),
-					User.find(2),
-					Play.application().configuration()
-							.getString("globalMessage2"));
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage"),
-					User.find(1),
-					User.find(3),
-					Play.application().configuration()
-							.getString("globalMessage2"));
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage"),
-					User.find(2),
-					User.find(3),
-					Play.application().configuration()
-							.getString("globalMessage2"));
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage3"),
-					User.find(2),
-					User.find(6),
-					Play.application().configuration()
-							.getString("globalMessage2"));
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage4"),
-					User.find(3),
-					User.find(6),
-					Play.application().configuration()
-							.getString("globalMessage2"));
-			Message.create(
-					Play.application().configuration()
-							.getString("globalMessage5"),
-					User.find(4),
-					User.find(6),
-					Play.application().configuration()
-							.getString("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage"),
+					User.find(2), User.find(1),
+					play.i18n.Messages.get("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage"),
+					User.find(3), User.find(1),
+					play.i18n.Messages.get("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage"),
+					User.find(4), User.find(1),
+					play.i18n.Messages.get("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage"),
+					User.find(5), User.find(1),
+					play.i18n.Messages.get("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage"),
+					User.find(3), User.find(2),
+					play.i18n.Messages.get("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage"),
+					User.find(4), User.find(2),
+					play.i18n.Messages.get("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage"),
+					User.find(1), User.find(3),
+					play.i18n.Messages.get("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage"),
+					User.find(2), User.find(3),
+					play.i18n.Messages.get("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage3"),
+					User.find(2), User.find(6),
+					play.i18n.Messages.get("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage4"),
+					User.find(3), User.find(6),
+					play.i18n.Messages.get("globalMessage2"));
+			Message.create(play.i18n.Messages.get("globalMessage5"),
+					User.find(4), User.find(6),
+					play.i18n.Messages.get("globalMessage2"));
 
 		}
 
@@ -181,322 +122,200 @@ public class Global extends GlobalSettings {
 		/**
 		 * Creating 23 different products
 		 */
-		if (Product.find(1) == null) {
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName1"),
-					18.00,
-					1,
+		//if (Product.find(1) == null) {
+			makeProduct(play.i18n.Messages.get("productName1"), 18.00, 1,
 					User.find(3),
-					Play.application().configuration()
-							.getString("productDescription1"),
-					5,
-					Play.application().configuration()
-							.getString("productImagePath1"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName2"),
-					24900.0,
-					1,
+					play.i18n.Messages.get("productDescription1"), 5,
+					play.i18n.Messages.get("productImagePath1"),play.i18n.Messages.get("product1CloudImageName"), "");
+			
+			makeProduct(play.i18n.Messages.get("productName2"), 24900.0, 1,
 					User.find(2),
-					Play.application().configuration()
-							.getString("productDescription2"),
-					1,
-					Play.application().configuration()
-							.getString("productImagePath2"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName3"),
-					2000.00,
-					15,
+					play.i18n.Messages.get("productDescription2"), 1,
+					play.i18n.Messages.get("productImagePath2"),play.i18n.Messages.get("product2CloudImageName"), "");
+			
+			makeProduct(play.i18n.Messages.get("productName3"), 2000.00, 15,
 					User.find(3),
-					Play.application().configuration()
-							.getString("productDescription3"),
-					3,
-					Play.application().configuration()
-							.getString("productImagePath3"),
-					Play.application().configuration()
-							.getString("productImagePath3a"),
-					Play.application().configuration()
-							.getString("productImagePath3aa"), "Samsung");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName4"),
-					0.99,
-					1,
+					play.i18n.Messages.get("productDescription3"), 3,
+					play.i18n.Messages.get("productImagePath3"),
+					play.i18n.Messages.get("productImagePath3a"),
+					play.i18n.Messages.get("productImagePath3aa"),
+					play.i18n.Messages.get("product3CloudImageName"),
+					play.i18n.Messages.get("product3CloudImage2Name"),
+					play.i18n.Messages.get("product3CloudImage3Name"),
+					"Samsung");
+			
+			makeProduct(play.i18n.Messages.get("productName4"), 0.99, 1,
 					User.find(3),
-					Play.application().configuration()
-							.getString("productDescription4"),
-					13,
-					Play.application().configuration()
-							.getString("productImagePath4"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName5"),
-					45750,
-					2,
+					play.i18n.Messages.get("productDescription4"), 13,
+					play.i18n.Messages.get("productImagePath4"),
+					play.i18n.Messages.get("product4CloudImageName"), "");
+			
+			makeProduct(play.i18n.Messages.get("productName5"), 45750, 2,
 					User.find(4),
-					Play.application().configuration()
-							.getString("productDescription5"),
-					1,
-					Play.application().configuration()
-							.getString("productImagePath5"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName6"),
-					120,
-					3,
+					play.i18n.Messages.get("productDescription5"), 1,
+					play.i18n.Messages.get("productImagePath5"),
+					play.i18n.Messages.get("product5CloudImageName"),
+					"");
+			
+			makeProduct(play.i18n.Messages.get("productName6"), 120, 3,
 					User.find(6),
-					Play.application().configuration()
-							.getString("productDescription6"),
-					8,
-					Play.application().configuration()
-							.getString("productImagePath6"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName7"),
-					15000,
-					1,
+					play.i18n.Messages.get("productDescription6"), 8,
+					play.i18n.Messages.get("productImagePath6"), 
+					play.i18n.Messages.get("product6CloudImageName"),
+					"");
+			
+			makeProduct(play.i18n.Messages.get("productName7"), 15000, 1,
 					User.find(4),
-					Play.application().configuration()
-							.getString("productDescription7"),
-					1,
-					Play.application().configuration()
-							.getString("productImagePath7"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName8"),
-					1530,
-					15,
+					play.i18n.Messages.get("productDescription7"), 1,
+					play.i18n.Messages.get("productImagePath7"), 
+					play.i18n.Messages.get("product7CloudImageName"),
+"");
+		
+			makeProduct(play.i18n.Messages.get("productName8"), 1530, 15,
 					User.find(5),
-					Play.application().configuration()
-							.getString("productDescription8"),
-					3,
-					Play.application().configuration()
-							.getString("productImagePath8"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName9"),
-					120,
-					1,
+					play.i18n.Messages.get("productDescription8"), 3,
+					play.i18n.Messages.get("productImagePath8"),
+					play.i18n.Messages.get("product8CloudImageName"),
+"");
+		
+			makeProduct(play.i18n.Messages.get("productName9"), 120, 1,
 					User.find(6),
-					Play.application().configuration()
-							.getString("productDescription9"),
-					8,
-					Play.application().configuration()
-							.getString("productImagePath9"), "");
+					play.i18n.Messages.get("productDescription9"), 8,
+					play.i18n.Messages.get("productImagePath9"), 
+					play.i18n.Messages.get("product9CloudImageName"),
+"");
 
 			// 10th
 
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName10"),
-					100000,
-					3,
+			makeProduct(play.i18n.Messages.get("productName10"), 100000, 3,
 					User.find(2),
-					Play.application().configuration()
-							.getString("productDescription10"),
-					5,
-					Play.application().configuration()
-							.getString("productImagePath10"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName11"),
-					9.99,
-					50,
+					play.i18n.Messages.get("productDescription10"), 5,
+					play.i18n.Messages.get("productImagePath10"),
+					play.i18n.Messages.get("product10CloudImageName"),
+"");
+		
+			makeProduct(play.i18n.Messages.get("productName11"), 9.99, 50,
 					User.find(3),
-					Play.application().configuration()
-							.getString("productDescription11"),
-					3,
-					Play.application().configuration()
-							.getString("productImagePath11"), "Samsung");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName12"),
-					19.99,
-					100,
+					play.i18n.Messages.get("productDescription11"), 3,
+					play.i18n.Messages.get("productImagePath11"),
+					play.i18n.Messages.get("product11CloudImageName"),
+"Samsung");
+			
+			makeProduct(play.i18n.Messages.get("productName12"), 19.99, 100,
 					User.find(3),
-					Play.application().configuration()
-							.getString("productDescription12"),
-					3,
-					Play.application().configuration()
-							.getString("productImagePath12"), "Samsung");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName13"),
-					29.99,
-					10,
+					play.i18n.Messages.get("productDescription12"), 3,
+					play.i18n.Messages.get("productImagePath12"),
+					play.i18n.Messages.get("product12CloudImageName"),
+"Samsung");
+		
+			makeProduct(play.i18n.Messages.get("productName13"), 29.99, 10,
 					User.find(3),
-					Play.application().configuration()
-							.getString("productDescription13"),
-					3,
-					Play.application().configuration()
-							.getString("productImagePath13"), "Samsung");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName14"),
-					5.55,
-					15,
+					play.i18n.Messages.get("productDescription13"), 3,
+					play.i18n.Messages.get("productImagePath13"),
+					play.i18n.Messages.get("product13CloudImageName"),
+"Samsung");
+		
+			makeProduct(play.i18n.Messages.get("productName14"), 5.55, 15,
 					User.find(6),
-					Play.application().configuration()
-							.getString("productDescription14"),
-					8,
-					Play.application().configuration()
-							.getString("productImagePath14"), "Dog");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName15"),
-					9.69,
-					20,
+					play.i18n.Messages.get("productDescription14"), 8,
+					play.i18n.Messages.get("productImagePath14"),
+					play.i18n.Messages.get("product14CloudImageName"),
+"Dog");
+		
+			makeProduct(play.i18n.Messages.get("productName15"), 9.69, 20,
 					User.find(6),
-					Play.application().configuration()
-							.getString("productDescription15"),
-					8,
-					Play.application().configuration()
-							.getString("productImagePath15"), "Dog");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName16"),
-					21.29,
-					5,
+					play.i18n.Messages.get("productDescription15"), 8,
+					play.i18n.Messages.get("productImagePath15"),
+					play.i18n.Messages.get("product15CloudImageName"),
+"Dog");
+		
+			makeProduct(play.i18n.Messages.get("productName16"), 21.29, 5,
 					User.find(6),
-					Play.application().configuration()
-							.getString("productDescription16"),
-					8,
-					Play.application().configuration()
-							.getString("productImagePath16"), "Dog");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName17"),
-					552.49,
-					7,
+					play.i18n.Messages.get("productDescription16"), 8,
+					play.i18n.Messages.get("productImagePath16"),
+					play.i18n.Messages.get("product16CloudImageName"),
+"Dog");
+		
+			makeProduct(play.i18n.Messages.get("productName17"), 552.49, 7,
 					User.find(3),
-					Play.application().configuration()
-							.getString("productDescription17"),
-					2,
-					Play.application().configuration()
-							.getString("productImagePath17a"),
-					Play.application().configuration()
-							.getString("productImagePath17b"),
-					Play.application().configuration()
-							.getString("productImagePath17c"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName18"),
-					399.00,
-					3,
+					play.i18n.Messages.get("productDescription17"), 2,
+					play.i18n.Messages.get("productImagePath17a"),
+					//play.i18n.Messages.get("productImagePath17b"),
+					//play.i18n.Messages.get("productImagePath17c"),
+					play.i18n.Messages.get("product17CloudImageName"),
+
+					"");
+		
+			makeProduct(play.i18n.Messages.get("productName18"), 399.00, 3,
 					User.find(4),
-					Play.application().configuration()
-							.getString("productDescription18"),
-					2,
-					Play.application().configuration()
-							.getString("productImagePath18a"),
-					Play.application().configuration()
-							.getString("productImagePath18b"),
-					Play.application().configuration()
-							.getString("productImagePath18c"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName19"),
-					99.00,
-					7,
+					play.i18n.Messages.get("productDescription18"), 2,
+					play.i18n.Messages.get("productImagePath18a"),
+					//play.i18n.Messages.get("productImagePath18b"),
+					//play.i18n.Messages.get("productImagePath18c"), 
+					play.i18n.Messages.get("product18CloudImageName"),
+"");
+		
+			makeProduct(play.i18n.Messages.get("productName19"), 99.00, 7,
 					User.find(5),
-					Play.application().configuration()
-							.getString("productDescription19"),
-					2,
-					Play.application().configuration()
-							.getString("productImagePath19a"),
-					Play.application().configuration()
-							.getString("productImagePath19b"),
-					Play.application().configuration()
-							.getString("productImagePath19c"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName20"),
-					119.00,
-					10,
+					play.i18n.Messages.get("productDescription19"), 2,
+					play.i18n.Messages.get("productImagePath19a"),
+					//play.i18n.Messages.get("productImagePath19b"),
+					//play.i18n.Messages.get("productImagePath19c"), 
+					play.i18n.Messages.get("product19CloudImageName"),
+"");
+			
+			makeProduct(play.i18n.Messages.get("productName20"), 119.00, 10,
 					User.find(6),
-					Play.application().configuration()
-							.getString("productDescription20"),
-					2,
-					Play.application().configuration()
-							.getString("productImagePath20a"),
-					Play.application().configuration()
-							.getString("productImagePath20b"),
-					Play.application().configuration()
-							.getString("productImagePath20c"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName21"),
-					5.50,
-					5,
+					play.i18n.Messages.get("productDescription20"), 2,
+					play.i18n.Messages.get("productImagePath20a"),
+					//play.i18n.Messages.get("productImagePath20b"),
+					//play.i18n.Messages.get("productImagePath20c"),
+					play.i18n.Messages.get("product20CloudImageName"),
+"");
+		
+			makeProduct(play.i18n.Messages.get("productName21"), 5.50, 5,
 					User.find(2),
-					Play.application().configuration()
-							.getString("productDescription21"),
-					11,
-					Play.application().configuration()
-							.getString("productImagePath21"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName22"),
-					55.00,
-					1,
+					play.i18n.Messages.get("productDescription21"), 11,
+					play.i18n.Messages.get("productImagePath21"), 
+					play.i18n.Messages.get("product21CloudImageName"),
+"");
+		
+			makeProduct(play.i18n.Messages.get("productName22"), 55.00, 1,
 					User.find(3),
-					Play.application().configuration()
-							.getString("productDescription22"),
-					9,
-					Play.application().configuration()
-							.getString("productImagePath22"), "");
-			makeProduct(
-					Play.application().configuration()
-							.getString("productName23"),
-					17.99,
-					20,
+					play.i18n.Messages.get("productDescription22"), 9,
+					play.i18n.Messages.get("productImagePath22"), 
+					play.i18n.Messages.get("product22CloudImageName"),
+"");
+		
+			makeProduct(play.i18n.Messages.get("productName23"), 17.99, 20,
 					User.find(4),
-					Play.application().configuration()
-							.getString("productDescription23"),
-					13,
-					Play.application().configuration()
-							.getString("productImagePath23"), "");
-		}
+					play.i18n.Messages.get("productDescription23"), 13,
+					play.i18n.Messages.get("productImagePath23"),
+					play.i18n.Messages.get("product23CloudImageName"),
+"");
+		//}
 
 		/**
 		 * Creating 8 different FAQ's
 		 */
 
 		if (!FAQ.find("I can't get items shipped until Monday and I'm afraid of hurting my top-rated seller qualification. How should I go about this?")) {
-			FAQ.createFAQ(
-					Play.application().configuration()
-							.getString("FAQQuestion1"), Play.application()
-							.configuration().getString("FAQAnswers1"));
-			FAQ.createFAQ(
-					Play.application().configuration()
-							.getString("FAQQuestion2"), Play.application()
-							.configuration().getString("FAQAnswers2"));
-			FAQ.createFAQ(
-					Play.application().configuration()
-							.getString("FAQQuestion3"), Play.application()
-							.configuration().getString("FAQAnswers3"));
-			FAQ.createFAQ(
-					Play.application().configuration()
-							.getString("FAQQuestion4"), Play.application()
-							.configuration().getString("FAQAnswers4"));
-			FAQ.createFAQ(
-					Play.application().configuration()
-							.getString("FAQQuestion5"), Play.application()
-							.configuration().getString("FAQAnswers5"));
-			FAQ.createFAQ(
-					Play.application().configuration()
-							.getString("FAQQuestion6"), Play.application()
-							.configuration().getString("FAQAnswers6"));
-			FAQ.createFAQ(
-					Play.application().configuration()
-							.getString("FAQQuestion7"), Play.application()
-							.configuration().getString("FAQAnswers7"));
-			FAQ.createFAQ(
-					Play.application().configuration()
-							.getString("FAQQuestion8"), Play.application()
-							.configuration().getString("FAQAnswers8"));
+			FAQ.createFAQ(play.i18n.Messages.get("FAQQuestion1"),
+					play.i18n.Messages.get("FAQAnswers1"));
+			FAQ.createFAQ(play.i18n.Messages.get("FAQQuestion2"),
+					play.i18n.Messages.get("FAQAnswers2"));
+			FAQ.createFAQ(play.i18n.Messages.get("FAQQuestion3"),
+					play.i18n.Messages.get("FAQAnswers3"));
+			FAQ.createFAQ(play.i18n.Messages.get("FAQQuestion4"),
+					play.i18n.Messages.get("FAQAnswers4"));
+			FAQ.createFAQ(play.i18n.Messages.get("FAQQuestion5"),
+					play.i18n.Messages.get("FAQAnswers5"));
+			FAQ.createFAQ(play.i18n.Messages.get("FAQQuestion6"),
+					play.i18n.Messages.get("FAQAnswers6"));
+			FAQ.createFAQ(play.i18n.Messages.get("FAQQuestion7"),
+					play.i18n.Messages.get("FAQAnswers7"));
+			FAQ.createFAQ(play.i18n.Messages.get("FAQQuestion8"),
+					play.i18n.Messages.get("FAQAnswers8"));
 		}
 
 		/**
@@ -577,10 +396,10 @@ public class Global extends GlobalSettings {
 		 */
 
 		if (Blog.findBlogById(1) == null) {
-			Blog.createBlog("bitBay started", Play.application()
-					.configuration().getString("BlogMessage")
-					+ "Kind Regards bitBay team.", "images/logo.png", 1,
-					"Admin");
+			Blog.createBlog("bitBay started",
+					play.i18n.Messages.get("BlogMessage")
+							+ "Kind Regards bitBay team.", "images/logo.png",
+					1, "Admin");
 		}
 
 		/**
@@ -613,17 +432,26 @@ public class Global extends GlobalSettings {
 	}
 
 	/**
-	 * Shortening the code for creating a user on application start
+	 * Shortening the code for creating a user on messages start
 	 * 
-	 * @param email String User's email
-	 * @param password String User's password
-	 * @param isAdmin boolean Is the user an admin user
-	 * @param isVerified boolean Is the user verified
-	 * @param street String User's street address
-	 * @param nickname String User's nickname
-	 * @param addInfo boolean Has the user filled additional info
-	 * @param rating double User's rating
-	 * @param isBlogger boolean Is the user a blogger
+	 * @param email
+	 *            String User's email
+	 * @param password
+	 *            String User's password
+	 * @param isAdmin
+	 *            boolean Is the user an admin user
+	 * @param isVerified
+	 *            boolean Is the user verified
+	 * @param street
+	 *            String User's street address
+	 * @param nickname
+	 *            String User's nickname
+	 * @param addInfo
+	 *            boolean Has the user filled additional info
+	 * @param rating
+	 *            double User's rating
+	 * @param isBlogger
+	 *            boolean Is the user a blogger
 	 */
 	private void makeUser(String email, String password, boolean isAdmin,
 			boolean isVerified, String street, String nickname,
@@ -639,14 +467,20 @@ public class Global extends GlobalSettings {
 	}
 
 	/**
-	 * Shortening the code for creating an order on application start
+	 * Shortening the code for creating an order on messages start
 	 * 
-	 * @param userId int User's id for finding the cart
-	 * @param productId1 int Product's id to add to the order
-	 * @param productId2 int Product's id to add to the order
-	 * @param token String Orders' token
-	 * @param priceđ double Orders' price
-	 * @param orderNumber int Number that finds that specific order
+	 * @param userId
+	 *            int User's id for finding the cart
+	 * @param productId1
+	 *            int Product's id to add to the order
+	 * @param productId2
+	 *            int Product's id to add to the order
+	 * @param token
+	 *            String Orders' token
+	 * @param priceđ
+	 *            double Orders' price
+	 * @param orderNumber
+	 *            int Number that finds that specific order
 	 */
 	private void makeOrder(int userId, int productId1, int productId2,
 			String token, double price, int orderNumber) {
@@ -664,14 +498,22 @@ public class Global extends GlobalSettings {
 	/**
 	 * Method for shortening the creation of products with one picture
 	 * 
-	 * @param name String Product's name
-	 * @param price double Product's price
-	 * @param quantity int Product's quantity
-	 * @param owner User Product's owner
-	 * @param description String Product's description
-	 * @param categoryId int Product's category
-	 * @param imagePath String Product's picture
-	 * @param tag String Product's tag
+	 * @param name
+	 *            String Product's name
+	 * @param price
+	 *            double Product's price
+	 * @param quantity
+	 *            int Product's quantity
+	 * @param owner
+	 *            User Product's owner
+	 * @param description
+	 *            String Product's description
+	 * @param categoryId
+	 *            int Product's category
+	 * @param imagePath
+	 *            String Product's picture
+	 * @param tag
+	 *            String Product's tag
 	 */
 	private void makeProduct(String name, double price, int quantity,
 			User owner, String description, int categoryId, String imagePath,
@@ -692,20 +534,71 @@ public class Global extends GlobalSettings {
 		p.images = il;
 		p.update();
 	}
+	
+	/**
+	 * Method for shortening the creation of products with one picture
+	 * 
+	 * @param name
+	 *            String Product's name
+	 * @param price
+	 *            double Product's price
+	 * @param quantity
+	 *            int Product's quantity
+	 * @param owner
+	 *            User Product's owner
+	 * @param description
+	 *            String Product's description
+	 * @param categoryId
+	 *            int Product's category
+	 * @param imagePath
+	 *            String Product's picture
+	 * @param tag
+	 *            String Product's tag
+	 */
+	private void makeProduct(String name, double price, int quantity,
+			User owner, String description, int categoryId, String imagePath,String cloudName,
+			String tag) {
+		Product p = Product.create(name, price, quantity, owner, description,
+				categoryId);
+		Image i = new Image();
+		i.image = imagePath;
+		i.public_id=cloudName;
+		i.product = p;
+		Tag.create(p, Category.find(p.categoryId).name);
+		Tag.create(p, p.name);
+		if (!tag.equals("")) {
+			Tag.create(p, tag);
+		}
+		List<Image> il = new ArrayList<Image>();
+		il.add(i);
+		Image.saveImg(i);
+		p.images = il;
+		p.update();
+	}
 
 	/**
 	 * Method for shortening the creation of products with three pictures
 	 * 
-	 * @param name String Product's name
-	 * @param price double Product's price
-	 * @param quantity int Product's quantity
-	 * @param owner User Product's owner
-	 * @param description String Product's description
-	 * @param categoryId int Product's category
-	 * @param imagePath1 String Product's picture 1
-	 * @param imagePath2 String Product's picture 2
-	 * @param imagePath3 String Product's picture 3
-	 * @param tag String Product's tag
+	 * @param name
+	 *            String Product's name
+	 * @param price
+	 *            double Product's price
+	 * @param quantity
+	 *            int Product's quantity
+	 * @param owner
+	 *            User Product's owner
+	 * @param description
+	 *            String Product's description
+	 * @param categoryId
+	 *            int Product's category
+	 * @param imagePath1
+	 *            String Product's picture 1
+	 * @param imagePath2
+	 *            String Product's picture 2
+	 * @param imagePath3
+	 *            String Product's picture 3
+	 * @param tag
+	 *            String Product's tag
 	 */
 	private void makeProduct(String name, double price, int quantity,
 			User owner, String description, int categoryId, String imagePath1,
@@ -737,4 +630,61 @@ public class Global extends GlobalSettings {
 		p.update();
 	}
 
+	/**
+	 * Method for shortening the creation of products with three pictures
+	 * 
+	 * @param name
+	 *            String Product's name
+	 * @param price
+	 *            double Product's price
+	 * @param quantity
+	 *            int Product's quantity
+	 * @param owner
+	 *            User Product's owner
+	 * @param description
+	 *            String Product's description
+	 * @param categoryId
+	 *            int Product's category
+	 * @param imagePath1
+	 *            String Product's picture 1
+	 * @param imagePath2
+	 *            String Product's picture 2
+	 * @param imagePath3
+	 *            String Product's picture 3
+	 * @param tag
+	 *            String Product's tag
+	 */
+	private void makeProduct(String name, double price, int quantity,
+			User owner, String description, int categoryId, String imagePath1,
+			String imagePath2, String imagePath3, String cloudImage1Name,String cloudImage2Name, String cloudImage3Name, String tag) {
+		Product p = Product.create(name, price, quantity, owner, description,
+				categoryId);
+		Image ia = new Image();
+		ia.public_id=cloudImage1Name;
+		ia.image = imagePath1;
+		ia.product = p;
+		Image ib = new Image();
+		ib.public_id=cloudImage2Name;
+		ib.image = imagePath2;
+		ib.product = p;
+		Image ic = new Image();
+		ic.public_id=cloudImage3Name;
+		ic.image = imagePath3;
+		ic.product = p;
+		Tag.create(p, Category.find(p.categoryId).name);
+		Tag.create(p, p.name);
+		if (!tag.equals("")) {
+			Tag.create(p, tag);
+		}
+		List<Image> il = new ArrayList<Image>();
+		il.add(ia);
+		Image.saveImg(ib);
+		il.add(ib);
+		Image.saveImg(ic);
+		il.add(ic);
+		Image.saveImg(ic);
+		p.images = il;
+		p.update();
+	}	
+	
 }

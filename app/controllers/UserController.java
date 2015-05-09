@@ -6,12 +6,12 @@ import java.net.MalformedURLException;
 import java.text.*;
 import java.util.*;
 
+import nl.bitwalker.useragentutils.UserAgent;
 import models.*;
 import play.Logger;
 import play.data.*;
 import play.mvc.*;
 import views.html.*;
-
 
 // TODO: Auto-generated Javadoc
 /**
@@ -25,7 +25,8 @@ public class UserController extends Controller {
 	/**
 	 * Goes to page where administrator can update user.
 	 *
-	 * @param id int id of the user
+	 * @param id
+	 *            int id of the user
 	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
@@ -39,8 +40,10 @@ public class UserController extends Controller {
 	/**
 	 * Gets data from updated user.
 	 *
-	 * @param id int id of the user who is being updated
-	 * @throws MalformedURLException the malformed url exception
+	 * @param id
+	 *            int id of the user who is being updated
+	 * @throws MalformedURLException
+	 *             the malformed url exception
 	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
@@ -58,14 +61,15 @@ public class UserController extends Controller {
 		updateUser.update();
 		Logger.info("User with id: " + id + " has been updated");
 
-		flash("success", "You have successfuly updated user!");
+		flash("success", play.i18n.Messages.get("UserControllerFlash1"));
 		return redirect("/profile");
 	}
 
 	/**
 	 * Deletes user.
 	 *
-	 * @param id int id of the user
+	 * @param id
+	 *            int id of the user
 	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
@@ -73,7 +77,7 @@ public class UserController extends Controller {
 
 		User.delete(id);
 		Logger.warn("User with id: " + id + " has been deleted");
-		flash("success", "You have successfuly deleted user!");
+		flash("success", play.i18n.Messages.get("UserControllerFlash2"));
 		return redirect("/profile");
 	}
 
@@ -92,7 +96,8 @@ public class UserController extends Controller {
 	/**
 	 * Adds additional info to user profile.
 	 *
-	 * @throws ParseException the parse exception
+	 * @throws ParseException
+	 *             the parse exception
 	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
@@ -110,7 +115,7 @@ public class UserController extends Controller {
 		if (!birth_date.before(current)) {
 			Logger.error("User " + session().get("email")
 					+ "has entered invalid date");
-			flash("error", "Enter valid date!");
+			flash("error", play.i18n.Messages.get("UserControllerFlash3"));
 			return ok(additionalinfo.render(email, FAQ.all()));
 		}
 		String city = form.get("city");
@@ -121,7 +126,7 @@ public class UserController extends Controller {
 				&& !gender.toLowerCase().contains("f")) {
 			Logger.error("User " + session().get("email")
 					+ "has entered invalid gender");
-			flash("error", "Enter valid gender!");
+			flash("error", play.i18n.Messages.get("UserControllerFlash4"));
 			return ok(additionalinfo.render(email, FAQ.all()));
 		}
 
@@ -136,13 +141,13 @@ public class UserController extends Controller {
 			return redirect("/homepage");
 		}
 
-		flash("warning", "Username already exists!");
+		flash("warning", play.i18n.Messages.get("UserControllerFlash5"));
 		Logger.error("User " + session().get("email")
 				+ "has entered invalid username");
 		return ok(additionalinfo.render(email, FAQ.all()));
 
 	}
-	
+
 	/**
 	 * Opens a page for editing additional info.
 	 *
@@ -161,7 +166,8 @@ public class UserController extends Controller {
 	/**
 	 * Gets data from additional info and updates users profile
 	 *
-	 * @throws ParseException the parse exception
+	 * @throws ParseException
+	 *             the parse exception
 	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
@@ -176,7 +182,7 @@ public class UserController extends Controller {
 		} else {
 			Logger.error("User " + session().get("email")
 					+ "has entered invalid username");
-			flash("error", "Username already exists!");
+			flash("error", play.i18n.Messages.get("UserControllerFlash5"));
 			return ok(editadditionalinfo.render(email, u, FAQ.all()));
 		}
 		Date current = new Date();
@@ -189,7 +195,7 @@ public class UserController extends Controller {
 			if (!u.birth_date.before(current)) {
 				Logger.error("User " + session().get("email")
 						+ "has entered invalid date");
-				flash("error", "Enter valid date!");
+				flash("error", play.i18n.Messages.get("UserControllerFlash3"));
 				return ok(editadditionalinfo.render(email, u, FAQ.all()));
 			}
 		}
@@ -202,7 +208,7 @@ public class UserController extends Controller {
 					&& !u.gender.toLowerCase().contains("f")) {
 				Logger.error("User " + session().get("email")
 						+ "has entered invalid gender");
-				flash("error", "Enter valid gender!");
+				flash("error", play.i18n.Messages.get("UserControllerFlash4"));
 				return ok(editadditionalinfo.render(email, u, FAQ.all()));
 			}
 		}
@@ -210,11 +216,11 @@ public class UserController extends Controller {
 		u.update();
 		Logger.info("User " + session().get("email")
 				+ "has updated his additional info");
-		flash("success", "Additional info updated successfuly!");
+		flash("success", play.i18n.Messages.get("UserControllerFlash6"));
 		return redirect("/homepage");
 
 	}
-	
+
 	/**
 	 * Opens page to user profile.
 	 *
@@ -252,11 +258,12 @@ public class UserController extends Controller {
 				soldProducts, uniques));
 
 	}
-	
+
 	/**
 	 * Opens page to other users profile.
 	 *
-	 * @param id int the id of the user
+	 * @param id
+	 *            int the id of the user
 	 * @return the result
 	 */
 	public static Result userProfile(int id) {
@@ -267,13 +274,12 @@ public class UserController extends Controller {
 		return ok(userprofile.render(user, email, Product.myProducts(user.id),
 				FAQ.all()));
 	}
-	
-	
-	
+
 	/**
 	 * Opens page for rating user.
 	 *
-	 * @param id int id of the user
+	 * @param id
+	 *            int id of the user
 	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
@@ -282,16 +288,22 @@ public class UserController extends Controller {
 		User u = User.find(id);
 		Logger.info("User with email: " + session().get("email")
 				+ " has opened rate page");
-		return ok(rating.render(email, u));
+		UserAgent userAgent = UserAgent.parseUserAgentString(Http.Context.current().request().getHeader("User-Agent"));
+		String deviceType = userAgent.getOperatingSystem().getDeviceType().toString();
+		if (deviceType.equals("MOBILE") || deviceType.equals("TABLET")) {
+			return ok(ratingmobile.render(email, u));
+		} else {
+			return ok(rating.render(email, u));
+		}
+		
 
 	}
-	
+
 	/**
-	 * Gets data from rating user.
-	 * Adds rating to user.
-	 * Saves it in database.
+	 * Gets data from rating user. Adds rating to user. Saves it in database.
 	 *
-	 * @param id int id of the user
+	 * @param id
+	 *            int id of the user
 	 * @return the result
 	 */
 	@Security.Authenticated(UserFilter.class)
@@ -306,11 +318,7 @@ public class UserController extends Controller {
 		u.update();
 		Logger.info("User with email: " + session().get("email")
 				+ " has rated user with id: " + id);
-		flash("success", "You have successfuly rated user!");
+		flash("success", play.i18n.Messages.get("UserControllerFlash7"));
 		return redirect("/orderpage/" + user.id);
 	}
-
-
-
-
 }

@@ -1,0 +1,526 @@
+#Strings for global class
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+globalMessage = Dragi svi u ime predavaca Arifa je na Google Classroom (Predavanja) postavljen kod. Molim da ovo primite k znanju. Lijep pozdrav
+globalMessage2 = Contact Seller message!
+globalMessage3 = Thanks for the response. Everything was ok with item.
+globalMessage4 = It was a pleasure working with. Best of luck in future trades!
+globalMessage5 = Where is my dog?! I've payed it to you fair and square!!
+
+productName1 = POST CARD of H.M.C.S.ASSINIBOINE
+
+productDescription1 = Used: An item that has been used previously. WW2 Photo Post Card of HMCS Assin.
+productImagePath1 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430861359/assiniboine_asmklu.jpg
+product1CloudImageName=assiniboine_asmklu
+
+productName2 = 2014 Mazda CX-5 4DR SUV
+productDescription2 =  condition: used, year: 2014, Manufacturer: Mazda, mileage: 12,831, Transmission: Automatic, Fuel Type: Gas
+productImagePath2 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430956786/6800_gh1oyj.jpg
+product2CloudImageName=6800_gh1oyj
+
+
+productName3 = Samsung Galaxy S6
+productDescription3 = Detailed: item info, Product: Identifiers, Brand: Samsung, Carrier: Unlocked, Family Line: Samsung Galaxy S6, Type: Smartphone, Digital Camera: Yes, Email Access: Yes, Battery Capacity: 2550 mAh, Display Technology: Quad HD Super AMOLED
+productImagePath3 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430957201/samsung-galaxy-s6-11_kemyzy.jpg
+productImagePath3a = http://res.cloudinary.com/dypsvhs02/image/upload/v1430957127/samsung-galaxy-s6-2_by00ud.jpg
+productImagePath3aa = http://res.cloudinary.com/dypsvhs02/image/upload/v1430957262/samsung-galaxy-s6-4_vkwkqx.jpg
+product3CloudImageName=samsung-galaxy-s6-11_kemyzy
+product3CloudImage2Name=samsung-galaxy-s6-2_by00ud
+product3CloudImage3Name=samsung-galaxy-s6-4_vkwkqx
+
+productName4 = "THE BOOK OF WHO? by Rodney Dale"
+productDescription4 = Brand New: A new, unread, unused book in perfect condition with no missing or damaged pages. Publication Year: 2005
+productImagePath4 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430959511/bookofwho_qr41pb.jpg
+product4CloudImageName=bookofwho_qr41pb
+
+productName5 = Mercedes 270
+productDescription5 = Year: 2015, Manufacturer: Mercedes, Condition: used, Mileage: 21,841, Transmission: manual
+productImagePath5 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430959711/mercedes_msijmx.jpg
+product5CloudImageName=mercedes_msijmx
+
+productName6 = Dog
+productDescription6 = Young dog, 3 months, only money!!!
+productImagePath6 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430959837/dog_pmoiwt.jpg
+product6CloudImageName=dog_pmoiwt
+
+
+productName7 = BMW 320
+productDescription7 = Year: 2003, Mileage: 129,27, Transmission: automatic, Manufacturer: BMW
+productImagePath7 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430959968/bmw_wvj2re.jpg
+product7CloudImageName=bmw_wvj2re
+
+
+productName8 = Iphone 6
+productDescription8 = Brand: Apple, Storage Capacity: 64 GB, Camera:8.0MP, Model: iPhone 6 Plus, Digital Camera: Yes, Email Access: Yes, Battery Capacity: 2000 mAh, Operating System:iOS
+productImagePath8 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430960232/iphone_khrdka.jpg
+product8CloudImageName=iphone_khrdka
+
+
+productName9 = Cat
+productDescription9 = Young cat, 2 months, if you want good pet this is the best choice!!!
+productImagePath9 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430960434/cat_wjwv9k.jpg
+product9CloudImageName=cat_wjwv9k
+
+productName10 = House
+productDescription10 = This house has got four bedrooms, a living room, a dining room, a kitchen
+productImagePath10 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430960531/bitbaySlika1_wqlhs0.jpg
+product10CloudImageName=bitbaySlika1_wqlhs0
+
+productName11 = Samsung galaxy S6 cover
+productDescription11 = Silicon cover for Samsung galaxy S6
+productImagePath11 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962038/samsungCover_eamhct.jpg
+product11CloudImageName=samsungCover_eamhct
+
+
+productName12 = Headphones for S6
+productDescription12 = Very stylish headphones for Samsung galaxy S6
+productImagePath12 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962257/samsungHeadphones_f0iudt.jpg
+product12CloudImageName=samsungHeadphones_f0iudt
+
+
+productName13 = Dock for Samsung galaxy S6
+productDescription13 = Beatiful all-in-one dock for the new Samsung galaxy S6
+productImagePath13 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962366/samsungDock_olrha1.png
+product13CloudImageName=samsungDock_olrha1
+
+
+productName14 = Dog chew rope
+productDescription14 = A toy for your best friend!
+productImagePath14 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962552/dogChewRope_qvzi7s.jpg
+product14CloudImageName=dogChewRope_qvzi7s
+
+
+productName15 = Dog collar
+productDescription15 = New red plaid stylish dog collar.
+productImagePath15 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962646/dogCollar_vrvnpy.jpg
+product15CloudImageName=dogCollar_vrvnpy
+
+productName16 = Treatball
+productDescription16 = Mystery green rubber treatball for your dog!
+productImagePath16 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430962760/dogTreatball_ew8kyv.jpg
+product16CloudImageName=dogTreatball_ew8kyv
+
+productName17 = NEW Authentic GUCCI
+productDescription17 = New with tags: A brand-new, unused, and unworn item (including handmade items) in the original packaging
+productImagePath17a = images/GucciBag.JPG
+productImagePath17b = images/guccibag2.jpg
+productImagePath17c = images/guccibag3.jpeg
+product17CloudImageName=GucciBag_n01xzk
+
+
+productName18 = Raymond Stainless Watch
+productDescription18 = This watch is new display model. Does not come with box and papers.
+productImagePath18a = http://res.cloudinary.com/dypsvhs02/image/upload/v1430963120/Raymondwatch_uzwdxg.jpg
+productImagePath18b = images/Raymondwatch1.JPG
+productImagePath18c = images/Raymondwatch2.JPG
+product18CloudImageName=Raymondwatch_uzwdxg
+
+
+productName19 = Michael KORS BUCKLE SANDALS
+productDescription19 = "New with box: A brand-new, unused, and unworn item (including handmade items) in the original packaging (such as the original box or bag) and/or with the original tags attached."
+productImagePath19a = http://res.cloudinary.com/dypsvhs02/image/upload/v1430963563/michaelkors_mdfmjo.jpg
+productImagePath19b = images/michaelkors1.jpeg
+productImagePath19c = images/michaelkors2.jpeg
+product19CloudImageName=michaelkors_mdfmjo
+
+
+productName20 = Tory Burch Thong Sandals
+productDescription20 = "New without box: A brand-new, unused, and unworn item (including handmade items) that is not in original packaging or may be missing original packaging materials (such as the original box or bag)."
+productImagePath20a = http://res.cloudinary.com/dypsvhs02/image/upload/v1430963695/toryburch_pehqdf.jpg
+productImagePath20b = images/toryburch1.jpeg
+productImagePath20c = images/toryburch2.jpeg
+product20CloudImageName=toryburch_pehqdf
+
+
+productName21 = "U2: son gs of innocence- Deluxe Edition (2014)"
+productDescription21 = "Brand New: An item that has never been opened or removed from the manufacturer’s sealing (if applicable). Item is in original shrink wrap (if applicable). See the seller's listing for full details. Number of Discs: 2. Genre: Rock. Tracks: 16."
+productImagePath21 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430963827/u2CD_d02qof.jpg
+product21CloudImageName=u2CD_d02qof
+
+
+productName22 = Vintage Look Vase Coffee TABLE
+productDescription22 = "Good condition, Hand Made. Region of Origin: Asia. Material: Wood. Age: Post-1950"
+productImagePath22 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430963941/coffeetable_jbwpvh.jpg
+product22CloudImageName=coffeetable_jbwpvh
+
+
+productName23 = GIANT BIG TEDDY BEAR
+productDescription23 = "New: A brand-new, unused, unopened, undamaged item (including handmade items) Country of Manufacture: China. Size: 75cm/29.5 inch(Ear to Feet)"
+productImagePath23 = http://res.cloudinary.com/dypsvhs02/image/upload/v1430964057/tedybear_pzzjuo.jpg
+product23CloudImageName=tedybear_pzzjuo
+
+FAQQuestion1 = I can't get items shipped until Monday and I'm afraid of hurting my top-rated seller qualification. How should I go about this?
+FAQQuestion2 = I have 30 something bids on my vintage camper and about 6 of them are from people with 0 feedback. Is this scammers? I have sold on bitbay for years and never saw this before. 
+FAQQuestion3 = Additional free listing this month (new listings only) Why didn't I receive this?
+FAQQuestion4 = I reported a buyer. Can you tell me results of my report?,
+FAQQuestion5 = Does bitBay mainly side with the buyer in case resolution?
+FAQQuestion6 = What should I do when I feel a buyer is misusing the feedback system by threatening me?
+FAQQuestion7 = What is bitBay doing to get buyers who repeatedly violate bitBay policies off the site?
+FAQQuestion8 = A buyer contacted me saying they did not receive their order. What should I do?
+
+FAQAnswers1 = You may, if you can, decide to reward their patience by refunding the shipping cost (let them know that in the apology email).
+FAQAnswers2 = People with 0 feedback are not necessarily scammers.  We all had 0 feedback once.
+FAQAnswers3 = Promo offers are by invitation only; no party crashing allowed.  Unless there is an einstein among us, no one can figure out the criteria used by bitBay to get these promos.
+FAQAnswers4 = To make buyers feel comfortable about buying, we don’t disclose the results of a report. Reports from sellers help us make bitBay a great experience for everyone. Since the launch of the enhanced Report a Buyer feature, we’ve had more reports submitted by sellers. In response, we’ve been able to take more actions to prevent abuse by buyers. If we take action on a buyer who is reported for policy violations, any transaction defects created by that buyer are automatically removed. We will let sellers know if they have had defects removed either on their Seller Dashboard or via a monthly communication from bitBay.
+FAQAnswers5 = No. We strive to make sure cases get resolved fairly to the satisfaction of both parties. If you feel a case has been resolved unfairly, you can appeal the decision by providing new information to the case, such as additional information from the shipping carrier to Customer Support within 45 days from the day the case is closed. bitBay reviews information and documentation from both buyers and sellers in detail before making a final decision. If a seller's appeal is granted, all defects for that transaction will be automatically removed.
+FAQAnswers6 = First, place yourself in the buyer’s shoes and ask yourself if the buyer is asking for something unreasonable. You’ll find that most buyers just want to resolve an issue. If you feel the buyer is in fact using low Feedback as a threat or the buyer’s demands are beyond what you promised, please report that buyer. See eBay Feedback Extortion policy to learn more.
+FAQAnswers7 = Depending on a buyer’s behavior, there are a number of actions the team can take—from issuing a warning, to setting buyer restrictions, to suspending the buyer from our site. If we take action on a buyer, all defects created by that buyer will be automatically removed.
+FAQAnswers8 = Work with the buyer to reach a mutually agreeable solution in regard to this transaction. How you decide to proceed is ultimately determined by you and your customer service policy, but all sellers are expected to demonstrate a high level of customer service.
+
+BlogMessage = A new website for online shopping has started to work today. We will be at your service 24/7 and provide top service to all our users. Our primary concern is safety for our users so they can buy, sell and trade with out any worry for security. We really hope you will find our website fun and intuitive to use. Kind Regards bitBay team.
+
+user1 = bitbayadmin
+user2 = 123456
+user3 = emina
+user4 = haris
+user5 = nermin
+user6 = nermin
+user7 = blogger
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#BloggerController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+blogControllerFlash1 = New blog added!
+blogControllerFlash2 = There has been an error in adding Blog!
+blogControllerFlash3 = Successful update!
+blogControllerFlash4 = There has been an error in updating Blog!
+blogControllerFlash5 = Blog deleted!
+blogCotnrollerFlash6 = You need to upload image!
+blogControllerFlash7 = Image type not valid
+blogControllerFlash8 = Image size not valid
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#CategoryApplication strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+categoryApplicationLogger1 =  category added in database
+categoryApplicationLogger2 = Opened page for adding category
+categoryApplicationLogger3 =  category is deleted
+categoryApplicationLogger4 = Category page opened
+categoryApplicationLogger5 =  category name has been updated as 
+categoryApplicationLogger6 = Error in update category 
+categoryApplicationLogger7 = Update category page opened
+categoryApplicationFlash1 = You have successfully deleted category!
+categoryApplicationFlash2 = You have successfully updated category!
+categoryApplicationFlash3 = There has been a mistake in updating category!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#CommentController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+commentControllerFlash1 = New comment added!
+commentControllerFlash2 = Comment deleted!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#FAQController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FAQControllerFlash1 = New question added!
+FAQControllerFlash2 = There has been an error in adding FAQ!
+FAQControllerFlash3 = Successful update!
+FAQControllerFlash4 = There has been an error in updating FAQ!
+FAQControllerFlash5 = Question deleted!
+FAQCotnrollerFlash6 = There has been an error in deleting FAQ!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#MessageController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MessageControllerFlash1 = Message deleted!
+MessageControllerFlash2 = Message sent!
+MessageControllerFlash3 = You have to confirm that you are not a robot!
+MessageControllerFlash4 = Report deleted!
+MessageControllerHelper1 = Contact US message
+MessageControllerHelper2 = Message from buyer
+MessageControllerHelper3 = Contact Us message
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#OrderController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#PaypalController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PaypalControllerCTS1 = Your order via bitBay: 
+PaypalControllerCTS2 = which is a total price of: 
+PaypalControllerCTS3 = TOTAL: 
+PaypalControllerFlash1 = Transaction canceled!
+PaypalControllerFlash2 = Token has been sent to your email!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#ProductApplication strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ProductApplicationFlash1 = You must select a picture for your product!
+ProductApplicationFlash2 = You have successfully added product!
+ProductApplicationFlash3 = You have successfully deleted product!
+ProductApplicationFlash4 = Product successfully updated!
+ProductApplicationFlash5 = You need to upload image!
+ProductApplicationFlash6 = Image type not valid!
+ProductApplicationFlash7 = Image size not valid!
+ProductApplicationFlash8 = Failed to move file
+ProductApplicationFlash9 = You need to upload image!
+ProductApplicationFlash10 = Use less than 5 images!
+ProductApplicationFlash11 = Failed to move file!
+ProductApplicationFlash12a = Product 
+ProductApplicationFlash12b =  has been successfully renewed!
+ProductApplicationFlash13 = You have successfully reported product!
+ProductApplicationFlash14 = You have to confirm that you are not a robot!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#SearchController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#UserController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+UserControllerFlash1 = You have successfully updated user!
+UserControllerFlash2 = You have successfully deleted user!
+UserControllerFlash3 = Enter valid date!
+UserControllerFlash4 = Enter valid gender!
+UserControllerFlash5 = Username already exists!
+UserControllerFlash6 = Additional info updated successfully!
+UserControllerFlash7 = You have successfully rated user!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#UserLoginApplication strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ULAFlash1 = You have entered wrong password!
+ULAFlash2 = Email does not exist!
+ULAFlash3 = Passwords are not the same!
+ULAFlash4 = Please check your email
+ULAFlash5 = There is already a user with that email!
+ULAFlash6 = You have been successfully logged out! Come back any time!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+categoryApplicationFlash1 = You have successfully deleted category!
+categoryApplicationFlash2 = You have successfully updated category!
+categoryApplicationFlash3 = There has been a mistake in updating category!
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+#HTML
+
+#Buttons
+cancel = Cancel
+addCategory = Add Category
+back = Back
+add = Add
+skip = Skip
+search = Search
+edit = Edit
+delete = Delete
+backToHome = Back to home
+confirm = Confirm
+send = Send
+reply = Reply
+addFaq = Add FAQ
+update = Update
+addNewProduct = Add new product
+submit = Submit
+visitSeller = Visit seller profile
+contactSeller = Contact seller
+reportProduct = Report product
+
+#Header
+category = Category
+advancedSearch = Advanced Search
+hello = Hello
+login = Log in
+register = Register
+placeholderSearch = Search...
+profile = Profile
+blog = Blog
+logout = Logout
+newProduct = Add New Product
+myCart = My Cart
+myOrders = My Orders
+notification = Notification
+or = or
+searchHeader = Search...
+
+#Footer
+contactUs = Contact Us
+faqs = FAQs
+aboutBitBay = About bitBay
+mirrorsite = Project bitBay mirror site of eBay
+sarajevo = Sarajevo
+bosna = Bosnia and Herzegovina
+phone = Contact: (061) 100-100
+followUs = Follow us on
+
+#AddCategoryPage
+addCategory = Add Category
+categoryPageName = Name
+nameOfYourProductplaceholder = Name of your product
+
+#Default strings
+name = Name
+
+#AdditionalInfo
+addAdditionalInfo = Add additional info 
+username = Username
+usernamePlaceholder = Choose your username
+dateOfBirth = Date of birth
+dateOfBirthPlaceholeder = Enter your birth date
+city = City
+cityPlaceholder = Enter your city
+shippingAddress = Shipping address
+ahippingAddressPlaceholder = Enter your shipping address
+address = Address
+addressPlaceholder = Enter your address
+gender = Gender
+genderPlaceholder = Enter your gender: m-male; f-female
+
+#AddProduct
+addProduct = Add product
+namePlaceholderAddProduct = Name of your product
+price = Price
+priceOfYourProductPlaceholder = Enter price of your product
+quantity = Quantity
+quantityPlaceholder = Enter quantity for your product
+description = Description
+descriptionPlaceholderAddProduct = Description of your product
+selectImagesAddProduct = Select images
+lessThen6AddProduct = Less then 6 photos
+
+#AddProductCategory
+selectCategory = Select Category
+
+#AdvancedSearch
+allAdvancedSearch = All
+product = Product
+productPlaceholderAdvancedSearch = Product...
+descriptionPlaceholderAdvancedSearch = Description...
+fromPlaceholderAdvancedSearch = From...
+toPlaceholderAdvancedSearch = To...
+searchResultAdvancedSearch = Search Results
+noSearchResults = No search result...
+
+#Blog
+homepageBitBay = bitbay Homepage
+bitbayBlog = bitbay Blog
+subheading = A Blog of team bitBay
+addNewBlog = Add new Blog
+postedBy = Posted by 
+
+#Cartpage
+numberOfItemsCartpage = Number of items
+totalPriceCartpage = Total price
+shippingAddressPlaceholderCartpage = Type the shipping address
+cartCartpage = Your Cart
+removeFromCart = Remove from Cart
+youMayAlsoLIke = You may also like
+emptyCart = Your cart is empty...
+
+#Confirmorder
+confirmOrder = Confirm Order
+total = Total
+
+#Contact
+contactUs = Contact us
+yourEmail = Your Email
+enterEmailPlaceholder = Enter email
+yourMessage = Your Message
+enterYourMessagePlaceholder = Enter your message
+
+#Contactseller
+contactSeller = Contact Seller
+
+#EditAdditionalInfo
+updateAdditionalInfo = Update additional info
+
+#Faq
+FAQ = FAQ
+question = Question
+answer = Answer
+
+#Itempage
+addToCart = Add to cart
+onStock = On Stock
+inCart = In Cart(this item)
+sellerEmail = Seller email
+sellerRate = Seller rate
+comments = Comments
+
+
+#Logintest
+email = Email
+password = Password
+
+#Main
+bitbay = BitBay
+
+#Message
+from = From
+message = Message
+
+#Newblog
+addBlog = Add Blog
+title = Title
+content = Content
+selectImages = Select image
+
+#Newfaq
+addFaq = Add FAQ
+
+#Orderpage
+noOrders = You have no orders
+yourOrders = Your Orders
+orderNumber = Order number
+products = Products
+orderDate = Order date
+refund = Refund
+rateSeller = Rate seller
+
+#Profile
+listOfUsers = List Of Users
+categories = Categories
+reports = Reports
+myProducts = My Products
+mySoldOrders = My sold orders
+messages = Messages
+searchUsersPlaceholder = Search users...
+sold = SOLD
+view = View
+noSoldOrders = You have no sold orders
+soldProducts = Sold products
+buyer = Buyer
+rateBuyer = Rate buyer
+productWithId = Product with id
+numberOfReports = Number of reports
+
+#Rating
+rate = Rate
+
+#Reply
+replyTo = Reply to
+
+#Report
+report = Report
+
+#Reportpage
+reportProduct = Report product
+explainReport = Explain your report
+reportPlaceholder = Enter your report
+
+#Showsearchresults
+productPage = Product Page
+
+#Soldorderpage
+soldOrders = Your Sold Orders
+ok = Ok, got it
+
+#Toregister
+enterPasswordPlaceholder = Enter password
+minimumLength = Minimum length
+confirmPassword = Confirm password
+confirmPasswordPlaceholder = Confirm your password
+
+#Updatecategory
+updateCategory = Update category
+nameCategoryPlaceholder = Name of category
+
+#Updatefaq
+updateFAQ = Update FAQ
+
+#Updateproduct
+updateProduct = Update product
+
+#Userprofile
+contactUser = Contact user
+productsUserprofile = products

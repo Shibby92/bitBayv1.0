@@ -95,7 +95,7 @@ public class ProductApplication extends Controller {
 
 		if (image_urls.size() == 0) {
 			flash("pictureSelect",
-					"You must select a picture for your product!");
+					play.i18n.Messages.get("ProductApplicationFlash1"));
 			return redirect("/addproductpage/" + id);
 		}
 
@@ -104,7 +104,7 @@ public class ProductApplication extends Controller {
 
 		Logger.info("User with email: " + session().get("email")
 				+ "created product with name: " + name);
-		flash("success", "You have successfuly added product!");
+		flash("success", play.i18n.Messages.get("ProductApplicationFlash2"));
 		return redirect("/homepage");
 	}
 
@@ -148,7 +148,7 @@ public class ProductApplication extends Controller {
 		p.deleted = true;
 		p.update();
 		Logger.warn("Product with id: " + id + " has been deleted");
-		flash("success", "You have successfuly deleted product");
+		flash("success", play.i18n.Messages.get("ProductApplicationFlash3"));
 		return redirect("/profile");
 
 	}
@@ -212,7 +212,7 @@ public class ProductApplication extends Controller {
 			updateProduct.update();
 
 			Logger.info("Product with id: " + id + " has been updated");
-			flash("success", "Product successfully updated!");
+			flash("success", play.i18n.Messages.get("ProductApplicationFlash4"));
 			if (User.find(session().get("email")).admin)
 				return redirect("/profile/"
 						+ User.find(session().get("email")).id);
@@ -230,9 +230,7 @@ public class ProductApplication extends Controller {
 	 */
 	@Security.Authenticated(UserFilter.class)
 	public static List<models.Image> updatePicture(int id) {
-
 		Product updateProduct = ProductApplication.find(id);
-
 		MultipartFormData body = request().body().asMultipartFormData();
 		List<FilePart> fileParts = body.getFiles();
 		List<models.Image> imgs = new ArrayList<models.Image>();
@@ -241,7 +239,7 @@ public class ProductApplication extends Controller {
 			Logger.debug("File part is null");
 			return null;
 		}
-
+		
 		for (FilePart filePart : fileParts) {
 			if (filePart == null) {
 				Logger.debug("File part is null");
@@ -272,37 +270,13 @@ public class ProductApplication extends Controller {
 				return null;
 			}
 
-			try {
-
-				models.Image img = new models.Image();
-				Product.deleteImage(updateProduct);
-
-				File profile = new File("./public/images/"
-						+ UUID.randomUUID().toString() + extension);
-
-				Logger.debug(profile.getPath());
-				String image_url = "images" + File.separator
-						+ profile.getName();
-				img.image = image_url;
-				img.product = updateProduct;
-
-				Files.move(image, profile);
-				ImageIcon tmp = new ImageIcon(image_url);
-				Image resize = tmp.getImage();
-				resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
-
+			//try {
+				Product.deleteImages(updateProduct);
+				models.Image img=models.Image.uploadCreate(image);				
+				//Product.deleteImage(updateProduct);
 				imgs.add(img);
-
-			} catch (IOException e) {
-				Logger.error("Failed to move file");
-				e.printStackTrace();
-				flash("error", "Failed to move file");
-				return null;
-			}
-		}
-
+}
 		return imgs;
-
 	}
 	
 	/**
@@ -353,36 +327,11 @@ public class ProductApplication extends Controller {
 				flash("error", "Image size not valid");
 				return null;
 			}
-
-			try {
-				models.Image img = new models.Image();
-
-				File profile = new File("./public/images/"
-						+ UUID.randomUUID().toString() + extension);
-
-				Logger.debug(profile.getPath());
-				String image_url = "images" + File.separator
-						+ profile.getName();
-
-				img.image = image_url;
-
-				Files.move(image, profile);
-				ImageIcon tmp = new ImageIcon(img.image);
-				Image resize = tmp.getImage();
-				resize.getScaledInstance(800, 600, Image.SCALE_DEFAULT);
-
-				image_urls.add(img);
-
-			} catch (IOException e) {
-				flash("error", "Failed to move file");
-				Logger.error("Failed to move file");
-				Logger.debug(e.getMessage());
-				return null;
-			}
-		}
+				models.Image img=models.Image.uploadCreate(image);
+					image_urls.add(img);
+}
 		return image_urls;
-
-	}
+}
 	
 	/**
 	 * Opens a page from one product.
@@ -415,8 +364,8 @@ public class ProductApplication extends Controller {
 		temp.order = null;
 		temp.quantity = 1;
 		temp.update();
-		flash("renew", "Product " + temp.name
-				+ " has been successfully renewed!");
+		flash("renew", play.i18n.Messages.get("ProductApplication12a") + temp.name
+				+ play.i18n.Messages.get("ProductApplication12b"));
 		return redirect("/myproducts/" + User.find(session().get("email")).id);
 	}
 	
@@ -484,7 +433,7 @@ public class ProductApplication extends Controller {
 							}
 
 							flash("success",
-									"You have successfuly reported product!");
+									play.i18n.Messages.get("ProductApplicationFlash13"));
 
 							Logger.info("User with email: "
 									+ session().get("email")
@@ -497,14 +446,14 @@ public class ProductApplication extends Controller {
 									+ session().get("email")
 									+ " did not confirm its humanity");
 							flash("error",
-									"You have to confirm that you are not a robot!");
+									play.i18n.Messages.get("ProductApplicationFlash14"));
 							return ok(reportpage.render(session().get("email"),
 									id, report));
 
 						}
 					}
 				});
-		// return the promisse
+		// return the promise
 		return holder;
 	}
 	

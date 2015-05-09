@@ -16,7 +16,7 @@
 
 <a href="itempage/@product.id">
 
-            <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
+            <img src="@product.images.get(0).getUrl(500, 228)" alt="" style="width:500px;height:228px">
 
 </a>
 
@@ -28,7 +28,7 @@
 
                </h4>
 
-               <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
+               <p> @product.description @if(product.sold==true){<strong> @Messages("sold")!!! </strong>} </p>
 
             </div>
 
