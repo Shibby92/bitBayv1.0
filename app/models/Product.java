@@ -75,7 +75,9 @@ public class Product extends Model {
 	/** The amount. */
 	public double amount;
 
-	/** The tags. */
+	public List<String> image_urls = new ArrayList<String>();
+
+		/** The tags. */
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
 	public List<Tag> tags;
 
@@ -328,6 +330,18 @@ public class Product extends Model {
 		}
 	}
 
+	public static void deleteImages(Product p) {
+		for (String imageUrl : p.image_urls) {
+			imageUrl=null;
+		}
+		for (Image image : p.images) {
+			image.delete();
+		}
+		p.image_urls=null;
+		p.image_urls=null;
+		p.update();
+		}
+	
 	/**
 	 * Gets the ids of the products.
 	 *

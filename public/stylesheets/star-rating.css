@@ -135,7 +135,11 @@
 
 .rating-md {
     font-size: 3.13em;
-    margin: 0px 190px
+    margin: 0px 0px
+}
+.rating-md1 {
+    font-size: 3.13em;
+    margin: 0px 180px
 }
 
 .rating-sm {

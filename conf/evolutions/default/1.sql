@@ -49,6 +49,8 @@ create table image (
   id                        integer not null,
   image                     varchar(255),
   product_id                integer,
+  public_id                 varchar(255),
+  secret_image_url          varchar(255),
   constraint pk_image primary key (id))
 ;
 

@@ -122,113 +122,178 @@ public class Global extends GlobalSettings {
 		/**
 		 * Creating 23 different products
 		 */
-		if (Product.find(1) == null) {
+		//if (Product.find(1) == null) {
 			makeProduct(play.i18n.Messages.get("productName1"), 18.00, 1,
 					User.find(3),
 					play.i18n.Messages.get("productDescription1"), 5,
-					play.i18n.Messages.get("productImagePath1"), "");
+					play.i18n.Messages.get("productImagePath1"),play.i18n.Messages.get("product1CloudImageName"), "");
+			
 			makeProduct(play.i18n.Messages.get("productName2"), 24900.0, 1,
 					User.find(2),
 					play.i18n.Messages.get("productDescription2"), 1,
-					play.i18n.Messages.get("productImagePath2"), "");
+					play.i18n.Messages.get("productImagePath2"),play.i18n.Messages.get("product2CloudImageName"), "");
+			
 			makeProduct(play.i18n.Messages.get("productName3"), 2000.00, 15,
 					User.find(3),
 					play.i18n.Messages.get("productDescription3"), 3,
 					play.i18n.Messages.get("productImagePath3"),
 					play.i18n.Messages.get("productImagePath3a"),
-					play.i18n.Messages.get("productImagePath3aa"), "Samsung");
+					play.i18n.Messages.get("productImagePath3aa"),
+					play.i18n.Messages.get("product3CloudImageName"),
+					play.i18n.Messages.get("product3CloudImage2Name"),
+					play.i18n.Messages.get("product3CloudImage3Name"),
+					"Samsung");
+			
 			makeProduct(play.i18n.Messages.get("productName4"), 0.99, 1,
 					User.find(3),
 					play.i18n.Messages.get("productDescription4"), 13,
-					play.i18n.Messages.get("productImagePath4"), "");
+					play.i18n.Messages.get("productImagePath4"),
+					play.i18n.Messages.get("product4CloudImageName"), "");
+			
 			makeProduct(play.i18n.Messages.get("productName5"), 45750, 2,
 					User.find(4),
 					play.i18n.Messages.get("productDescription5"), 1,
-					play.i18n.Messages.get("productImagePath5"), "");
+					play.i18n.Messages.get("productImagePath5"),
+					play.i18n.Messages.get("product5CloudImageName"),
+					"");
+			
 			makeProduct(play.i18n.Messages.get("productName6"), 120, 3,
 					User.find(6),
 					play.i18n.Messages.get("productDescription6"), 8,
-					play.i18n.Messages.get("productImagePath6"), "");
+					play.i18n.Messages.get("productImagePath6"), 
+					play.i18n.Messages.get("product6CloudImageName"),
+					"");
+			
 			makeProduct(play.i18n.Messages.get("productName7"), 15000, 1,
 					User.find(4),
 					play.i18n.Messages.get("productDescription7"), 1,
-					play.i18n.Messages.get("productImagePath7"), "");
+					play.i18n.Messages.get("productImagePath7"), 
+					play.i18n.Messages.get("product7CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName8"), 1530, 15,
 					User.find(5),
 					play.i18n.Messages.get("productDescription8"), 3,
-					play.i18n.Messages.get("productImagePath8"), "");
+					play.i18n.Messages.get("productImagePath8"),
+					play.i18n.Messages.get("product8CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName9"), 120, 1,
 					User.find(6),
 					play.i18n.Messages.get("productDescription9"), 8,
-					play.i18n.Messages.get("productImagePath9"), "");
+					play.i18n.Messages.get("productImagePath9"), 
+					play.i18n.Messages.get("product9CloudImageName"),
+"");
 
 			// 10th
 
 			makeProduct(play.i18n.Messages.get("productName10"), 100000, 3,
 					User.find(2),
 					play.i18n.Messages.get("productDescription10"), 5,
-					play.i18n.Messages.get("productImagePath10"), "");
+					play.i18n.Messages.get("productImagePath10"),
+					play.i18n.Messages.get("product10CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName11"), 9.99, 50,
 					User.find(3),
 					play.i18n.Messages.get("productDescription11"), 3,
-					play.i18n.Messages.get("productImagePath11"), "Samsung");
+					play.i18n.Messages.get("productImagePath11"),
+					play.i18n.Messages.get("product11CloudImageName"),
+"Samsung");
+			
 			makeProduct(play.i18n.Messages.get("productName12"), 19.99, 100,
 					User.find(3),
 					play.i18n.Messages.get("productDescription12"), 3,
-					play.i18n.Messages.get("productImagePath12"), "Samsung");
+					play.i18n.Messages.get("productImagePath12"),
+					play.i18n.Messages.get("product12CloudImageName"),
+"Samsung");
+		
 			makeProduct(play.i18n.Messages.get("productName13"), 29.99, 10,
 					User.find(3),
 					play.i18n.Messages.get("productDescription13"), 3,
-					play.i18n.Messages.get("productImagePath13"), "Samsung");
+					play.i18n.Messages.get("productImagePath13"),
+					play.i18n.Messages.get("product13CloudImageName"),
+"Samsung");
+		
 			makeProduct(play.i18n.Messages.get("productName14"), 5.55, 15,
 					User.find(6),
 					play.i18n.Messages.get("productDescription14"), 8,
-					play.i18n.Messages.get("productImagePath14"), "Dog");
+					play.i18n.Messages.get("productImagePath14"),
+					play.i18n.Messages.get("product14CloudImageName"),
+"Dog");
+		
 			makeProduct(play.i18n.Messages.get("productName15"), 9.69, 20,
 					User.find(6),
 					play.i18n.Messages.get("productDescription15"), 8,
-					play.i18n.Messages.get("productImagePath15"), "Dog");
+					play.i18n.Messages.get("productImagePath15"),
+					play.i18n.Messages.get("product15CloudImageName"),
+"Dog");
+		
 			makeProduct(play.i18n.Messages.get("productName16"), 21.29, 5,
 					User.find(6),
 					play.i18n.Messages.get("productDescription16"), 8,
-					play.i18n.Messages.get("productImagePath16"), "Dog");
+					play.i18n.Messages.get("productImagePath16"),
+					play.i18n.Messages.get("product16CloudImageName"),
+"Dog");
+		
 			makeProduct(play.i18n.Messages.get("productName17"), 552.49, 7,
 					User.find(3),
 					play.i18n.Messages.get("productDescription17"), 2,
 					play.i18n.Messages.get("productImagePath17a"),
-					play.i18n.Messages.get("productImagePath17b"),
-					play.i18n.Messages.get("productImagePath17c"), "");
+					//play.i18n.Messages.get("productImagePath17b"),
+					//play.i18n.Messages.get("productImagePath17c"),
+					play.i18n.Messages.get("product17CloudImageName"),
+
+					"");
+		
 			makeProduct(play.i18n.Messages.get("productName18"), 399.00, 3,
 					User.find(4),
 					play.i18n.Messages.get("productDescription18"), 2,
 					play.i18n.Messages.get("productImagePath18a"),
-					play.i18n.Messages.get("productImagePath18b"),
-					play.i18n.Messages.get("productImagePath18c"), "");
+					//play.i18n.Messages.get("productImagePath18b"),
+					//play.i18n.Messages.get("productImagePath18c"), 
+					play.i18n.Messages.get("product18CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName19"), 99.00, 7,
 					User.find(5),
 					play.i18n.Messages.get("productDescription19"), 2,
 					play.i18n.Messages.get("productImagePath19a"),
-					play.i18n.Messages.get("productImagePath19b"),
-					play.i18n.Messages.get("productImagePath19c"), "");
+					//play.i18n.Messages.get("productImagePath19b"),
+					//play.i18n.Messages.get("productImagePath19c"), 
+					play.i18n.Messages.get("product19CloudImageName"),
+"");
+			
 			makeProduct(play.i18n.Messages.get("productName20"), 119.00, 10,
 					User.find(6),
 					play.i18n.Messages.get("productDescription20"), 2,
 					play.i18n.Messages.get("productImagePath20a"),
-					play.i18n.Messages.get("productImagePath20b"),
-					play.i18n.Messages.get("productImagePath20c"), "");
+					//play.i18n.Messages.get("productImagePath20b"),
+					//play.i18n.Messages.get("productImagePath20c"),
+					play.i18n.Messages.get("product20CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName21"), 5.50, 5,
 					User.find(2),
 					play.i18n.Messages.get("productDescription21"), 11,
-					play.i18n.Messages.get("productImagePath21"), "");
+					play.i18n.Messages.get("productImagePath21"), 
+					play.i18n.Messages.get("product21CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName22"), 55.00, 1,
 					User.find(3),
 					play.i18n.Messages.get("productDescription22"), 9,
-					play.i18n.Messages.get("productImagePath22"), "");
+					play.i18n.Messages.get("productImagePath22"), 
+					play.i18n.Messages.get("product22CloudImageName"),
+"");
+		
 			makeProduct(play.i18n.Messages.get("productName23"), 17.99, 20,
 					User.find(4),
 					play.i18n.Messages.get("productDescription23"), 13,
-					play.i18n.Messages.get("productImagePath23"), "");
-		}
+					play.i18n.Messages.get("productImagePath23"),
+					play.i18n.Messages.get("product23CloudImageName"),
+"");
+		//}
 
 		/**
 		 * Creating 8 different FAQ's
@@ -469,6 +534,47 @@ public class Global extends GlobalSettings {
 		p.images = il;
 		p.update();
 	}
+	
+	/**
+	 * Method for shortening the creation of products with one picture
+	 * 
+	 * @param name
+	 *            String Product's name
+	 * @param price
+	 *            double Product's price
+	 * @param quantity
+	 *            int Product's quantity
+	 * @param owner
+	 *            User Product's owner
+	 * @param description
+	 *            String Product's description
+	 * @param categoryId
+	 *            int Product's category
+	 * @param imagePath
+	 *            String Product's picture
+	 * @param tag
+	 *            String Product's tag
+	 */
+	private void makeProduct(String name, double price, int quantity,
+			User owner, String description, int categoryId, String imagePath,String cloudName,
+			String tag) {
+		Product p = Product.create(name, price, quantity, owner, description,
+				categoryId);
+		Image i = new Image();
+		i.image = imagePath;
+		i.public_id=cloudName;
+		i.product = p;
+		Tag.create(p, Category.find(p.categoryId).name);
+		Tag.create(p, p.name);
+		if (!tag.equals("")) {
+			Tag.create(p, tag);
+		}
+		List<Image> il = new ArrayList<Image>();
+		il.add(i);
+		Image.saveImg(i);
+		p.images = il;
+		p.update();
+	}
 
 	/**
 	 * Method for shortening the creation of products with three pictures
@@ -524,4 +630,61 @@ public class Global extends GlobalSettings {
 		p.update();
 	}
 
+	/**
+	 * Method for shortening the creation of products with three pictures
+	 * 
+	 * @param name
+	 *            String Product's name
+	 * @param price
+	 *            double Product's price
+	 * @param quantity
+	 *            int Product's quantity
+	 * @param owner
+	 *            User Product's owner
+	 * @param description
+	 *            String Product's description
+	 * @param categoryId
+	 *            int Product's category
+	 * @param imagePath1
+	 *            String Product's picture 1
+	 * @param imagePath2
+	 *            String Product's picture 2
+	 * @param imagePath3
+	 *            String Product's picture 3
+	 * @param tag
+	 *            String Product's tag
+	 */
+	private void makeProduct(String name, double price, int quantity,
+			User owner, String description, int categoryId, String imagePath1,
+			String imagePath2, String imagePath3, String cloudImage1Name,String cloudImage2Name, String cloudImage3Name, String tag) {
+		Product p = Product.create(name, price, quantity, owner, description,
+				categoryId);
+		Image ia = new Image();
+		ia.public_id=cloudImage1Name;
+		ia.image = imagePath1;
+		ia.product = p;
+		Image ib = new Image();
+		ib.public_id=cloudImage2Name;
+		ib.image = imagePath2;
+		ib.product = p;
+		Image ic = new Image();
+		ic.public_id=cloudImage3Name;
+		ic.image = imagePath3;
+		ic.product = p;
+		Tag.create(p, Category.find(p.categoryId).name);
+		Tag.create(p, p.name);
+		if (!tag.equals("")) {
+			Tag.create(p, tag);
+		}
+		List<Image> il = new ArrayList<Image>();
+		il.add(ia);
+		Image.saveImg(ib);
+		il.add(ib);
+		Image.saveImg(ic);
+		il.add(ic);
+		Image.saveImg(ic);
+		p.images = il;
+		p.update();
+	}	
+	
 }

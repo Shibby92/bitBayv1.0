@@ -203,7 +203,7 @@
             @for(product <- cart.productList){
             <div class="col-sm-4 col-lg-4 col-md-4">
                <div class="thumbnail">
-                  <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
+                  <img src="@product.images.get(0).getUrl(500, 228)" alt="" style="width:500px;height:228px">
                   <div class="caption">
                      <div >
                         <h4 class="pull-right"> @product.price $</h4>
