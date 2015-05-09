@@ -1,149 +1,335 @@
 @(email: String, categoryList:List[Category], products:List[Product], faqs: List[FAQ])
 @main("HomePage") {
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-   <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-         <a href="homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-         <ul class="nav navbar-nav">
-            <li style="margin: 0px 35px">
-              
-            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-               <div class="form-group">
-                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
-               </div>
-               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
-            </form>
-         </li>
-               @if(email == null) {
-            <li>
-               <h4>
-                  <p style="color: #000">Hello   
-                     <a href="/login">
-                     <button class="btn btn-success btn-login"> Log in</button> 
-                     </a>
-                     or 
-                     <a href="/toregister">
-                     <button class="btn btn-success btn-register" >Register</button>
-                     </a>
-                  </p>
-               </h4>
+<head>
+   <link rel="stylesheet" id="font-awesome-css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" media="screen">
+   <style>
+      .back-to-top {
+      background: none;
+      margin: 0;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 70px;
+      z-index: 100;
+      display: none;
+      text-decoration: none;
+      color: #ffffff;
+      background-color: #328C14;
+      }
+      .back-to-top i {
+      font-size: 65px;
+      margin: 5px 3px;
+      }
+   </style>
+</head>
+<body>
+   <!-- Navigation -->
+   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header" style="margin: 0px 20px" >
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a href="/homepage" ><img src="@routes.Assets.at("images/Logo.png")" style="height:50 px; width: 130px"/></a>
+         </div>
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            @if(email == null) {
+            <ul class="nav navbar-nav">
+               <li  style="margin: 0px 35px">
+                  <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                     <div class="form-group">
+                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="@Messages("searchHeader")" required>
+                     </div>
+                     <div class="btn-group">
+                        <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                           <li>
+                              <a href="/advancedsearch">@Messages("advancedSearch")</a>
+                           </li>
+                        </ul>
+                     </div>
+                  </form>
+               </li>
+               <li>
+                  <h4>
+                     <p style="color: #000">@Messages("hello")   
+                        <a href="/login">
+                        <button class="btn btn-success btn-login"> @Messages("login")</button> 
+                        </a>
+                       @Messages("or") 
+                        <a href="/toregister">
+                        <button class="btn btn-success btn-register" >@Messages("register")</button>
+                        </a>
+                     </p>
+                  </h4>
+               </li>
+            </ul>
+            } else {
+            <ul class="nav navbar-nav">
+            <li  style="margin: 0px 180px">
+               <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                  <div class="form-group">
+                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="@Messages("placeholderSearch")" required>
+                  </div>
+                  <div class="btn-group">
+                     <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                     <span class="caret"></span>
+                     <span class="sr-only">Toggle Dropdown</span>
+                     </button>
+                     <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                        <li>
+                           <a href="/advancedsearch">@Messages("advancedSearch")</a>
+                        </li>
+                     </ul>
+                  </div>
+               </form>
             </li>
-         </ul>
-         } else {
-         <ul class='nav navbar-nav pull-right'>
-         @for(order<- User.find(email).soldOrders){
-         	@if(order.notification==true){<a href="/soldorder/@User.find(session().get("email")).id">
-         	    <button style="margin: 10px 5px" 	type="submit" class="btn btn-success glyphicon glyphicon-info-sign" value="new notification"></button>	
-         	</a>
-         	}
-         	}
-                    <li class='dropdown'>
-               <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-               <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-              
-               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-                 @if(User.find(email).admin == true) {
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  
-                  } else {
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
-                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
-
-                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
-                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
-                 
-
+            <ul class='nav navbar-nav pull-right'>
+               <li>
                   }
-                  <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
-               </ul>
-            </li>
-         </ul>
+               </li>
+               @if(email != null) {
+               <li class='dropdown'>
+                  <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  @if( User.getUncheckedNotifications(User.find(email).id).size()>0){
+                  <button class="btn btn-success "><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;">  </i>  @User.find(email).username   <span class="caret"></span> </button></a>
+                  }else{<button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
+                  }
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                     @if(User.find(email).admin == true || User.find(email).blogger) {
+                     @if(!User.find(email).blogger) {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >@Messages("profile")</a></li>
+                     }
+                     @if(User.find(email).blogger) {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >@Messages("blog")</a></li>
+                     }
+                     <li class="divider"></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">@Messages("logout")</a></li>
+                     } else {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >@Messages("profile")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory">@Messages("newProduct")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id">@Messages("myCart")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id">@Messages("myOrders")</a></li>
+                     @if(email != null && User.getUncheckedNotifications(User.find(email).id).size()>0){
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> @Messages("notification") </a>
+                     </li>
+                     }
+                     <li class="divider"></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">@Messages("logout")</a></li>
+                  </ul>
+               </li>
+            </ul>
+            }
+            }
+         </div>
+         <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+   </nav>
+      <!-- /.Page Content -->
+   <div class="container">
+      <div class="row">
+         @if(flash.get("error")){
+         <div class="alert alert-danger" role="alert">
+            <div class="container">
+               @flash.get("error")
+            </div>
+         </div>
          }
-      </div>
-      <!-- /.navbar-collapse -->
-   </div>
-   <!-- /.container -->
-</nav>
-<!-- Page Content -->
-<div class="container">
-<div class="row">
-<div class="col-md-3">
-   <div class="list-group">
-      @for(category <- categoryList){
-      <a href="category/@category.name" class="list-group-item glyphicon glyphicon-shopping-cart"> @category.name </a>
-      }
-   </div>
-</div>
-<div class="col-md-9">
-   <div class="row carousel-holder">
-      <div class="col-md-12">
-         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-               <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
-               </li>
-               <li data-target="#carousel-example-generic" data-slide-to="1">
-               </li>
-               <li data-target="#carousel-example-generic" data-slide-to="2">
-               </li>
-            </ol>
-            <div class="carousel-inner">
-               <div class="item active">
-                  <a href="http://download.cnet.com/Magix-Movie-Edit-Pro-2015-Plus/3000-13631_4-10476357.html">
-                  <img class="slide-image" src="@routes.Assets.at("images/ExpoDisc-Webtile-800x300.jpg")"/ >
-                  </a>    
-               </div>
-               <div class="item">
-                  <a href="http://thewebsitecircle.com/social-media"/>
-                  <img class="slide-image" src="@routes.Assets.at("images/003-800x300.jpg")" >
-                  </a>    
-               </div>
-               <div class="item">
-                  <a href="http://bitcamp.ba">
-                  <img class="slide-image" src="@routes.Assets.at("images/Untitled.jpg")" />
-                  </a>    
+         @if(flash.get("warning")){
+         <div class="alert alert-warning" role="alert">
+            <div class="container">
+               @flash.get("warning")
+            </div>
+         </div>
+         }
+         @if(flash.get("success")) {
+         <div class="alert alert-success" role="alert">
+            <div class="container">
+               @flash.get("success")
+            </div>
+         </div>
+         }
+         <div class="col-md-3">
+            <div class="list-group">
+               @for(category <- categoryList){
+               <a href="category/@category.name" class="list-group-item glyphicon glyphicon-shopping-cart"> @category.name </a>
+               }
+            </div>
+         </div>
+         <div class="col-md-9">
+            <div class="row carousel-holder">
+               <div class="col-md-12">
+                  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                     <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active">
+                        </li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1">
+                        </li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2">
+                        </li>
+                     </ol>
+                     <div class="carousel-inner">
+                        <div class="item active">
+                           <a href="http://download.cnet.com/Magix-Movie-Edit-Pro-2015-Plus/3000-13631_4-10476357.html">
+                           <img class="slide-image" src="@routes.Assets.at("images/ExpoDisc-Webtile-800x300.jpg")"/ >
+                           </a>    
+                        </div>
+                        <div class="item">
+                           <a href="http://thewebsitecircle.com/social-media"/>
+                           <img class="slide-image" src="@routes.Assets.at("images/003-800x300.jpg")" >
+                           </a>    
+                        </div>
+                        <div class="item">
+                           <a href="http://bitcamp.ba">
+                           <img class="slide-image" src="@routes.Assets.at("images/Untitled.jpg")" />
+                           </a>    
+                        </div>
+                     </div>
+                     <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                     <span class="glyphicon glyphicon-chevron-left"></span>
+                     </a>
+                     <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                     <span class="glyphicon glyphicon-chevron-right"></span>
+                     </a>
+                  </div>
                </div>
             </div>
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
+            
+            <script> var brojac = 0;</script>
+            <div class="row" id="teki">
+               @for(product <- products){
+               @if(product.deleted == false) {
+               <div class="col-sm-4 col-lg-4 col-md-4">
+                  <div class="thumbnail">
+                     <a href="itempage/@product.id">
+                     <img src="@product.images.get(0).getUrl(500, 228)" alt="" style="width:500px;height:228px">
+                     </a>
+                     <div class="caption">
+                        <h4 class="pull-right"> @product.price $</h4>
+                        <h4> <a href="itempage/@product.id">@product.name</a>
+                        </h4>
+                        <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
+                     </div>
+                  </div>
+               </div>
+               }
+               <script> brojac = brojac + 1;</script>
+               }
+              
+               
+               <div id="test"></div>
+                  <form id="more">
+               <button type="submit" onclick=" $('html, body').animate({scrollTop: $(window).scrollTop() + 600});" class="btn btn-lg " style="margin: 25px 10px;color: rgba(74,181,90,0.7);width: 97%; background-color: #f5f5f5;"> More Products</button>
+               
+               </form>
+               
+               							<script>
+               									$("#more").submit(function(e) {
+														$.ajax({
+															  method: "POST",
+															  url: "/ajaxList/" + brojac,
+															  dataType : 'html',
+															}).done(function(msg) {
+																console.log("SUCCESSFULL JSON");
+																$('#test').append(msg);
+																brojac = brojac + 6;
+																
+															 }).fail(function( msg ) {
+																  console.log("FAILED");
+																  console.log(msg);
+																  $('#result').load('pages/page1.html');
+															   	  alert( "There are no more products to show!" );
+															  });
+																	e.preventDefault();
+														});
+               								</script>
+               
+               
+            </div>
          </div>
       </div>
    </div>
-   <div class="row">
-      @for(product <- products){
-      <div class="col-sm-4 col-lg-4 col-md-4">
-         <div class="thumbnail">
-            <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="">
-            <div class="caption">
-               <h4 class="pull-right">US @product.price $</h4>
-               <h4> <a href="itempage/@product.id">@product.name</a>
-               </h4>
-               <p> @product.description @if(product.sold==true){<strong> SOLD!!! </strong>} </p>
+      <!-- /.End of content page -->
+      <!-- /.Footer -->
+   <div id="footer" style="background-color: #f5f5f5;   position: relative;">
+     <div class="container">
+         <div class="col-md-4">
+            <a href="/contactpage">
+               <h4><i class="glyphicon glyphicon-envelope"></i>@Messages("contactUs")</h4>
+            </a>
+            <a href="/faq">
+               <h4><i class="glyphicon glyphicon-cog"></i>@Messages("faqs")</h4>
+            </a>
+            <a href="/blog">
+               <h4><i class="glyphicon glyphicon-stats"></i>@Messages("blog")</h4>
+            </a>
+         </div>
+         <div class="col-md-4">
+            <h4 style="color: #4AB55A;">@Messages("aboutBitBay"):</h4>
+            <address style="color: #4AB55A">
+               <p>@Messages("mirrorsite")</p>
+               <p>@Messages("sarajevo")</p>
+               <p>@Messages("bosna")</p>
+               <p>@Messages("phone")</p>
+            </address>
+         </div>
+         <div class="col-md-4">
+            <style>.xg_module_body img {margin:0!important;}</style>
+            <div align="center" style="margin:20px 0px">
+               <table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
+                  <tr>
+                     <h4 style="color: #4AB55A">@Messages("Follow us on"):</h4>
+                     <td>
+                        <a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
+                        <img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
+                        </a>
+                     </td>
+                     <td>
+                        <a href="http://twitter.com/yourtwitter" target="_blank">
+                        <img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
+                        </a>
+                     </td>
+                  </tr>
+               </table>
             </div>
          </div>
       </div>
-      }
    </div>
-</div>
-<!-- /.container -->
-<div class="container">
-   <hr>
-   <a href="/contactpage">
-      <h3>Contact Us</h3>
+   <!-- /.End of footer -->
+   <a href="#" class="back-to-top" style="display: inline;">
+   <i class="fa fa-arrow-circle-up"></i>
    </a>
-   <a href="/faq">
-      <h3> FAQs</h3>
-   </a>
-</div>
-<!-- /.container -->
+      <!-- /.Script for button back to top -->
+   <script>
+      jQuery(document).ready(function() {
+          var offset = 250;
+          var duration = 300;
+          jQuery(window).scroll(function() {
+              if (jQuery(this).scrollTop() > offset) {
+                  jQuery('.back-to-top').fadeIn(duration);
+              } else {
+                  jQuery('.back-to-top').fadeOut(duration);
+              }
+          });
+      
+          jQuery('.back-to-top').click(function(event) {
+              event.preventDefault();
+              jQuery('html, body').animate({scrollTop: 0}, duration);
+              return false;
+          })
+      });
+   </script>
+</body>
 }

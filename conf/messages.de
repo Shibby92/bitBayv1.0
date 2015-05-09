@@ -1,0 +1,487 @@
+#Strings for global class
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+globalMessage = Lieber Studente im Namen von Dozenten Arif auf Google Classroom den Code zu setzen. Ich bete, dass dieser Hinweis nutzlich ist. Mit freundlichen Grüßen Naida
+globalMessage2 = Verkäufer hat eine Nachricht!
+globalMessage3 = Danke für die Antwort. Alles war in Ordnung.
+globalMessage4 = Es war ein Vergnügen. Viel Glück in zukunftige Geschäfte!
+globalMessage5 = Wo ist mein Hund ?! Ich habe es für Sie ehrlich bezahlt!!
+
+productName1 = POSTKARTE von H.M.C.S.ASSINIBOINE
+productDescription1 = Gebrauchtwagen:.. Ein Element, das zuvor WW2 Foto Postkarte von HMCS Assin verwendet worden ist
+productImagePath1 = images/assiniboine.JPG
+
+productName2 = 2014 Mazda CX-5 4DR SUV
+productDescription2 = Zustand: gebraucht, Jahr: 2014 Hersteller: Mazda, Laufleistung: 12.831, Getriebe: Automatik, Kraftstoff-Art: Gas
+productImagePath2 = images/6800.jpg
+
+productName3 = Samsung Galaxy S6
+productDescription3 = Detaillierte: Artikel ansehen, Produkt: Identifiers, Marke: Samsung, Fördermaschine: Entriegelt, Familie Linie: Samsung Galaxy S6, Typ: Smartphone, Digitalkamera: Ja, das E-Mail-Zugang: Ja, Akku-Kapazität: 2550 mAh, Darstellungstechnologie: Quad HD Super AMOLED 
+productImagePath3 = images/samsung-galaxy-s6-11.jpg
+productImagePath3a = images/samsung-galaxy-s6-2.jpg
+productImagePath3aa = images/samsung-galaxy-s6-4.jpg
+
+productName4 = Das Buch der WHO? von Rodney Dale
+productDescritpion4 = Brand New: Eine neue, ungelesene, ungebraucht Buch in einwandfreiem Zustand ohne fehlende oder beschädigte Seiten Erscheinungsjahr:. 2005
+productImagePath4 = images/bitbaySlika1.jpg
+
+productName5 = Mercedes 270
+productDescription5 = Jahr: 2015 Hersteller: Mercedes, Zustand: gebraucht, Kilometerstand: 21.841, Getriebe: manuell
+productImagePath5 = images/mercedes.jpg
+
+productName6 = Hund
+productDescription6 = Junger Hund, 3 Monate, nur Geld !!!
+productImagePath6 = images/dog.jpg
+
+productName7 = BMW 320
+productDescription7 = Jahr: 2003, Kilometerstand: 129,27, Getriebe: Automatik, Hersteller: BMW
+productImagePath7 = images/bmw.jpg
+
+productName8 = 6 Iphone
+productDescription8 = Marke: Apple, Speicherkapazität: 64 GB, Kamera: 8.0MP, Modell: iPhone 6 Plus, Digitale Kamera: Ja, E-Mail-Zugang: Ja, Akku-Kapazität: 2000 mAh, Betriebssystem: iOS
+productImagePath8 = images/iphone.jpg
+
+productName9 = Katze
+productDescription9 = Junge Katze, 2 Monate, wenn Sie gute pet möchten, ist dies die beste Wahl !!!
+productImagePath9 = images/cat.jpg
+
+productName10 = Haus
+productDescription10 = Das Haus hat vier Schlafzimmer hat, ein Wohnzimmer, ein Esszimmer, eine Küche
+productImagePath10 = images/bitbaySlika1.jpg
+
+productName11 = Samsung-Galaxy S6 Abdeckung
+productDescription11 = Silikonabdeckung für Samsung-Galaxy S6
+productImagePath11 = images/samsungCover.jpg
+
+productName12 = Kopfhörer für S6
+productDescription12 = Sehr stilvolle Kopfhörer für Samsung-Galaxy S6
+productImagePath12 = images/samsungHeadphones.jpg
+
+productName13 = Dock für Samsung-Galaxy S6
+productDescription13 = Schoner alles-in-Eins Anschluss für das neue Samsung Galaxy S6
+productImagePath13 = images/samsungDock.jpg
+
+productName14 = Hund kauen Seil
+productDescription14 = Ein Spielzeug für Ihren besten Freund!
+productImagePath14 = images/dogChewRope.jpg
+
+productName15 = Hundehalsband
+productDescription15 = Neues rottes kariertes stilvolle Hundehalsband.
+productImagePath15 = images/dogCollar.jpg
+
+productName16 = Spielzeug
+productDescription16 = Mysterioses grünes Gummispielzeug für Ihren Hund!
+productImagePath16 = images/dogTreatball.jpg
+
+productName17 = Neue Original Gucci
+productDescription17 = Neu mit Umbauten: Ein nagelneues, unbenutztes und ungetragenes Einzelteil (einschließlich handgemachte Einzelteile) in der Originalverpackung
+productImagePath17a = images/GucciBag.JPG
+productImagePath17b = images/guccibag2.jpg
+productImagePath17c = images/guccibag3.jpeg
+
+productName18 = Raymond Stahluhr
+productDescription18 = Diese Uhr ist neue Display-Modell. Nicht in Verbindung mit Box und Papieren kommen.
+productImagePath18a = images/Raymondwatch.JPG
+productImagePath18b = images/Raymondwatch1.JPG
+productImagePath18c = images/Raymondwatch2.JPG
+
+productName19 = Michael Kors Wölbungssandelholze
+productDescription19 = Neu mit Verpackung: Ein nagelneues, unbenutztes und ungetragenes Einzelteil (einschließlich handgemachte Einzelteile) in der Originalverpackung (wie die original Box oder Tasche) und / oder mit dem Original-Tags zugeordnet.
+productImagePath19a = images/michaelkors.JPG
+productImagePath19b = images/michaelkors1.jpeg
+productImagePath19c = images/michaelkors2.jpeg
+
+productName20 = Tory Burch Sandalen
+productDescription20 = New ohne Kasten: Ein nagelneues, unbenutztes und ungetragenes Einzelteil (einschließlich handgemachte Einzelteile) das nicht in der Originalverpackung kommt (mit Beutel).
+productImagePath20a = images/toryburch.JPG
+productImagePath20b = images/toryburch1.jpeg
+productImagePath20c = images/toryburch2.jpeg
+
+productName21 =  U2: Son gs von innocence- Deluxe Edition (2014) 
+productDescription21 =  Brand Neu : Ein Element, das nie geöffnet oder von der Herstellerdichtentfernt (falls zutreffend) Artikel ist im original Schrumpffolie (falls vorhanden). Sehen Sie die Auflistung des Verkäufers für gesamte Details Anzahl Discs worden ist : . . . 2. Genre : . Rock- Tracks: 16. 
+productImagePath21 = images/u2CD.JPG
+
+productName22 = Vintage Look Vase Couchtisch
+productDescription22 =  Guter Zustand, Hand gemacht Herkunftsregion: . . Asien . Material: Holz Alter: Post- 1950
+productImagePath22 = images/coffeetable.JPG
+
+productName23 = Gigantischer großer Teddybär
+productDescription23 =  Neu: Eine brandneue , unbenutzt, ungeöffnet , unbeschädigt Element (einschließlich handgemachte Einzelteile ) Land der Herstellung: . China Größe: 75 cm / 29,5 Zoll ( Ohr zum Feet ) 
+productImagePath23 = images/tedybear.JPG
+
+FAQQuestion1 = Ich kann dieses Artikel nicht bis Montag schicken und ich habe angst dass ich meine Verkäufer mit Top-Bewertung faliere.We soll ich handelnd?
+FAQQuestion2 = Ich habe 30 gebote an meinen vintage Camper und 6 davon sind Artikeln von Verkäufern mit 0 Bewertung.Sind das Betrüger?Ich verkaufe an bitbay seit Jahren und habe dass nimals gesehen.
+FAQQuestion3 = zusätzliche kostenlose ainlistung diesen Monat(Nur neue ainlistungen)Wieso habe ich dass nicht bekommen?
+FAQQuestion4 = Ich habe einen Verkäufer angezeigt. Können Sie mir die Ergebnisse meines Berichts sagen?
+FAQQuestion5 = Ist  bitBay im Falle einer Auflösung and der Seite des Käufers? ?
+FAQQuestion6 = Was sollte ich tun wen ich denke das ein Käufer das feedback system misbraucht weil er mir droht?
+FAQQuestion7 = Was macht bitBay um Käfer die bitBays richtlinien misbrauchen zu schnapen?
+FAQQuestion8 = Ein Käufer hat mich kontaktiert um zu sagen das er die Lieferung nicht bekommen hat.Was sollte ich tun?
+
+FAQAnswers1 = Sie können ihn,wen sie möchten,  ihre Geduld durch die Erstattung der Versandkosten (lassen Sie sie dass in der Entschuldigung E-Mail wissen) zu belohnen. 
+FAQAnswers2 = Menschen mit 0 Rückkopplung sind nicht immer Betrüger.Wir hatten alle 0 Rückkopplung einmal.
+FAQAnswers3 = Promo Angebote sind nur auf Einladung; keine Party chrasher sind nicht erlaubt. Außer wen einer von uns ein Einsten  ist, niemand kann die Kriterien von bitBay herausfinden  um diese Promos zu bekommen..
+FAQAnswers4 = Um es Käfern auskömmlich zu machen zu kaufen, geben wir nicht die Ergebnisse eines Berichts. Berichte von Verkäufern sind eine tolle Erfahrung für alle. Seit dem Start von einem Käufer Merkmal des erweiterten Berichtes , haben wir mehr eingereichte Berichte von den Verkäufern. Als Reaktion darauf waren wir in der Lage, mehrere Aktionen, um Missbrauch durch Kunden zu verhindern. Wenn wir Maßnahmen ergreifen, auf einen Käufer, der für Richtlinienverletzungen berichtet wird, sind alle Transaktionsfehlern erstellt von diesem Käufer automatisch entfernt. Wir lassen Verkäufer wissen, wenn sie Mängel entfernt entweder auf ihre Verkäufer- Armaturenbrett oder über eine monatliche Mitteilung bitBay. 
+FAQAnswers5 = Nein. Wir bemühen uns, um sicherzustellen, dass alle  Fälle gelöst werden um beide Vertragsparteien   zufriened zu stehlen. Wen Sie denken das ein Fall unfair gelöst wurde,können sie eintschaiden neue Informationen zum Fall hinzufügen z.b.  zusätzliche Information über die Sende Karrierre bis zu Kunden Unterstützung im 45 Tagen vom Tag an dem der Fall geschlosen worde. bitBay bewertet Angaben und unterlägt Käufer und Verkäufer im Detail, bevor sie eine endgültige Entscheidung treffen. Wenn ein Verkäufer Rechtsmittel angenommen hat, werden alle Mängel für diese Transaktion automatisch entfernt . 
+FAQAnswers6 = Zu erst,placieren Sie sich in die Stelle des Käufers und fragen Sie sich ob der Käufer etwa verlangt was unvernünftig ist.Sie werden sehen das alle Käufer nur das Problem lösen wollen.Wen Sie denken das ein Käufer eingtlich niedrige Rückkopplung als eine drohung nutzt oder er mehr ervartet als Sie versprochen haben,bitte zeigen Sie ihn an. Siehe eBay Feedback Erpressung Politik um mehr zu erfahren
+FAQAnswers7 = (Je nach Verhalten eines Käufers,gibt es eine zahl von Verfahren dass das Team machen kann- von einer Warnung, um die Einstellung Käufer Einschränkungen, um Aussetzung des Käufers von unserer Website. Wenn wir Maßnahmen ergreifen, auf einen Käufer, werden alle Mängel, angelegt von diesem Käufer automatisch entfernt werden
+FAQAnswers8 = Arbeiten Sie mit dem Käufer um eine einvernehmliche Lösung in Bezug auf diese Transaktion zu erreichen. Wie Sie sich entscheiden, liegt  letztlich an Ihnen und Ihrer Kundendienst-Politik , aber von allen Verkäufern wirt erwartet ein hohes Maß an Kundenservice zu demonstrieren. 
+
+BlogMessage = Eine neue Website für Online-Shopping hat heute die Arbeit aufgenommen. Wir werden für Sie 24/7 da sein und bieten Top-Service für alle unsere Nutzer. Unser Hauptanliegen ist die Sicherheit für unsere Nutzer, so dass sie kaufen, verkaufen und handeln ohne jede Sorge für die Sicherheit. Wir hoffen sehr, dass Sie auf unserer Website Spaß haben und sie intuitiv finden zu bedienen. Mit freundlichen Grüßen bitBay Team.
+
+user1 = bitbayadmin
+user2 = 123456
+user3 = emina
+user4 = haris
+user5 = nermin
+user6 = nermin
+user7 = blogger
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#BloggerController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+blogControllerFlash1 = Neuer Blog hinzugefügt!
+blogControllerFlash2 = Es ist ein Fehler beim Hinzufügen vom Blog gewesen!
+blogControllerFlash3 = Erfolgreiche Aktualisierung!
+blogControllerFlash4 = Es ist ein Fehler bei der Aktualisierung vom Blog gewesen!
+blogControllerFlash5 = Blog gelöscht!
+blogCotnrollerFlash6 = Sie müssen ein Bild hochladen!
+blogControllerFlash7 = Bildtyp nicht gültig
+blogControllerFlash8 = Bildgröße ungültig
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#CategoryApplication strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+categoryApplicationLogger1 =  Kategorie in Datenbank hinzugefügt
+categoryApplicationLogger2 = Geöffnete Seite zum Hinzufügen von Kategorien
+categoryApplicationLogger3 =  Kategorie gelöscht
+categoryApplicationLogger4 = Kategorieseite geöffnet
+categoryApplicationLogger5 =  Kategoriename aktualisiert als
+categoryApplicationLogger6 = Fehler im Kategorieupdate 
+categoryApplicationLogger7 = Kategorieupdateseite geöffnet
+categoryApplicationFlash1 = Sie haben erfolgreich Kategorie gelöscht!
+categoryApplicationFlash2 = Sie haben erfolgreich aktualisiert Kategorie!
+categoryApplicationFlash3 = Es wurde ein Fehler bei der Aktualisierung der Kategorie gemeldet!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#CommentController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+commentControllerFlash1 = Neuer Kommentar hinzugefügt!
+commentControllerFlash2 = Kommentar gelöscht!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#FAQController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FAQControllerFlash1 = Neue Frage hinzugefügt!
+FAQControllerFlash2 = Es ist ein Fehler beim Hinzufügen vom FAQ gewesen!
+FAQControllerFlash3 = Erfolgreiche Aktualisierung!
+FAQControllerFlash4 = Es ist ein Fehler bei der Aktualisierung vom FAQ aufgetreten!
+FAQControllerFlash5 = Frage gelöscht!
+FAQCotnrollerFlash6 = Es ist ein Fehler in Lmschen vom FAQ aufgetreten!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#MessageController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MessageControllerFlash1 = Nachricht gelöscht!
+MessageControllerFlash2 = Nachricht wurde gesendet!
+MessageControllerFlash3 = Sie müssen bestätigen, dass Sie kein Roboter sind!
+MessageControllerFlash4 = Bericht gelöscht!
+MessageControllerHelper1 = Kontaktieren Sie uns Nachricht
+MessageControllerHelper2 = Nachricht vom Käufer
+MessageControllerHelper3 = Kontaktieren Sie uns Nachricht
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#OrderController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#PaypalController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PaypalControllerCTS1 = Ihre Bestellung via bitBay: 
+PaypalControllerCTS2 = das ist ein Gesamtpreis von: 
+PaypalControllerCTS3 = GESAMT: 
+PaypalControllerFlash1 = Transaktion abgebrochen!
+PaypalControllerFlash2 = Token wurde an ihre email gesendet!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#ProductApplication strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ProductApplicationFlash1 = Sie müssen ein Bild für Ihr Produkt wählen!
+ProductApplicationFlash2 = Sie haben erfolgreich den Artikel hinzugefügt!
+ProductApplicationFlash3 = Sie haben erfolgreich Produkt gelöscht!
+ProductApplicationFlash4 = Produkt erfolgreich aktualisiert!
+ProductApplicationFlash5 = Sie müssen Bild hochladen!
+ProductApplicationFlash6 = Bildtyp nicht gültig!
+ProductApplicationFlash7 = Bildgröße ungültig!
+ProductApplicationFlash8 = Konnte die Datei nicht verschieben
+ProductApplicationFlash9 = Sie müssen Bild hochladen!
+ProductApplicationFlash10 = Benutzen Sie weniger als 5 Bilder!
+ProductApplicationFlash11 = Konnte die Datei nicht verschieben!
+ProductApplicationFlash12a = Produkt 
+ProductApplicationFlash12b =  wurde erfolgreich erneuert!
+ProductApplicationFlash13 = Sie haben erfolgreich Produkt gemeldet!
+ProductApplicationFlash14 = Sie müssen bestätigen, dass Sie kein Roboter sind!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#SearchController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#UserController strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+UserControllerFlash1 = Sie haben erfolgreichden Benutzer aktualisiert!
+UserControllerFlash2 = Sie haben erfolgreich den Benutzer gelöscht!
+UserControllerFlash3 = Geben Sie gültiges Datum ein!
+UserControllerFlash4 = Geben Sie gültiges Geschlecht ein!
+UserControllerFlash5 = Benutzername existiert bereits!
+UserControllerFlash6 = Zusatzinfo erfolgreich aktualisiert!
+UserControllerFlash7 = Sie haben erfolgreich Benutzer bewertet!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#UserLoginApplication strings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ULAFlash1 = Sie haben ein falsches Passwort eingegeben!
+ULAFlash2 = E-Mail ist nicht vorhanden!
+ULAFlash3 = Passwörter sind nicht gleich!
+ULAFlash4 = Bitte überprüfen Sie Ihre E-Mail
+ULAFlash5 = Es gibt bereits ein Benutzer mit dieser E-Mail!
+ULAFlash6 = Sie haben sich erfolgreich abgemeldet! Kommen Sie zurück zu jeder Zeit!
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+categoryApplicationFlash1 = Sie haben erfolgreich Kategorie gelöscht!
+categoryApplicationFlash2 = Sie haben erfolgreich Kategorie aktualisiert!
+categoryApplicationFlash3 = Es ist ein Fehler bei der Aktualisierung der Kategorie aufgetreten!
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~
+#HTML
+
+#Buttons
+cancel = Stornieren
+addCategory = Kategorie hinzufügen
+back = Zurück
+add = Hinzufügen
+skip = überspringen
+search = Suche
+edit = Bearbeiten
+delete = Löschen
+backToHome = Zurück zur Startseite
+confirm = Bestätigen
+send = Senden
+reply = Antworten
+addFaq = Fügen FAQ
+update = Aktualisierung
+addNewProduct = Neues Produkt hinzufügen
+submit = einreichen
+visitSeller = Besuchen Verkäufers
+contactSeller = Verkäufer kontaktieren
+reportProduct = Bericht Artikel
+
+#Header
+category = Kategorie
+advancedSearch = Erweiterte Suche
+hello = Hallo
+login = einloggen
+register = Registrieren
+placeholderSearch = Suche...
+profile = Profil
+blog = Blog
+logout = Logout
+newProduct = Neues Produkt hinzufügen
+myCart = Mein Warenkorb
+myOrders = Meine Bestellungen
+notification = Benachrichtigung
+or = oder
+searchHeader = Suche...
+
+#Footer
+contactUs = Kontaktieren Sie uns
+faqs = FAQs
+aboutBitBay = über bitBay
+mirrorsite = Project bitBay Spiegel site von eBay
+sarajevo = Sarajevo
+bosna = Bosnien und Herzegowina
+phone = Kontakt: (061) 100-100
+followUs = Folgen Sie uns auf
+
+#AddCategoryPage
+addCategory = Kategorie hinzufügen
+categoryPageName = Name
+nameOfYourProductplaceholder = Name des Produkts
+
+#Default strings
+name = Name
+
+#AdditionalInfo
+addAdditionalInfo = Fügen Sie weitere Infos
+username = Benutzername
+usernamePlaceholder = Wählen Sie Ihren Benutzernamen
+dateOfBirth = Geburtstag
+dateOfBirthPlaceholeder = Geben Sie Ihr Geburtsdatum
+city = Stadt
+cityPlaceholder = Geben Sie Ihre Stadt
+shipping = Liefer-Adresse
+ahippingAddressPlaceholder = Geben Sie Ihre Lieferadresse
+address = Adresse
+addressPlaceholder = Geben Sie Ihre Adresse
+gender = Geschlecht
+genderPlaceholder = Geben Sie Ihr Geschlecht: m-männlich; F-weiblich
+
+#AddProduct
+AddProduct = Produkt hinzufügen
+namePlaceholderAddProduct = Name des Produkts
+price = Preis
+priceOfYourProductPlaceholder = Geben Sie den Preis Ihres Produktes
+quantity = Menge
+quantityPlaceholder = Geben Sie die Menge für Ihr Produkt
+description = Beschreibung
+descriptionPlaceholderAddProduct = Beschreibung Ihres Produktes
+selectImagesAddProduct = Wählen Sie die Bilder
+lessThen6AddProduct = Weniger als 6 Fotos
+
+#AddProductCategory
+Select = Wählen Sie die Kategorie
+
+#AdvancedSearch
+allAdvancedSearch = All
+product = Produkt
+productPlaceholderAdvancedSearch = Produkt ...
+descriptionPlaceholderAdvancedSearch = Beschreibung ...
+fromPlaceholderAdvancedSearch = Von ...
+toPlaceholderAdvancedSearch = Um ...
+searchResultAdvancedSearch = Suchergebnisse
+noSearchResults = Nichts gefunden ...
+
+#Blog
+homepageBitBay = bitbay Startseite
+bitbayBlog = bitbay Blog
+subheading = Ein Blog des Team bitBay
+addNewBlog = Neuen Blog
+postedBy = Geschrieben von
+
+#Cartpage
+numberOfItemsCartpage = Anzahl der Einträge
+totalPriceCartpage = Gesamtpreis
+shippingAddressPlaceholderCartpage = Geben Sie die Lieferadresse
+cartCartpage = Ihr Warenkorb
+removeFromCart = aus dem Warenkorb entfernen
+youMayAlsoLIke = Sie können auch gerne
+emptyCart = Ihr Warenkorb ist leer ...
+
+
+#Confirmorder
+confirmOrder = Bestellung bestätigen
+total = Total
+
+#Contact
+contactUs = Kontaktieren Sie uns
+yourEmail = Ihre E-Mail
+enterEmailPlaceholder = Geben Sie E-Mail
+yourMessage = Ihre Nachricht
+enterYourMessagePlaceholder = Ihre Nachricht
+
+#Contactseller
+contactSeller = Verkäufer kontaktieren
+
+#EditAdditionalInfo
+updateAdditionalInfo = Update Zusatzinfo
+
+#Faq
+FAQ = FAQ
+question = Frage
+answer = Antwort
+
+#Itempage
+addToCart = In den Warenkorb
+onStock = Auf Lager
+inCart = In Einkaufswagen (dieser Artikel)
+sellerEmail = Verkäufer per E-Mail
+sellerRate = Verkäufer-Rate
+comments = Kommentare
+
+
+#LoginTest
+email = Email
+password = Kennwort
+
+#main
+bitbay = BitBay
+
+#Message
+from = Aus
+message = Nachricht
+
+#Newblog
+addBlog = Blog hinzufügen
+title = Titel
+content = Inhalt
+selectImages = image Wählen Sie
+
+#Newfaq
+addFAQ = hinzufügen FAQ
+
+#Orderpage
+noOrders = Sie haben keine Bestellungen
+yourOrders = Ihre Bestellungen
+orderNumber = Bestellnummer
+products = Produkte
+orderDate = Bestelldatum
+refund = rückerstattung
+rateSeller = Bewerten Verkäufer
+
+#Profile
+listOfUsers = Benutzerliste
+categories = Kategorien
+reports = Berichte
+myProducts = Meine Produkte
+mySoldOrders = Meine Bestellungen verkauft
+messages = Nachrichten
+searchUsersPlaceholder = Suche Benutzer...
+sold = VERKAUFT
+view = Ansicht
+noSoldOrders = Sie haben keine Bestellungen verkauft
+soldProducts = verkaufte Artikel
+buyer = Käufer
+rateBuyer = Käufer bewerten
+productWithId = Produkt mit ID
+numberOfReports = Anzahl von Berichten
+
+#Rating
+rate = Rate
+
+#Reply
+replyTo = beantworten
+
+#Report
+report = Bericht
+
+#Reportpage
+reportProduct = Bericht Artikel
+explainReport = Erklären Sie Ihren Bericht
+reportPlaceholder = Geben Sie Ihren Bericht
+
+#Showsearchresults
+productPage = Product Page
+
+#Soldorderpage
+soldOrders = Ihre Verkauft Bestellungen
+ok = Ok, habe es
+
+#Toregister
+enterPasswordPlaceholder = Geben Sie das Passwort
+minimumLength = Mindestlänge
+confirmPassword = Passwort bestätigen
+confirmPasswordPlaceholder = Bestätigen Sie Ihr Passwort
+
+#Updatecategory
+updateCategory = Update Kategorie
+nameCategoryPlaceholder = Name der Kategorie
+
+#Updatefaq
+updateFAQ = Update FAQ
+
+#Updateproduct
+updateProduct = Update Produkt
+
+#Userprofile
+contactUser = User kontaktieren
+productsUserprofile = Produkte

@@ -1,0 +1,40 @@
+@(products:List[Product])
+
+ 
+
+ 
+
+ 
+
+ @for(product <- products){
+
+      @if(product.deleted == false) {
+
+      <div id="productList" class="col-sm-4 col-lg-4 col-md-4">
+
+         <div class="thumbnail">
+
+<a href="itempage/@product.id">
+
+            <img src="@product.images.get(0).getUrl(500, 228)" alt="" style="width:500px;height:228px">
+
+</a>
+
+            <div class="caption">
+
+               <h4 class="pull-right"> @product.price $</h4>
+
+               <h4> <a href="itempage/@product.id">@product.name</a>
+
+               </h4>
+
+               <p> @product.description @if(product.sold==true){<strong> @Messages("sold")!!! </strong>} </p>
+
+            </div>
+
+         </div>
+
+      </div>
+
+}
+}

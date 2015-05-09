@@ -1,11 +1,14 @@
 package models;
-import static org.junit.Assert.*;
-import static play.test.Helpers.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static play.test.Helpers.fakeApplication;
+import static play.test.Helpers.inMemoryDatabase;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import controllers.UserLoginApplication.Contact;
 import play.test.WithApplication;
+import controllers.UserLoginApplication.Contact;
 
 public class ContactTest extends WithApplication {
 

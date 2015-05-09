@@ -1,0 +1,102 @@
+@(email: String, blogs: List[Blog])
+@main("Blog") {
+<link href="@routes.Assets.at("stylesheets/clean-blog.min.css")" rel="stylesheet">
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+   <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header page-scroll">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="/">@Messages("homepageBitBay")</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav navbar-right">
+         </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
+<header class="intro-header" style="background-image:url(@routes.Assets.at("images/home-bg.jpg"))">
+<div class="container">
+   <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+         <div class="site-heading">
+            <h1>@Messages("bitbayBlog")</h1>
+            <hr class="small">
+            <span class="subheading">@Messages("subheading")</span>
+         </div>
+      </div>
+   </div>
+</div>
+</header>
+<div class="container">
+   @if(flash.get("error")){
+   <div class="alert alert-danger" role="alert">
+      <div class="container">
+         @flash.get("error")
+      </div>
+   </div>
+   }
+   @if(flash.get("warning")){
+   <div class="alert alert-warning" role="alert">
+      <div class="container">
+         @flash.get("warning")
+      </div>
+   </div>
+   }
+   @if(flash.get("success")) {
+   <div class="alert alert-success" role="alert">
+      <div class="container">
+         @flash.get("success")
+      </div>
+   </div>
+   }
+   @if(session().get("email") != null) {
+   @if(User.find(session().get("email")).admin || User.find(session().get("email")).blogger) { 
+   <div class="form-group text-center">
+      <a class="btn btn-success" href="/addBlog" role="button">@Messages("addNewBlog")</a>
+   </div>
+   }
+   }
+</div>
+@if(blogs.size() > 0) {
+@for(currentBlog <- blogs) {
+<div class="container">
+   <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+         <div class="post-preview">
+            <a href="#">
+               <h2 class="post-title">
+                  @currentBlog.title
+               </h2>
+               @if(currentBlog.blogImagePath != null){
+               <img class="img-responsive" src="@routes.Assets.at(currentBlog.blogImagePath)" style="maxwidth:500px;maxheight:300px" alt="">
+               }
+               <h3 class="post-subtitle">
+                  @Html(currentBlog.content)
+               </h3>
+            </a>
+            <p class="post-meta">@Messages("postedBy") @currentBlog.postedBy on @currentBlog.date</p>
+            @if(session().get("email") != null) {
+            @if(User.find(session().get("email")).admin || User.find(session().get("email")).id == currentBlog.userId) { 
+            <a href="@routes.BlogController.toUpdateBlog(currentBlog.id)" class="btn btn-default">Edit</a>
+            <a href="@routes.BlogController.deleteBlog(currentBlog.id)" onclick="return confirm('Are you sure you want to delete this blog?');"class="btn btn-danger">Delete</a>
+            }  
+            }
+         </div>
+         <hr>
+      </div>
+   </div>
+</div>
+}
+} 
+}

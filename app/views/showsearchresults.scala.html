@@ -1,138 +1,267 @@
 @(email: String, products:List[Product],  faqs: List[FAQ] )
 @main("ResultOfSearchs") {
-	<body>
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-   <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-         <a href="/homepage"><img src="@routes.Assets.at("images/bitBayLogo.gif")" /></a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-         <ul class="nav navbar-nav">
-            <li>
-              
-            <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
-               <div class="form-group">
-                  <input type="text" class="form-control" name="q" id="q" placeholder="Search..." required>
-               </div>
-               <button type="submit" class="btn btn-success glyphicon glyphicon-search"></button>
-            </form>
-         </li>
-               @if(email == null) {
-            <li>
-               <h4>
-                  <p style="color: #000">Hello, please  
-                     <a href="login">
-                     <button class="btn btn-success btn-login"> Log in</button> 
-                     </a>
-                     or 
-                     <a href="toregister">
-                     <button class="btn btn-success btn-register" >Register</button>
-                     </a>
-                  </p>
-               </h4>
+<head>
+   <link rel="stylesheet" id="font-awesome-css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" media="screen">
+   <style>
+      .back-to-top {
+      background: none;
+      margin: 0;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      width: 60px;
+      height: 70px;
+      z-index: 100;
+      display: none;
+      text-decoration: none;
+      color: #ffffff;
+      background-color: #328C14;
+      }
+      .back-to-top i {
+      font-size: 65px;
+      }
+   </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header" style="margin: 0px 20px" >
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a href="/homepage" ><img src="@routes.Assets.at("images/Logo.png")" style="height:50 px; width: 130px"/></a>
+         </div>
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            @if(email == null) {
+            <ul class="nav navbar-nav">
+               <li  style="margin: 0px 35px">
+                  <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                     <div class="form-group">
+                        <input type="text" class="form-control" name="q" id="q" size="40" placeholder="@Messages("searchHeader")" required>
+                     </div>
+                     <div class="btn-group">
+                        <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                           <li>
+                              <a href="/advancedsearch">@Messages("advancedSearch")</a>
+                           </li>
+                        </ul>
+                     </div>
+                  </form>
+               </li>
+               <li>
+                  <h4>
+                     <p style="color: #000">@Messages("hello")   
+                        <a href="/login">
+                        <button class="btn btn-success btn-login"> @Messages("login")</button> 
+                        </a>
+                       @Messages("or") 
+                        <a href="/toregister">
+                        <button class="btn btn-success btn-register" >@Messages("register")</button>
+                        </a>
+                     </p>
+                  </h4>
+               </li>
+            </ul>
+            } else {
+            <ul class="nav navbar-nav">
+            <li  style="margin: 0px 180px">
+               <form class="navbar-form navbar-left"  method="GET" action="/search" role="search">
+                  <div class="form-group">
+                     <input type="text" class="form-control" name="q" id="q" size="40" placeholder="@Messages("placeholderSearch")" required>
+                  </div>
+                  <div class="btn-group">
+                     <button type="submit" class="btn btn-success glyphicon glyphicon-search" style="margin: -1px 2px"></button>
+                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                     <span class="caret"></span>
+                     <span class="sr-only">Toggle Dropdown</span>
+                     </button>
+                     <ul class="dropdown-menu" role="menu" style="margin: 1px -90px">
+                        <li>
+                           <a href="/advancedsearch">@Messages("advancedSearch")</a>
+                        </li>
+                     </ul>
+                  </div>
+               </form>
             </li>
-         </ul>
-         } else {
-      
-         <li >
-            <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            <button class="btn btn-success glyphicon glyphicon-user">  @User.find(email).username <span class="caret"></span> </button></a>
-               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
-               @if(User.find(email).admin == true) {
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  
-                  } else {
-                 <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >Profile</a></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory"> Add New Product</a></li>      
-                   <li role="presentation"><a role="menuitem" tabindex="-3"  href="/myproducts/@User.find(session().get("email")).id"> My Products</a></li>
-                   <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id"> My Cart</a></li>
-                   <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id"> My Orders</a></li>
-                 
-
+            <ul class='nav navbar-nav pull-right'>
+               <li>
                   }
-                  <li class="divider"></li>
-                  <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">Logout</a></li>
-               </ul>
-         </li>
-         </ul>
-         }
+               </li>
+               @if(email != null) {
+               <li class='dropdown'>
+                  <a style="margin: -6.5px -15px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  @if( User.getUncheckedNotifications(User.find(email).id).size()>0){
+                  <button class="btn btn-success "><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;">  </i>  @User.find(email).username   <span class="caret"></span> </button></a>
+                  }else{<button class="btn btn-success glyphicon glyphicon-user"> @User.find(email).username <span class="caret"></span> </button></a>
+                  }
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                     @if(User.find(email).admin == true || User.find(email).blogger) {
+                     @if(!User.find(email).blogger) {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >@Messages("profile")</a></li>
+                     }
+                     @if(User.find(email).blogger) {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/blog' >@Messages("blog")</a></li>
+                     }
+                     <li class="divider"></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">@Messages("logout")</a></li>
+                     } else {
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href='/profile' >@Messages("profile")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1"  href="/addproductcategory">@Messages("newProduct")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-4"  href="/cartpage/@User.find(session().get("email")).id">@Messages("myCart")</a></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/orderpage/@User.find(session().get("email")).id">@Messages("myOrders")</a></li>
+                     @if(email != null && User.getUncheckedNotifications(User.find(email).id).size()>0){
+                     <li role="presentation"><a role="menuitem" tabindex="-5"  href="/soldorder/@User.find(session().get("email")).id"><i class="glyphicon glyphicon-info-sign" style="color: #BD851E;"> </i> @Messages("notification") </a>
+                     </li>
+                     }
+                     <li class="divider"></li>
+                     <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">@Messages("logout")</a></li>
+                  </ul>
+               </li>
+            </ul>
+            }
+            }
+         </div>
+         <!-- /.navbar-collapse -->
       </div>
-      <!-- /.navbar-collapse -->
-   </div>
-   <!-- /.container -->
-</nav>
+      <!-- /.container -->
+   </nav>
+    <!-- /.Content page -->
    <!-- Page Content -->
    <div class="container">
       <!-- Page Header -->
-      <div style="margin: 80px -15px" class="row">
-        @if(!products.isEmpty) {
-        	 <div class="col-lg-12">
-            <h3 class="page-header"> Product Page </h3>
-         </div>
-         @for(product <- products){           
-         <div class="col-md-4 portfolio-item">
-            <a href="#">
-            <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-            </a>
-            <h3 class="pull-right">@product.price</h3>
-            <h3>
-                <a href="/itempage/@product.id">@product.name</a>
-            </h3>
-            <p> @product.description </p>
-         </div>
-         }
-         } else {
-         	 <div class="col-lg-12">
-            <h3 class="page-header"> Product Page </h3>
-         </div>
-          <div class="row">
-          	<h4 style="margin: 180px 35px"> No search results... </h4>
-            </div>
-         }
-      </div>
-    
-      <!-- Pagination -->
-      <div class="row text-center">
+      <div style="margin: 0px -15px" class="row">
+         @if(!products.isEmpty) {
          <div class="col-lg-12">
-            <ul class="pagination">
-               <li>
-                  <a href="#">&laquo;</a>
-               </li>
-               <li >
-                  <a href="#">1</a>
-               </li>
-               <li>
-                  <a href="#">2</a>
-               </li>
-               <li>
-                  <a href="#">3</a>
-               </li>
-               <li>
-                  <a href="#">4</a>
-               </li>
-               <li>
-                  <a href="#">5</a>
-               </li>
-               <li>
-                  <a href="#">&raquo;</a>
-               </li>
-            </ul>
+            <h3 class="page-header" style="color: #4AB55A">@Messages("productPage") </h3>
          </div>
+         <div class="row">
+            @if(flash.get("error")){
+            <div class="alert alert-danger" role="alert">
+               <div class="container">
+                  @flash.get("error")
+               </div>
+            </div>
+            }
+            @if(flash.get("warning")){
+            <div class="alert alert-warning" role="alert">
+               <div class="container">
+                  @flash.get("warning")
+               </div>
+            </div>
+            }
+            @if(flash.get("success")) {
+            <div class="alert alert-success" role="alert">
+               <div class="container">
+                  @flash.get("success")
+               </div>
+            </div>
+            }
+            @for(product <- products){
+            <div class="col-sm-4 col-lg-4 col-md-4">
+               <div class="thumbnail">
+                  <a href="itempage/@product.id">
+                  <img src="@routes.Assets.at(models.Image.photosByProduct(product).get(0).image)" alt="" style="width:500px;height:228px">
+                  </a>
+                  <div class="caption">
+                     <h4 class="pull-right"> @product.price $</h4>
+                     <h4> <a href="/itempage/@product.id">@product.name</a>
+                     </h4>
+                     <p> @product.description </p>
+                  </div>
+               </div>
+            </div>
+            }
+         </div>
+         } else {
+         <div class="col-lg-12">
+            <h3 class="page-header" style="color: #4AB55A"> @Messages("productPage") </h3>
+         </div>
+         <div class="row">
+            <h4 style="margin: 180px 35px"> @Messages("noSearchResults") </h4>
+         </div>
+         }
       </div>
       </hr>
    </div>
-   <div class="container">
-      <hr>
-      <a href="/contactpage">
-         <h3>Contact Us</h3>
-      </a>
-
-      <a href="/faq">
-         <h3> FAQs</h3>
-      </a>
+     <!-- /.End of content -->
+     <!-- /.Footer start -->
+   <div id="footer">
+    <div class="container">
+         <div class="col-md-4">
+            <a href="/contactpage">
+               <h4><i class="glyphicon glyphicon-envelope"></i>@Messages("contactUs")</h4>
+            </a>
+            <a href="/faq">
+               <h4><i class="glyphicon glyphicon-cog"></i>@Messages("faqs")</h4>
+            </a>
+            <a href="/blog">
+               <h4><i class="glyphicon glyphicon-stats"></i>@Messages("blog")</h4>
+            </a>
+         </div>
+         <div class="col-md-4">
+            <h4 style="color: #4AB55A;">@Messages("aboutBitBay"):</h4>
+            <address style="color: #4AB55A">
+               <p>@Messages("mirrorsite")</p>
+               <p>@Messages("sarajevo")</p>
+               <p>@Messages("bosna")</p>
+               <p>@Messages("phone")</p>
+            </address>
+         </div>
+         <div class="col-md-4">
+            <style>.xg_module_body img {margin:0!important;}</style>
+            <div align="center" style="margin:20px 0px">
+               <table cellpadding="0" width="156" cellspacing="0" style="margin:20px 0px">
+                  <tr>
+                     <h4 style="color: #4AB55A">@Messages("Follow us on"):</h4>
+                     <td>
+                        <a href="http://www.facebook.com/pages/yourfanpage/12345678" target="_blank">
+                        <img src="http://api.ning.com/files/yK4NcMrBlofWleqeABbNHR-JwhBMxMRlC7NRM0KCYhLk4i-pqoO0AYXzAp3bKHf0IYIP3Qjn0GVzm5V1Gv56dUqaq68hdmSW/facebooks1_60.png" alt="Join Our Facebook Fan Page" width="48" height="48" border="0">
+                        </a>
+                     </td>
+                     <td>
+                        <a href="http://twitter.com/yourtwitter" target="_blank">
+                        <img src="http://api.ning.com/files/vwYvIcXARnCDb7rmTyv-ajyO2kvmHyKJ813N8CvFCImegtIaEvi9NeRhZ1RWCqojSEvAqmOzVNsoWX4HPus6Zwt-nMYOBXWU/twitters1_60.png" alt="Follow Us On Twitter" width="48" height="48" border="0">
+                        </a>
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
    </div>
+   <!-- /.End of footer -->
+   <a href="#" class="back-to-top" style="display: inline;">
+   <i class="fa fa-arrow-circle-up"></i>
+   </a>
+     <!-- /.Script for beck to top -->
+   <script>
+      jQuery(document).ready(function() {
+          var offset = 250;
+          var duration = 300;
+          jQuery(window).scroll(function() {
+              if (jQuery(this).scrollTop() > offset) {
+                  jQuery('.back-to-top').fadeIn(duration);
+              } else {
+                  jQuery('.back-to-top').fadeOut(duration);
+              }
+          });
+      
+          jQuery('.back-to-top').click(function(event) {
+              event.preventDefault();
+              jQuery('html, body').animate({scrollTop: 0}, duration);
+              return false;
+          })
+      });
+   </script>
 </body>
-
 }

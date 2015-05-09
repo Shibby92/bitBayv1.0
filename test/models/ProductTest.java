@@ -1,41 +1,15 @@
 package models;
 
-import static org.junit.Assert.*;
-import static play.test.Helpers.*;
-import models.*;
-import static org.fest.assertions.Assertions.*;
-
-import java.util.Date;
-
-
-import org.junit.*;
-
 import play.test.WithApplication;
 
 public class ProductTest extends WithApplication {
 
-
+/*
 	@Before
 	public void setUp() {
 		fakeApplication(inMemoryDatabase());
 	}
 	
-	//check if the product is saved in database
-	/*@Test
-	public void testCreate() {
-		Product.create("test",100,"lijepo pravo godi",2);
-		Product p = Product.find(2);
-		assertNotNull(p);
-		assertEquals(p.name, "test");
-		assertEquals(p.price, 100,Math.abs(100- p.price));
-		assertEquals(p.description, "lijepo pravo godi");
-		
-		Product.create("name", 1, "owner", null, 1, 2.1, "description", "url");
-		Product p = Product.find(1);
-		
-		assertNotNull(p);
-		assertEquals(p.name, "name");
-	}*/
 	
 	@Test
 	public void testDelete(){
@@ -89,7 +63,7 @@ public class ProductTest extends WithApplication {
 		assertNotNull(p);
 		assertEquals(p.name, "name");
 	}*/
-	
+	/*
 	@Test
 	public void testDelete(){
 		running(fakeApplication(), new Runnable() {
@@ -119,5 +93,5 @@ public class ProductTest extends WithApplication {
 		assertEquals(test.description, "Shitty");
 		
 	}
-
+*/
 }

@@ -1,88 +1,141 @@
 package controllers;
 
-import helpers.AdminFilter;
-import models.Category;
-import models.FAQ;
-import play.Logger;
-import play.data.DynamicForm;
-import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
+import helpers.*;
+import models.*;
+import play.*;
+import play.data.*;
+import play.mvc.*;
 import views.html.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CategoryApplication.
+ */
 public class CategoryApplication extends Controller {
 
+	/** The category form. */
 	static Form<Category> categoryForm = new Form<Category>(Category.class);
 
 	/**
-	 * Adding a new category in the db
+	 * Adds the category.
+	 *
+	 * @return the result
 	 */
 	@Security.Authenticated(AdminFilter.class)
-	public static Result addCategory() {	
+	public static Result addCategory() {
 		DynamicForm form = Form.form().bindFromRequest();
 		String name = form.data().get("name");
 		Category.create(name);
-		Logger.info(name + " category added in database");
+		Logger.info(name
+				+ play.i18n.Messages.get
+						("categoryApplicationLogger1"));
 		return redirect("/");
 	}
 
+
+	/**
+	 * Opens page for adding new category.
+	 *
+	 * @return the result
+	 */
 	@Security.Authenticated(AdminFilter.class)
 	public static Result addNewCategory() {
-		Logger.info("Opened page for adding category");
+		Logger.info(play.i18n.Messages.get
+				("categoryApplicationLogger2"));
 		String email = session().get("email");
 		return ok(addcategorypage.render(email, categoryForm, FAQ.all()));
+
 	}
 
-
 	/**
-	 * method that should delete category and redirect to other products/uses
-	 * delete method from Category class
-	 * @param id int id of the category
-	 * @return result
+	 * Deletes category.
+	 *
+	 * @param id int the id of the category
+	 * @return the result
 	 */
+	@Security.Authenticated(AdminFilter.class)
 	public static Result deleteCategory(int id) {
-		
+		Logger.warn(Category.find(id).name
+				+ play.i18n.Messages.get
+						("categoryApplicationLogger3"));
 		Category.delete(id);
-		Logger.warn(Category.find(id).name + " category is deleted");
-		return redirect("/categorypage");
+		flash("success",
+				play.i18n.Messages.get
+						("categoryApplicationFlash1"));
+		return redirect("/profile");
 
 	}
-	
+
 	/**
-	 * opens the page where categories are listed
-	 * @return result
+	 * Category page.
+	 *
+	 * @return the result
 	 */
-	public static Result categoryPage(){
-		Logger.info("Category page opened");
+	public static Result categoryPage() {
+		Logger.info(play.i18n.Messages.get
+				("categoryApplicationLogger4"));
 		String email = session().get("email");
 		return ok(categorypage.render(email, Category.list(), FAQ.all()));
 	}
-	
+
+
 	/**
-	 * updates a category
-	 * @param id int id of the category
-	 * @return result
+	 * Updates category.
+	 *
+	 * @param id int the id of the category
+	 * @return the result
 	 */
-	public static Result update(int id){
-		
-		Category updateCategory= Category.find(id);
-		updateCategory.name=categoryForm.bindFromRequest().field("name").value();
-		Category.update(updateCategory);
-		Logger.info(updateCategory.name + " category is updated");
-		return redirect("/categorypage");
+	@Security.Authenticated(AdminFilter.class)
+	public static Result update(int id) {
+		try {
+			Category updateCategory = Category.find(id);
+			String name = updateCategory.name;
+			updateCategory.name = categoryForm.bindFromRequest().field("name")
+					.value();
+			Category.update(updateCategory);
+			Logger.info(name
+					+ play.i18n.Messages.get
+							("categoryApplicationLogger5")
+					+ updateCategory.name);
+			flash("success",
+					play.i18n.Messages.get
+							("categoryApplicationFlash2"));
+			return redirect("/profile");
+		} catch (Exception e) {
+			Logger.error(play.i18n.Messages.get
+					("categoryApplicationLogger6")
+					+ e.getMessage());
+			flash("error",
+					play.i18n.Messages.get
+							("categoryApplicationFlash3"));
+			return redirect("/profile");
+		}
 	}
-	
+
 	/**
-	 * opens page where user can update a category
-	 * @param id int id of the category
-	 * @return results
+	 * Opens page for updating category.
+	 *
+	 * @param id the id
+	 * @return the result
 	 */
-	public static Result updateCategory(int id){
-	Logger.info("Update category page opened");
+	@Security.Authenticated(AdminFilter.class)
+	public static Result updateCategory(int id) {
+		Logger.info(play.i18n.Messages.get
+				("categoryApplicationLogger7"));
 		String email = session().get("email");
 		return ok(updatecategory.render(email, Category.find(id), FAQ.all()));
 	}
 	
+	/**
+	 * Opens a page with all of the products from one category.
+	 * @param name String name of the category
+	 * @return result
+	 */
+	public static Result category(String name) {
+		String email = session().get("email");
+		Logger.info("Category page list opened");
+		return ok(category.render(email, name, Product.listByCategory(name),
+				FAQ.all(), Category.list()));
+	}
 
 }

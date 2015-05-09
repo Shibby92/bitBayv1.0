@@ -28,6 +28,8 @@ audio:not ([controls] ){
 	height: 0
 }
 
+
+
 [hidden], template {
 	display: none
 }
@@ -179,6 +181,22 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 	padding: 0;
 	border: 0
 }
+#footer {
+	
+  background-color: #f5f5f5;
+  bottom: 0;
+  position: absolute;
+  width: 100%
+}
+#footer1 {
+	
+	background-color: #f5f5f5;
+  bottom: 0;
+  position: relative;
+  width: 100%
+	
+	}
+
 
 input {
 	line-height: normal
@@ -202,6 +220,7 @@ input[type=search] {
 	box-sizing: content-box;
 	-webkit-appearance: textfield
 }
+
 
 input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration
 	{
@@ -737,6 +756,12 @@ td, th {
 
 .glyphicon-gift:before {
 	content: "\e102"
+}
+.more-button {
+	
+	margin: 25px 20px;
+	color: rgb(74,181,90); 
+	opacity: 0.7
 }
 
 .glyphicon-leaf:before {
@@ -4173,6 +4198,12 @@ tbody.collapse.in {
 	table-layout: fixed;
 	border-collapse: separate
 }
+.btn-group-justified1 {
+	display: table;
+	width: 160%;
+	table-layout: fixed;
+	border-collapse: separate
+}
 
 .btn-group-justified>.btn, .btn-group-justified>.btn-group {
 	display: table-cell;
@@ -4679,7 +4710,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 }
 
 .navbar-fixed-bottom, .navbar-fixed-top {
-	position: fixed;
+	position: absolute;
 	right: 0;
 	left: 0;
 	z-index: 1030
@@ -5075,7 +5106,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 }
 
 .navbar-inverse .navbar-nav>li>a {
-	color: #9d9d9d
+	color: #4AB55A
 }
 
 .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover
@@ -5097,12 +5128,12 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 }
 
 .navbar-inverse .navbar-toggle {
-	border-color: #333
+	border-color: #4AB55A
 }
 
 .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover
 	{
-	background-color: #333
+	background-color: #4AB55A
 }
 
 .navbar-inverse .navbar-toggle .icon-bar {
@@ -5497,7 +5528,7 @@ a.badge:focus, a.badge:hover {
 	padding: 4px;
 	margin-bottom: 20px;
 	line-height: 1.42857143;
-	background-color: #fff;
+	background-color: #f5f5f5;
 	border: 1px solid #ddd;
 	border-radius: 4px;
 	-webkit-transition: border .2s ease-in-out;
@@ -6408,7 +6439,16 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus,
 .embed-responsive.embed-responsive-4by3 {
 	padding-bottom: 75%
 }
-
+.well3 {
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: 20px;
+	background-color: #f5f5f5;
+	border: 1px solid #e3e3e3;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05)
+}
 .well {
 	min-height: 20px;
 	padding: 19px;
@@ -7093,6 +7133,48 @@ button.close {
 .carousel-caption .btn {
 	text-shadow: none
 }
+
+
+
+#custom-search-input {
+        margin:0;
+        margin-top: 10px;
+        padding: 0;
+    }
+ 
+    #custom-search-input .search-query {
+        padding-right: 3px;
+        padding-right: 4px \9;
+        padding-left: 3px;
+        padding-left: 4px \9;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+ 
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+ 
+    #custom-search-input button {
+        border: 0;
+        background: none;
+        /** belows styles are working good */
+        padding: 2px 5px;
+        margin-top: 2px;
+        position: relative;
+        left: -28px;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        color:#D9230F;
+    }
+ 
+    .search-query:focus + button {
+        z-index: 3;   
+    }
+
 
 @media screen and (min-width:768px) {
 	.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right,
