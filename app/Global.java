@@ -293,6 +293,58 @@ public class Global extends GlobalSettings {
 					play.i18n.Messages.get("productImagePath23"),
 					play.i18n.Messages.get("product23CloudImageName"),
 "");
+			
+			makeProduct(play.i18n.Messages.get("productName24"), 5000.99, 20,
+					User.find(4),
+					play.i18n.Messages.get("productDescription24"), 13,
+					play.i18n.Messages.get("productImagePath24a"),
+					play.i18n.Messages.get("product24CloudImageName"),
+
+
+"");
+			makeProduct(play.i18n.Messages.get("productName25"), 17.99, 20,
+					User.find(4),
+					play.i18n.Messages.get("productDescription25"), 13,
+					play.i18n.Messages.get("productImagePath25"),
+					play.i18n.Messages.get("product25CloudImageName"),
+"");
+			
+			
+			makeProduct(play.i18n.Messages.get("productName26"), 17.99, 20,
+					User.find(4),
+					play.i18n.Messages.get("productDescription26"), 13,
+					play.i18n.Messages.get("productImagePath26"),
+					play.i18n.Messages.get("product26CloudImageName"),
+"",true);
+			
+			makeProduct(play.i18n.Messages.get("productName27"), 17.99, 20,
+					User.find(4),
+					play.i18n.Messages.get("productDescription27"), 13,
+					play.i18n.Messages.get("productImagePath27"),
+					play.i18n.Messages.get("product27CloudImageName"),
+"",true);
+			
+			makeProduct(play.i18n.Messages.get("productName28"), 17.99, 20,
+					User.find(4),
+					play.i18n.Messages.get("productDescription28"), 13,
+					play.i18n.Messages.get("productImagePath28"),
+					play.i18n.Messages.get("product28CloudImageName"),
+"",true);
+			
+			makeProduct(play.i18n.Messages.get("productName29"), 17.99, 20,
+					User.find(4),
+					play.i18n.Messages.get("productDescription29"), 13,
+					play.i18n.Messages.get("productImagePath29"),
+					play.i18n.Messages.get("product29CloudImageName"),
+"",true);
+		
+			makeProduct(play.i18n.Messages.get("productName30"), 17.99, 20,
+					User.find(4),
+					play.i18n.Messages.get("productDescription30"), 13,
+					play.i18n.Messages.get("productImagePath30"),
+					play.i18n.Messages.get("product30CloudImageName"),
+"",true);
+			
 		//}
 
 		/**
@@ -576,6 +628,28 @@ public class Global extends GlobalSettings {
 		p.update();
 	}
 
+	private void makeProduct(String name, double price, int quantity,
+			User owner, String description, int categoryId, String imagePath,String cloudName,
+			String tag, boolean sold) {
+		Product p = Product.create(name, price, quantity, owner, description,
+				categoryId,sold);
+		Image i = new Image();
+		i.image = imagePath;
+		i.public_id=cloudName;
+		i.product = p;
+		Tag.create(p, Category.find(p.categoryId).name);
+		Tag.create(p, p.name);
+		if (!tag.equals("")) {
+			Tag.create(p, tag);
+		}
+		List<Image> il = new ArrayList<Image>();
+		il.add(i);
+		Image.saveImg(i);
+		p.images = il;
+		p.update();
+	}
+	
+	
 	/**
 	 * Method for shortening the creation of products with three pictures
 	 * 

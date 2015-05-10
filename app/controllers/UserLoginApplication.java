@@ -39,12 +39,13 @@ public class UserLoginApplication extends Controller {
 			Logger.info("Homepage has been opened by user with email: "
 					+ session().get("email"));
 
-		List<Product> allproducts = Product.productList();
+		List<Product> allProducts = Product.productList();
 		List<Product> startList = new ArrayList<Product>();
+		Logger.info("Broj produkata prije ajax poziva: "+allProducts.size());
 
 		for (int i = 0; i < 6; i++) {
-			if(i<allproducts.size())
-			startList.add(allproducts.get(i));
+			if(i<allProducts.size())
+			startList.add(allProducts.get(i));
 		}
 
 		return ok(homePage.render(email, Category.list(), startList, FAQ.all()));
