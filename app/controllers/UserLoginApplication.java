@@ -43,16 +43,6 @@ public class UserLoginApplication extends Controller {
 		List<Product> startList = new ArrayList<Product>();
 		Logger.info("Broj produkata prije ajax poziva: "+allProducts.size());
 
-		/*while(allProducts.size()%6!=0){
-		 for (Iterator<Product> productsIterator = allProducts.iterator(); productsIterator.hasNext();) {
-		      Product p = productsIterator.next();
-		      if (p.sold=true) {
-		        productsIterator.remove();
-		      }
-		      }
-		}*/
-		//Logger.info("Broj produkata nakon ajax poziva: "+allProducts.size());
-
 		for (int i = 0; i < 6; i++) {
 			if(i<allProducts.size())
 			startList.add(allProducts.get(i));
