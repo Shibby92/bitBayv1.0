@@ -1,6 +1,7 @@
 package controllers;
 
 import helpers.*;
+
 import java.awt.Image;
 import java.io.*;
 import java.util.*;
@@ -458,14 +459,23 @@ public class ProductApplication extends Controller {
 	}
 	
 	public static Result ajaxCall(int counter) {
-		List<Product> allproducts = Product.productList();
-		
+		Logger.info("Vrijednost countera: "+counter);
+
+		List<Product> allProducts = Product.productList();
+		Logger.info("Broj produkata prije ajax poziva: "+allProducts.size());
 		List<Product> start = new ArrayList<Product>();
 		
-		for (int i = counter; i < counter + 6; i++) {
-				start.add(allproducts.get(i));
-		}
-		
+		boolean exit=true;
+		if(counter<allProducts.size()){
+		for (int i = counter; i < counter + 6 && exit==true; i++) {
+			Logger.info("Vrijednost brojaca unutrasnje petlje: "+i);
+				start.add(allProducts.get(i));
+				if(i==allProducts.size()-1){
+					exit=false;
+			}
+		}}
+		Logger.info("Broj produkata nakon ajax poziva: "+allProducts.size());
+
 		return ok(scrollProduct.render(start));
 		
 	}

@@ -140,6 +140,32 @@ public class Product extends Model {
 	}
 	
 	/**
+	 * Instantiates a new product.
+	 *
+	 * @param name String the name
+	 * @param price double the price
+	 * @param quantity int the quantity
+	 * @param owner User the owner
+	 * @param description String the description
+	 * @param categoryId int the category id
+	 */
+	public Product(String name, double price, int quantity, User owner,
+			String description, int categoryId, boolean sold) {
+		this.saveManyToManyAssociations("order");
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+		this.owner = owner;
+		this.description = description;
+		this.categoryId = categoryId;
+		this.orderedQuantity = 0;
+		this.amount = 0;
+		this.deleted = false;
+		this.sold=sold;
+
+	}
+	
+	/**
 	 * Instantiates a new product. This is needed for JsonController.
 	 *
 	 * @param name String the name
@@ -492,6 +518,13 @@ public class Product extends Model {
 		}
 		Logger.debug(String.valueOf(similarityLevel));
 		return similarityLevel;
+	}
+
+	public static Product create(String name, double price, int quantity,
+			User owner, String description, int categoryId, boolean sold) {
+		Product p = new Product(name, price, quantity, owner, description, categoryId,sold);
+		p.save();
+		return p;
 	}
 
 }
