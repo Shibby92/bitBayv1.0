@@ -357,6 +357,7 @@ submit = Submit
 visitSeller = Visit seller profile
 contactSeller = Contact seller
 reportProduct = Report product
+backToApp = Back to the Android Application
 
 #Header
 category = Category

@@ -65,8 +65,8 @@ public class PayPallController extends Controller {
 			UserAgent userAgent = UserAgent.parseUserAgentString(Http.Context.current().request().getHeader("User-Agent"));
 			String deviceType = userAgent.getOperatingSystem().getDeviceType().toString();
 			if (deviceType.equals("MOBILE") || deviceType.equals("TABLET")) {
-				redirectUrls.setCancelUrl("http://10.0.2.2:9000/orderfail");
-				redirectUrls.setReturnUrl("http://10.0.2.2:9000/orderconfirmmobile/" + email);
+				redirectUrls.setCancelUrl("http://192.168.0.128:9000/orderfail");
+				redirectUrls.setReturnUrl("http://192.168.0.128:9000/orderconfirmmobile/" + email);
 			} else {
 				redirectUrls.setCancelUrl("http://localhost:9000/orderfail");
 				redirectUrls.setReturnUrl("http://localhost:9000/orderconfirm");

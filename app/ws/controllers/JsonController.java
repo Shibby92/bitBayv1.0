@@ -145,8 +145,12 @@ public class JsonController extends Controller {
 	
 	public static Result cartPage(int id) {
 		User user = User.find(id);
+		if (user == null) {
+			Logger.debug(" User in cart null ");
+		}
+		Logger.debug(user.email + " Cart Page email");
 		String email = user.email;
-		//session("email", email);
+		session("email", email);
 		//System.out.println(session().get("email") + "***********");
 		return ok(cartpage.render(email, Cart.getCartbyUserId(id), FAQ.all()));
 	}
